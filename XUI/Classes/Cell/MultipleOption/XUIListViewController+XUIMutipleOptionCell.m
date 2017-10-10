@@ -7,7 +7,7 @@
 //
 
 #import "XUIListViewController+XUIMutipleOptionCell.h"
-
+#import "XUIPrivate.h"
 #import "XUICellFactory.h"
 
 @implementation XUIListViewController (XUIMutipleOptionCell)
@@ -34,7 +34,7 @@
 
 - (void)tableView:(UITableView *)tableView configureXUIMultipleOptionCell:(XUIMultipleOptionCell *)cell {
     NSArray *optionValues = cell.xui_value;
-    NSString *shortTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu Selected", nil, [NSBundle bundleForClass:[self class]], nil), optionValues.count];
+    NSString *shortTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu Selected", nil, FRAMEWORK_BUNDLE, nil), optionValues.count];
     cell.detailTextLabel.text = shortTitle;
 }
 

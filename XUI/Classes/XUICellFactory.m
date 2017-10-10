@@ -52,7 +52,7 @@
 
 - (void)parse {
     @try {
-        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSBundle *bundle = FRAMEWORK_BUNDLE;
         NSDictionary *rootEntry = self.rootEntry;
         NSArray <NSDictionary *> *items = rootEntry[@"items"];
         if (!items)
@@ -89,7 +89,7 @@
             NSError *checkError = nil;
             BOOL checkResult = [[cellInstance class] testEntry:itemDictionary withError:&checkError];
             if (!checkResult) {
-                [self.logger logMessage:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"[%@]\nPath \"items[%lu]\", %@", nil, [NSBundle bundleForClass:[self class]], nil), checkError.domain, itemIdx, checkError.localizedDescription]];
+                [self.logger logMessage:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"[%@]\nPath \"items[%lu]\", %@", nil, bundle, nil), checkError.domain, itemIdx, checkError.localizedDescription]];
                 continue;
             }
             cellInstance.adapter = self.adapter;

@@ -7,7 +7,6 @@
 //
 
 #import "XUIStepperCell.h"
-
 #import "XUIPrivate.h"
 #import "XUILogger.h"
 #import "XUIAdapter.h"
@@ -60,7 +59,7 @@
         if (minValue > maxValue) {
             superResult = NO;
             checkType = kXUICellFactoryErrorInvalidValueDomain;
-            @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"the value \"%@\" of key \"%@\" is invalid.", nil, [NSBundle bundleForClass:[self class]], nil), cellEntry[@"maxValue"], @"maxValue"];
+            @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"the value \"%@\" of key \"%@\" is invalid.", nil, FRAMEWORK_BUNDLE, nil), cellEntry[@"maxValue"], @"maxValue"];
         }
     } @catch (NSString *exceptionReason) {
         NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: exceptionReason }];

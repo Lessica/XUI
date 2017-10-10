@@ -7,6 +7,7 @@
 //
 
 #import "XUITextFieldCell.h"
+#import "XUIPrivate.h"
 #import "XUILogger.h"
 
 @interface XUITextFieldCell () <UITextFieldDelegate>
@@ -58,7 +59,7 @@
             if (![validAlignment containsObject:alignmentString]) {
                 superResult = NO;
                 checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, [NSBundle bundleForClass:[self class]], nil), @"alignment", alignmentString];
+                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
             }
         }
         NSString *keyboardString = cellEntry[@"keyboard"];
@@ -67,7 +68,7 @@
             if (![validKeyboard containsObject:keyboardString]) {
                 superResult = NO;
                 checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, [NSBundle bundleForClass:[self class]], nil), @"keyboard", keyboardString];
+                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"keyboard", keyboardString];
             }
         }
         NSString *autoCapsString = cellEntry[@"autoCaps"];
@@ -76,7 +77,7 @@
             if (![validAutoCaps containsObject:autoCapsString]) {
                 superResult = NO;
                 checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, [NSBundle bundleForClass:[self class]], nil), @"autoCaps", autoCapsString];
+                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"autoCaps", autoCapsString];
             }
         }
     } @catch (NSString *exceptionReason) {

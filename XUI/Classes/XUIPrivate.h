@@ -21,6 +21,8 @@ XUI_START_IGNORE_PARTIAL \
 (XUI_SYSTEM_8 && self.splitViewController && self.splitViewController.collapsed != YES) \
 XUI_END_IGNORE_PARTIAL
 
+#define FRAMEWORK_BUNDLE ([NSBundle bundleWithURL:[[[NSBundle bundleForClass:[self classForCoder]] resourceURL] URLByAppendingPathComponent:@"XUI.bundle"]])
+
 static NSString * const XUINotificationEventValueChanged = @"XUINotificationEventValueChanged";
 
 #endif /* XUI_PRIVATE_h */

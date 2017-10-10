@@ -18,5 +18,10 @@
   "platforms": {
     "ios": "7.0"
   },
-  "source_files": "XUI/Classes/**/*"
+  "source_files": "XUI/Classes/**/*",
+  "resource_bundles": {
+    "XUI": [
+      "XUI/Assets/**/*"
+    ]
+  }
 }

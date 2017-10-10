@@ -7,7 +7,6 @@
 //
 
 #import "XUIMultipleOptionCell.h"
-
 #import "XUIPrivate.h"
 #import "XUILogger.h"
 #import "XUIOptionModel.h"
@@ -60,7 +59,7 @@
         if (maxCount > validOptions.count) {
             superResult = NO;
             checkType = kXUICellFactoryErrorInvalidValueDomain;
-            @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"the value \"%@\" of key \"%@\" is invalid.", nil, [NSBundle bundleForClass:[self class]], nil), cellEntry[@"maxCount"], @"maxCount"];
+            @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"the value \"%@\" of key \"%@\" is invalid.", nil, FRAMEWORK_BUNDLE, nil), cellEntry[@"maxCount"], @"maxCount"];
         }
     } @catch (NSString *exceptionReason) {
         superResult = NO;

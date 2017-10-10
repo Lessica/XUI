@@ -69,7 +69,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
             if (pairClass) {
                 if (![cellEntry[pairKey] isKindOfClass:pairClass]) {
                     checkType = kXUICellFactoryErrorInvalidTypeDomain;
-                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\", should be \"%@\".", nil, [NSBundle bundleForClass:[self class]], nil), pairKey, NSStringFromClass(pairClass)];
+                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\", should be \"%@\".", nil, FRAMEWORK_BUNDLE, nil), pairKey, NSStringFromClass(pairClass)];
                 }
             }
         }

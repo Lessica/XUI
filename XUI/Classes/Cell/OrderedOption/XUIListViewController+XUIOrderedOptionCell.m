@@ -7,7 +7,7 @@
 //
 
 #import "XUIListViewController+XUIOrderedOptionCell.h"
-
+#import "XUIPrivate.h"
 #import "XUIAdapter.h"
 #import "XUICellFactory.h"
 
@@ -35,7 +35,7 @@
 
 - (void)tableView:(UITableView *)tableView configureXUIOrderedOptionCell:(XUIOrderedOptionCell *)cell {
     NSArray *optionValues = cell.xui_value;
-    NSString *shortTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu Selected", nil, [NSBundle bundleForClass:[self class]], nil), optionValues.count];
+    NSString *shortTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu Selected", nil, FRAMEWORK_BUNDLE, nil), optionValues.count];
     cell.detailTextLabel.text = shortTitle;
 }
 

@@ -7,7 +7,6 @@
 //
 
 #import "XUIStaticTextCell.h"
-
 #import "XUIPrivate.h"
 #import "XUILogger.h"
 
@@ -53,7 +52,7 @@
             if (![validAlignment containsObject:alignmentString]) {
                 superResult = NO;
                 checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, [NSBundle bundleForClass:[self class]], nil), @"alignment", alignmentString];
+                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
             }
         }
     } @catch (NSString *exceptionReason) {

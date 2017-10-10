@@ -32,9 +32,9 @@ See more: https://www.zybuluo.com/xxtouch/note/716787
 
   s.source_files = 'XUI/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'XUI' => ['XUI/Assets/**/*']
-  # }
+  s.resource_bundles = {
+     'XUI' => ['XUI/Assets/**/*']
+  }
 
   # s.public_header_files = 'XUI/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
