@@ -1,0 +1,6 @@
+framework module XUI {
+  umbrella header "XUI-umbrella.h"
+
+  export *
+  module * { export * }
+}

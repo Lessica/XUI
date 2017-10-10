@@ -24,6 +24,7 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		96F91080C31163AB0F5BB3D4 /* Pods_XUI_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5517E0EA0CFD527EF68B27E2 /* Pods_XUI_Example.framework */; };
+		D621EC981F8C8AD600E03B6D /* demo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D621EC971F8C8ACF00E03B6D /* demo.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,10 @@
 		A3EC589EA917A630791A76EF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C7D6F9DD2096FA0BD20768B2 /* Pods-XUI_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XUI_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XUI_Tests/Pods-XUI_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		CC73908E50C9E04E7A1CCA68 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		D621EC871F8C7B1B00E03B6D /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D621EC881F8C7B1B00E03B6D /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D621EC891F8C7B1B00E03B6D /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D621EC971F8C8ACF00E03B6D /* demo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = demo.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,9 +139,10 @@
 			children = (
 				6003F59C195388D20070C39A /* XUIDemoAppDelegate.h */,
 				6003F59D195388D20070C39A /* XUIDemoAppDelegate.m */,
-				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F5A5195388D20070C39A /* XUIDemoViewController.h */,
 				6003F5A6195388D20070C39A /* XUIDemoViewController.m */,
+				D621EC971F8C8ACF00E03B6D /* demo.bundle */,
+				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -247,7 +253,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = XUI;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Lessica;
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
@@ -265,6 +271,7 @@
 			knownRegions = (
 				en,
 				Base,
+				zh,
 			);
 			mainGroup = 6003F581195388D10070C39A;
 			productRefGroup = 6003F58B195388D20070C39A /* Products */;
@@ -282,6 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D621EC981F8C8AD600E03B6D /* demo.bundle in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
@@ -435,6 +443,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6003F597195388D20070C39A /* en */,
+				D621EC881F8C7B1B00E03B6D /* zh */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -443,6 +452,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6003F5B9195388D20070C39A /* en */,
+				D621EC891F8C7B1B00E03B6D /* zh */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -451,6 +461,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				71719F9E1E33DC2100824A3D /* Base */,
+				D621EC871F8C7B1B00E03B6D /* zh */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -462,23 +473,35 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -502,22 +525,34 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

@@ -20,8 +20,24 @@
                     <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKU-mR-fAv">
+                                <rect key="frame" x="145.5" y="318" width="83" height="30"/>
+                                <state key="normal" title="Show Demo"/>
+                                <connections>
+                                    <action selector="demoButtonTapped:" destination="whP-gf-Uak" eventType="touchUpInside" id="IoK-wv-2bX"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="BKU-mR-fAv" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="Ly8-Fe-fWu"/>
+                            <constraint firstItem="BKU-mR-fAv" firstAttribute="centerY" secondItem="TpU-gO-2f1" secondAttribute="centerY" id="s38-B6-EgA"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="demoButton" destination="BKU-mR-fAv" id="wX1-M5-ehw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

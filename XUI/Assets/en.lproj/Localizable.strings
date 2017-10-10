@@ -1,0 +1,57 @@
+
+/* No comment provided by engineer. */
+"%@\n%@: %@" = "%@\n%@: %@";
+
+/* No comment provided by engineer. */
+"%lu Selected" = "%lu Selected";
+
+/* No comment provided by engineer. */
+"[%@]\nPath \"%@\" (treated as \"NSArray\") is empty." = "[%@]\nPath \"%@\" (treated as \"NSArray\") is empty.";
+
+/* No comment provided by engineer. */
+"[%@]\nPath \"%@\" is missing." = "[%@]\nPath \"%@\" is missing.";
+
+/* No comment provided by engineer. */
+"[%@]\nPath \"%@\" should be \"%@\"." = "[%@]\nPath \"%@\" should be \"%@\".";
+
+/* No comment provided by engineer. */
+"[%@]\nPath \"items[%lu]\", %@" = "[%@]\nPath \"items[%lu]\", %@";
+
+/* No comment provided by engineer. */
+"[%@]\nThe key of path \"%@\" is undefined." = "[%@]\nThe key of path \"%@\" is undefined.";
+
+/* No comment provided by engineer. */
+"[%@]\nThe selector \"%@\" is unknown." = "[%@]\nThe selector \"%@\" is unknown.";
+
+/* No comment provided by engineer. */
+"[%@]\nThe value of path \"%@\" (\"%@\") is invalid." = "[%@]\nThe value of path \"%@\" (\"%@\") is invalid.";
+
+/* No comment provided by engineer. */
+"Close" = "Close";
+
+/* No comment provided by engineer. */
+"Delete" = "Delete";
+
+/* No comment provided by engineer. */
+"key \"%@\" (\"%@\") is invalid." = "key \"%@\" (\"%@\") is invalid.";
+
+/* No comment provided by engineer. */
+"key \"%@\", should be \"%@\"." = "key \"%@\", should be \"%@\".";
+
+/* No comment provided by engineer. */
+"OK" = "OK";
+
+/* No comment provided by engineer. */
+"Others" = "Others";
+
+/* No comment provided by engineer. */
+"Selected" = "Selected";
+
+/* No comment provided by engineer. */
+"the value \"%@\" of key \"%@\" is invalid." = "the value \"%@\" of key \"%@\" is invalid.";
+
+/* No comment provided by engineer. */
+"This page is provided by the script producer." = "This page is provided by the script producer.";
+
+/* No comment provided by engineer. */
+"XUI Error" = "XUI Error";

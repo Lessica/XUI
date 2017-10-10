@@ -1,0 +1,313 @@
+{
+    "subheader":"Elegant App UI provided by XXTouchApp.",
+    "title":"Demo",
+    "items":[
+        {
+            "label":"Switch",
+            "cell":"Group"
+        },
+        {
+            "defaults":"com.yourcompany.yourscript",
+            "cell":"Switch",
+            "label":"Enabled",
+            "key":"enabled",
+            "icon":"res/16.png",
+            "default":true
+        },
+        {
+            "label":"Button",
+            "cell":"Group"
+        },
+        {
+            "label":"Open XXTouch.com",
+            "cell":"Link",
+            "url":"https://www.xxtouch.com"
+        },
+        {
+            "cell":"Button",
+            "label":"Contact i.82@me.com",
+            "kwargs":[
+                "mailto://i.82@me.com"
+            ],
+            "action":"OpenURL:"
+        },
+        {
+            "label":"Menu",
+            "cell":"Group"
+        },
+        {
+            "label":"Load another pane",
+            "cell":"Link",
+            "url":"sub/xui-sub.xui.json"
+        },
+        {
+            "label":"Open an image",
+            "cell":"Link",
+            "url":"appicon.png"
+        },
+        {
+            "defaults":"com.yourcompany.yourscript",
+            "cell":"Option",
+            "label":"List of Options",
+            "options":[
+                {
+                    "title":"Red, it's red!",
+                    "shortTitle":"Red",
+                    "value":"Red, it's red!"
+                },
+                {
+                    "title":"Green, it's green!",
+                    "shortTitle":"Green",
+                    "value":"Green, it's green!"
+                },
+                {
+                    "title":"Blue, great color!",
+                    "shortTitle":"Blue",
+                    "value":"Blue, great color!"
+                }
+            ],
+            "key":"list-1",
+            "default":[
+                "Green, it's green!"
+            ]
+        },
+        {
+            "maxCount":2,
+            "defaults":"com.yourcompany.yourscript",
+            "cell":"MultipleOption",
+            "label":"List of Multiple Options",
+            "options":[
+                {
+                    "shortTitle":"Red, it's red!",
+                    "title":"Red, it's red!",
+                    "icon":"res/red.png",
+                    "value":"Red, it's red!"
+                },
+                {
+                    "shortTitle":"Green, it's green!",
+                    "title":"Green, it's green!",
+                    "icon":"res/green.png",
+                    "value":"Green, it's green!"
+                },
+                {
+                    "shortTitle":"Blue, great color!",
+                    "title":"Blue, great color!",
+                    "icon":"res/blue.png",
+                    "value":"Blue, great color!"
+                }
+            ],
+            "key":"list-2",
+            "default":[
+                "Red, it's red!",
+                "Green, it's green!"
+            ]
+        },
+        {
+            "maxCount":2,
+            "defaults":"com.yourcompany.yourscript",
+            "cell":"OrderedOption",
+            "minCount":1,
+            "label":"List of Ordered Options",
+            "key":"list-3",
+            "options":[
+                {
+                    "shortTitle":"Red",
+                    "title":"Red",
+                    "icon":"res/red.png",
+                    "value":"Red"
+                },
+                {
+                    "shortTitle":"Green",
+                    "title":"Green",
+                    "icon":"res/green.png",
+                    "value":"Green"
+                },
+                {
+                    "shortTitle":"Blue",
+                    "title":"Blue",
+                    "icon":"res/blue.png",
+                    "value":"Blue"
+                }
+            ],
+            "default":[
+                "Red"
+            ]
+        },
+        {
+            "label":"Segment",
+            "cell":"Group"
+        },
+        {
+            "defaults":"com.yourcompany.yourscript",
+            "cell":"Segment",
+            "label":"List of Options",
+            "options":[
+                {
+                    "title":"Red",
+                    "shortTitle":"Red",
+                    "value":"Red"
+                },
+                {
+                    "title":"Green",
+                    "shortTitle":"Green",
+                    "value":"Green"
+                },
+                {
+                    "title":"Blue",
+                    "shortTitle":"Blue",
+                    "value":"Blue"
+                }
+            ],
+            "key":"list-segment",
+            "default":"Green"
+        },
+        {
+            "maxCount":4,
+            "defaults":"com.yourcompany.yourscript",
+            "cell":"Checkbox",
+            "minCount":0,
+            "key":"checkbox1",
+            "options":[
+                {
+                    "value":"Red",
+                    "title":"Red",
+                    "shortTitle":"Red"
+                },
+                {
+                    "value":"Green",
+                    "title":"Green",
+                    "shortTitle":"Green"
+                },
+                {
+                    "value":"Blue",
+                    "title":"Blue",
+                    "shortTitle":"Blue"
+                },
+                {
+                    "title":"Yellow",
+                    "shortTitle":"Yellow",
+                    "value":"Yellow"
+                },
+                {
+                    "title":"Purple",
+                    "shortTitle":"Purple",
+                    "value":"Purple"
+                },
+                {
+                    "title":"Black",
+                    "shortTitle":"Black",
+                    "value":"Black"
+                },
+                {
+                    "title":"White",
+                    "shortTitle":"White",
+                    "value":"White"
+                }
+            ],
+            "default":[
+                "Red",
+                "Green"
+            ]
+        },
+        {
+            "cell":"Radio",
+            "options":[
+                {
+                    "title":"First",
+                    "shortTitle":"First",
+                    "value":"First"
+                },
+                {
+                    "title":"Second",
+                    "shortTitle":"Second",
+                    "value":"Second"
+                },
+                {
+                    "title":"Third",
+                    "shortTitle":"Third",
+                    "value":"Third"
+                },
+                {
+                    "title":"Fourth",
+                    "shortTitle":"Fourth",
+                    "value":"Fourth"
+                },
+                {
+                    "title":"Fifth, please!",
+                    "shortTitle":"Fifth, please!",
+                    "value":"Fifth, please!"
+                },
+                {
+                    "title":"Zero",
+                    "shortTitle":"Zero",
+                    "value":"Zero"
+                }
+            ],
+            "defaults":"com.yourcompany.yourscript",
+            "default":"Fifth, please!",
+            "key":"radio"
+        },
+        {
+            "label":"Number",
+            "cell":"Group"
+        },
+        {
+            "showValue":true,
+            "min":1,
+            "defaults":"com.yourcompany.yourscript",
+            "cell":"Slider",
+            "label":"Slider",
+            "max":10,
+            "key":"slider",
+            "default":5
+        },
+        {
+            "label":"Stepper",
+            "min":1,
+            "defaults":"com.yourcompany.yourscript",
+            "autoRepeat":true,
+            "cell":"Stepper",
+            "key":"stepper",
+            "step":1,
+            "max":10,
+            "isInteger":true,
+            "default":5
+        },
+        {
+            "footerText":"This is the footer text of this section.",
+            "cell":"Group",
+            "label":"TextField"
+        },
+        {
+            "placeholder":"Enter the username",
+            "keyboard":"default",
+            "defaults":"com.yourcompany.yourscript",
+            "cell":"TextField",
+            "label":"Username",
+            "key":"username",
+            "noAutoCorrect":true,
+            "default":""
+        },
+        {
+            "placeholder":"Enter the password",
+            "keyboard":"ascii",
+            "defaults":"com.yourcompany.yourscript",
+            "cell":"SecureTextField",
+            "label":"Password",
+            "key":"password",
+            "noAutoCorrect":true,
+            "default":""
+        },
+        {
+            "label":"StaticText",
+            "cell":"Group"
+        },
+        {
+            "label":"This specifier uses the label key as text content. Dynamic height of this cell is enabled.",
+            "cell":"StaticText"
+        }
+    ],
+    "header":"Example"
+}
+
+

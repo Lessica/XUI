@@ -1,0 +1,57 @@
+
+/* No comment provided by engineer. */
+"%@\n%@: %@" = "%@\n%@: %@";
+
+/* No comment provided by engineer. */
+"%lu Selected" = "%lu 已选择";
+
+/* No comment provided by engineer. */
+"[%@]\nPath \"%@\" (treated as \"NSArray\") is empty." = "[%@]\路径 \"%@\" (作为 \"NSArray\") 为空.";
+
+/* No comment provided by engineer. */
+"[%@]\nPath \"%@\" is missing." = "[%@]\n路径 \"%@\" 缺失.";
+
+/* No comment provided by engineer. */
+"[%@]\nPath \"%@\" should be \"%@\"." = "[%@]\n路径 \"%@\" 应该为 \"%@\".";
+
+/* No comment provided by engineer. */
+"[%@]\nPath \"items[%lu]\", %@" = "[%@]\n路径 \"items[%lu]\", %@";
+
+/* No comment provided by engineer. */
+"[%@]\nThe key of path \"%@\" is undefined." = "[%@]\n路径的键 \"%@\" 未定义.";
+
+/* No comment provided by engineer. */
+"[%@]\nThe selector \"%@\" is unknown." = "[%@]\n选择器 \"%@\" 是无效的.";
+
+/* No comment provided by engineer. */
+"[%@]\nThe value of path \"%@\" (\"%@\") is invalid." = "[%@]\n路径的值 \"%@\" (\"%@\") 无效.";
+
+/* No comment provided by engineer. */
+"Close" = "关闭";
+
+/* No comment provided by engineer. */
+"Delete" = "删除";
+
+/* No comment provided by engineer. */
+"key \"%@\" (\"%@\") is invalid." = "键 \"%@\" 的值 (\"%@\") 是无效的.";
+
+/* No comment provided by engineer. */
+"key \"%@\", should be \"%@\"." = "键 \"%@\", 应该为 \"%@\".";
+
+/* No comment provided by engineer. */
+"OK" = "好";
+
+/* No comment provided by engineer. */
+"Others" = "其它";
+
+/* No comment provided by engineer. */
+"Selected" = "已选择";
+
+/* No comment provided by engineer. */
+"the value \"%@\" of key \"%@\" is invalid." = "值 \"%@\" 键 \"%@\" 是无效的.";
+
+/* No comment provided by engineer. */
+"This page is provided by the script producer." = "该页所示内容由脚本开发商提供.";
+
+/* No comment provided by engineer. */
+"XUI Error" = "XUI 错误";
