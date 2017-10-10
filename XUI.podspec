@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'XUI'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of XUI.'
+  s.summary          = 'A configuration based native TableView UI.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+See more: https://www.zybuluo.com/xxtouch/note/716787
                        DESC
 
   s.homepage         = 'https://github.com/Lessica/XUI'
@@ -33,10 +33,10 @@ TODO: Add long description of the pod here.
   s.source_files = 'XUI/Classes/**/*'
   
   # s.resource_bundles = {
-  #   'XUI' => ['XUI/Assets/*.png']
+  #   'XUI' => ['XUI/Assets/**/*']
   # }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
+  # s.public_header_files = 'XUI/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
