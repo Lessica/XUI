@@ -7,11 +7,11 @@
 //
 
 @import UIKit;
-#import "XUIAppDelegate.h"
+#import "XUIDemoAppDelegate.h"
 
 int main(int argc, char * argv[])
 {
     @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([XUIAppDelegate class]));
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([XUIDemoAppDelegate class]));
     }
 }

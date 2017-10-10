@@ -12,8 +12,8 @@
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
-		6003F59E195388D20070C39A /* XUIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* XUIAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* XUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* XUIViewController.m */; };
+		6003F59E195388D20070C39A /* XUIDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* XUIDemoAppDelegate.m */; };
+		6003F5A7195388D20070C39A /* XUIDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* XUIDemoViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -48,10 +48,10 @@
 		6003F597195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F599195388D20070C39A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6003F59B195388D20070C39A /* XUI-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XUI-Prefix.pch"; sourceTree = "<group>"; };
-		6003F59C195388D20070C39A /* XUIAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XUIAppDelegate.h; sourceTree = "<group>"; };
-		6003F59D195388D20070C39A /* XUIAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XUIAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* XUIViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XUIViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* XUIViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XUIViewController.m; sourceTree = "<group>"; };
+		6003F59C195388D20070C39A /* XUIDemoAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XUIDemoAppDelegate.h; sourceTree = "<group>"; };
+		6003F59D195388D20070C39A /* XUIDemoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XUIDemoAppDelegate.m; sourceTree = "<group>"; };
+		6003F5A5195388D20070C39A /* XUIDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XUIDemoViewController.h; sourceTree = "<group>"; };
+		6003F5A6195388D20070C39A /* XUIDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XUIDemoViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* XUI_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XUI_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -63,10 +63,10 @@
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8987211A82B7C6A24CDADECF /* Pods-XUI_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XUI_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-XUI_Tests/Pods-XUI_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		A00BA998BEE77BF2E778ECEA /* XUI.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = XUI.podspec; path = ../XUI.podspec; sourceTree = "<group>"; };
-		A3EC589EA917A630791A76EF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		A00BA998BEE77BF2E778ECEA /* XUI.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = XUI.podspec; path = ../XUI.podspec; sourceTree = "<group>"; };
+		A3EC589EA917A630791A76EF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C7D6F9DD2096FA0BD20768B2 /* Pods-XUI_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XUI_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XUI_Tests/Pods-XUI_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		CC73908E50C9E04E7A1CCA68 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		CC73908E50C9E04E7A1CCA68 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,11 +132,11 @@
 		6003F593195388D20070C39A /* Example for XUI */ = {
 			isa = PBXGroup;
 			children = (
-				6003F59C195388D20070C39A /* XUIAppDelegate.h */,
-				6003F59D195388D20070C39A /* XUIAppDelegate.m */,
+				6003F59C195388D20070C39A /* XUIDemoAppDelegate.h */,
+				6003F59D195388D20070C39A /* XUIDemoAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
-				6003F5A5195388D20070C39A /* XUIViewController.h */,
-				6003F5A6195388D20070C39A /* XUIViewController.m */,
+				6003F5A5195388D20070C39A /* XUIDemoViewController.h */,
+				6003F5A6195388D20070C39A /* XUIDemoViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
@@ -250,6 +250,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = Lessica;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = GXZ23M5TP2;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -403,8 +406,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F59E195388D20070C39A /* XUIAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* XUIViewController.m in Sources */,
+				6003F59E195388D20070C39A /* XUIDemoAppDelegate.m in Sources */,
+				6003F5A7195388D20070C39A /* XUIDemoViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -533,6 +536,7 @@
 			baseConfigurationReference = 2F28CB1BAE1555052C55070E /* Pods-XUI_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XUI/XUI-Prefix.pch";
 				INFOPLIST_FILE = "XUI/XUI-Info.plist";
@@ -548,6 +552,7 @@
 			baseConfigurationReference = 63B3E330EB89942021FBD9AB /* Pods-XUI_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XUI/XUI-Prefix.pch";
 				INFOPLIST_FILE = "XUI/XUI-Info.plist";
