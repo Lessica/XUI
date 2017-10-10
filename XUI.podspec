@@ -28,7 +28,7 @@ See more: https://www.zybuluo.com/xxtouch/note/716787
   s.source           = { :git => 'https://github.com/Lessica/XUI.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '7.0'
 
   s.source_files = 'XUI/Classes/**/*'
   
