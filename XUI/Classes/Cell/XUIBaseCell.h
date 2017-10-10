@@ -27,6 +27,8 @@ extern NSString * XUIBaseCellReuseIdentifier;
 @property (nonatomic, assign) BOOL canDelete;
 
 + (BOOL)xibBasedLayout;
++ (UINib *)cellNib;
+
 + (BOOL)layoutNeedsTextLabel;
 + (BOOL)layoutNeedsImageView;
 + (BOOL)layoutRequiresDynamicRowHeight;

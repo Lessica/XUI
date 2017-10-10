@@ -82,7 +82,7 @@
             }
             XUIBaseCell *cellInstance = nil;
             if ([[cellClass class] xibBasedLayout]) {
-                cellInstance = [[bundle loadNibNamed:cellClassName owner:self options:nil] lastObject];
+                cellInstance = [[[[cellClass class] cellNib] instantiateWithOwner:self options:nil] lastObject];
             } else {
                 cellInstance = [[cellClass alloc] init];
             }

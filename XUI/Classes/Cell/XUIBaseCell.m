@@ -25,6 +25,36 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     return NO;
 }
 
++ (UINib *)cellNib {
+    if ([[self class] xibBasedLayout]) {
+        static NSMutableDictionary <NSString *, UINib *> *cellNibs = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            cellNibs = [[NSMutableDictionary alloc] init];
+        });
+        NSString *cellName = NSStringFromClass([self class]);
+        if (cellNibs[cellName]) {
+            return cellNibs[cellName];
+        }
+        NSBundle *nibBundle = FRAMEWORK_BUNDLE;
+        if (!( [nibBundle pathForResource:cellName ofType:@"nib"] )) {
+            nibBundle = [NSBundle bundleForClass:[self class]];
+        }
+        if (!( [nibBundle pathForResource:cellName ofType:@"nib"] )) {
+            NSAssert(YES, @"XUI cannot find the xib of \"%@\", please inherit +[XUIBaseCell cellNib] to specify it.", cellName);
+            return nil;
+        }
+        if (nibBundle) {
+            UINib *cellNib = [UINib nibWithNibName:cellName bundle:nibBundle];
+            if (cellNib) {
+                [cellNibs setObject:cellNib forKey:cellName];
+                return cellNib;
+            }
+        }
+    }
+    return nil;
+}
+
 + (BOOL)layoutNeedsTextLabel {
     return YES;
 }
