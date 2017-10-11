@@ -49,7 +49,7 @@ static NSString * const kXUIViewShakerAnimationKey = @"kXUIViewShakerAnimationKe
 
 - (void)shakeWithDuration:(NSTimeInterval)duration completion:(void (^)(void))completion {
     self.completionBlock = completion;
-    if (@available(iOS 10.0, *)) {
+    if ([UINotificationFeedbackGenerator class]) {
         UINotificationFeedbackGenerator *feedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
         [feedbackGenerator notificationOccurred:UINotificationFeedbackTypeError];
     }

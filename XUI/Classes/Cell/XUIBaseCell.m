@@ -68,7 +68,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 }
 
 + (BOOL)layoutUsesAutoResizing {
-    if (@available(iOS 8.0, *)) {
+    if (XUI_SYSTEM_8) {
         return NO;
     } else {
         return YES;
@@ -147,7 +147,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     }
     if ([self.class layoutNeedsTextLabel]) {
         XUI_START_IGNORE_PARTIAL
-        if (@available(iOS 9.0, *)) {
+        if (XUI_SYSTEM_9) {
             self.textLabel.font = [UIFont systemFontOfSize:17.f weight:UIFontWeightLight];
         } else {
             self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.f];
@@ -156,7 +156,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
         self.textLabel.text = nil;
         
         XUI_START_IGNORE_PARTIAL
-        if (@available(iOS 9.0, *)) {
+        if (XUI_SYSTEM_9) {
             self.detailTextLabel.font = [UIFont systemFontOfSize:17.f weight:UIFontWeightLight];
         } else {
             self.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.f];

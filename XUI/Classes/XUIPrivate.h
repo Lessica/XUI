@@ -15,6 +15,8 @@
 #define XUI_END_IGNORE_PARTIAL _Pragma("clang diagnostic pop")
 
 #define XUI_SYSTEM_8 (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_8_0)
+#define XUI_SYSTEM_9 (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_0)
+
 #define XUI_PAD ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
 #define XUI_COLLAPSED \
 XUI_START_IGNORE_PARTIAL \

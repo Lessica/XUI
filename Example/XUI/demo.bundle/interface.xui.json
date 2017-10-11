@@ -280,7 +280,7 @@
         },
         {
             "placeholder":"Enter the username",
-            "keyboard":"default",
+            "keyboard":"Default",
             "defaults":"com.yourcompany.yourscript",
             "cell":"TextField",
             "label":"Username",
@@ -290,7 +290,7 @@
         },
         {
             "placeholder":"Enter the password",
-            "keyboard":"ascii",
+            "keyboard":"Alphabet",
             "defaults":"com.yourcompany.yourscript",
             "cell":"SecureTextField",
             "label":"Password",

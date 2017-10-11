@@ -7,6 +7,7 @@
 //
 
 #import "XUIDateTimeCell.h"
+#import "XUIPrivate.h"
 
 @interface XUIDateTimeCell ()
 
@@ -65,7 +66,7 @@
 }
 
 - (NSNumber *)xui_height {
-    if (@available(iOS 8.0, *)) {
+    if (XUI_SYSTEM_8) {
         return _xui_height;
     } else {
         return @(217.0);

@@ -57,7 +57,7 @@
         {
             NSString *keyboardString = cellEntry[@"keyboard"];
             if (keyboardString) {
-                NSArray <NSString *> *validKeyboard = @[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad" ];
+                NSArray <NSString *> *validKeyboard = @[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad", @"Alphabet" ];
                 if (![validKeyboard containsObject:keyboardString]) {
                     superResult = NO;
                     checkType = kXUICellFactoryErrorUnknownEnumDomain;

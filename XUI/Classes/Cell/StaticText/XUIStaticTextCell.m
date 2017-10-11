@@ -70,15 +70,16 @@
 
 - (void)setupCell {
     [super setupCell];
-    self.cellStaticTextView.scrollEnabled = NO;
+    UITextView *textView = self.cellStaticTextView;
+    textView.scrollEnabled = NO;
     XUI_START_IGNORE_PARTIAL
-    if (@available(iOS 10.0, *)) {
-        self.cellStaticTextView.font = [UIFont systemFontOfSize:17.f weight:UIFontWeightLight];
+    if ([[UIFont class] respondsToSelector:@selector(systemFontOfSize:weight:)]) {
+        textView.font = [UIFont systemFontOfSize:17.f weight:UIFontWeightLight];
     } else {
-        BOOL selectable = self.cellStaticTextView.selectable;
-        self.cellStaticTextView.selectable = YES;
-        self.cellStaticTextView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.f];
-        self.cellStaticTextView.selectable = selectable;
+        BOOL selectable = textView.selectable;
+        textView.selectable = YES;
+        textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.f];
+        textView.selectable = selectable;
     }
     XUI_END_IGNORE_PARTIAL
     self.selectionStyle = UITableViewCellSelectionStyleNone;

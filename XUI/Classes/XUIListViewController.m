@@ -179,7 +179,7 @@
         tableView.estimatedRowHeight = 44.f;
         tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
         XUI_START_IGNORE_PARTIAL
-        if (@available(iOS 9.0, *)) {
+        if (XUI_SYSTEM_9) {
             tableView.cellLayoutMarginsFollowReadableWidth = NO;
         }
         XUI_END_IGNORE_PARTIAL
@@ -197,7 +197,7 @@
     self.tableView.scrollIndicatorInsets = self.defaultContentInsets;
     [self.tableView setContentOffset:CGPointMake(0, -self.defaultContentInsets.top) animated:YES];
     
-    if (@available(iOS 8.0, *)) {
+    if (XUI_SYSTEM_8) {
         {
             CGFloat height = self.headerView.intrinsicContentSize.height;
             CGRect headerFrame = self.headerView.frame;
@@ -278,7 +278,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (@available(iOS 8.0, *)) {
+    if (XUI_SYSTEM_8) {
         return 44.f;
     } else {
         return [self tableView:tableView heightForRowAtIndexPath:indexPath];
@@ -433,7 +433,7 @@ XUI_END_IGNORE_PARTIAL
         __strong typeof(weak_self) self = weak_self;
         NSString *entryName = [self.path lastPathComponent];
         XUI_START_IGNORE_PARTIAL
-        if (@available(iOS 8.0, *)) {
+        if (XUI_SYSTEM_8) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"XUI Error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"%@\n%@: %@", nil), entryName, error.localizedDescription, error.localizedFailureReason] preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
             [self.navigationController presentViewController:alertController animated:YES completion:nil];

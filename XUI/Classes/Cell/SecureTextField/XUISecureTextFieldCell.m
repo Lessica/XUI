@@ -61,7 +61,7 @@
         {
             NSString *keyboardString = cellEntry[@"keyboard"];
             if (keyboardString) {
-                NSArray <NSString *> *validKeyboard = @[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad" ];
+                NSArray <NSString *> *validKeyboard = @[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad", @"Alphabet" ];
                 if (![validKeyboard containsObject:keyboardString]) {
                     superResult = NO;
                     checkType = kXUICellFactoryErrorUnknownEnumDomain;
@@ -83,16 +83,18 @@
 - (void)setupCell {
     [super setupCell];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.cellSecureTextField.delegate = self;
-    self.cellSecureTextField.secureTextEntry = YES;
-    self.cellSecureTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.cellSecureTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.cellSecureTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
+    UITextField *textField = self.cellSecureTextField;
+    textField.delegate = self;
+    textField.secureTextEntry = YES;
+    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     XUI_START_IGNORE_PARTIAL
-    if (@available(iOS 11.0, *)) {
-        self.cellSecureTextField.smartDashesType = UITextSmartDashesTypeNo;
-        self.cellSecureTextField.smartQuotesType = UITextSmartQuotesTypeNo;
-        self.cellSecureTextField.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
+    if ([textField respondsToSelector:@selector(smartDashesType)]) {
+        textField.smartDashesType = UITextSmartDashesTypeNo;
+        textField.smartQuotesType = UITextSmartQuotesTypeNo;
+        textField.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
     }
     XUI_END_IGNORE_PARTIAL
 }

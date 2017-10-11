@@ -60,7 +60,7 @@
         {
             NSString *keyboardString = cellEntry[@"keyboard"];
             if (keyboardString) {
-                NSArray <NSString *> *validKeyboard = @[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad" ];
+                NSArray <NSString *> *validKeyboard = @[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad", @"Alphabet" ];
                 if (![validKeyboard containsObject:keyboardString]) {
                     superResult = NO;
                     checkType = kXUICellFactoryErrorUnknownEnumDomain;
@@ -82,15 +82,17 @@
 - (void)setupCell {
     [super setupCell];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.cellTextField.delegate = self;
-    self.cellTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.cellTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.cellTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    
+    UITextField *textField = self.cellTextField;
+    textField.delegate = self;
+    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     XUI_START_IGNORE_PARTIAL
-    if (@available(iOS 11.0, *)) {
-        self.cellTextField.smartDashesType = UITextSmartDashesTypeNo;
-        self.cellTextField.smartQuotesType = UITextSmartQuotesTypeNo;
-        self.cellTextField.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
+    if ([textField respondsToSelector:@selector(smartDashesType)]) {
+        textField.smartDashesType = UITextSmartDashesTypeNo;
+        textField.smartQuotesType = UITextSmartQuotesTypeNo;
+        textField.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
     }
     XUI_END_IGNORE_PARTIAL
 }

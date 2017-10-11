@@ -45,108 +45,110 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UITextView *textView = self.textView;
+    
     self.view.backgroundColor = UIColor.whiteColor;
     if ([self.cell.xui_value isKindOfClass:[NSString class]]) {
-        self.textView.text = self.cell.xui_value;
+        textView.text = self.cell.xui_value;
     }
     
     BOOL xui_readonly = [self.cell.xui_readonly boolValue];
-    self.textView.editable = !xui_readonly;
+    textView.editable = !xui_readonly;
     
-    self.textView.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    textView.autocorrectionType = UITextAutocorrectionTypeNo;
+    textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     XUI_START_IGNORE_PARTIAL
-    if (@available(iOS 11.0, *)) {
-        self.textView.smartDashesType = UITextSmartDashesTypeNo;
-        self.textView.smartQuotesType = UITextSmartQuotesTypeNo;
-        self.textView.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
+    if ([textView respondsToSelector:@selector(smartDashesType)]) {
+        textView.smartDashesType = UITextSmartDashesTypeNo;
+        textView.smartQuotesType = UITextSmartQuotesTypeNo;
+        textView.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
     }
     XUI_END_IGNORE_PARTIAL
     
     NSString *xui_alignment = self.cell.xui_alignment;
     if ([xui_alignment isEqualToString:@"Left"]) {
-        self.textView.textAlignment = NSTextAlignmentLeft;
+        textView.textAlignment = NSTextAlignmentLeft;
     }
     else if ([xui_alignment isEqualToString:@"Center"]) {
-        self.textView.textAlignment = NSTextAlignmentCenter;
+        textView.textAlignment = NSTextAlignmentCenter;
     }
     else if ([xui_alignment isEqualToString:@"Right"]) {
-        self.textView.textAlignment = NSTextAlignmentRight;
+        textView.textAlignment = NSTextAlignmentRight;
     }
     else if ([xui_alignment isEqualToString:@"Natural"]) {
-        self.textView.textAlignment = NSTextAlignmentNatural;
+        textView.textAlignment = NSTextAlignmentNatural;
     }
     else if ([xui_alignment isEqualToString:@"Justified"]) {
-        self.textView.textAlignment = NSTextAlignmentJustified;
+        textView.textAlignment = NSTextAlignmentJustified;
     }
     else {
-        self.textView.textAlignment = NSTextAlignmentNatural;
+        textView.textAlignment = NSTextAlignmentNatural;
     }
     
     NSString *xui_keyboard = self.cell.xui_keyboard;
     if ([xui_keyboard isEqualToString:@"Default"]) {
-        self.textView.keyboardType = UIKeyboardTypeDefault;
+        textView.keyboardType = UIKeyboardTypeDefault;
     }
     else if ([xui_keyboard isEqualToString:@"ASCIICapable"]) {
-        self.textView.keyboardType = UIKeyboardTypeASCIICapable;
+        textView.keyboardType = UIKeyboardTypeASCIICapable;
     }
     else if ([xui_keyboard isEqualToString:@"NumbersAndPunctuation"]) {
-        self.textView.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        textView.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     }
     else if ([xui_keyboard isEqualToString:@"URL"]) {
-        self.textView.keyboardType = UIKeyboardTypeURL;
+        textView.keyboardType = UIKeyboardTypeURL;
     }
     else if ([xui_keyboard isEqualToString:@"NumberPad"]) {
-        self.textView.keyboardType = UIKeyboardTypeNumberPad;
+        textView.keyboardType = UIKeyboardTypeNumberPad;
     }
     else if ([xui_keyboard isEqualToString:@"PhonePad"]) {
-        self.textView.keyboardType = UIKeyboardTypePhonePad;
+        textView.keyboardType = UIKeyboardTypePhonePad;
     }
     else if ([xui_keyboard isEqualToString:@"NamePhonePad"]) {
-        self.textView.keyboardType = UIKeyboardTypeNamePhonePad;
+        textView.keyboardType = UIKeyboardTypeNamePhonePad;
     }
     else if ([xui_keyboard isEqualToString:@"EmailAddress"]) {
-        self.textView.keyboardType = UIKeyboardTypeEmailAddress;
+        textView.keyboardType = UIKeyboardTypeEmailAddress;
     }
     else if ([xui_keyboard isEqualToString:@"DecimalPad"]) {
-        self.textView.keyboardType = UIKeyboardTypeDecimalPad;
+        textView.keyboardType = UIKeyboardTypeDecimalPad;
     }
     else if ([xui_keyboard isEqualToString:@"Alphabet"]) {
-        self.textView.keyboardType = UIKeyboardTypeASCIICapable;
+        textView.keyboardType = UIKeyboardTypeASCIICapable;
     }
     else {
-        self.textView.keyboardType = UIKeyboardTypeDefault;
+        textView.keyboardType = UIKeyboardTypeDefault;
     }
     
     NSString *xui_autoCorrection = self.cell.xui_autoCorrection;
     if ([xui_autoCorrection isEqualToString:@"Default"]) {
-        self.textView.autocorrectionType = UITextAutocorrectionTypeDefault;
+        textView.autocorrectionType = UITextAutocorrectionTypeDefault;
     }
     else if ([xui_autoCorrection isEqualToString:@"No"]) {
-        self.textView.autocorrectionType = UITextAutocorrectionTypeNo;
+        textView.autocorrectionType = UITextAutocorrectionTypeNo;
     }
     else if ([xui_autoCorrection isEqualToString:@"Yes"]) {
-        self.textView.autocorrectionType = UITextAutocorrectionTypeYes;
+        textView.autocorrectionType = UITextAutocorrectionTypeYes;
     }
     else {
-        self.textView.autocorrectionType = UITextAutocorrectionTypeDefault;
+        textView.autocorrectionType = UITextAutocorrectionTypeDefault;
     }
     
     NSString *xui_autoCapitalization = self.cell.xui_autoCapitalization;
     if ([xui_autoCapitalization isEqualToString:@"Sentences"]) {
-        self.textView.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+        textView.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     }
     else if ([xui_autoCapitalization isEqualToString:@"Words"]) {
-        self.textView.autocapitalizationType = UITextAutocapitalizationTypeWords;
+        textView.autocapitalizationType = UITextAutocapitalizationTypeWords;
     }
     else if ([xui_autoCapitalization isEqualToString:@"AllCharacters"]) {
-        self.textView.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+        textView.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
     }
     else if ([xui_autoCapitalization isEqualToString:@"None"]) {
-        self.textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     else {
-        self.textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     
     [self setupSubviews];
@@ -226,11 +228,13 @@
         textView.textColor = UIColor.blackColor;
         textView.font = [UIFont systemFontOfSize:14.f];
         
-        if (@available(iOS 11.0, *)) {
+        XUI_START_IGNORE_PARTIAL
+        if ([textView respondsToSelector:@selector(smartDashesType)]) {
             textView.smartDashesType = UITextSmartDashesTypeNo;
             textView.smartQuotesType = UITextSmartQuotesTypeNo;
             textView.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
         }
+        XUI_END_IGNORE_PARTIAL
         
         _textView = textView;
     }
