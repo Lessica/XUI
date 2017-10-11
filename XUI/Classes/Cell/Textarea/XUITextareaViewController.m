@@ -8,6 +8,7 @@
 
 #import "XUITextareaViewController.h"
 #import "XUITextareaCell.h"
+#import "XUIPrivate.h"
 
 @interface XUITextareaViewController () <UITextViewDelegate, UIScrollViewDelegate>
 
@@ -52,20 +53,30 @@
     BOOL xui_readonly = [self.cell.xui_readonly boolValue];
     self.textView.editable = !xui_readonly;
     
+    self.textView.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    XUI_START_IGNORE_PARTIAL
+    if (@available(iOS 11.0, *)) {
+        self.textView.smartDashesType = UITextSmartDashesTypeNo;
+        self.textView.smartQuotesType = UITextSmartQuotesTypeNo;
+        self.textView.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
+    }
+    XUI_END_IGNORE_PARTIAL
+    
     NSString *xui_alignment = self.cell.xui_alignment;
-    if ([xui_alignment isEqualToString:@"left"]) {
+    if ([xui_alignment isEqualToString:@"Left"]) {
         self.textView.textAlignment = NSTextAlignmentLeft;
     }
-    else if ([xui_alignment isEqualToString:@"center"]) {
+    else if ([xui_alignment isEqualToString:@"Center"]) {
         self.textView.textAlignment = NSTextAlignmentCenter;
     }
-    else if ([xui_alignment isEqualToString:@"right"]) {
+    else if ([xui_alignment isEqualToString:@"Right"]) {
         self.textView.textAlignment = NSTextAlignmentRight;
     }
-    else if ([xui_alignment isEqualToString:@"natural"]) {
+    else if ([xui_alignment isEqualToString:@"Natural"]) {
         self.textView.textAlignment = NSTextAlignmentNatural;
     }
-    else if ([xui_alignment isEqualToString:@"justified"]) {
+    else if ([xui_alignment isEqualToString:@"Justified"]) {
         self.textView.textAlignment = NSTextAlignmentJustified;
     }
     else {
@@ -73,33 +84,65 @@
     }
     
     NSString *xui_keyboard = self.cell.xui_keyboard;
-    if ([xui_keyboard isEqualToString:@"numbers"]) {
+    if ([xui_keyboard isEqualToString:@"Default"]) {
+        self.textView.keyboardType = UIKeyboardTypeDefault;
+    }
+    else if ([xui_keyboard isEqualToString:@"ASCIICapable"]) {
+        self.textView.keyboardType = UIKeyboardTypeASCIICapable;
+    }
+    else if ([xui_keyboard isEqualToString:@"NumbersAndPunctuation"]) {
+        self.textView.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    }
+    else if ([xui_keyboard isEqualToString:@"URL"]) {
+        self.textView.keyboardType = UIKeyboardTypeURL;
+    }
+    else if ([xui_keyboard isEqualToString:@"NumberPad"]) {
         self.textView.keyboardType = UIKeyboardTypeNumberPad;
     }
-    else if ([xui_keyboard isEqualToString:@"phone"]) {
+    else if ([xui_keyboard isEqualToString:@"PhonePad"]) {
         self.textView.keyboardType = UIKeyboardTypePhonePad;
     }
-    else if ([xui_keyboard isEqualToString:@"ascii"]) {
+    else if ([xui_keyboard isEqualToString:@"NamePhonePad"]) {
+        self.textView.keyboardType = UIKeyboardTypeNamePhonePad;
+    }
+    else if ([xui_keyboard isEqualToString:@"EmailAddress"]) {
+        self.textView.keyboardType = UIKeyboardTypeEmailAddress;
+    }
+    else if ([xui_keyboard isEqualToString:@"DecimalPad"]) {
+        self.textView.keyboardType = UIKeyboardTypeDecimalPad;
+    }
+    else if ([xui_keyboard isEqualToString:@"Alphabet"]) {
         self.textView.keyboardType = UIKeyboardTypeASCIICapable;
     }
     else {
         self.textView.keyboardType = UIKeyboardTypeDefault;
     }
     
-    BOOL xui_noAutoCorrect = [self.cell.xui_noAutoCorrect boolValue];
-    self.textView.autocorrectionType = xui_noAutoCorrect ? UITextAutocorrectionTypeNo : UITextAutocorrectionTypeYes;
+    NSString *xui_autoCorrection = self.cell.xui_autoCorrection;
+    if ([xui_autoCorrection isEqualToString:@"Default"]) {
+        self.textView.autocorrectionType = UITextAutocorrectionTypeDefault;
+    }
+    else if ([xui_autoCorrection isEqualToString:@"No"]) {
+        self.textView.autocorrectionType = UITextAutocorrectionTypeNo;
+    }
+    else if ([xui_autoCorrection isEqualToString:@"Yes"]) {
+        self.textView.autocorrectionType = UITextAutocorrectionTypeYes;
+    }
+    else {
+        self.textView.autocorrectionType = UITextAutocorrectionTypeDefault;
+    }
     
-    NSString *xui_autoCaps = self.cell.xui_autoCaps;
-    if ([xui_autoCaps isEqualToString:@"sentences"]) {
+    NSString *xui_autoCapitalization = self.cell.xui_autoCapitalization;
+    if ([xui_autoCapitalization isEqualToString:@"Sentences"]) {
         self.textView.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     }
-    else if ([xui_autoCaps isEqualToString:@"words"]) {
+    else if ([xui_autoCapitalization isEqualToString:@"Words"]) {
         self.textView.autocapitalizationType = UITextAutocapitalizationTypeWords;
     }
-    else if ([xui_autoCaps isEqualToString:@"all"]) {
+    else if ([xui_autoCapitalization isEqualToString:@"AllCharacters"]) {
         self.textView.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
     }
-    else if ([xui_autoCaps isEqualToString:@"none"]) {
+    else if ([xui_autoCapitalization isEqualToString:@"None"]) {
         self.textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     else {

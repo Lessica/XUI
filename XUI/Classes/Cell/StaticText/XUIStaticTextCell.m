@@ -46,13 +46,15 @@
     BOOL superResult = [super testEntry:cellEntry withError:error];
     NSString *checkType = kXUICellFactoryErrorDomain;
     @try {
-        NSString *alignmentString = cellEntry[@"alignment"];
-        if (alignmentString) {
-            NSArray <NSString *> *validAlignment = @[ @"left", @"right", @"center", @"natural", @"justified" ];
-            if (![validAlignment containsObject:alignmentString]) {
-                superResult = NO;
-                checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
+        {
+            NSString *alignmentString = cellEntry[@"alignment"];
+            if (alignmentString) {
+                NSArray <NSString *> *validAlignment = @[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ];
+                if (![validAlignment containsObject:alignmentString]) {
+                    superResult = NO;
+                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
+                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
+                }
             }
         }
     } @catch (NSString *exceptionReason) {
@@ -90,19 +92,19 @@
 
 - (void)setXui_alignment:(NSString *)xui_alignment {
     _xui_alignment = xui_alignment;
-    if ([xui_alignment isEqualToString:@"left"]) {
+    if ([xui_alignment isEqualToString:@"Left"]) {
         self.cellStaticTextView.textAlignment = NSTextAlignmentLeft;
     }
-    else if ([xui_alignment isEqualToString:@"center"]) {
+    else if ([xui_alignment isEqualToString:@"Center"]) {
         self.cellStaticTextView.textAlignment = NSTextAlignmentCenter;
     }
-    else if ([xui_alignment isEqualToString:@"right"]) {
+    else if ([xui_alignment isEqualToString:@"Right"]) {
         self.cellStaticTextView.textAlignment = NSTextAlignmentRight;
     }
-    else if ([xui_alignment isEqualToString:@"natural"]) {
+    else if ([xui_alignment isEqualToString:@"Natural"]) {
         self.cellStaticTextView.textAlignment = NSTextAlignmentNatural;
     }
-    else if ([xui_alignment isEqualToString:@"justified"]) {
+    else if ([xui_alignment isEqualToString:@"Justified"]) {
         self.cellStaticTextView.textAlignment = NSTextAlignmentJustified;
     }
     else {

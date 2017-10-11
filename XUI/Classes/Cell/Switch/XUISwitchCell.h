@@ -11,5 +11,7 @@
 @interface XUISwitchCell : XUIBaseCell
 
 @property (nonatomic, strong) NSNumber *xui_negate;
+@property (nonatomic, strong) id xui_trueValue;
+@property (nonatomic, strong) id xui_falseValue;
 
 @end

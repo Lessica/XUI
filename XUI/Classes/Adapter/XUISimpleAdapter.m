@@ -103,36 +103,51 @@
 }
 
 - (id)objectForKey:(NSString *)key Defaults:(NSString *)identifier {
-    NSString *specComponent = nil;
-    if (!specComponent) specComponent = identifier;
-    if (!specComponent) return nil;
-    assert([specComponent isKindOfClass:[NSString class]] && specComponent.length > 0);
-    NSString *specPath = [self.defaultsPath stringByAppendingPathComponent:specComponent];
-    NSString *specPathExt = [specPath stringByAppendingPathExtension:@"plist"];
-    NSMutableDictionary *specDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:specPathExt];
-    if (!specDictionary) specDictionary = [@{} mutableCopy];
     NSString *specKey = key;
     if (!specKey) return nil;
     assert ([specKey isKindOfClass:[NSString class]] && specKey.length > 0);
-    return specDictionary[specKey];
+    if (identifier) {
+        NSString *specComponent = nil;
+        if (!specComponent) specComponent = identifier;
+        if (!specComponent) return nil;
+        assert([specComponent isKindOfClass:[NSString class]] && specComponent.length > 0);
+        NSString *specPath = [self.defaultsPath stringByAppendingPathComponent:specComponent];
+        NSString *specPathExt = [specPath stringByAppendingPathExtension:@"plist"];
+        NSMutableDictionary *specDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:specPathExt];
+        if (!specDictionary) specDictionary = [@{} mutableCopy];
+        return specDictionary[specKey];
+    } else {
+        [[NSUserDefaults standardUserDefaults] objectForKey:specKey];
+    }
 }
 
 - (void)setObject:(id)obj forKey:(NSString *)key Defaults:(NSString *)identifier {
-    NSString *specComponent = nil;
-    if (!specComponent) specComponent = identifier;
-    if (!specComponent) return;
-    assert([specComponent isKindOfClass:[NSString class]] && specComponent.length > 0);
-    NSString *specPath = [self.defaultsPath stringByAppendingPathComponent:specComponent];
-    NSString *specPathExt = [specPath stringByAppendingPathExtension:@"plist"];
-    NSMutableDictionary *specDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:specPathExt];
-    if (!specDictionary) specDictionary = [@{} mutableCopy];
     NSString *specKey = key;
     if (!specKey) return;
     assert ([specKey isKindOfClass:[NSString class]] && specKey.length > 0);
     id specValue = obj;
-    if (!specValue) return;
-    specDictionary[specKey] = specValue;
-    [specDictionary writeToFile:specPathExt atomically:YES];
+    if (identifier) {
+        NSString *specComponent = nil;
+        if (!specComponent) specComponent = identifier;
+        if (!specComponent) return;
+        assert([specComponent isKindOfClass:[NSString class]] && specComponent.length > 0);
+        NSString *specPath = [self.defaultsPath stringByAppendingPathComponent:specComponent];
+        NSString *specPathExt = [specPath stringByAppendingPathExtension:@"plist"];
+        NSMutableDictionary *specDictionary = [[NSMutableDictionary alloc] initWithContentsOfFile:specPathExt];
+        if (!specDictionary) specDictionary = [@{} mutableCopy];
+        if (specValue) {
+            specDictionary[specKey] = specValue;
+        } else {
+            [specDictionary removeObjectForKey:specKey];
+        }
+        [specDictionary writeToFile:specPathExt atomically:YES];
+    } else {
+        if (specValue) {
+            [[NSUserDefaults standardUserDefaults] setObject:specValue forKey:specKey];
+        } else {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:specKey];
+        }
+    }
 }
 
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value {

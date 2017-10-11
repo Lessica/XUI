@@ -22,7 +22,14 @@
     if (![value isKindOfClass:[NSDictionary class]]) {
         return NO;
     }
-    _rawEntry = value;
+    if (value[@"items"])
+    { // XUI Schema
+        _rawEntry = value;
+    }
+    else
+    { // Unknown Schema
+        return NO;
+    }
     return YES;
 }
 

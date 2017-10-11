@@ -37,14 +37,7 @@
     @{
       @"alignment": [NSString class],
       @"keyboard": [NSString class],
-      @"autoCaps": [NSString class],
       @"placeholder": [NSString class],
-      @"noAutoCorrect": [NSNumber class],
-      @"isIP": [NSNumber class],
-      @"isURL": [NSNumber class],
-      @"isNumeric": [NSNumber class],
-      @"isDecimalPad": [NSNumber class],
-      @"isEmail": [NSNumber class],
       @"value": [NSString class]
       };
 }
@@ -53,31 +46,26 @@
     BOOL superResult = [super testEntry:cellEntry withError:error];
     NSString *checkType = kXUICellFactoryErrorDomain;
     @try {
-        NSString *alignmentString = cellEntry[@"alignment"];
-        if (alignmentString) {
-            NSArray <NSString *> *validAlignment = @[ @"left", @"right", @"center", @"natural", @"justified" ];
-            if (![validAlignment containsObject:alignmentString]) {
-                superResult = NO;
-                checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
+        {
+            NSString *alignmentString = cellEntry[@"alignment"];
+            if (alignmentString) {
+                NSArray <NSString *> *validAlignment = @[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ];
+                if (![validAlignment containsObject:alignmentString]) {
+                    superResult = NO;
+                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
+                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
+                }
             }
         }
-        NSString *keyboardString = cellEntry[@"keyboard"];
-        if (keyboardString) {
-            NSArray <NSString *> *validKeyboard = @[ @"numbers", @"phone", @"ascii", @"default" ];
-            if (![validKeyboard containsObject:keyboardString]) {
-                superResult = NO;
-                checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"keyboard", keyboardString];
-            }
-        }
-        NSString *autoCapsString = cellEntry[@"autoCaps"];
-        if (autoCapsString) {
-            NSArray <NSString *> *validAutoCaps = @[ @"sentences", @"words", @"all", @"none" ];
-            if (![validAutoCaps containsObject:autoCapsString]) {
-                superResult = NO;
-                checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"autoCaps", autoCapsString];
+        {
+            NSString *keyboardString = cellEntry[@"keyboard"];
+            if (keyboardString) {
+                NSArray <NSString *> *validKeyboard = @[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad" ];
+                if (![validKeyboard containsObject:keyboardString]) {
+                    superResult = NO;
+                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
+                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"keyboard", keyboardString];
+                }
             }
         }
     } @catch (NSString *exceptionReason) {
@@ -96,6 +84,15 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.cellTextField.delegate = self;
     self.cellTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.cellTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.cellTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    XUI_START_IGNORE_PARTIAL
+    if (@available(iOS 11.0, *)) {
+        self.cellTextField.smartDashesType = UITextSmartDashesTypeNo;
+        self.cellTextField.smartQuotesType = UITextSmartQuotesTypeNo;
+        self.cellTextField.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
+    }
+    XUI_END_IGNORE_PARTIAL
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -105,36 +102,38 @@
 
 - (void)setXui_keyboard:(NSString *)xui_keyboard {
     _xui_keyboard = xui_keyboard;
-    if ([xui_keyboard isEqualToString:@"numbers"]) {
+    if ([xui_keyboard isEqualToString:@"Default"]) {
+        self.cellTextField.keyboardType = UIKeyboardTypeDefault;
+    }
+    else if ([xui_keyboard isEqualToString:@"ASCIICapable"]) {
+        self.cellTextField.keyboardType = UIKeyboardTypeASCIICapable;
+    }
+    else if ([xui_keyboard isEqualToString:@"NumbersAndPunctuation"]) {
+        self.cellTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    }
+    else if ([xui_keyboard isEqualToString:@"URL"]) {
+        self.cellTextField.keyboardType = UIKeyboardTypeURL;
+    }
+    else if ([xui_keyboard isEqualToString:@"NumberPad"]) {
         self.cellTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
-    else if ([xui_keyboard isEqualToString:@"phone"]) {
+    else if ([xui_keyboard isEqualToString:@"PhonePad"]) {
         self.cellTextField.keyboardType = UIKeyboardTypePhonePad;
     }
-    else if ([xui_keyboard isEqualToString:@"ascii"]) {
+    else if ([xui_keyboard isEqualToString:@"NamePhonePad"]) {
+        self.cellTextField.keyboardType = UIKeyboardTypeNamePhonePad;
+    }
+    else if ([xui_keyboard isEqualToString:@"EmailAddress"]) {
+        self.cellTextField.keyboardType = UIKeyboardTypeEmailAddress;
+    }
+    else if ([xui_keyboard isEqualToString:@"DecimalPad"]) {
+        self.cellTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    }
+    else if ([xui_keyboard isEqualToString:@"Alphabet"]) {
         self.cellTextField.keyboardType = UIKeyboardTypeASCIICapable;
     }
     else {
         self.cellTextField.keyboardType = UIKeyboardTypeDefault;
-    }
-}
-
-- (void)setXui_autoCaps:(NSString *)xui_autoCaps {
-    _xui_autoCaps = xui_autoCaps;
-    if ([xui_autoCaps isEqualToString:@"sentences"]) {
-        self.cellTextField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-    }
-    else if ([xui_autoCaps isEqualToString:@"words"]) {
-        self.cellTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    }
-    else if ([xui_autoCaps isEqualToString:@"all"]) {
-        self.cellTextField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
-    }
-    else if ([xui_autoCaps isEqualToString:@"none"]) {
-        self.cellTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    }
-    else {
-        self.cellTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
 }
 
@@ -143,52 +142,27 @@
     self.cellTextField.placeholder = xui_placeholder;
 }
 
-- (void)setXui_noAutoCorrect:(NSNumber *)xui_noAutoCorrect {
-    _xui_noAutoCorrect = xui_noAutoCorrect;
-    BOOL noAutoCorrect = [xui_noAutoCorrect boolValue];
-    self.cellTextField.autocorrectionType = noAutoCorrect ? UITextAutocorrectionTypeNo : UITextAutocorrectionTypeYes;
-}
-
-- (void)setXui_isIP:(NSNumber *)xui_isIP {
-    _xui_isIP = xui_isIP;
-    self.cellTextField.keyboardType = UIKeyboardTypeDecimalPad;
-}
-
-- (void)setXui_isURL:(NSNumber *)xui_isURL {
-    _xui_isURL = xui_isURL;
-    self.cellTextField.keyboardType = UIKeyboardTypeURL;
-}
-
-- (void)setXui_isEmail:(NSNumber *)xui_isEmail {
-    _xui_isEmail = xui_isEmail;
-    self.cellTextField.keyboardType = UIKeyboardTypeEmailAddress;
-}
-
-- (void)setXui_isNumeric:(NSNumber *)xui_isNumeric {
-    _xui_isNumeric = xui_isNumeric;
-    self.cellTextField.keyboardType = UIKeyboardTypeNumberPad;
-}
-
-- (void)setXui_isDecimalPad:(NSNumber *)xui_isDecimalPad {
-    _xui_isDecimalPad = xui_isDecimalPad;
-    self.cellTextField.keyboardType = UIKeyboardTypeDecimalPad;
+- (void)setXui_isSecure:(NSNumber *)xui_isSecure {
+    _xui_isSecure = xui_isSecure;
+    BOOL isSecure = [xui_isSecure boolValue];
+    self.cellTextField.secureTextEntry = isSecure;
 }
 
 - (void)setXui_alignment:(NSString *)xui_alignment {
     _xui_alignment = xui_alignment;
-    if ([xui_alignment isEqualToString:@"left"]) {
+    if ([xui_alignment isEqualToString:@"Left"]) {
         self.cellTextField.textAlignment = NSTextAlignmentLeft;
     }
-    else if ([xui_alignment isEqualToString:@"center"]) {
+    else if ([xui_alignment isEqualToString:@"Center"]) {
         self.cellTextField.textAlignment = NSTextAlignmentCenter;
     }
-    else if ([xui_alignment isEqualToString:@"right"]) {
+    else if ([xui_alignment isEqualToString:@"Right"]) {
         self.cellTextField.textAlignment = NSTextAlignmentRight;
     }
-    else if ([xui_alignment isEqualToString:@"natural"]) {
+    else if ([xui_alignment isEqualToString:@"Natural"]) {
         self.cellTextField.textAlignment = NSTextAlignmentNatural;
     }
-    else if ([xui_alignment isEqualToString:@"justified"]) {
+    else if ([xui_alignment isEqualToString:@"Justified"]) {
         self.cellTextField.textAlignment = NSTextAlignmentJustified;
     }
     else {

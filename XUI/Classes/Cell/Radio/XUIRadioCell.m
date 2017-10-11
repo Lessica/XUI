@@ -174,19 +174,19 @@
 
 - (void)setXui_alignment:(NSString *)xui_alignment {
     _xui_alignment = xui_alignment;
-    if ([xui_alignment isEqualToString:@"left"]) {
+    if ([xui_alignment isEqualToString:@"Left"]) {
         self.tagView.alignment = XUITagCollectionAlignmentLeft;
     }
-    else if ([xui_alignment isEqualToString:@"center"]) {
+    else if ([xui_alignment isEqualToString:@"Center"]) {
         self.tagView.alignment = XUITagCollectionAlignmentCenter;
     }
-    else if ([xui_alignment isEqualToString:@"right"]) {
+    else if ([xui_alignment isEqualToString:@"Right"]) {
         self.tagView.alignment = XUITagCollectionAlignmentRight;
     }
-    else if ([xui_alignment isEqualToString:@"natural"]) {
+    else if ([xui_alignment isEqualToString:@"Natural"]) {
         self.tagView.alignment = XUITagCollectionAlignmentFillByExpandingSpace;
     }
-    else if ([xui_alignment isEqualToString:@"justified"]) {
+    else if ([xui_alignment isEqualToString:@"Justified"]) {
         self.tagView.alignment = XUITagCollectionAlignmentFillByExpandingWidth;
     }
     else {

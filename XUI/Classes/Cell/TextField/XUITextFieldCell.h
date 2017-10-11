@@ -12,14 +12,8 @@
 
 @property (nonatomic, strong) NSString * xui_alignment;
 @property (nonatomic, strong) NSString * xui_keyboard;
-@property (nonatomic, strong) NSString * xui_autoCaps;
 @property (nonatomic, strong) NSString * xui_placeholder;
-@property (nonatomic, strong) NSNumber * xui_noAutoCorrect;
-@property (nonatomic, strong) NSNumber * xui_isIP;
-@property (nonatomic, strong) NSNumber * xui_isURL;
-@property (nonatomic, strong) NSNumber * xui_isNumeric;
-@property (nonatomic, strong) NSNumber * xui_isDecimalPad;
-@property (nonatomic, strong) NSNumber * xui_isEmail;
+@property (nonatomic, strong) NSNumber * xui_isSecure;
 // Max length
 // Regex
 

@@ -29,38 +29,62 @@
 }
 
 + (NSDictionary <NSString *, Class> *)entryValueTypes {
-    return @{ };
+    return
+    @{
+     @"alignment": [NSString class],
+     @"keyboard": [NSString class],
+     @"autoCapitalization": [NSString class],
+     @"autoCorrection": [NSString class],
+     @"maxLength": [NSNumber class],
+      };
 }
 
 + (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
     BOOL superResult = [super testEntry:cellEntry withError:error];
     NSString *checkType = kXUICellFactoryErrorDomain;
     @try {
-        NSString *alignmentString = cellEntry[@"alignment"];
-        if (alignmentString) {
-            NSArray <NSString *> *validAlignment = @[ @"left", @"right", @"center", @"natural", @"justified" ];
-            if (![validAlignment containsObject:alignmentString]) {
-                superResult = NO;
-                checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
+        {
+            NSString *alignmentString = cellEntry[@"alignment"];
+            if (alignmentString) {
+                NSArray <NSString *> *validAlignment = @[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ];
+                if (![validAlignment containsObject:alignmentString]) {
+                    superResult = NO;
+                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
+                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
+                }
             }
         }
-        NSString *keyboardString = cellEntry[@"keyboard"];
-        if (keyboardString) {
-            NSArray <NSString *> *validKeyboard = @[ @"numbers", @"phone", @"ascii", @"default" ];
-            if (![validKeyboard containsObject:keyboardString]) {
-                superResult = NO;
-                checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"keyboard", alignmentString];
+        {
+            NSString *keyboardString = cellEntry[@"keyboard"];
+            if (keyboardString) {
+                NSArray <NSString *> *validKeyboard = @[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad" ];
+                if (![validKeyboard containsObject:keyboardString]) {
+                    superResult = NO;
+                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
+                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"keyboard", keyboardString];
+                }
             }
         }
-        NSString *autoCapsString = cellEntry[@"autoCaps"];
-        if (autoCapsString) {
-            NSArray <NSString *> *validAutoCaps = @[ @"sentences", @"words", @"all", @"none" ];
-            if (![validAutoCaps containsObject:autoCapsString]) {
-                superResult = NO;
-                checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"autoCaps", alignmentString];
+        {
+            NSString *autoCapitalizationString = cellEntry[@"autoCapitalization"];
+            if (autoCapitalizationString) {
+                NSArray <NSString *> *validAutoCaps = @[ @"Sentences", @"Words", @"AllCharacters", @"None" ];
+                if (![validAutoCaps containsObject:autoCapitalizationString]) {
+                    superResult = NO;
+                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
+                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"autoCapitalization", autoCapitalizationString];
+                }
+            }
+        }
+        {
+            NSString *autoCorrectionString = cellEntry[@"autoCorrection"];
+            if (autoCorrectionString) {
+                NSArray <NSString *> *validAutoCorrection = @[ @"Default", @"No", @"Yes" ];
+                if (![validAutoCorrection containsObject:autoCorrectionString]) {
+                    superResult = NO;
+                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
+                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"autoCorrection", autoCorrectionString];
+                }
             }
         }
     } @catch (NSString *exceptionReason) {
