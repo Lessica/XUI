@@ -300,6 +300,7 @@ print(tabenabled)
 | keyboard | 描述 |
 |--------|------|
 |Default|默认|
+|Alphabet|标准 ASCII|
 |ASCIICapable|标准 ASCII|
 |NumbersAndPunctuation|数字与标点|
 |URL|网址|
@@ -321,7 +322,7 @@ print(tabenabled)
     label = "Username";
     cell = "TextField";
     key = "username";
-    keyboard = "default";
+    keyboard = "Alphabet";
     placeholder = "Enter the username";
 };
 {
@@ -330,7 +331,7 @@ print(tabenabled)
     label = "Password";
     cell = "SecureTextField";
     key = "password";
-    keyboard = "ascii";
+    keyboard = "Alphabet";
     placeholder = "Enter the password";
 };
 ```
@@ -861,6 +862,7 @@ print(tabenabled)
 | keyboard | 描述 |
 |--------|------|
 |Default|默认|
+|Alphabet|标准 ASCII|
 |ASCIICapable|标准 ASCII|
 |NumbersAndPunctuation|数字与标点|
 |URL|网址|
