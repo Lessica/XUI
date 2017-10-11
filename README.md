@@ -19,6 +19,8 @@ See more (Simplified Chinese): https://www.zybuluo.com/xxtouch/note/716787
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+![Demo](https://raw.githubusercontent.com/Lessica/XUI/master/Design/IMG_0716.jpg)
+
 ## Requirements
 
 Objective-C (ARC is required), iOS >= 7.0, iPhone / iPad compatible.
