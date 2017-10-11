@@ -48,7 +48,7 @@
 }
 
 - (NSDictionary *)xuiSchemaForSchema:(NSDictionary *)raw {
-    NSMutableDictionary *mutable = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *mutable = [[NSMutableDictionary alloc] initWithDictionary:raw];
     if ([raw[@"PreferenceSpecifiers"] isKindOfClass:[NSArray class]])
     {
         NSArray <NSDictionary *> *specifiers = raw[@"PreferenceSpecifiers"];

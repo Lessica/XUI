@@ -17,8 +17,18 @@
 @implementation XUIDemoViewController
 
 - (IBAction)demoButtonTapped:(id)sender {
+    // real XUI
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"demo" ofType:@"bundle"];
     NSString *xuiPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"interface.xui" ofType:@"json"];
+    XUIListViewController *xuiController = [[XUIListViewController alloc] initWithPath:xuiPath withBundlePath:bundlePath];
+    XUINavigationController *navController = [[XUINavigationController alloc] initWithRootViewController:xuiController];
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (IBAction)schemaButtonTapped:(id)sender {
+    // Settings.bundle
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
+    NSString *xuiPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"Root" ofType:@"plist"];
     XUIListViewController *xuiController = [[XUIListViewController alloc] initWithPath:xuiPath withBundlePath:bundlePath];
     XUINavigationController *navController = [[XUINavigationController alloc] initWithRootViewController:xuiController];
     [self presentViewController:navController animated:YES completion:nil];

@@ -18,6 +18,7 @@
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		D6182A021F8E18D2009F225D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D6182A011F8E1825009F225D /* Settings.bundle */; };
 		D621EC981F8C8AD600E03B6D /* demo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D621EC971F8C8ACF00E03B6D /* demo.bundle */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		A3EC589EA917A630791A76EF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		C7D6F9DD2096FA0BD20768B2 /* Pods-XUI_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XUI_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XUI_Tests/Pods-XUI_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		CC73908E50C9E04E7A1CCA68 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		D6182A011F8E1825009F225D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		D621EC871F8C7B1B00E03B6D /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D621EC881F8C7B1B00E03B6D /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D621EC891F8C7B1B00E03B6D /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				6003F59D195388D20070C39A /* XUIDemoAppDelegate.m */,
 				6003F5A5195388D20070C39A /* XUIDemoViewController.h */,
 				6003F5A6195388D20070C39A /* XUIDemoViewController.m */,
+				D6182A011F8E1825009F225D /* Settings.bundle */,
 				D621EC971F8C8ACF00E03B6D /* demo.bundle */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
@@ -235,6 +238,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6182A021F8E18D2009F225D /* Settings.bundle in Resources */,
 				D621EC981F8C8AD600E03B6D /* demo.bundle in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
@@ -289,7 +293,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-XUI_Example/Pods-XUI_Example-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/XUI/XUI.bundle",
+				$PODS_CONFIGURATION_BUILD_DIR/XUI/XUI.bundle,
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (

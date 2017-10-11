@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>theme</key>
+	<dict>
+		<key>tintColor</key>
+		<string>#3498db</string>
+		<key>navigationBarColor</key>
+		<string>#3498db</string>
+	</dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>File</key>
+			<string>3rd/LGAlertView</string>
+			<key>Title</key>
+			<string>LGAlertView</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>3rd/OMGHTTPURLRQ</string>
+			<key>Title</key>
+			<string>OMGHTTPURLRQ</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>3rd/PromiseKit</string>
+			<key>Title</key>
+			<string>PromiseKit</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>3rd/TOWebViewController</string>
+			<key>Title</key>
+			<string>TOWebViewController</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>3rd/YYImage</string>
+			<key>Title</key>
+			<string>YYImage</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+	</array>
+</dict>
+</plist>
