@@ -1,0 +1,1 @@
+../../../../../XUI/Classes/Adapter/XUISimpleAdapter.h

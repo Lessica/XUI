@@ -1,0 +1,1 @@
+../../../../../XUI/Classes/View/XUITextTagCollectionView.h

@@ -39,7 +39,7 @@ static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 20.f, 20.f, 40.f, 20.f
 }
 
 - (void)setup {
-    _footerIcon =  [[UIImage imageNamed:@"XUIAboutIcon" inBundle:FRAMEWORK_BUNDLE compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    _footerIcon = [[UIImage imageWithContentsOfFile:[FRAMEWORK_BUNDLE pathForResource:@"XUIAboutIcon" ofType:@"png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     UIFont *lightFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:14.f];
     if (!lightFont) {
