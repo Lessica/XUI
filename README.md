@@ -7,13 +7,14 @@
 
 Make a configuration UITableView in 5 minutes? Let's do it!
 
-XUI is a drop-in replacement for "[Settings Application Schema](https://developer.apple.com/library/content/documentation/PreferenceSettings/Conceptual/SettingsApplicationSchemaReference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007005-SW1)" on iOS. It allows application to show preferences view controller by creating a simple configuration bundle (much like "Settings.bundle").
+XUI is a drop-in replacement for "[Settings Application Schema](https://developer.apple.com/library/content/documentation/PreferenceSettings/Conceptual/SettingsApplicationSchemaReference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007005-SW1)" on iOS/tvOS. It allows application to show preferences view controller by creating a simple configuration bundle (much like "Settings.bundle").
 
 ## Features
 
 - [x] Data Persistence (NSUserDefaults / Custom Adapters)
 - [x] Localized Strings / Image Resources
-- [x] Custom Cells
+- [x] Custom Cells (Runtime)
+- [x] Notifications
 
 ## Components
 
