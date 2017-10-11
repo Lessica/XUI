@@ -53,7 +53,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-- Xcode 7 or above
+- Xcode 9 or above (iOS SDK 11.0)
 - Objective-C / Swift (ARC is required)
 - iOS 7 or above
 - iPhone / iPad compatible.
