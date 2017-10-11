@@ -5,13 +5,32 @@
 [![License](https://img.shields.io/cocoapods/l/XUI.svg?style=flat)](http://cocoapods.org/pods/XUI)
 [![Platform](https://img.shields.io/cocoapods/p/XUI.svg?style=flat)](http://cocoapods.org/pods/XUI)
 
-XUI is a drop-in replacement for "[Settings Application Schema](https://developer.apple.com/library/content/documentation/PreferenceSettings/Conceptual/SettingsApplicationSchemaReference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007005-SW1)" provided by iOS, which allows application to show preferences interface by creating a simple configuration bundle (much like "Settings.bundle").
+Want to make a configuration UITableView in 5 minutes? Let's do it!
 
-XUI also provides more components than private framework "[Preferences.framework](http://iphonedevwiki.net/index.php/Preferences.framework)" and "[Settings Application Schema](https://developer.apple.com/library/content/documentation/PreferenceSettings/Conceptual/SettingsApplicationSchemaReference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007005-SW1)", like "Checkbox Group", "Radio Group", "Ordered List", etc.
+XUI is a drop-in replacement for "[Settings Application Schema](https://developer.apple.com/library/content/documentation/PreferenceSettings/Conceptual/SettingsApplicationSchemaReference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007005-SW1)" on iOS. It allows application to show preferences view controller by creating a simple configuration bundle (much like "Settings.bundle").
 
-Sorry for the inconvenience, but there's no English reference for now.
+XUI also provides more components than private framework "[Preferences.framework](http://iphonedevwiki.net/index.php/Preferences.framework)" and "[Settings Application Schema](https://developer.apple.com/library/content/documentation/PreferenceSettings/Conceptual/SettingsApplicationSchemaReference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007005-SW1)":
 
-I recommend you use \"Google Translate\" on the page below.
+- Group
+- Link (Child Pane)
+- Switch
+- Button (Action)
+- TextField / SecureTextField
+- Radio / Checkbox Group
+- Segment Group
+- Single Selection Option List
+- Multiple Selection Option List
+- Ordered Multiple Selection Option List
+- Slider
+- Stepper
+- DateTime Picker
+- TitleValue
+- StaticText
+- Textarea
+- Image
+- File Selector
+
+Sorry for the inconvenience, but there's no English reference for now. I recommend you use \"Google Translate\" on the page below.
 
 See more (Simplified Chinese): https://www.zybuluo.com/xxtouch/note/716787
 
@@ -41,3 +60,9 @@ Lessica, i.82@me.com
 ## License
 
 XUI is available under the MIT license. See the LICENSE file for more info.
+
+## Related Projects
+
+[InAppSettings](https://github.com/kgn/InAppSettings)
+[SettingsKit](https://github.com/mlnlover11/SettingsKit)
+[LicenseGenerator-iOS](https://github.com/carloe/LicenseGenerator-iOS)
