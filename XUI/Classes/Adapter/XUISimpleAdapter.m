@@ -117,7 +117,7 @@
         if (!specDictionary) specDictionary = [@{} mutableCopy];
         return specDictionary[specKey];
     } else {
-        [[NSUserDefaults standardUserDefaults] objectForKey:specKey];
+        return [[NSUserDefaults standardUserDefaults] objectForKey:specKey];
     }
 }
 

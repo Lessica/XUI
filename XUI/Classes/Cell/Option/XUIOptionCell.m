@@ -34,7 +34,7 @@
     return
     @{
       @"options": [NSArray class],
-      @"staticTextMessage": [NSString class]
+      @"footerText": [NSString class]
       };
 }
 

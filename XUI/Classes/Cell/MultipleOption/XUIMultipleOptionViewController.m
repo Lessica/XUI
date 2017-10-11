@@ -91,7 +91,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (0 == section) {
-        return self.cell.xui_staticTextMessage;
+        return [self.adapter localizedStringForKey:self.cell.xui_footerText value:self.cell.xui_footerText];
     }
     return nil;
 }

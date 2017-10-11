@@ -122,9 +122,11 @@
         }
         NSUInteger cellCount = cells.count;
         NSUInteger groupCount = groupCells.count;
-        if (groupCount <= 0 && cellCount > 0) {
+        if (groupCount == 0 && cellCount > 0) {
             XUIGroupCell *groupCell1 = [[XUIGroupCell alloc] init];
             [groupCells addObject:groupCell1];
+            [cells insertObject:groupCell1 atIndex:0];
+            groupCount = 1; // fix bug
         } // default group cell
         NSMutableArray <NSMutableArray <XUIBaseCell *> *> *otherCells = [[NSMutableArray alloc] initWithCapacity:groupCount];
         for (NSUInteger groupIdx = 0; groupIdx < groupCount; ++groupIdx) {

@@ -103,14 +103,17 @@
     [super viewDidLoad];
     
     // Title
-    NSString *entryPath = self.path;
-    if (entryPath) {
-        NSString *entryName = [entryPath lastPathComponent];
-        self.title = entryName;
+    if (self.title.length == 0) {
+        NSString *entryPath = self.path;
+        if (entryPath) {
+            NSString *entryName = [entryPath lastPathComponent];
+            self.title = entryName;
+        }
     }
     
     [self initSubviews];
     
+    // Configuration Title
     NSDictionary <NSString *, id> *rootEntry = self.cellFactory.rootEntry;
     NSString *listTitle = rootEntry[@"title"];
     if (listTitle) {
@@ -310,14 +313,16 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (tableView == self.tableView) {
-        return self.cellFactory.sectionCells[(NSUInteger) section].xui_label;
+        NSString *title = self.cellFactory.sectionCells[(NSUInteger) section].xui_label;
+        return [self.adapter localizedStringForKey:title value:title];
     }
     return nil;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (tableView == self.tableView) {
-        return self.cellFactory.sectionCells[(NSUInteger) section].xui_footerText;
+        NSString *title = self.cellFactory.sectionCells[(NSUInteger) section].xui_footerText;
+        return [self.adapter localizedStringForKey:title value:title];
     }
     return nil;
 }

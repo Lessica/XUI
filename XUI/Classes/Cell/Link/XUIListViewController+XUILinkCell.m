@@ -35,7 +35,7 @@
     }
     UIViewController *detailController = [[[self class] alloc] initWithPath:absolutePath withBundlePath:[self.bundle bundlePath]];
     if (detailController) {
-        detailController.title = linkCell.xui_label;
+        detailController.title = linkCell.textLabel.text;
         [self.navigationController pushViewController:detailController animated:YES];
     }
 }

@@ -37,7 +37,7 @@
       @"options": [NSArray class],
       @"minCount": [NSNumber class],
       @"maxCount": [NSNumber class],
-      @"staticTextMessage": [NSString class],
+      @"footerText": [NSString class],
       @"value": [NSArray class]
       };
 }

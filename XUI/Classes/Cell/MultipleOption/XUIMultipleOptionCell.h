@@ -11,7 +11,7 @@
 @interface XUIMultipleOptionCell : XUIBaseCell
 
 @property (nonatomic, strong) NSArray <NSDictionary *> *xui_options;
-@property (nonatomic, strong) NSString *xui_staticTextMessage;
+@property (nonatomic, strong) NSString *xui_footerText;
 @property (nonatomic, strong) NSNumber *xui_maxCount;
 
 @end

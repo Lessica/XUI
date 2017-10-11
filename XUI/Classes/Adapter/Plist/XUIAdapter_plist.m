@@ -49,7 +49,7 @@
 
 - (NSDictionary *)xuiSchemaForSchema:(NSDictionary *)raw {
     NSMutableDictionary *mutable = [[NSMutableDictionary alloc] init];
-    if ([raw[@"PreferenceSpecifiers"] isKindOfClass:[NSDictionary class]])
+    if ([raw[@"PreferenceSpecifiers"] isKindOfClass:[NSArray class]])
     {
         NSArray <NSDictionary *> *specifiers = raw[@"PreferenceSpecifiers"];
         NSMutableArray <NSDictionary *> *mutableSpecifiers = [[NSMutableArray alloc] init];
@@ -59,7 +59,7 @@
             }
             NSDictionary *newSpecifier = [self xuiItemForSchemaItem:specifier];
             if (newSpecifier) {
-                mutableSpecifiers = newSpecifier;
+                [mutableSpecifiers addObject:newSpecifier];
             }
         }
         mutable[@"items"] = [mutableSpecifiers copy];
@@ -76,17 +76,58 @@
 }
 
 - (NSDictionary *)xuiItemForSchemaItem:(NSDictionary *)specifier {
+    
     NSString *specType = specifier[@"Type"];
-    if (![specType isKindOfClass:[NSString class]]) {
+    if (![specType isKindOfClass:[NSString class]])
+    {
         return nil;
     }
+    
     NSMutableDictionary *xuiItem = [[NSMutableDictionary alloc] init];
-    if ([specType isEqualToString:@"PSTextFieldSpecifier"])
+    BOOL shouldProcessOptions = NO;
+    
+    if ([specType isEqualToString:@"PSGroupSpecifier"])
+    {
+        specType = @"Group";
+    }
+    else if ([specType isEqualToString:@"PSChildPaneSpecifier"])
+    {
+        specType = @"Link";
+    }
+    else if ([specType isEqualToString:@"PSToggleSwitchSpecifier"])
+    {
+        specType = @"Switch";
+    }
+    else if ([specType isEqualToString:@"PSSliderSpecifier"])
+    {
+        specType = @"Slider";
+    }
+    else if ([specType isEqualToString:@"PSTitleValueSpecifier"])
+    {
+        specType = @"TitleValue";
+    }
+    else if ([specType isEqualToString:@"PSTextFieldSpecifier"])
     {
         specType = @"TextField";
     }
+    else if ([specType isEqualToString:@"PSMultiValueSpecifier"])
+    {
+        specType = @"MultipleOption";
+        shouldProcessOptions = YES;
+    }
+    else if ([specType isEqualToString:@"PSRadioGroupSpecifier"])
+    {
+        specType = @"Option";
+        shouldProcessOptions = YES;
+    }
+    else
+    { // not supported
+        return nil;
+    }
+    
     for (NSString *specKey in specifier) {
         id specValue = specifier[specKey];
+        
         if ([specKey isEqualToString:@"Type"]) {
             xuiItem[@"cell"] = specType;
         }
@@ -99,13 +140,92 @@
         else if ([specKey isEqualToString:@"DefaultValue"]) {
             xuiItem[@"default"] = specValue;
         }
+        // Group
+        else if ([specKey isEqualToString:@"FooterText"]) {
+            xuiItem[@"footerText"] = specValue;
+        }
+        // Link
+        else if ([specKey isEqualToString:@"File"]) {
+            if ([specValue isKindOfClass:[NSString class]]) {
+                xuiItem[@"url"] = [specValue stringByAppendingPathExtension:@"plist"];
+            }
+        }
+        // Switch
+        else if ([specKey isEqualToString:@"TrueValue"]) {
+            xuiItem[@"trueValue"] = specValue;
+        }
+        else if ([specKey isEqualToString:@"FalseValue"]) {
+            xuiItem[@"falseValue"] = specValue;
+        }
+        // Slider
+        else if ([specKey isEqualToString:@"MinimumValue"]) {
+            xuiItem[@"min"] = specValue;
+        }
+        else if ([specKey isEqualToString:@"MaximumValue"]) {
+            xuiItem[@"max"] = specValue;
+        }
+        // TitleValue
+        // -
+        // TextField
         else if ([specKey isEqualToString:@"IsSecure"]) {
             xuiItem[@"isSecure"] = specValue;
         }
         else if ([specKey isEqualToString:@"KeyboardType"]) {
             xuiItem[@"keyboard"] = specValue;
         }
+        // MultipleOption
+        // Option
+        else if ([specKey isEqualToString:@"Values"]) {
+            continue; // skip
+        }
+        else if ([specKey isEqualToString:@"Titles"]) {
+            continue; // skip
+        }
+        else if ([specKey isEqualToString:@"ShortTitles"]) {
+            continue; // skip
+        }
+        // Additional properties
+        else {
+            xuiItem[specKey] = specValue;
+        }
     }
+    
+    // Processing options
+    NSArray *rawValues = specifier[@"Values"];
+    NSArray <NSString *> *rawTitles = specifier[@"Titles"];
+    NSArray <NSString *> *rawShortTitles = specifier[@"ShortTitles"];
+    if (
+        shouldProcessOptions && // type contains options
+        [rawValues isKindOfClass:[NSArray class]] && // raw values must be an array
+        [rawTitles isKindOfClass:[NSArray class]] && // raw titles must be an array
+        rawTitles.count == rawValues.count && // raw values and raw titles must match
+        (!rawShortTitles || // raw short titles can be null
+         ( // but if raw short titles exist
+          [rawShortTitles isKindOfClass:[NSArray class]] && // it should be an array
+          rawShortTitles.count == rawValues.count // and raw values and raw short titles must match
+          ))
+        )
+    {
+        NSMutableArray <NSDictionary *> *xuiOptions = [[NSMutableArray alloc] init];
+        for (NSUInteger idx = 0; idx < rawValues.count; idx++) {
+            NSMutableDictionary *optionItem = [[NSMutableDictionary alloc] init];
+            id rawValue = rawValues[idx];
+            optionItem[@"value"] = rawValue;
+            NSString *rawTitle = rawTitles[idx];
+            if ([rawTitle isKindOfClass:[NSString class]]) {
+                optionItem[@"title"] = rawTitle;
+            }
+            if (rawShortTitles) {
+                NSString *rawShortTitle = rawShortTitles[idx];
+                if ([rawShortTitle isKindOfClass:[NSString class]]) {
+                    optionItem[@"shortTitle"] = rawShortTitle;
+                }
+            }
+            [xuiOptions addObject:[optionItem copy]];
+        }
+        xuiItem[@"options"] = [xuiOptions copy];
+    }
+    
     return [xuiItem copy];
 }
 
