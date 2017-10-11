@@ -42,7 +42,10 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-Objective-C (ARC is required), iOS >= 7.0, iPhone / iPad compatible.
+- Xcode 7 or above
+- Objective-C (ARC is required)
+- iOS >= 7.0
+- iPhone / iPad compatible.
 
 ## Installation
 
