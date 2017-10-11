@@ -10,7 +10,7 @@
 #import "XUIPrivate.h"
 #import "XUITheme.h"
 
-static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 20.f, 20.f, 40.f, 20.f };
+static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 40.f, 20.f, 40.f, 20.f };
 
 @interface XUIListFooterView ()
 
