@@ -66,6 +66,7 @@ XUI is available under the MIT license. See the LICENSE file for more info.
 
 ## Related Projects
 
-[InAppSettings](https://github.com/kgn/InAppSettings)
-[SettingsKit](https://github.com/mlnlover11/SettingsKit)
-[LicenseGenerator-iOS](https://github.com/carloe/LicenseGenerator-iOS)
+- [InAppSettings](https://github.com/kgn/InAppSettings)
+- [SettingsKit](https://github.com/mlnlover11/SettingsKit)
+- [LicenseGenerator-iOS](https://github.com/carloe/LicenseGenerator-iOS)
+- [PrefsMate](https://github.com/caiyue1993/PrefsMate)
