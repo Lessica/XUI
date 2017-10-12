@@ -539,6 +539,26 @@ XUI_END_IGNORE_PARTIAL
     return insets;
 }
 
+#pragma mark - Setters
+
+- (void)setTheme:(XUITheme *)theme {
+    [super setTheme:theme];
+    if ([self isViewLoaded]) {
+#ifdef DEBUG
+        NSLog(@"-[XUIListViewController setTheme:] cannot be called after view is loaded.");
+#endif
+    }
+}
+
+- (void)setAdapter:(id<XUIAdapter>)adapter {
+    [super setAdapter:adapter];
+    if ([self isViewLoaded]) {
+#ifdef DEBUG
+        NSLog(@"-[XUIListViewController setAdapter:] cannot be called after view is loaded.");
+#endif
+    }
+}
+
 #pragma mark - Memory
 
 - (void)dealloc {

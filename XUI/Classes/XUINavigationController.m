@@ -18,6 +18,11 @@
     return self.topViewController.prefersStatusBarHidden;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationBar.translucent = NO;
+}
+
 #pragma mark - View Style
 
 - (BOOL)shouldAutorotate {

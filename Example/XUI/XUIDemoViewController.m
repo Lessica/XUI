@@ -30,6 +30,7 @@
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
     NSString *xuiPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"Root" ofType:@"plist"];
     XUIListViewController *xuiController = [[XUIListViewController alloc] initWithPath:xuiPath withBundlePath:bundlePath];
+    // Feel relaxed to set the custom adapter, theme, or logger here...
     XUINavigationController *navController = [[XUINavigationController alloc] initWithRootViewController:xuiController];
     [self presentViewController:navController animated:YES completion:nil];
 }

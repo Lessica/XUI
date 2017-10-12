@@ -7,7 +7,7 @@
 
 Make a configuration UITableView in 5 minutes? Let's do it!
 
-XUI is a drop-in replacement for "[Settings Application Schema](https://developer.apple.com/library/content/documentation/PreferenceSettings/Conceptual/SettingsApplicationSchemaReference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007005-SW1)" on iOS/tvOS. It allows application to show preferences view controller by creating a simple configuration bundle (much like "Settings.bundle").
+XUI is a **drop-in replacement** for "[Settings Application Schema](https://developer.apple.com/library/content/documentation/PreferenceSettings/Conceptual/SettingsApplicationSchemaReference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007005-SW1)" on iOS/tvOS. It allows application to show preferences view controller by creating a simple configuration bundle (much like "Settings.bundle").
 
 ## Features
 
@@ -39,11 +39,25 @@ XUI provides more components than private framework "[Preferences.framework](htt
 - [x] Image
 - [ ] File Selector
 
-## References
+## Usage
 
-Sorry for the inconvenience, but there's no English reference for now. I recommend you use \"Google Translate\" on the page below.
+### Basic Usage
+```objective-c
+// to specify the path for Settings.bundle
+NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
 
-See more (Simplified Chinese): https://www.zybuluo.com/xxtouch/note/716787
+// to specify the root entry for that bundle
+NSString *xuiPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"Root" ofType:@"plist"];
+
+// present or push it!
+XUIListViewController *xuiController = [[XUIListViewController alloc] initWithPath:xuiPath withBundlePath:bundlePath];
+XUINavigationController *navController = [[XUINavigationController alloc] initWithRootViewController:xuiController];
+[self presentViewController:navController animated:YES completion:nil];
+```
+
+## Configuration References
+
+Sorry for the inconvenience, but there's no English reference for now. See more (Simplified Chinese): https://www.zybuluo.com/xxtouch/note/716787
 
 ## Example
 
@@ -53,9 +67,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-- Xcode 9 or above (iOS SDK 11.0)
-- Objective-C / Swift (ARC is required)
+- Xcode 8 or above (Xcode 7 cannot complie xib files in this project properly.)
 - iOS 7 or above
+- Objective-C / Swift (ARC is required)
 - iPhone / iPad compatible.
 
 ## Installation
@@ -81,3 +95,4 @@ XUI is available under the MIT license. See the LICENSE file for more info.
 - [InAppSettings](https://github.com/kgn/InAppSettings)
 - [SettingsKit](https://github.com/mlnlover11/SettingsKit)
 - [LicenseGenerator-iOS](https://github.com/carloe/LicenseGenerator-iOS)
+

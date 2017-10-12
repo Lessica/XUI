@@ -49,7 +49,7 @@
 }
 
 - (void)setupXUI {
-    self.hidesBottomBarWhenPushed = YES;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
