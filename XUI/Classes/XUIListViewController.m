@@ -293,22 +293,50 @@
             return cellHeight;
         } else {
             if ([[cell class] layoutUsesAutoResizing]) {
-                [cell setNeedsUpdateConstraints];
-                [cell updateConstraintsIfNeeded];
-                
-                cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
-                [cell setNeedsLayout];
-                [cell layoutIfNeeded];
-                
-                CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-                CGFloat fixedHeight = (height > 0) ? (height + 1.f) : 44.f;
-                return fixedHeight;
+                return [self tableView:tableView heightForAutoResizingCell:cell];
             } else {
                 return UITableViewAutomaticDimension;
             }
         }
     }
     return 0;
+}
+
+// work around for iOS 7
+- (CGFloat)tableView:(UITableView *)tableView heightForAutoResizingCell:(UITableViewCell *)cell {
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+    
+    cell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableView.bounds), CGRectGetHeight(cell.bounds));
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
+    
+    // UITextViews cannot autosize well with systemLayoutSizeFittingSize: on iOS 7...
+    BOOL textViewInside = NO;
+    CGFloat additionalUITextViewsHeight = 0.f;
+    UIEdgeInsets textViewContainerInsets = UIEdgeInsetsZero;
+    for (UIView *subview in cell.contentView.subviews) {
+        if ([subview isKindOfClass:[UITextView class]]) {
+            textViewInside = YES;
+            UITextView *subTextView = (UITextView *)subview;
+            CGSize textViewSize = [subTextView sizeThatFits:CGSizeMake(CGRectGetWidth(subTextView.bounds), CGFLOAT_MAX)];
+            textViewContainerInsets = subTextView.textContainerInset;
+            additionalUITextViewsHeight = textViewSize.height;
+            break;
+        }
+    }
+    
+    if (textViewInside) {
+        return
+        additionalUITextViewsHeight +
+        textViewContainerInsets.top +
+        textViewContainerInsets.bottom +
+        1.f;
+    }
+    
+    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    CGFloat fixedHeight = (height > 0) ? (height + 1.f) : 44.f;
+    return fixedHeight;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

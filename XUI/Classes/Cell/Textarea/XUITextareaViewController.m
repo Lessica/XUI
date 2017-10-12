@@ -57,6 +57,7 @@
     
     textView.autocorrectionType = UITextAutocorrectionTypeNo;
     textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     XUI_START_IGNORE_PARTIAL
     if ([textView respondsToSelector:@selector(smartDashesType)]) {
         textView.smartDashesType = UITextSmartDashesTypeNo;
@@ -64,6 +65,7 @@
         textView.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
     }
     XUI_END_IGNORE_PARTIAL
+#endif
     
     NSString *xui_alignment = self.cell.xui_alignment;
     if ([xui_alignment isEqualToString:@"Left"]) {
@@ -228,6 +230,7 @@
         textView.textColor = UIColor.blackColor;
         textView.font = [UIFont systemFontOfSize:14.f];
         
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         XUI_START_IGNORE_PARTIAL
         if ([textView respondsToSelector:@selector(smartDashesType)]) {
             textView.smartDashesType = UITextSmartDashesTypeNo;
@@ -235,6 +238,7 @@
             textView.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
         }
         XUI_END_IGNORE_PARTIAL
+#endif
         
         _textView = textView;
     }

@@ -88,6 +88,7 @@
     textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     XUI_START_IGNORE_PARTIAL
     if ([textField respondsToSelector:@selector(smartDashesType)]) {
         textField.smartDashesType = UITextSmartDashesTypeNo;
@@ -95,6 +96,7 @@
         textField.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
     }
     XUI_END_IGNORE_PARTIAL
+#endif
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

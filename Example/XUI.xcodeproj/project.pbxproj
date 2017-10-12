@@ -452,6 +452,7 @@
 			baseConfigurationReference = 2F28CB1BAE1555052C55070E /* Pods-XUI_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XUI/XUI-Prefix.pch";
@@ -468,6 +469,7 @@
 			baseConfigurationReference = 63B3E330EB89942021FBD9AB /* Pods-XUI_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = GXZ23M5TP2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XUI/XUI-Prefix.pch";
