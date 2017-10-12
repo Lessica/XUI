@@ -41,7 +41,6 @@ XUI provides more components than private framework "[Preferences.framework](htt
 - [x] StaticText
 - [x] Textarea
 - [x] Image
-- [ ] File Selector
 
 ## Usage
 
@@ -58,6 +57,15 @@ NSString *xuiPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"Root
 XUIListViewController *xuiController = [[XUIListViewController alloc] initWithPath:xuiPath withBundlePath:bundlePath];
 XUINavigationController *navController = [[XUINavigationController alloc] initWithRootViewController:xuiController];
 [self presentViewController:navController animated:YES completion:nil];
+```
+
+### Read Defaults
+
+The configuration will be saved to Standard User Defaults.
+
+```objective-c
+NSNumber *enabled = [[NSUserDefaults standardUserDefaults] objectForKey:@"enabled"];
+[enabled boolValue];
 ```
 
 ### Theme
