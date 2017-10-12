@@ -8,9 +8,9 @@
 
 *此文档是为测试版编写的，暂不适用于线上正式版本。*
 
- - 适用于 **v1.2-1** 及以上平台版本
- - 支持 iPhone/iPad 横竖屏，支持 iOS 7 及以上系统版本
- - XUI 不与原有的对话框 (dialog) 和 WebView UI 冲突
+- 适用于 **v1.2-1** 及以上平台版本
+- 支持 iPhone/iPad 横竖屏，支持 iOS 7 及以上系统版本
+- XUI 不与原有的对话框 (dialog) 和 WebView UI 冲突
 
 
 ----------
@@ -26,11 +26,9 @@
 
 ## 前言
 
-XUI 用于在 XXTouch 上提供配置界面，采用 iOS 系统原生组件。本手册提供了 XUI 界面布局的规范。
+XUI 用于在 XXTouch 上提供配置界面，采用 iOS 系统原生组件。本手册提供了 XUI 界面布局的规范。XUI 是 XPP 脚本包的一部分，用来为脚本包创建配置，不能独立使用，**无法在脚本运行的时候启动 XUI 界面**。
 
-XUI 是 XPP 脚本包的一部分，用来为脚本包创建配置，不能独立使用，**无法在脚本运行的时候启动 XUI 界面**。
-
-如需使用 XUI，您需要创建指定格式的 xui 文件，在脚本包中激活。保存的配置项，可以通过 plist 库进行读取。
+如需使用 XUI，您需要创建指定格式的 xui / json / plist 文件，在脚本包中激活。保存的配置项，可以通过 plist 库进行读取。
 
 
 ----------
@@ -54,6 +52,8 @@ XUI 是 XPP 脚本包的一部分，用来为脚本包创建配置，不能独�
 
 xui 是一种特定格式的 lua 文件，使用这种格式创建 XUI 界面，需要使 lua 执行后返回一个包含各组件及属性的表。
 
+您也可以使用 json 或 plist 格式，来创建 XUI 界面。
+
 
 ----------
 
@@ -64,9 +64,9 @@ XUI 配置的根（顶层）为字典。
 
 |   键   |   类型   |   描述   |   条件   |
 |--------|----------|----------|----------|
-|title|字符串|导航栏标题|可选|
-|header|字符串|主标题|可选|
-|subheader|字符串|副标题|可选|
+|title|字符串|导航栏标题|可选, 可本地化|
+|header|字符串|主标题|可选, 可本地化|
+|subheader|字符串|副标题|可选, 可本地化|
 |items|包含字典的数组|组件列表|\-|
 |theme|字典|界面主题样式|可选|
 
@@ -74,13 +74,13 @@ XUI 配置的根（顶层）为字典。
 
 ``` lua
 return {
-    subheader = "Elegant App UI provided by XXTouchApp.";
-    header = "Example";
-    title = "Demo";
-    theme = {
-        "tintColor" = "#FFFFFF";
-    };
-    items = {};
+subheader = "Elegant App UI provided by XXTouchApp.";
+header = "Example";
+title = "Demo";
+theme = {
+"tintColor" = "#FFFFFF";
+};
+items = {};
 };
 ```
 
@@ -112,7 +112,7 @@ return {
 |   键   |   类型   |   描述   |   条件   |
 |--------|----------|----------|----------|
 |cell|字符串|组件类型|\-|
-|label|字符串|显示标签|可选|
+|label|字符串|显示标签|可选, 可本地化|
 |defaults|字符串|配置标识符|\-|
 |key|字符串|配置键名|defaults != nil|
 |default|字符串|配置默认值|\-|
@@ -149,43 +149,43 @@ print(tabenabled)
 
 |   键   |   类型   |   描述   |   条件   |
 |--------|----------|----------|----------|
-|footerText|字符串|在当前组之后添加一行小字|可选|
+|footerText|字符串|在当前组之后添加一行小字|可选, 可本地化|
 
 *此组件不支持 **label/icon/height***
 
 ``` lua
 {
-    items = {
-        {
-            cell = "Group";
-            label = "Switch";
-        };
-        {
-            defaults = "com.yourcompany.yourscript";
-            default = true;
-            label = "Enabled";
-            cell = "Switch";
-            key = "switch1";
-            icon = "res/16.png";
-        };
-        {
-            cell = "Group";
-            label = "Button";
-        };
-        {
-            url = "https://www.xxtouch.com";
-            cell = "Link";
-            label = "Open XXTouch.com";
-        };
-        {
-            cell = "Button";
-            action = "OpenURL:";
-            label = "Contact i.82@me.com";
-            kwargs = {
-                "mailto://i.82@me.com";
-            };
-        };
-    };
+items = {
+{
+cell = "Group";
+label = "Switch";
+};
+{
+defaults = "com.yourcompany.yourscript";
+default = true;
+label = "Enabled";
+cell = "Switch";
+key = "switch1";
+icon = "res/16.png";
+};
+{
+cell = "Group";
+label = "Button";
+};
+{
+url = "https://www.xxtouch.com";
+cell = "Link";
+label = "Open XXTouch.com";
+};
+{
+cell = "Button";
+action = "OpenURL:";
+label = "Contact i.82@me.com";
+kwargs = {
+"mailto://i.82@me.com";
+};
+};
+};
 };
 ```
 
@@ -207,9 +207,9 @@ print(tabenabled)
 
 ``` lua
 {
-    url = "sub/xui-sub.xui";
-    cell = "Link";
-    label = "Load another pane";
+url = "sub/xui-sub.xui";
+cell = "Link";
+label = "Load another pane";
 };
 ```
 
@@ -226,20 +226,22 @@ print(tabenabled)
 |   键   |   类型   |   描述   |   条件   |
 |--------|----------|----------|----------|
 |negate|布尔型|反转开关显示情况|可选|
+|trueValue|基本类型|当结果为 true 时保存的值<br />若不填则保存 **true**|可选|
+|falseValue|基本类型|当结果为 false 时保存的值<br />若不填则保存 **false**|可选|
 
 **配置值**
 |   类型   |   描述   |
 |----------|----------|
-|布尔型|与开关状态一致, 但若 negate 为 true, 配置值为开关状态取反.|
+|基本类型|与开关状态一致, 但若 negate 为真, 配置值为开关状态取反.<br />若存在, 配置值会被 **trueValue** 或 **falseValue** 代替.|
 
 ``` lua
 {
-    defaults = "com.yourcompany.yourscript";
-    default = true;
-    label = "Enabled";
-    cell = "Switch";
-    key = "switch1";
-    icon = "res/16.png";
+defaults = "com.yourcompany.yourscript";
+default = true;
+label = "Enabled";
+cell = "Switch";
+key = "switch1";
+icon = "res/16.png";
 };
 ```
 
@@ -269,12 +271,12 @@ print(tabenabled)
 
 ``` lua
 {
-    cell = "Button";
-    action = "OpenURL:";
-    label = "Contact i.82@me.com";
-    kwargs = {
-        "mailto://i.82@me.com";
-    };
+cell = "Button";
+action = "OpenURL:";
+label = "Contact i.82@me.com";
+kwargs = {
+"mailto://i.82@me.com";
+};
 };
 ```
 
@@ -317,22 +319,22 @@ print(tabenabled)
 
 ``` lua
 {
-    defaults = "com.yourcompany.yourscript";
-    default = "";
-    label = "Username";
-    cell = "TextField";
-    key = "username";
-    keyboard = "Alphabet";
-    placeholder = "Enter the username";
+defaults = "com.yourcompany.yourscript";
+default = "";
+label = "Username";
+cell = "TextField";
+key = "username";
+keyboard = "Alphabet";
+placeholder = "Enter the username";
 };
 {
-    defaults = "com.yourcompany.yourscript";
-    default = "";
-    label = "Password";
-    cell = "SecureTextField";
-    key = "password";
-    keyboard = "Alphabet";
-    placeholder = "Enter the password";
+defaults = "com.yourcompany.yourscript";
+default = "";
+label = "Password";
+cell = "SecureTextField";
+key = "password";
+keyboard = "Alphabet";
+placeholder = "Enter the password";
 };
 ```
 
@@ -369,73 +371,74 @@ print(tabenabled)
 |   键   |   类型   |   描述   |   条件   |
 |--------|----------|----------|----------|
 |title|字符串|选项标题|\-|
+|value|基本类型|选项配置值<br />若不填, 则与 **title** 一致.|可选|
 
 *此组件不支持 **label/icon/height***
 
 **配置值**
 |   类型   |   描述   |
 |----------|----------|
-|包含字符串的数组|包含所有选中项 **title** 的数组|
+|包含字符串的数组|包含所有选中项 **value** 的数组|
 
 ``` lua
 {
-    defaults = "com.yourcompany.yourscript";
-    default = {
-        "Red";
-        "Green";
-    };
-    cell = "Checkbox";
-    key = "checkbox";
-    maxCount = 4;
-    options = {
-        {
-            title = "Red";
-        };
-        {
-            title = "Green";
-        };
-        {
-            title = "Blue";
-        };
-        {
-            title = "Yellow";
-        };
-        {
-            title = "Purple";
-        };
-        {
-            title = "Black";
-        };
-        {
-            title = "White";
-        };
-    };
+defaults = "com.yourcompany.yourscript";
+default = {
+"Red";
+"Green";
+};
+cell = "Checkbox";
+key = "checkbox";
+maxCount = 4;
+options = {
+{
+title = "Red";
 };
 {
-    defaults = "com.yourcompany.yourscript";
-    default = "Fifth; please!";
-    cell = "Radio";
-    key = "radio";
-    options = {
-        {
-            title = "First";
-        };
-        {
-            title = "Second";
-        };
-        {
-            title = "Third";
-        };
-        {
-            title = "Fourth";
-        };
-        {
-            title = "Fifth; please!";
-        };
-        {
-            title = "Zero";
-        };
-    };
+title = "Green";
+};
+{
+title = "Blue";
+};
+{
+title = "Yellow";
+};
+{
+title = "Purple";
+};
+{
+title = "Black";
+};
+{
+title = "White";
+};
+};
+};
+{
+defaults = "com.yourcompany.yourscript";
+default = "Fifth; please!";
+cell = "Radio";
+key = "radio";
+options = {
+{
+title = "First";
+};
+{
+title = "Second";
+};
+{
+title = "Third";
+};
+{
+title = "Fourth";
+};
+{
+title = "Fifth; please!";
+};
+{
+title = "Zero";
+};
+};
 };
 ```
 
@@ -458,32 +461,33 @@ print(tabenabled)
 |   键   |   类型   |   描述   |   条件   |
 |--------|----------|----------|----------|
 |title|字符串|选项标题|\-|
+|value|基本类型|选项配置值<br />若不填, 则与 **title** 一致.|可选|
 
 *此组件不支持 **label/icon***
 
 **配置值**
 |   类型   |   描述   |
 |----------|----------|
-|字符串|选中项的 **title**|
+|字符串|选中项的 **value**|
 
 ``` lua
 {
-    defaults = "com.yourcompany.yourscript";
-    default = "Green";
-    label = "List of Options";
-    cell = "Segment";
-    key = "list-segment";
-    options = {
-        {
-            title = "Red";
-        };
-        {
-            title = "Green";
-        };
-        {
-            title = "Blue";
-        };
-    };
+defaults = "com.yourcompany.yourscript";
+default = "Green";
+label = "List of Options";
+cell = "Segment";
+key = "list-segment";
+options = {
+{
+title = "Red";
+};
+{
+title = "Green";
+};
+{
+title = "Blue";
+};
+};
 };
 ```
 
@@ -508,36 +512,37 @@ print(tabenabled)
 |--------|----------|----------|----------|
 |title|字符串|选项标题|\-|
 |shortTitle|字符串|显示在父级菜单右侧的标题|可选|
+|value|基本类型|选项配置值<br />若不填, 则与 **title** 一致.|可选|
 |icon|字符串|选项图标文件名|可选|
 
 **配置值**
 |   类型   |   描述   |
 |----------|----------|
-|字符串|选中项的 **title**|
+|字符串|选中项的 **value**|
 
 ``` lua
 {
-    defaults = "com.yourcompany.yourscript";
-    default = {
-        "Green; it's green!"
-    };
-    label = "List of Options";
-    cell = "Option";
-    key = "list-1";
-    options = {
-        {
-            title = "Red; it's red!";
-            shortTitle = "Red";
-        };
-        {
-            title = "Green; it's green!";
-            shortTitle = "Green";
-        };
-        {
-            title = "Blue; great color!";
-            shortTitle = "Blue";
-        };
-    };
+defaults = "com.yourcompany.yourscript";
+default = {
+"Green; it's green!"
+};
+label = "List of Options";
+cell = "Option";
+key = "list-1";
+options = {
+{
+title = "Red; it's red!";
+shortTitle = "Red";
+};
+{
+title = "Green; it's green!";
+shortTitle = "Green";
+};
+{
+title = "Blue; great color!";
+shortTitle = "Blue";
+};
+};
 };
 ```
 
@@ -562,34 +567,35 @@ print(tabenabled)
 |   键   |   类型   |   描述   |   条件   |
 |--------|----------|----------|----------|
 |title|字符串|选项标题|\-|
+|value|基本类型|选项配置值<br />若不填, 则与 **title** 一致.|可选|
 |icon|字符串|选项图标文件名|可选|
 
 **配置值**
 |   类型   |   描述   |
 |----------|----------|
-|包含字符串的数组|包含所有选中项 **title** 的数组|
+|包含字符串的数组|包含所有选中项 **value** 的数组|
 
 ``` lua
 {
-    defaults = "com.yourcompany.yourscript";
-    default = {
-        "Red; it's red!"; "Green; it's green!"
-    };
-    label = "List of Multiple Options";
-    cell = "MultipleOption";
-    key = "list-2";
-    maxCount = 2;
-    options = {
-        {
-            title = "Red; it's red!";
-        };
-        {
-            title = "Green; it's green!";
-        };
-        {
-            title = "Blue; great color!";
-        };
-    };
+defaults = "com.yourcompany.yourscript";
+default = {
+"Red; it's red!"; "Green; it's green!"
+};
+label = "List of Multiple Options";
+cell = "MultipleOption";
+key = "list-2";
+maxCount = 2;
+options = {
+{
+title = "Red; it's red!";
+};
+{
+title = "Green; it's green!";
+};
+{
+title = "Blue; great color!";
+};
+};
 };
 ```
 
@@ -615,35 +621,36 @@ print(tabenabled)
 |   键   |   类型   |   描述   |   条件   |
 |--------|----------|----------|----------|
 |title|字符串|选项标题|\-|
+|value|基本类型|选项配置值<br />若不填, 则与 **title** 一致.|可选|
 |icon|字符串|选项图标文件名|可选|
 
 **配置值**
 |   类型   |   描述   |
 |----------|----------|
-|包含字符串的数组|包含所有选中项 **title** 的数组|
+|包含字符串的数组|包含所有选中项 **value** 的数组|
 
 ``` lua
 {
-    defaults = "com.yourcompany.yourscript";
-    default = {
-        "Red";
-    };
-    label = "List of Ordered Options";
-    cell = "OrderedOption";
-    key = "list-3";
-    maxCount = 2;
-    minCount = 1;
-    options = {
-        {
-            title = "Red";
-        };
-        {
-            title = "Green";
-        };
-        {
-            title = "Blue";
-        };
-    };
+defaults = "com.yourcompany.yourscript";
+default = {
+"Red";
+};
+label = "List of Ordered Options";
+cell = "OrderedOption";
+key = "list-3";
+maxCount = 2;
+minCount = 1;
+options = {
+{
+title = "Red";
+};
+{
+title = "Green";
+};
+{
+title = "Blue";
+};
+};
 };
 ```
 
@@ -672,15 +679,15 @@ print(tabenabled)
 
 ``` lua
 {
-    showValue = true;
-    defaults = "com.yourcompany.yourscript";
-    min = 1;
-    default = 5;
-    max = 10;
-    label = "Slider";
-    cell = "Slider";
-    key = "slider";
-    isSegmented = true;
+showValue = true;
+defaults = "com.yourcompany.yourscript";
+min = 1;
+default = 5;
+max = 10;
+label = "Slider";
+cell = "Slider";
+key = "slider";
+isSegmented = true;
 };
 ```
 
@@ -709,15 +716,15 @@ print(tabenabled)
 
 ``` lua
 {
-    defaults = "com.yourcompany.yourscript";
-    min = 1;
-    default = 5;
-    max = 10;
-    autoRepeat = true;
-    label = "Stepper";
-    cell = "Stepper";
-    key = "stepper";
-    isInteger = true;
+defaults = "com.yourcompany.yourscript";
+min = 1;
+default = 5;
+max = 10;
+autoRepeat = true;
+label = "Stepper";
+cell = "Stepper";
+key = "stepper";
+isInteger = true;
 };
 ```
 
@@ -754,9 +761,9 @@ print(tabenabled)
 
 ``` lua
 {
-    cell = "DateTime";
-    key = "datetime1";
-    defaults = "com.yourcompany.yourscript";
+cell = "DateTime";
+key = "datetime1";
+defaults = "com.yourcompany.yourscript";
 };
 ```
 
@@ -781,29 +788,29 @@ print(tabenabled)
 
 ``` lua
 {
-    default = true;
-    cell = "Switch";
-    key = "switch1";
-    defaults = "com.yourcompany.yourscript";
-    label = "Sosh!";
+default = true;
+cell = "Switch";
+key = "switch1";
+defaults = "com.yourcompany.yourscript";
+label = "Sosh!";
 };
 {
-    cell = "TitleValue";
-    label = "Version";
-    value = "1.1.3";
+cell = "TitleValue";
+label = "Version";
+value = "1.1.3";
 };
 {
-    cell = "TitleValue";
-    label = "Dynamic";
-    key = "switch1";
-    defaults = "com.yourcompany.yourscript";
+cell = "TitleValue";
+label = "Dynamic";
+key = "switch1";
+defaults = "com.yourcompany.yourscript";
 };
 {
-    cell = "TitleValue";
-    label = "Application";
-    key = "applications";
-    defaults = "com.yourcompany.yourscript";
-    snippet = "snippets/app.snippet";
+cell = "TitleValue";
+label = "Application";
+key = "applications";
+defaults = "com.yourcompany.yourscript";
+snippet = "snippets/app.snippet";
 };
 ```
 
@@ -836,8 +843,8 @@ print(tabenabled)
 
 ``` lua
 {
-    cell = "StaticText";
-    label = "This specifier uses the label key as text content. Dynamic height of this cell is enabled.";
+cell = "StaticText";
+label = "This specifier uses the label key as text content. Dynamic height of this cell is enabled.";
 };
 ```
 
@@ -894,11 +901,11 @@ print(tabenabled)
 
 ``` lua
 {
-    default = "You can enter any text here...";
-    cell = "Textarea";
-    key = "textarea";
-    defaults = "com.yourcompany.yourscript";
-    label = "Textarea Cell";
+default = "You can enter any text here...";
+cell = "Textarea";
+key = "textarea";
+defaults = "com.yourcompany.yourscript";
+label = "Textarea Cell";
 };
 ```
 
@@ -918,9 +925,9 @@ print(tabenabled)
 
 ``` lua
 {
-    cell = "Image";
-    path = "res/bd_logo1_31bdc765.png";
-    height = 128.0;
+cell = "Image";
+path = "res/bd_logo1_31bdc765.png";
+height = 128.0;
 };
 ```
 
@@ -950,10 +957,10 @@ print(tabenabled)
 
 ``` lua
 {
-    cell = "File";
-    key = "file1";
-    defaults = "com.yourcompany.yourscript";
-    allowedExtensions = { "lua"; "xxt"; "xpp" };
+cell = "File";
+key = "file1";
+defaults = "com.yourcompany.yourscript";
+allowedExtensions = { "lua"; "xxt"; "xpp" };
 };
 ```
 
@@ -962,25 +969,24 @@ print(tabenabled)
 ----------
 
 
-  [1]: http://static.zybuluo.com/xxtouch/bftgbr1navbvs1d3w5ybas75/A-Script-Bundle.xpp.zip
-  [2]: http://static.zybuluo.com/xxtouch/z9t83roaemy1w9lzhedn5ko7/1506728168.png
-  [3]: http://static.zybuluo.com/xxtouch/yp88j1ws4na1r8enodb7ydhl/IMG_0716.JPG
-  [4]: http://static.zybuluo.com/xxtouch/hxvpaqv424u4b4gjjg98aw2d/CFE17DA4-C299-4533-A0E9-E1E2F9734C8D.png
-  [5]: http://static.zybuluo.com/xxtouch/8taro66htfohfw09hryyl0hv/QQ20170914-191445.png
-  [6]: http://static.zybuluo.com/xxtouch/ac1u7v1ix272uvkgvg6j9qk7/QQ20170914-191746.png
-  [7]: http://static.zybuluo.com/xxtouch/jm8gc462xjyi62gwiguzbzfa/CFC04C38-FFBE-46B9-BE86-AE8470342DAD.png
-  [8]: http://static.zybuluo.com/xxtouch/rjklx5duv3eh0bkx24vxpcf9/QQ20170914-191854.png
-  [9]: http://static.zybuluo.com/xxtouch/qoakjz7jg94iktgg2w0g1jdg/QQ20170914-192018.png
-  [10]: http://static.zybuluo.com/xxtouch/tommwf1shji1gs6oc43k0sfo/QQ20170916-182221@2x.png
-  [11]: http://static.zybuluo.com/xxtouch/cg54nkdvmezr1t8j4ef8nr8l/QQ20170914-192102.png
-  [12]: http://static.zybuluo.com/xxtouch/x2uld8468nmcsvz2j3i08tn6/QQ20170916-182546@2x.png
-  [13]: http://static.zybuluo.com/xxtouch/kgt4wil6flrisgpzvdza62gt/QQ20170916-182611@2x.png
-  [14]: http://static.zybuluo.com/xxtouch/do6m93m2gjrcklyi12g4utke/QQ20170916-182729@2x.png
-  [15]: http://static.zybuluo.com/xxtouch/z7wpczvqy0ilw9xbu9mpjh9l/QQ20170914-192324.png
-  [16]: http://static.zybuluo.com/xxtouch/719ucx2zpm1jzxwxu7gexjeb/QQ20170914-192349.png
-  [17]: http://static.zybuluo.com/xxtouch/p1oneomh57ftv97vu819xls8/QQ20170917-000929@2x.png
-  [18]: http://static.zybuluo.com/xxtouch/k3mvmdkeweg91zejrz2g7usd/QQ20170914-192446.png
-  [19]: http://static.zybuluo.com/xxtouch/0emxjk45iceyk1fufog7000g/QQ20170914-192523.png
-  [20]: http://static.zybuluo.com/xxtouch/6jhlork14eat0w2xej0x6hj5/QQ20170918-022558.png
-  [21]: http://static.zybuluo.com/xxtouch/keg9dr84ef52tc6cboq64nqi/QQ20170918-022520.png
-  
+[1]: http://static.zybuluo.com/xxtouch/bftgbr1navbvs1d3w5ybas75/A-Script-Bundle.xpp.zip
+[2]: http://static.zybuluo.com/xxtouch/z9t83roaemy1w9lzhedn5ko7/1506728168.png
+[3]: http://static.zybuluo.com/xxtouch/yp88j1ws4na1r8enodb7ydhl/IMG_0716.JPG
+[4]: http://static.zybuluo.com/xxtouch/hxvpaqv424u4b4gjjg98aw2d/CFE17DA4-C299-4533-A0E9-E1E2F9734C8D.png
+[5]: http://static.zybuluo.com/xxtouch/8taro66htfohfw09hryyl0hv/QQ20170914-191445.png
+[6]: http://static.zybuluo.com/xxtouch/ac1u7v1ix272uvkgvg6j9qk7/QQ20170914-191746.png
+[7]: http://static.zybuluo.com/xxtouch/jm8gc462xjyi62gwiguzbzfa/CFC04C38-FFBE-46B9-BE86-AE8470342DAD.png
+[8]: http://static.zybuluo.com/xxtouch/rjklx5duv3eh0bkx24vxpcf9/QQ20170914-191854.png
+[9]: http://static.zybuluo.com/xxtouch/qoakjz7jg94iktgg2w0g1jdg/QQ20170914-192018.png
+[10]: http://static.zybuluo.com/xxtouch/tommwf1shji1gs6oc43k0sfo/QQ20170916-182221@2x.png
+[11]: http://static.zybuluo.com/xxtouch/cg54nkdvmezr1t8j4ef8nr8l/QQ20170914-192102.png
+[12]: http://static.zybuluo.com/xxtouch/x2uld8468nmcsvz2j3i08tn6/QQ20170916-182546@2x.png
+[13]: http://static.zybuluo.com/xxtouch/kgt4wil6flrisgpzvdza62gt/QQ20170916-182611@2x.png
+[14]: http://static.zybuluo.com/xxtouch/do6m93m2gjrcklyi12g4utke/QQ20170916-182729@2x.png
+[15]: http://static.zybuluo.com/xxtouch/z7wpczvqy0ilw9xbu9mpjh9l/QQ20170914-192324.png
+[16]: http://static.zybuluo.com/xxtouch/719ucx2zpm1jzxwxu7gexjeb/QQ20170914-192349.png
+[17]: http://static.zybuluo.com/xxtouch/p1oneomh57ftv97vu819xls8/QQ20170917-000929@2x.png
+[18]: http://static.zybuluo.com/xxtouch/k3mvmdkeweg91zejrz2g7usd/QQ20170914-192446.png
+[19]: http://static.zybuluo.com/xxtouch/0emxjk45iceyk1fufog7000g/QQ20170914-192523.png
+[20]: http://static.zybuluo.com/xxtouch/6jhlork14eat0w2xej0x6hj5/QQ20170918-022558.png
+[21]: http://static.zybuluo.com/xxtouch/keg9dr84ef52tc6cboq64nqi/QQ20170918-022520.png
