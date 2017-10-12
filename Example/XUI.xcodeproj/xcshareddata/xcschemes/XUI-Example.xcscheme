@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0900"
-   version = "1.3">
+   version = "1.8">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -33,9 +33,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F5AD195388D20070C39A"
-               BuildableName = "XUI_Tests.xctest"
-               BlueprintName = "XUI_Tests"
+               BlueprintIdentifier = "D616191B1F8F3170008C1FC8"
+               BuildableName = "XUI_ExampleTests.xctest"
+               BlueprintName = "XUI_ExampleTests"
                ReferencedContainer = "container:XUI.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,7 +56,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
