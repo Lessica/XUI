@@ -14,31 +14,13 @@
 #import "XUILogger.h"
 #import "XUITheme.h"
 
-@interface XUICellFactory ()
-
-@property (nonatomic, strong, readonly) NSArray <NSDictionary *> *items;
-
-@end
-
 @implementation XUICellFactory
 
 #pragma mark - Initializers
 
-- (instancetype)initWithAdapter:(id <XUIAdapter>)adapter Error:(NSError *__autoreleasing *)error {
+- (instancetype)init {
     if (self = [super init]) {
-        _adapter = adapter;
-        _logger = [[XUILogger alloc] init];
-        
-        NSDictionary *rootEntry = [adapter rootEntryWithError:error];
-        if (!rootEntry) return nil;
-        _rootEntry = rootEntry;
-        
-        NSDictionary *themeDictionary = rootEntry[@"theme"];
-        if (!themeDictionary || ![themeDictionary isKindOfClass:[NSDictionary class]])
-            _theme = [[XUITheme alloc] init];
-        else
-            _theme = [[XUITheme alloc] initWithDictionary:themeDictionary];
-        
+        _parsed = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xuiValueChanged:) name:XUINotificationEventValueChanged object:nil];
     }
     return self;
@@ -50,11 +32,50 @@
 
 #pragma mark - Parse
 
-- (void)parse {
+- (void)parsePath:(NSString *)path Bundle:(NSBundle *)bundle {
+    assert(!self.parsed);
     @try {
-        NSBundle *bundle = FRAMEWORK_BUNDLE;
-        NSDictionary *rootEntry = self.rootEntry;
-        NSArray <NSDictionary *> *items = rootEntry[@"items"];
+        NSBundle *frameworkBundle = FRAMEWORK_BUNDLE;
+        if (!frameworkBundle) {
+            @throw @"Cannot find XUI Framework Bundle.";
+        }
+        
+        if (!_adapter) {
+            NSString *entryExtension = [path pathExtension];
+            NSString *adapterName = [NSString stringWithFormat:@"XUIAdapter_%@", [entryExtension lowercaseString]];
+            Class adapterClass = NSClassFromString(adapterName);
+            if (!adapterClass) {
+                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Cannot find suitable adapter for \"%@\".", nil, frameworkBundle, nil), path];
+            }
+            id <XUIAdapter> adapter = (id <XUIAdapter>) [[(id)adapterClass alloc] initWithXUIPath:path Bundle:bundle];
+            if (!adapter) {
+                @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Cannot initialize \"%@\".", nil, frameworkBundle, nil), adapterName];
+            }
+            _adapter = adapter;
+        }
+        if (!_logger) {
+            _logger = [[XUILogger alloc] init];
+        }
+        if (!_theme) {
+            _theme = [[XUITheme alloc] init];
+        }
+        {
+            _rootEntry = nil;
+            NSError *adapterError = nil;
+            NSDictionary *rootEntry = [self.adapter rootEntryWithError:&adapterError];
+            if (adapterError) {
+                @throw [adapterError localizedDescription];
+            }
+            _rootEntry = rootEntry;
+        }
+        
+        // check theme
+        NSDictionary *themeDictionary = self.rootEntry[@"theme"];
+        if ([themeDictionary isKindOfClass:[NSDictionary class]])
+            _theme = [[XUITheme alloc] initWithDictionary:themeDictionary];
+        
+        // check items
+        NSArray <NSDictionary *> *items = self.rootEntry[@"items"];
         if (!items)
             @throw XUIParserErrorMissingEntry(@"items");
         if (![items isKindOfClass:[NSArray class]])
@@ -62,6 +83,8 @@
         NSUInteger itemCount = items.count;
         if (itemCount <= 0)
             @throw XUIParserErrorEmptyWarning(@"items");
+        
+        // generate cells
         NSMutableArray <XUIBaseCell *> *cells = [[NSMutableArray alloc] initWithCapacity:itemCount];
         for (NSUInteger itemIdx = 0; itemIdx < itemCount; itemIdx++) {
             NSDictionary *itemDictionary = items[itemIdx];
@@ -89,7 +112,7 @@
             NSError *checkError = nil;
             BOOL checkResult = [[cellInstance class] testEntry:itemDictionary withError:&checkError];
             if (!checkResult) {
-                [self.logger logMessage:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"[%@]\nPath \"items[%lu]\", %@", nil, bundle, nil), checkError.domain, itemIdx, checkError.localizedDescription]];
+                [self.logger logMessage:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"[%@]\nPath \"items[%lu]\", %@", nil, frameworkBundle, nil), checkError.domain, itemIdx, checkError.localizedDescription]];
                 continue;
             }
             cellInstance.adapter = self.adapter;
@@ -112,6 +135,8 @@
             [cellInstance configureCellWithEntry:itemDictionary];
             [cells addObject:cellInstance];
         }
+        
+        // generate group cells
         NSMutableArray <XUIGroupCell *> *groupCells = [[NSMutableArray alloc] init];
         for (XUIBaseCell *baseCell in cells) {
             if ([baseCell isKindOfClass:[XUIGroupCell class]])
@@ -140,18 +165,26 @@
                 [otherCells[otherCellIdx] addObject:otherCell];
             }
         }
+        
+        // finish parsing
         _sectionCells = groupCells;
         _otherCells = otherCells;
         if (_delegate && [_delegate respondsToSelector:@selector(cellFactoryDidFinishParsing:)]) {
             [_delegate cellFactoryDidFinishParsing:self];
         }
-    } @catch (NSString *exception) {
+        
+    }
+    @catch (NSString *exception)
+    {
         NSError *error = [NSError errorWithDomain:kXUICellFactoryErrorDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: exception }];
         if (_delegate && [_delegate respondsToSelector:@selector(cellFactory:didFailWithError:)]) {
             [_delegate cellFactory:self didFailWithError:error];
         }
-    } @finally {
+    }
+    @finally
+    {
         assert(self.sectionCells.count == self.otherCells.count);
+        self.parsed = YES;
     }
 }
 

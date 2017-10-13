@@ -203,7 +203,7 @@
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
     self.tagView.defaultConfig.tagBackgroundColor = theme.successColor;
-    self.tagView.defaultConfig.tagSelectedBackgroundColor = theme.highlightColor;
+    self.tagView.defaultConfig.tagSelectedBackgroundColor = theme.highlightedColor;
     [self.tagView reload];
 }
 

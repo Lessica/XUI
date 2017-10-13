@@ -18,10 +18,9 @@
     if (linkListCell.xui_options)
     {
         XUIOrderedOptionViewController *optionViewController = [[XUIOrderedOptionViewController alloc] initWithCell:linkListCell];
-        optionViewController.adapter = self.adapter;
+        optionViewController.cellFactory.theme = self.cellFactory.theme;
         optionViewController.delegate = self;
         optionViewController.title = linkListCell.xui_label;
-        optionViewController.theme = self.theme;
         [self.navigationController pushViewController:optionViewController animated:YES];
     }
 }

@@ -25,8 +25,6 @@
     
 }
 
-@synthesize theme = _theme;
-
 - (instancetype)initWithCell:(XUIOptionCell *)cell {
     if (self = [super init]) {
         _cell = cell;
@@ -104,6 +102,7 @@
                                             reuseIdentifier:XUIBaseOptionCellReuseIdentifier];
         }
         cell.adapter = self.adapter;
+        [cell setTheme:self.theme];
         NSDictionary *optionDictionary = self.cell.xui_options[(NSUInteger) indexPath.row];
         cell.xui_icon = optionDictionary[XUIOptionIconKey];
         cell.xui_label = optionDictionary[XUIOptionTitleKey];

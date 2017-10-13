@@ -8,6 +8,7 @@
 #import "XUIPrivate.h"
 
 #import <objc/runtime.h>
+#import "UITableViewCell+XUIDisclosureIndicatorColor.h"
 
 NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 
@@ -165,6 +166,8 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
         self.detailTextLabel.textColor = UIColor.grayColor;
         self.detailTextLabel.text = nil;
     }
+    UIView *selectionBackground = [[UIView alloc] init];
+    self.selectedBackgroundView = selectionBackground;
 }
 
 - (void)configureCellWithEntry:(NSDictionary *)entry {
@@ -214,8 +217,11 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     _theme = theme;
     self.tintColor = theme.tintColor;
     self.contentView.tintColor = theme.tintColor;
+    self.backgroundColor = theme.backgroundColor;
     self.textLabel.textColor = theme.labelColor;
     self.detailTextLabel.textColor = theme.valueColor;
+    self.xui_disclosureIndicatorColor = theme.disclosureIndicatorColor;
+    self.selectedBackgroundView.backgroundColor = theme.selectedColor;
 }
 
 - (BOOL)canDelete {

@@ -26,22 +26,35 @@
         
         if (themeDictionary[@"tintColor"])
             _tintColor = [UIColor xui_colorWithHex:themeDictionary[@"tintColor"]];
+        
         if (themeDictionary[@"dangerColor"])
             _dangerColor = [UIColor xui_colorWithHex:themeDictionary[@"dangerColor"]];
         if (themeDictionary[@"warningColor"])
             _warningColor = [UIColor xui_colorWithHex:themeDictionary[@"warningColor"]];
         if (themeDictionary[@"successColor"])
             _successColor = [UIColor xui_colorWithHex:themeDictionary[@"successColor"]];
-        if (themeDictionary[@"highlightColor"])
-            _highlightColor = [UIColor xui_colorWithHex:themeDictionary[@"highlightColor"]];
+        
+        if (themeDictionary[@"selectedColor"])
+            _selectedColor = [UIColor xui_colorWithHex:themeDictionary[@"selectedColor"]];
+        if (themeDictionary[@"highlightedColor"])
+            _highlightedColor = [UIColor xui_colorWithHex:themeDictionary[@"highlightedColor"]];
+        
         if (themeDictionary[@"navigationBarColor"])
             _navigationBarColor = [UIColor xui_colorWithHex:themeDictionary[@"navigationBarColor"]];
         if (themeDictionary[@"navigationTitleColor"])
             _navigationTitleColor = [UIColor xui_colorWithHex:themeDictionary[@"navigationTitleColor"]];
+        
         if (themeDictionary[@"labelColor"])
             _labelColor = [UIColor xui_colorWithHex:themeDictionary[@"labelColor"]];
         if (themeDictionary[@"valueColor"])
             _valueColor = [UIColor xui_colorWithHex:themeDictionary[@"valueColor"]];
+        
+        if (themeDictionary[@"backgroundColor"])
+            _backgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"backgroundColor"]];
+        if (themeDictionary[@"disclosureIndicatorColor"])
+            _disclosureIndicatorColor = [UIColor xui_colorWithHex:themeDictionary[@"disclosureIndicatorColor"]];
+        
+        
     }
     return self;
 }
@@ -51,13 +64,18 @@
     _dangerColor = XUI_COLOR_DANGER;
     _warningColor = XUI_COLOR_WARNING;
     _successColor = XUI_COLOR_SUCCESS;
-    _highlightColor = XUI_COLOR_HIGHLIGHTED;
+    _highlightedColor = XUI_COLOR_HIGHLIGHTED;
     
     _navigationBarColor = XUI_COLOR_HIGHLIGHTED;
     _navigationTitleColor = [UIColor whiteColor];
     
     _labelColor = [UIColor blackColor];
     _valueColor = [UIColor grayColor];
+    
+    _backgroundColor = [UIColor whiteColor];
+    _disclosureIndicatorColor = XUI_COLOR_DISCLOSURE;
+    
+    _selectedColor = [XUI_COLOR_HIGHLIGHTED colorWithAlphaComponent:0.1];
 }
 
 - (BOOL)isDarkMode {

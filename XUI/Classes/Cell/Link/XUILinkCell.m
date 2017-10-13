@@ -43,11 +43,6 @@
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
-- (void)configureCellWithEntry:(NSDictionary *)entry {
-    self.xui_url = entry[@"url"];
-    [super configureCellWithEntry:entry];
-}
-
 - (void)setXui_url:(NSString *)xui_url {
     _xui_url = xui_url;
 }

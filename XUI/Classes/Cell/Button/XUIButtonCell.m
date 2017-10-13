@@ -8,6 +8,8 @@
 
 #import "XUIButtonCell.h"
 #import "XUITheme.h"
+#import "XUIPrivate.h"
+#import "XUILogger.h"
 
 void const * XUIButtonCellStorageKey = &XUIButtonCellStorageKey;
 
@@ -33,12 +35,34 @@ void const * XUIButtonCellStorageKey = &XUIButtonCellStorageKey;
     return
     @{
       @"action": [NSString class],
-      @"kwargs": [NSArray class]
+      @"args": [NSDictionary class],
+      @"alignment": [NSString class],
       };
 }
 
 + (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
     BOOL superResult = [super testEntry:cellEntry withError:error];
+    NSString *checkType = kXUICellFactoryErrorDomain;
+    @try {
+        {
+            NSString *alignmentString = cellEntry[@"alignment"];
+            if (alignmentString) {
+                NSArray <NSString *> *validAlignment = @[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ];
+                if (![validAlignment containsObject:alignmentString]) {
+                    superResult = NO;
+                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
+                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
+                }
+            }
+        }
+    } @catch (NSString *exceptionReason) {
+        NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: exceptionReason }];
+        if (error) {
+            *error = exceptionError;
+        }
+    } @finally {
+        
+    }
     return superResult;
 }
 
@@ -50,6 +74,28 @@ void const * XUIButtonCellStorageKey = &XUIButtonCellStorageKey;
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
     self.textLabel.textColor = theme.tintColor;
+}
+
+- (void)setXui_alignment:(NSString *)xui_alignment {
+    _xui_alignment = xui_alignment;
+    if ([xui_alignment isEqualToString:@"Left"]) {
+        self.textLabel.textAlignment = NSTextAlignmentLeft;
+    }
+    else if ([xui_alignment isEqualToString:@"Center"]) {
+        self.textLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    else if ([xui_alignment isEqualToString:@"Right"]) {
+        self.textLabel.textAlignment = NSTextAlignmentRight;
+    }
+    else if ([xui_alignment isEqualToString:@"Natural"]) {
+        self.textLabel.textAlignment = NSTextAlignmentNatural;
+    }
+    else if ([xui_alignment isEqualToString:@"Justified"]) {
+        self.textLabel.textAlignment = NSTextAlignmentJustified;
+    }
+    else {
+        self.textLabel.textAlignment = NSTextAlignmentNatural;
+    }
 }
 
 @end

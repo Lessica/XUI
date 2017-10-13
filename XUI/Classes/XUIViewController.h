@@ -6,15 +6,14 @@
 #import <UIKit/UIKit.h>
 #import "XUIAdapter.h"
 
-@class XUITheme, XUILogger;
+@class XUITheme, XUILogger, XUICellFactory;
 
 @interface XUIViewController : UIViewController
 
-@property (nonatomic, strong) id <XUIAdapter> adapter;
-@property (nonatomic, strong) XUITheme *theme;
-@property (nonatomic, strong) XUILogger *logger;
+@property (nonatomic, strong, readonly, nonnull) XUICellFactory *cellFactory;
 
-@property (nonatomic, copy, readonly) NSString *entryPath;
-- (instancetype)initWithPath:(NSString *)path;
+@property (nonatomic, strong, readonly, nullable) XUITheme *theme;
+@property (nonatomic, strong, readonly, nullable) XUILogger *logger;
+@property (nonatomic, strong, readonly, nullable) id <XUIAdapter> adapter;
 
 @end

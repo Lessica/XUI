@@ -8,6 +8,7 @@
 
 #import "XUIListViewController+XUILinkCell.h"
 #import "XUILinkCell.h"
+#import "XUICellFactory.h"
 
 @implementation XUIListViewController (XUILinkCell)
 
@@ -33,9 +34,10 @@
     if (!absolutePath) {
         return;
     }
-    UIViewController *detailController = [[[self class] alloc] initWithPath:absolutePath withBundlePath:[self.bundle bundlePath]];
+    typeof(self) detailController = [[[self class] alloc] initWithPath:absolutePath withBundlePath:[self.bundle bundlePath]];
     if (detailController) {
         detailController.title = linkCell.textLabel.text;
+        detailController.cellFactory.theme = self.cellFactory.theme;
         [self.navigationController pushViewController:detailController animated:YES];
     }
 }

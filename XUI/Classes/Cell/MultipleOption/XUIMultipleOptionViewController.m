@@ -22,8 +22,6 @@
 
 @implementation XUIMultipleOptionViewController
 
-@synthesize theme = _theme;
-
 - (instancetype)initWithCell:(XUIMultipleOptionCell *)cell {
     if (self = [super init]) {
         _cell = cell;
@@ -106,6 +104,7 @@
             cell = [[XUIBaseOptionCell alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:XUIBaseOptionCellReuseIdentifier];
         }
+        [cell setTheme:self.theme];
         cell.adapter = self.adapter;
         NSDictionary *optionDictionary = self.cell.xui_options[(NSUInteger) indexPath.row];
         cell.xui_icon = optionDictionary[XUIOptionIconKey];

@@ -12,16 +12,15 @@
 
 @interface XUIListViewController : XUIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong, readonly) NSString *path;
-@property (nonatomic, strong, readonly) NSBundle *bundle;
-
 // Views
 @property (nonatomic, strong, readonly) XUIListHeaderView *headerView;
 @property (nonatomic, strong, readonly) UITableView *tableView;
 @property (nonatomic, strong, readonly) XUIListFooterView *footerView;
 
-- (instancetype)initWithPath:(NSString *)path; // will use main bundle
-- (instancetype)initWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath;
+@property (nonatomic, strong, readonly) NSString *path;
+@property (nonatomic, strong, readonly) NSBundle *bundle;
+- (instancetype)initWithPath:(NSString *)path NS_REQUIRES_SUPER; // will use main bundle
+- (instancetype)initWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER;
 
 // Store
 - (void)storeCellWhenNeeded:(XUIBaseCell *)cell;
@@ -33,6 +32,11 @@
 
 // Dismiss
 - (void)dismissViewController:(id)dismissViewController NS_REQUIRES_SUPER;
+
+// Update
+- (void)updateAdapter:(id<XUIAdapter>)adapter;
+- (void)updateLogger:(XUILogger *)logger;
+- (void)updateTheme:(XUITheme *)theme;
 
 @end
 

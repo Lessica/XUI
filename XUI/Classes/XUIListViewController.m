@@ -21,7 +21,6 @@
 
 @interface XUIListViewController () <XUICellFactoryDelegate>
 
-@property (nonatomic, strong, readonly) XUICellFactory *cellFactory;
 @property (nonatomic, strong) NSMutableArray <XUIBaseCell *> *cellsNeedStore;
 @property (nonatomic, assign) BOOL shouldStoreCells;
 
@@ -29,30 +28,34 @@
 @property (nonatomic, strong) UIBarButtonItem *aboutButtonItem;
 @property (nonatomic, assign) UIEdgeInsets defaultContentInsets;
 
+@property (nonatomic, strong) NSString *callerPath;
+@property (nonatomic, strong) NSBundle *callerBundle;
+
 @end
 
 @implementation XUIListViewController
 
-@synthesize theme = _theme, logger = _logger, adapter = _adapter;
+@synthesize cellFactory = _cellFactory;
 
 #pragma mark - Initializers
 
 - (instancetype)initWithPath:(NSString *)path {
-    if (!path)
-        return nil;
-    _bundle = [NSBundle mainBundle];
-    _path = path;
-    if (self = [super init]) {
-        [self setup];
+    if (self = [self initWithPath:path withBundlePath:nil]) {
+        
     }
     return self;
 }
 
 - (instancetype)initWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath {
-    if (!path || !bundlePath)
+    if (!path)
         return nil;
+    NSBundle *bundle = nil;
+    if (bundlePath) {
+        bundle = [NSBundle bundleWithPath:bundlePath];
+    } else {
+        bundle = [NSBundle mainBundle];
+    }
     NSString *absolutePath = nil;
-    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
     if ([path isAbsolutePath]) {
         absolutePath = path;
     } else {
@@ -61,39 +64,20 @@
     if (!absolutePath) {
         return nil;
     }
-    _bundle = bundle;
-    _path = absolutePath;
+    _callerBundle = bundle;
+    _callerPath = absolutePath;
     if (self = [super init]) {
-        [self setup];
+        [self setupListController];
     }
     return self;
 }
 
-- (void)setup {
+- (void)setupListController {
+    _cellsNeedStore = [[NSMutableArray alloc] init];
     {
-        _cellsNeedStore = [[NSMutableArray alloc] init];
-        
-        NSString *entryExtension = [self.path pathExtension];
-        NSString *adapterName = [NSString stringWithFormat:@"XUIAdapter_%@", [entryExtension lowercaseString]];
-        Class adapterClass = NSClassFromString(adapterName);
-        if (!adapterClass) {
-            return;
-        }
-        id <XUIAdapter> adapter = (id <XUIAdapter>) [[(id)adapterClass alloc] initWithXUIPath:self.path Bundle:self.bundle];
-        if (!adapter) {
-            return;
-        }
-        _adapter = adapter;
-        
-        NSError *xuiError = nil;
-        XUICellFactory *cellFactory = [[XUICellFactory alloc] initWithAdapter:adapter Error:&xuiError];
-        if (!xuiError) {
-            cellFactory.delegate = self;
-            _cellFactory = cellFactory;
-        } else {
-            [self presentErrorAlertController:xuiError];
-        }
-        
+        XUICellFactory *cellFactory = [[XUICellFactory alloc] init];
+        cellFactory.delegate = self;
+        _cellFactory = cellFactory;
     }
 }
 
@@ -112,6 +96,7 @@
     }
     
     [self initSubviews];
+    [self.cellFactory parsePath:self.callerPath Bundle:self.callerBundle];
     
     // Configuration Title
     NSDictionary <NSString *, id> *rootEntry = self.cellFactory.rootEntry;
@@ -119,7 +104,6 @@
     if (listTitle) {
         self.title = [self.adapter localizedStringForKey:listTitle value:listTitle];
     }
-    [self.cellFactory parse];
     
     // header
     NSString *listHeader = rootEntry[@"header"];
@@ -238,16 +222,6 @@
             self.footerView.theme = self.theme;
         }
     }
-}
-
-#pragma mark - Getters
-
-- (XUITheme *)theme {
-    return self.cellFactory.theme;
-}
-
-- (XUILogger *)logger {
-    return self.cellFactory.logger;
 }
 
 #pragma mark - UIView Getters
@@ -539,22 +513,41 @@ XUI_END_IGNORE_PARTIAL
     return insets;
 }
 
+#pragma mark - Getters
+
+- (NSString *)path {
+    return self.cellFactory.adapter.path;
+}
+
+- (NSBundle *)bundle {
+    return self.cellFactory.adapter.bundle;
+}
+
 #pragma mark - Setters
 
-- (void)setTheme:(XUITheme *)theme {
-    [super setTheme:theme];
-    if ([self isViewLoaded]) {
+- (void)updateAdapter:(id<XUIAdapter>)adapter {
+    [self.cellFactory setAdapter:adapter];
+    if ([self.cellFactory parsed]) {
 #ifdef DEBUG
-        NSLog(@"-[XUIListViewController setTheme:] cannot be called after view is loaded.");
+        NSLog(@"-[XUIListViewController setAdapter:] cannot be called after view is loaded.");
 #endif
     }
 }
 
-- (void)setAdapter:(id<XUIAdapter>)adapter {
-    [super setAdapter:adapter];
-    if ([self isViewLoaded]) {
+- (void)updateLogger:(XUILogger *)logger {
+    [self.cellFactory setLogger:logger];
+    if ([self.cellFactory parsed]) {
 #ifdef DEBUG
-        NSLog(@"-[XUIListViewController setAdapter:] cannot be called after view is loaded.");
+        NSLog(@"-[XUIListViewController setLogger:] cannot be called after view is loaded.");
+#endif
+    }
+}
+
+- (void)updateTheme:(XUITheme *)theme {
+    [self.cellFactory setTheme:theme];
+    if ([self.cellFactory parsed]) {
+#ifdef DEBUG
+        NSLog(@"-[XUIListViewController setTheme:] cannot be called after view is loaded.");
 #endif
     }
 }

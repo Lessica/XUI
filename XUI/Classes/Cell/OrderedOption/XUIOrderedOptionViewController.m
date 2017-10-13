@@ -23,8 +23,6 @@
 
 @implementation XUIOrderedOptionViewController
 
-@synthesize theme = _theme;
-
 - (instancetype)initWithCell:(XUIOrderedOptionCell *)cell {
     if (self = [super init]) {
         _cell = cell;
@@ -140,6 +138,7 @@
                                         reuseIdentifier:XUIBaseOptionCellReuseIdentifier];
     }
     cell.adapter = self.adapter;
+    [cell setTheme:self.theme];
     cell.showsReorderControl = YES;
     cell.tintColor = self.theme.tintColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

@@ -45,11 +45,6 @@
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
 }
 
-- (void)configureCellWithEntry:(NSDictionary *)entry {
-    self.xui_snippet = entry[@"snippet"];
-    [super configureCellWithEntry:entry];
-}
-
 - (void)setXui_value:(id)xui_value {
     _xui_value = xui_value;
     [self setNeedsUpdateValue];

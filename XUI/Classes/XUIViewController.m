@@ -8,18 +8,17 @@
 #import "XUIPrivate.h"
 #import "XUITheme.h"
 #import "XUILogger.h"
+#import "XUICellFactory.h"
 
 #import "UIViewController+XUIPreviousViewController.h"
 
-@interface XUIViewController ()
+@interface XUIViewController () <XUICellFactoryDelegate>
 
 @property (nonatomic, assign) BOOL fromXUIViewController;
 
 @end
 
 @implementation XUIViewController
-
-@synthesize entryPath = _entryPath;
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     if (self.theme) {
@@ -40,16 +39,12 @@
     return self;
 }
 
-- (instancetype)initWithPath:(NSString *)path {
-    if (self = [super init]) {
-        _entryPath = path;
-        [self setupXUI];
-    }
-    return self;
-}
-
 - (void)setupXUI {
-    
+    {
+        XUICellFactory *cellFactory = [[XUICellFactory alloc] init];
+        cellFactory.delegate = self;
+        _cellFactory = cellFactory;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -105,6 +100,30 @@
         self.navigationController.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
     }
     [self setNeedsStatusBarAppearanceUpdate];
+}
+
+#pragma mark - Getters
+
+- (XUITheme *)theme {
+    return self.cellFactory.theme;
+}
+
+- (XUILogger *)logger {
+    return self.cellFactory.logger;
+}
+
+- (id <XUIAdapter>)adapter {
+    return self.cellFactory.adapter;
+}
+
+#pragma mark - XUICellFactoryDelegate
+
+- (void)cellFactory:(XUICellFactory *)parser didFailWithError:(NSError *)error {
+    
+}
+
+- (void)cellFactoryDidFinishParsing:(XUICellFactory *)parser {
+    
 }
 
 @end

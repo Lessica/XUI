@@ -15,25 +15,25 @@
 
 @protocol XUICellFactoryDelegate <NSObject>
 
-- (void)cellFactory:(XUICellFactory *)parser didFailWithError:(NSError *)error;
-- (void)cellFactoryDidFinishParsing:(XUICellFactory *)parser;
+- (void)cellFactory:(nonnull XUICellFactory *)parser didFailWithError:(nonnull NSError *)error;
+- (void)cellFactoryDidFinishParsing:(nonnull XUICellFactory *)parser;
 
 @end
 
 @interface XUICellFactory : NSObject
 
-@property (nonatomic, strong, readonly) XUILogger *logger;
-@property (nonatomic, strong, readonly) id <XUIAdapter> adapter;
+@property (nonatomic, weak, nullable) id <XUICellFactoryDelegate> delegate;
+@property (nonatomic, assign) BOOL parsed;
+- (void)parsePath:(nonnull NSString *)path Bundle:(nonnull NSBundle *)bundle; // this method should run in main thread
 
-@property (nonatomic, weak) id <XUICellFactoryDelegate> delegate;
-@property (nonatomic, strong, readonly) NSDictionary <NSString *, id> *rootEntry;
-@property (nonatomic, strong, readonly) NSArray <XUIGroupCell *> *sectionCells;
-@property (nonatomic, strong, readonly) NSArray <NSArray <XUIBaseCell *> *> *otherCells;
+@property (nonatomic, strong, readonly, nullable) NSArray <XUIGroupCell *> *sectionCells;
+@property (nonatomic, strong, readonly, nullable) NSArray <NSArray <XUIBaseCell *> *> *otherCells;
+- (void)updateRelatedCellsForCell:(nonnull XUIBaseCell *)inCell;
 
-@property (nonatomic, strong, readonly) XUITheme *theme;
+@property (nonatomic, strong, nullable) XUITheme *theme;
+@property (nonatomic, strong, nullable) XUILogger *logger;
+@property (nonatomic, strong, nullable) id <XUIAdapter> adapter;
 
-- (instancetype)initWithAdapter:(id <XUIAdapter>)adapter Error:(NSError **)error;
-- (void)parse; // this method should run in main thread
-- (void)updateRelatedCellsForCell:(XUIBaseCell *)inCell;
+@property (nonatomic, strong, readonly, nullable) NSDictionary <NSString *, id> *rootEntry;
 
 @end
