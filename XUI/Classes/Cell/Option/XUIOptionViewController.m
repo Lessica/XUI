@@ -102,16 +102,15 @@
                                             reuseIdentifier:XUIBaseOptionCellReuseIdentifier];
         }
         cell.adapter = self.adapter;
-        [cell setTheme:self.theme];
         NSDictionary *optionDictionary = self.cell.xui_options[(NSUInteger) indexPath.row];
         cell.xui_icon = optionDictionary[XUIOptionIconKey];
         cell.xui_label = optionDictionary[XUIOptionTitleKey];
-        cell.tintColor = self.theme.tintColor;
         if (self.selectedIndex == indexPath.row) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         } else {
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
+        [cell setTheme:self.theme];
         return cell;
     }
     return [UITableViewCell new];

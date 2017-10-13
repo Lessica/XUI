@@ -15,6 +15,7 @@
     XUITextareaCell *textareaCell = (XUITextareaCell *)cell;
     XUITextareaViewController *textareaViewController = [[XUITextareaViewController alloc] initWithCell:textareaCell];
     textareaViewController.cellFactory.theme = self.cellFactory.theme;
+    textareaViewController.cellFactory.adapter = self.cellFactory.adapter;
     textareaViewController.delegate = self;
     textareaViewController.title = textareaCell.xui_label;
     [self.navigationController pushViewController:textareaViewController animated:YES];

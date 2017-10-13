@@ -88,7 +88,7 @@
     
     // Title
     if (self.title.length == 0) {
-        NSString *entryPath = self.path;
+        NSString *entryPath = self.callerPath;
         if (entryPath) {
             NSString *entryName = [entryPath lastPathComponent];
             self.title = entryName;

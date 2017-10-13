@@ -27,6 +27,7 @@
     {
         XUIOptionViewController *optionViewController = [[XUIOptionViewController alloc] initWithCell:linkListCell];
         optionViewController.cellFactory.theme = self.cellFactory.theme;
+        optionViewController.cellFactory.adapter = self.cellFactory.adapter;
         optionViewController.delegate = self;
         optionViewController.title = linkListCell.xui_label;
         [self.navigationController pushViewController:optionViewController animated:YES];
