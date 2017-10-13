@@ -55,3 +55,12 @@
 
 /* No comment provided by engineer. */
 "XUI Error" = "XUI Error";
+
+/* No comment provided by engineer. */
+"Cannot find suitable adapter for \"%@\"." = "Cannot find suitable adapter for \"%@\".";
+
+/* No comment provided by engineer. */
+"Cannot initialize \"%@\"." = "Cannot initialize \"%@\".";
+
+/* No comment provided by engineer. */
+"Failed to parse entry" = "Failed to parse entry";

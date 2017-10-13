@@ -34,12 +34,9 @@
 
 - (void)parsePath:(NSString *)path Bundle:(NSBundle *)bundle {
     assert(!self.parsed);
+    NSBundle *frameworkBundle = FRAMEWORK_BUNDLE;
+    NSAssert(frameworkBundle, @"Cannot find XUI Framework Bundle.");
     @try {
-        NSBundle *frameworkBundle = FRAMEWORK_BUNDLE;
-        if (!frameworkBundle) {
-            @throw @"Cannot find XUI Framework Bundle.";
-        }
-        
         if (!_adapter) {
             NSString *entryExtension = [path pathExtension];
             NSString *adapterName = [NSString stringWithFormat:@"XUIAdapter_%@", [entryExtension lowercaseString]];
@@ -176,7 +173,7 @@
     }
     @catch (NSString *exception)
     {
-        NSError *error = [NSError errorWithDomain:kXUICellFactoryErrorDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: exception }];
+        NSError *error = [NSError errorWithDomain:kXUICellFactoryErrorDomain code:400 userInfo:@{ NSLocalizedFailureReasonErrorKey: NSLocalizedStringFromTableInBundle(@"Failed to parse", nil, frameworkBundle, nil), NSLocalizedDescriptionKey: exception }];
         if (_delegate && [_delegate respondsToSelector:@selector(cellFactory:didFailWithError:)]) {
             [_delegate cellFactory:self didFailWithError:error];
         }
