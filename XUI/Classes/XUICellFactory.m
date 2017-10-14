@@ -142,14 +142,13 @@
                 [groupCells addObject:groupCell];
             }
         }
-        NSUInteger cellCount = cells.count;
-        NSUInteger groupCount = groupCells.count;
-        if (groupCount == 0 && cellCount > 0) {
+        XUIBaseCell *firstCell = cells.firstObject;
+        if (![firstCell isKindOfClass:[XUIGroupCell class]]) {
             XUIGroupCell *groupCell1 = [[XUIGroupCell alloc] init];
-            [groupCells addObject:groupCell1];
+            [groupCells insertObject:groupCell1 atIndex:0];
             [cells insertObject:groupCell1 atIndex:0];
-            groupCount = 1; // fix bug
-        } // default group cell
+        }
+        NSUInteger groupCount = groupCells.count;
         NSMutableArray <NSMutableArray <XUIBaseCell *> *> *otherCells = [[NSMutableArray alloc] initWithCapacity:groupCount];
         for (NSUInteger groupIdx = 0; groupIdx < groupCount; ++groupIdx) {
             [otherCells addObject:[[NSMutableArray alloc] init]];
