@@ -1,46 +1,31 @@
 //
-//  XUIOptionViewController.m
-//  XXTExplorer
+//  XUIEditableListViewController.m
+//  XUI
 //
-//  Created by Zheng on 17/07/2017.
-//  Copyright © 2017 Zheng. All rights reserved.
+//  Created by Zheng on 15/10/2017.
 //
 
-#import "XUIOptionViewController.h"
+#import "XUIEditableListViewController.h"
+#import "XUIEditableListCell.h"
 
 #import "XUIPrivate.h"
 #import "XUITheme.h"
-#import "XUIOptionCell.h"
 #import "XUIOptionModel.h"
 #import "XUIBaseOptionCell.h"
 
-@interface XUIOptionViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface XUIEditableListViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, assign) NSInteger selectedIndex;
+@property (nonatomic, strong) NSMutableArray <NSString *> *mutableContentList;
 
 @end
 
-@implementation XUIOptionViewController {
-    
-}
+@implementation XUIEditableListViewController
 
-- (instancetype)initWithCell:(XUIOptionCell *)cell {
+- (instancetype)initWithCell:(XUIEditableListCell *)cell {
     if (self = [super init]) {
         _cell = cell;
-        id rawValue = cell.xui_value;
-        if (rawValue) {
-            NSUInteger rawIndex = [self.cell.xui_options indexOfObjectPassingTest:^BOOL(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                id value = obj[XUIOptionValueKey];
-                if ([rawValue isEqual:value]) {
-                    return YES;
-                }
-                return NO;
-            }];
-            if ((rawIndex) != NSNotFound) {
-                _selectedIndex = rawIndex;
-            }
-        }
+        _mutableContentList = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -48,15 +33,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.mutableContentList addObject:@"Test 1"];
+    [self.mutableContentList addObject:@"Test 2"];
+    [self.mutableContentList addObject:@"Test 3"];
+    [self.mutableContentList addObject:@"Test 4"];
+    
+    [self.navigationItem setRightBarButtonItem:self.editButtonItem];
+    
     [self.tableView registerClass:[XUIBaseOptionCell class] forCellReuseIdentifier:XUIBaseOptionCellReuseIdentifier];
     [self.view addSubview:self.tableView];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing animated:animated];
 }
 
 #pragma mark - UIView Getters
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -78,7 +75,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.cell.xui_options.count;
+    return self.mutableContentList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -102,16 +99,14 @@
             cell = [[XUIBaseOptionCell alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:XUIBaseOptionCellReuseIdentifier];
         }
-        cell.adapter = self.adapter;
-        NSDictionary *optionDictionary = self.cell.xui_options[(NSUInteger) indexPath.row];
-        cell.xui_icon = optionDictionary[XUIOptionIconKey];
-        cell.xui_label = optionDictionary[XUIOptionTitleKey];
-        if (self.selectedIndex == indexPath.row) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        } else {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
         [cell setTheme:self.theme];
+        cell.adapter = self.adapter;
+        NSUInteger idx = indexPath.row;
+        if (idx < self.mutableContentList.count) {
+            cell.xui_label = self.mutableContentList[idx];
+        }
+        cell.tintColor = self.theme.tintColor;
+        cell.showsReorderControl = YES;
         return cell;
     }
     return [UITableViewCell new];
@@ -119,28 +114,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0) {
-        self.selectedIndex = indexPath.row;
-        for (UITableViewCell *cell in tableView.visibleCells) {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-        UITableViewCell *selectCell = [tableView cellForRowAtIndexPath:indexPath];
-        selectCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        id selectedValue = self.cell.xui_options[self.selectedIndex][XUIOptionValueKey];
-        if (selectedValue) {
-            self.cell.xui_value = selectedValue;
-        }
-        if (_delegate && [_delegate respondsToSelector:@selector(optionViewController:didSelectOption:)]) {
-            [_delegate optionViewController:self didSelectOption:self.selectedIndex];
-        }
-    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
 }
 
 #pragma mark - Memory
 
 - (void)dealloc {
 #ifdef DEBUG
-    NSLog(@"- [XUIOptionViewController dealloc]");
+    NSLog(@"- [XUIEditableListViewController dealloc]");
 #endif
 }
 

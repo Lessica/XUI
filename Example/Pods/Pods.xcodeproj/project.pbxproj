@@ -15,11 +15,16 @@
 		0DBA517D5E54ACFC93B7A05CAB7A2B4F /* XUIStepperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6FC3DB6932E97922F94B330F506768F /* XUIStepperCell.m */; };
 		0EE6546F4ADAE9C4662676BC70D4D7A9 /* XUITheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 61D9D363A7998DE939E3244640593FB0 /* XUITheme.m */; };
 		0F29A688D51321323591B65883712692 /* UIViewController+XUIPreviousViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B13769274FB2A43F8BB8428A5941CDC8 /* UIViewController+XUIPreviousViewController.m */; };
+		0F8611EF1F9383220012A79E /* XUIEditableListCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F8611ED1F9383220012A79E /* XUIEditableListCell.h */; };
+		0F8611F01F9383220012A79E /* XUIEditableListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8611EE1F9383220012A79E /* XUIEditableListCell.m */; };
+		0F8611F31F9383360012A79E /* XUIEditableListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F8611F11F9383360012A79E /* XUIEditableListViewController.h */; };
+		0F8611F41F9383360012A79E /* XUIEditableListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8611F21F9383360012A79E /* XUIEditableListViewController.m */; };
+		0F8611F71F9383520012A79E /* XUIListViewController+XUIEditableListCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F8611F51F9383520012A79E /* XUIListViewController+XUIEditableListCell.h */; };
+		0F8611F81F9383520012A79E /* XUIListViewController+XUIEditableListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F8611F61F9383520012A79E /* XUIListViewController+XUIEditableListCell.m */; };
 		110AF772B1A3368FB952099B0BD37307 /* XUIOptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B33A00E15181CC46342EF190ADBD92B /* XUIOptionModel.m */; };
 		1537EEF7B87B95B432C31E3563BBE204 /* XUISegmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D4FE1A621F3C5761E7CE095618E590F5 /* XUISegmentCell.xib */; };
 		1663DAF664C39E1A8D0447298572CCBD /* XUIOptionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 148B24C6F88F4EC202519AA3CFE12AA5 /* XUIOptionViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		16B0F377004ABC6A1A1FF61AA58A98F9 /* XUIViewShaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A47D8142B613D4D63E9637AB819588 /* XUIViewShaker.m */; };
-		18A662FB7AB49B48B95B4A5C72BE39DD /* XUIOrderedOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9401F0F85486B96EA4F24AA7C72DC63E /* XUIOrderedOptionCell.xib */; };
 		18B0E90D39642C02EB97CEB27522C025 /* XUISecureTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE6160B914EAFF564C84005F7D6F954C /* XUISecureTextFieldCell.xib */; };
 		1A794011049D2F5480643F16C2AA4119 /* XUIImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1464207EC00AA131B92B61FC15111B99 /* XUIImageCell.m */; };
 		1A865EE06A2EB8F6A4133EC8683790AD /* XUILogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1638F31E835D5E41A4465C0B7CD2AD2F /* XUILogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -42,7 +47,6 @@
 		4233DAAA11FD8FC20309F155A7F6D5E4 /* XUIOrderedOptionCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6287AEC3C3E1AC3A6270C930499AF7C3 /* XUIOrderedOptionCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4260215339A3731BF24EA41A7E62811D /* XUITitleValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5694EA0C7FB035B2651DDEEAFE042F82 /* XUITitleValueCell.m */; };
 		43BC55E1CDAB8BD22318F528CF4D3AE4 /* XUIListViewController+XUIMutipleOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4ED67F6F03D8F1975D9B15406561D59 /* XUIListViewController+XUIMutipleOptionCell.m */; };
-		44B45C1EF3675A1E21262E75F6E8AB46 /* XUITitleValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9C6A8E6E692868EC233DDDD910A5911 /* XUITitleValueCell.xib */; };
 		46A9B91FDE4401812FCC268581157612 /* XUIListViewController+XUILinkCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 5562952760CD9C33566325864767EEA5 /* XUIListViewController+XUILinkCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		478115B74457EE248F4ED14890DC2A60 /* XUIOrderedOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B21C2B0954F01BFFF5658F3263228AFF /* XUIOrderedOptionViewController.m */; };
 		482FBA4C9A6F255D185D2098A8953831 /* XUIOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DF2EE3D10AC858EE852E486407282164 /* XUIOptionViewController.m */; };
@@ -101,7 +105,6 @@
 		BED8CABC8E5C4D909477152B0E18B3C3 /* XUIAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = A218AEAEBCD7616B8D9A721F65D55661 /* XUIAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BF25B0F53680743475152F2A8CE3A669 /* XUISegmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B809856CD0AA18AFF909E76EE07DE9DC /* XUISegmentCell.m */; };
 		C557F8FA92362D8D88691AD38C9E7C65 /* XUIStaticTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6914F435D688EDBD8C88962F5E6FC08C /* XUIStaticTextCell.m */; };
-		C71B8587731A6AD4F91A8E7B3834C7CB /* XUIOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B68CE3C1F0A8FF2FB1F16D46CF376C3 /* XUIOptionCell.xib */; };
 		C71D3FBFB650ED639073305E5BF9B0E5 /* XUIImageCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E6EB60CB7504795FC34B85E74980A73 /* XUIImageCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C9C4B5CB0ECC45236854B296E53A3995 /* XUIBaseOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FADEBB0473DFE337DCA752F5D5724917 /* XUIBaseOptionCell.m */; };
 		CD102B998D5547E1F84189FE63B3B03E /* XUIListViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D1BC1CC79275E49107961271D89B3ABC /* XUIListViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -109,7 +112,6 @@
 		D3F4039E951A0D27DB170818FF131B49 /* XUIButtonCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 96B474E95E6769F08CF89710E489CDA7 /* XUIButtonCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D44D30F11D245F1406D2764C8374B7DF /* XUIOrderedOptionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C00C2E89B86647FB7646438CE7CC630 /* XUIOrderedOptionViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D642B8D21F90C3400006621B /* UITableViewCell+XUIDisclosureIndicatorColor.m in Sources */ = {isa = PBXBuildFile; fileRef = D642B8D11F90C3400006621B /* UITableViewCell+XUIDisclosureIndicatorColor.m */; };
-		D8A56A2751653808D3631238DE51B8AD /* XUIMultipleOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8E6B1F74CB7F82022F042E2FA975863 /* XUIMultipleOptionCell.xib */; };
 		D8AA132D4D7B94312C6DD0F002AC2F92 /* Pods-XUI_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A3EBC6158429EE125D5FF0D94644C667 /* Pods-XUI_Example-dummy.m */; };
 		D9421DCE072EC0CFF705D7F0C83D26AB /* XUIBaseCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E8CCB640F63C1756A4AEF0B3DC0D1ED /* XUIBaseCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D9736D7709577F3549A5FE6DF12E3F12 /* XUISimpleAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEBAE0802B6CA297F2BD54809D0152 /* XUISimpleAdapter.m */; };
@@ -159,6 +161,12 @@
 		08AF9AE6CA37582A5F884F3612CD57AC /* XUIViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XUIViewController.h; path = XUI/Classes/XUIViewController.h; sourceTree = "<group>"; };
 		0AC7B604118686B680101F128CB65645 /* Pods-XUI_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-XUI_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		0EC6C4372D4FBE159427584EEE240FE4 /* XUITextFieldCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUITextFieldCell.h; sourceTree = "<group>"; };
+		0F8611ED1F9383220012A79E /* XUIEditableListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XUIEditableListCell.h; sourceTree = "<group>"; };
+		0F8611EE1F9383220012A79E /* XUIEditableListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XUIEditableListCell.m; sourceTree = "<group>"; };
+		0F8611F11F9383360012A79E /* XUIEditableListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XUIEditableListViewController.h; sourceTree = "<group>"; };
+		0F8611F21F9383360012A79E /* XUIEditableListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XUIEditableListViewController.m; sourceTree = "<group>"; };
+		0F8611F51F9383520012A79E /* XUIListViewController+XUIEditableListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XUIListViewController+XUIEditableListCell.h"; sourceTree = "<group>"; };
+		0F8611F61F9383520012A79E /* XUIListViewController+XUIEditableListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "XUIListViewController+XUIEditableListCell.m"; sourceTree = "<group>"; };
 		11B243B0E89D8A8E5144E43FC7D1E3AF /* XUIListViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XUIListViewController.m; path = XUI/Classes/XUIListViewController.m; sourceTree = "<group>"; };
 		1464207EC00AA131B92B61FC15111B99 /* XUIImageCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = XUIImageCell.m; sourceTree = "<group>"; };
 		148B24C6F88F4EC202519AA3CFE12AA5 /* XUIOptionViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUIOptionViewController.h; sourceTree = "<group>"; };
@@ -237,10 +245,8 @@
 		91FA4D475E8EE1DE4BD5707B59BD61E4 /* UIViewController+XUIPreviousViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+XUIPreviousViewController.h"; path = "XUI/Classes/UIViewController+XUIPreviousViewController.h"; sourceTree = "<group>"; };
 		930A79A6442BB9DEAC5D350C654E19A3 /* XUIOptionCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = XUIOptionCell.m; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9401F0F85486B96EA4F24AA7C72DC63E /* XUIOrderedOptionCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = XUIOrderedOptionCell.xib; path = XUI/Assets/XUIOrderedOptionCell.xib; sourceTree = "<group>"; };
 		96B474E95E6769F08CF89710E489CDA7 /* XUIButtonCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUIButtonCell.h; sourceTree = "<group>"; };
 		975BC47E245C1B55A19311BBA5CDCC2F /* XUIAdapter_json.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUIAdapter_json.h; sourceTree = "<group>"; };
-		9B68CE3C1F0A8FF2FB1F16D46CF376C3 /* XUIOptionCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = XUIOptionCell.xib; path = XUI/Assets/XUIOptionCell.xib; sourceTree = "<group>"; };
 		9D58FC48FF750B68727E9B47E6EB2FAD /* XUIDateTimeCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = XUIDateTimeCell.m; sourceTree = "<group>"; };
 		9E8D50B5338D649583E2E46B281D5D05 /* XUICellFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XUICellFactory.h; path = XUI/Classes/XUICellFactory.h; sourceTree = "<group>"; };
 		A218AEAEBCD7616B8D9A721F65D55661 /* XUIAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUIAdapter.h; sourceTree = "<group>"; };
@@ -249,8 +255,6 @@
 		A3EBC6158429EE125D5FF0D94644C667 /* Pods-XUI_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-XUI_Example-dummy.m"; sourceTree = "<group>"; };
 		A5C0004B5F79D9756E7D9CCBC6A3647B /* NSObject+XUIStringValue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+XUIStringValue.m"; path = "XUI/Classes/NSObject+XUIStringValue.m"; sourceTree = "<group>"; };
 		A700ADD0F305AB81A63C3F4C4DAA958D /* XUISliderCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = XUISliderCell.m; sourceTree = "<group>"; };
-		A8E6B1F74CB7F82022F042E2FA975863 /* XUIMultipleOptionCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = XUIMultipleOptionCell.xib; path = XUI/Assets/XUIMultipleOptionCell.xib; sourceTree = "<group>"; };
-		A9C6A8E6E692868EC233DDDD910A5911 /* XUITitleValueCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = XUITitleValueCell.xib; path = XUI/Assets/XUITitleValueCell.xib; sourceTree = "<group>"; };
 		AEF2E5D5852E1580D4B6117F866B6072 /* XUI.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = XUI.xcconfig; sourceTree = "<group>"; };
 		B13769274FB2A43F8BB8428A5941CDC8 /* UIViewController+XUIPreviousViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+XUIPreviousViewController.m"; path = "XUI/Classes/UIViewController+XUIPreviousViewController.m"; sourceTree = "<group>"; };
 		B21C2B0954F01BFFF5658F3263228AFF /* XUIOrderedOptionViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = XUIOrderedOptionViewController.m; sourceTree = "<group>"; };
@@ -342,6 +346,19 @@
 				33D81B280DDC8A40B83AED2E9E2A4903 /* XUIGroupCell.m */,
 			);
 			path = Group;
+			sourceTree = "<group>";
+		};
+		0F8611E81F9382B20012A79E /* List */ = {
+			isa = PBXGroup;
+			children = (
+				0F8611F51F9383520012A79E /* XUIListViewController+XUIEditableListCell.h */,
+				0F8611F61F9383520012A79E /* XUIListViewController+XUIEditableListCell.m */,
+				0F8611ED1F9383220012A79E /* XUIEditableListCell.h */,
+				0F8611EE1F9383220012A79E /* XUIEditableListCell.m */,
+				0F8611F11F9383360012A79E /* XUIEditableListViewController.h */,
+				0F8611F21F9383360012A79E /* XUIEditableListViewController.m */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		24E0F187D97D8E028CF82F4CC127363A /* Checkbox */ = {
@@ -438,6 +455,7 @@
 				223592B5DC6CA925A580C74F29D0CCDD /* XUIBaseCell.m */,
 				BA599C3AD569E822F1EFE7C6DC810D3E /* XUIBaseOptionCell.h */,
 				FADEBB0473DFE337DCA752F5D5724917 /* XUIBaseOptionCell.m */,
+				0F8611E81F9382B20012A79E /* List */,
 				C834D8E6901A0E85E253F84D58D5B407 /* Button */,
 				24E0F187D97D8E028CF82F4CC127363A /* Checkbox */,
 				6AB65F20E97F0C8744CE1A5C2099BFA7 /* DateTime */,
@@ -499,9 +517,6 @@
 				C6ED6C94B1C19686493C472E3570B5CF /* XUICheckboxCell.xib */,
 				7BBE496385BE5E3D3F25FA98306A52BC /* XUIDateTimeCell.xib */,
 				07003AFD7D0BC12B0AB8BABA27F08B64 /* XUIImageCell.xib */,
-				A8E6B1F74CB7F82022F042E2FA975863 /* XUIMultipleOptionCell.xib */,
-				9B68CE3C1F0A8FF2FB1F16D46CF376C3 /* XUIOptionCell.xib */,
-				9401F0F85486B96EA4F24AA7C72DC63E /* XUIOrderedOptionCell.xib */,
 				F5730569AC57485ED934C8801003CEE0 /* XUIRadioCell.xib */,
 				BE6160B914EAFF564C84005F7D6F954C /* XUISecureTextFieldCell.xib */,
 				D4FE1A621F3C5761E7CE095618E590F5 /* XUISegmentCell.xib */,
@@ -510,7 +525,6 @@
 				86B9079D67A8D5809907CE6512667FD5 /* XUIStepperCell.xib */,
 				5FA68B7A1816E07B0B4ACAB5C3423161 /* XUISwitchCell.xib */,
 				410BB4A4817F31D18919393FED12F98B /* XUITextFieldCell.xib */,
-				A9C6A8E6E692868EC233DDDD910A5911 /* XUITitleValueCell.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -786,12 +800,15 @@
 				AC70B64E224698D971EC30BD3598B760 /* XUISwitchCell.h in Headers */,
 				9167105FDCD71B183CEBAFB9CFA9597B /* XUITagCollectionView.h in Headers */,
 				AC4972B05F35DED12D71E8A36F296C93 /* XUITextareaCell.h in Headers */,
+				0F8611F71F9383520012A79E /* XUIListViewController+XUIEditableListCell.h in Headers */,
 				BDB19C94A7F7EBEC39E69D30C88C9FAD /* XUITextareaViewController.h in Headers */,
 				A358074B6AB1389B8AE4985B31F85F3B /* XUITextFieldCell.h in Headers */,
 				8A16B5FDBFCF22F7BE0CB8C16EA51680 /* XUITextTagCollectionView.h in Headers */,
 				9CC8E74EE5558238075F79A70BE919C7 /* XUITheme.h in Headers */,
 				789AE679692E38159E3F45FBBA3845DC /* XUITitleValueCell.h in Headers */,
+				0F8611EF1F9383220012A79E /* XUIEditableListCell.h in Headers */,
 				9F654790A16F832F0F92808710C960CB /* XUIViewController.h in Headers */,
+				0F8611F31F9383360012A79E /* XUIEditableListViewController.h in Headers */,
 				7389EEDF2AE5B87EA36DEFF6E6D21AF8 /* XUIViewShaker.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -891,9 +908,6 @@
 				EBB0C77A6A78DE413E181BCAA69814E3 /* XUICheckboxCell.xib in Resources */,
 				91AA272B3F857213034433244097462F /* XUIDateTimeCell.xib in Resources */,
 				2035AD284293D522E739716B92BDA3A1 /* XUIImageCell.xib in Resources */,
-				D8A56A2751653808D3631238DE51B8AD /* XUIMultipleOptionCell.xib in Resources */,
-				C71B8587731A6AD4F91A8E7B3834C7CB /* XUIOptionCell.xib in Resources */,
-				18A662FB7AB49B48B95B4A5C72BE39DD /* XUIOrderedOptionCell.xib in Resources */,
 				E749F8BFE15D899031F85650D105781C /* XUIRadioCell.xib in Resources */,
 				18B0E90D39642C02EB97CEB27522C025 /* XUISecureTextFieldCell.xib in Resources */,
 				1537EEF7B87B95B432C31E3563BBE204 /* XUISegmentCell.xib in Resources */,
@@ -902,7 +916,6 @@
 				6F9FF22FE82B3C6BD49D3D3CA8D09965 /* XUIStepperCell.xib in Resources */,
 				DBB431B5ABF79B633612A5E540F6D4F2 /* XUISwitchCell.xib in Resources */,
 				8B9597E21124825E6B8F956D40BC018B /* XUITextFieldCell.xib in Resources */,
-				44B45C1EF3675A1E21262E75F6E8AB46 /* XUITitleValueCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -937,6 +950,7 @@
 				1A794011049D2F5480643F16C2AA4119 /* XUIImageCell.m in Sources */,
 				6EA137DBF9D446875CC03DDF2B6A21AF /* XUILinkCell.m in Sources */,
 				82FB190FC6958185B479FEC9D581E662 /* XUIListFooterView.m in Sources */,
+				0F8611F41F9383360012A79E /* XUIEditableListViewController.m in Sources */,
 				9962688E38F0C8E120171D86C71CABFF /* XUIListHeaderView.m in Sources */,
 				94E2322C4D9958B14F4EE53B5B384733 /* XUIListViewController+XUIButtonCell.m in Sources */,
 				DA7EB716B8A5E3A8EBC4A7B7D68E0998 /* XUIListViewController+XUILinkCell.m in Sources */,
@@ -968,8 +982,10 @@
 				271B7DD5775F0E9F98732F40D6A48EFE /* XUITextFieldCell.m in Sources */,
 				5697CBEC5C286FB4BBE56E4F754DFD06 /* XUITextTagCollectionView.m in Sources */,
 				0EE6546F4ADAE9C4662676BC70D4D7A9 /* XUITheme.m in Sources */,
+				0F8611F01F9383220012A79E /* XUIEditableListCell.m in Sources */,
 				4260215339A3731BF24EA41A7E62811D /* XUITitleValueCell.m in Sources */,
 				F55654D02B7F413F66FADEB9E8B6C637 /* XUIViewController.m in Sources */,
+				0F8611F81F9383520012A79E /* XUIListViewController+XUIEditableListCell.m in Sources */,
 				16B0F377004ABC6A1A1FF61AA58A98F9 /* XUIViewShaker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

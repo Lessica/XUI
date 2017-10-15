@@ -15,7 +15,7 @@
 @implementation XUIOptionCell
 
 + (BOOL)xibBasedLayout {
-    return YES;
+    return NO;
 }
 
 + (BOOL)layoutNeedsTextLabel {

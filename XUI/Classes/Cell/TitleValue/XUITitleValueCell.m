@@ -20,7 +20,7 @@
 @synthesize xui_value = _xui_value;
 
 + (BOOL)xibBasedLayout {
-    return YES;
+    return NO;
 }
 
 + (BOOL)layoutNeedsTextLabel {

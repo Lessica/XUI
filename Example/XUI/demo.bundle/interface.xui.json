@@ -134,6 +134,16 @@
             ]
         },
         {
+            "maxCount":10,
+            "defaults":"com.yourcompany.yourscript",
+            "cell":"EditableList",
+            "label":"Editable List",
+            "key":"list-4",
+            "default":[
+                "Default"
+            ]
+        },
+        {
             "label":"Segment",
             "cell":"Group"
         },

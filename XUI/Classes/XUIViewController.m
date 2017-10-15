@@ -14,6 +14,8 @@
 
 @interface XUIViewController () <XUICellFactoryDelegate>
 
+@property (nonatomic, strong) UIColor *outsideForegroundColor;
+@property (nonatomic, strong) UIColor *outsideBackgroundColor;
 @property (nonatomic, assign) BOOL fromXUIViewController;
 
 @end
@@ -41,13 +43,26 @@
 
 - (void)setupXUI {
     {
+        _outsideForegroundColor = [UIColor blackColor];
+        _outsideBackgroundColor = [UIColor whiteColor];
+        
         XUICellFactory *cellFactory = [[XUICellFactory alloc] init];
         cellFactory.delegate = self;
         _cellFactory = cellFactory;
     }
 }
 
+- (UINavigationBar *)navigationBar {
+    return self.navigationController.navigationBar;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
+    if (NO == [[self xui_previousViewController] isKindOfClass:[XUIViewController class]]) {
+        self.outsideBackgroundColor = [self navigationBar].barTintColor;
+        self.outsideForegroundColor = [self navigationBar].tintColor;
+    } else {
+        self.fromXUIViewController = YES;
+    }
     [self renderNavigationBarTheme:NO];
     [super viewWillAppear:animated];
 }
@@ -67,9 +82,7 @@
 
 - (void)didMoveToParentViewController:(UIViewController *)parent {
     if (parent != nil) {
-        if ([[self xui_previousViewController] isKindOfClass:[XUIViewController class]]) {
-            self.fromXUIViewController = YES;
-        }
+        
     }
     [super didMoveToParentViewController:parent];
 }
@@ -78,14 +91,10 @@
 
 - (void)renderNavigationBarTheme:(BOOL)restore {
     if (XUI_COLLAPSED) return;
-    UIColor *backgroundColor = XUI_COLOR;
-    UIColor *foregroundColor = [UIColor whiteColor];
+    UIColor *backgroundColor = self.outsideBackgroundColor;
+    UIColor *foregroundColor = self.outsideForegroundColor;
     if (restore) {
-        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : foregroundColor}];
-        self.navigationController.navigationBar.tintColor = foregroundColor;
-        self.navigationController.navigationBar.barTintColor = backgroundColor;
-        self.navigationController.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
-        self.navigationController.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
+       
     } else {
         if (self.theme) {
             if (self.theme.navigationTitleColor)
@@ -93,12 +102,14 @@
             if (self.theme.navigationBarColor)
                 backgroundColor = self.theme.navigationBarColor;
         }
-        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : foregroundColor}];
-        self.navigationController.navigationBar.tintColor = foregroundColor;
-        self.navigationController.navigationBar.barTintColor = backgroundColor;
-        self.navigationController.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
-        self.navigationController.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
     }
+    [[self navigationBar] setTitleTextAttributes:@{ NSForegroundColorAttributeName : foregroundColor }];
+    [self navigationBar].tintColor = foregroundColor;
+    [self navigationBar].barTintColor = backgroundColor;
+    self.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
+    self.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
+    self.navigationController.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
+    self.navigationController.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
