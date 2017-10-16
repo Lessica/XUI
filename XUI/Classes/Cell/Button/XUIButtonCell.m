@@ -12,6 +12,7 @@
 #import "XUILogger.h"
 
 void const * XUIButtonCellStorageKey = &XUIButtonCellStorageKey;
+NSString * const XUIButtonCellReuseIdentifier = @"XUIButtonCellReuseIdentifier";
 
 @interface XUIButtonCell ()
 

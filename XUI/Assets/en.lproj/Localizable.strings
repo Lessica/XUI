@@ -3,6 +3,12 @@
 "%@\n%@: %@" = "%@\n%@: %@";
 
 /* No comment provided by engineer. */
+"%lu Item" = "%lu Item";
+
+/* No comment provided by engineer. */
+"%lu Items" = "%lu Items";
+
+/* No comment provided by engineer. */
 "%lu Selected" = "%lu Selected";
 
 /* No comment provided by engineer. */
@@ -27,16 +33,64 @@
 "[%@]\nThe value of path \"%@\" (\"%@\") is invalid." = "[%@]\nThe value of path \"%@\" (\"%@\") is invalid.";
 
 /* No comment provided by engineer. */
+"Add Item" = "Add Item";
+
+/* No comment provided by engineer. */
+"Add item..." = "Add item...";
+
+/* No comment provided by engineer. */
+"Cannot find suitable adapter for \"%@\"." = "Cannot find suitable adapter for \"%@\".";
+
+/* No comment provided by engineer. */
+"Cannot initialize \"%@\"." = "Cannot initialize \"%@\".";
+
+/* No comment provided by engineer. */
 "Close" = "Close";
 
 /* No comment provided by engineer. */
 "Delete" = "Delete";
 
 /* No comment provided by engineer. */
+"Delete selected %lu item" = "Delete selected %lu item";
+
+/* No comment provided by engineer. */
+"Delete selected %lu items" = "Delete selected %lu items";
+
+/* No comment provided by engineer. */
+"Delete selected item(s)" = "Delete selected item(s)";
+
+/* No comment provided by engineer. */
+"Edit Item" = "Edit Item";
+
+/* No comment provided by engineer. */
+"Failed to parse" = "Failed to parse";
+
+/* No comment provided by engineer. */
+"Failed to parse entry" = "Failed to parse entry";
+
+/* No comment provided by engineer. */
+"Item List" = "Items";
+
+/* No comment provided by engineer. */
+"Item List (%lu Item)" = "Item List (%lu Item)";
+
+/* No comment provided by engineer. */
+"Item List (%lu Items)" = "Item List (%lu Items)";
+
+/* No comment provided by engineer. */
+"Item List (No Item)" = "Item List (No Item)";
+
+/* No comment provided by engineer. */
 "key \"%@\" (\"%@\") is invalid." = "key \"%@\" (\"%@\") is invalid.";
 
 /* No comment provided by engineer. */
 "key \"%@\", should be \"%@\"." = "key \"%@\", should be \"%@\".";
+
+/* No comment provided by engineer. */
+"Manage Items" = "Manage Items";
+
+/* No comment provided by engineer. */
+"No Item" = "No Item";
 
 /* No comment provided by engineer. */
 "OK" = "OK";
@@ -55,12 +109,3 @@
 
 /* No comment provided by engineer. */
 "XUI Error" = "XUI Error";
-
-/* No comment provided by engineer. */
-"Cannot find suitable adapter for \"%@\"." = "Cannot find suitable adapter for \"%@\".";
-
-/* No comment provided by engineer. */
-"Cannot initialize \"%@\"." = "Cannot initialize \"%@\".";
-
-/* No comment provided by engineer. */
-"Failed to parse entry" = "Failed to parse entry";

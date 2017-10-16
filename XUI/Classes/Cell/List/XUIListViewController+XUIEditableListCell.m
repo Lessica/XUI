@@ -24,7 +24,22 @@
 #pragma mark - XUIEditableListViewControllerDelegate
 
 - (void)editableListViewControllerContentListChanged:(XUIEditableListViewController *)controller {
-    
+    [self tableView:self.tableView configureXUIEditableListCell:controller.cell];
+    [self.adapter saveDefaultsFromCell:controller.cell];
+}
+
+- (void)tableView:(UITableView *)tableView configureXUIEditableListCell:(XUIEditableListCell *)cell {
+    NSArray <NSString *> *listValues = cell.xui_value;
+    NSUInteger count = listValues.count;
+    NSString *shortTitle = nil;
+    if (count == 0) {
+        shortTitle = NSLocalizedStringFromTableInBundle(@"No Item", nil, FRAMEWORK_BUNDLE, nil);
+    } else if (count <= 1) {
+        shortTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu Item", nil, FRAMEWORK_BUNDLE, nil), (unsigned long)count];
+    } else {
+        shortTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu Items", nil, FRAMEWORK_BUNDLE, nil), (unsigned long)count];
+    }
+    cell.detailTextLabel.text = shortTitle;
 }
 
 @end

@@ -105,17 +105,16 @@
             cell = [[XUIBaseOptionCell alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:XUIBaseOptionCellReuseIdentifier];
         }
-        [cell setTheme:self.theme];
         cell.adapter = self.adapter;
         NSDictionary *optionDictionary = self.cell.xui_options[(NSUInteger) indexPath.row];
         cell.xui_icon = optionDictionary[XUIOptionIconKey];
         cell.xui_label = optionDictionary[XUIOptionTitleKey];
-        cell.tintColor = self.theme.tintColor;
         if ([self.selectedIndexes containsObject:@(indexPath.row)]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         } else {
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
+        [cell setTheme:self.theme];
         return cell;
     }
     return [UITableViewCell new];

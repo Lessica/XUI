@@ -9,6 +9,7 @@
 #import "XUIBaseCell.h"
 
 extern const void * XUIButtonCellStorageKey;
+extern NSString * const XUIButtonCellReuseIdentifier;
 
 @interface XUIButtonCell : XUIBaseCell
 

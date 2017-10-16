@@ -10,6 +10,8 @@
 
 @interface XUITextFieldCell : XUIBaseCell
 
+@property (weak, nonatomic) IBOutlet UITextField *cellTextField;
+
 @property (nonatomic, strong) NSString * xui_alignment;
 @property (nonatomic, strong) NSString * xui_keyboard;
 @property (nonatomic, strong) NSString * xui_placeholder;

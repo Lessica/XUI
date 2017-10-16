@@ -12,8 +12,6 @@
 
 @interface XUITextFieldCell () <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *cellTextField;
-
 @end
 
 @implementation XUITextFieldCell

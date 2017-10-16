@@ -139,9 +139,7 @@
                                         reuseIdentifier:XUIBaseOptionCellReuseIdentifier];
     }
     cell.adapter = self.adapter;
-    [cell setTheme:self.theme];
     cell.showsReorderControl = YES;
-    cell.tintColor = self.theme.tintColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0)
     {
@@ -161,6 +159,7 @@
         cell.xui_label = nil;
         cell.xui_icon = nil;
     }
+    [cell setTheme:self.theme];
     return cell;
 }
 

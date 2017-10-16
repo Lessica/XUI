@@ -3,6 +3,12 @@
 "%@\n%@: %@" = "%@\n%@: %@";
 
 /* No comment provided by engineer. */
+"%lu Item" = "%lu 项";
+
+/* No comment provided by engineer. */
+"%lu Items" = "%lu 项";
+
+/* No comment provided by engineer. */
 "%lu Selected" = "%lu 已选择";
 
 /* No comment provided by engineer. */
@@ -27,16 +33,61 @@
 "[%@]\nThe value of path \"%@\" (\"%@\") is invalid." = "[%@]\n路径的值 \"%@\" (\"%@\") 无效.";
 
 /* No comment provided by engineer. */
+"Add Item" = "添加项目";
+
+/* No comment provided by engineer. */
+"Add item..." = "添加项目...";
+
+/* No comment provided by engineer. */
+"Cannot find suitable adapter for \"%@\"." = "找不到合适的 Adapter 处理 \"%@\"";
+
+/* No comment provided by engineer. */
+"Cannot initialize \"%@\"." = "无法初始化 \"%@\".";
+
+/* No comment provided by engineer. */
 "Close" = "关闭";
 
 /* No comment provided by engineer. */
 "Delete" = "删除";
 
 /* No comment provided by engineer. */
+"Delete selected %lu item" = "删除选中的 %lu 项";
+
+/* No comment provided by engineer. */
+"Delete selected %lu items" = "删除选中的 %lu 项";
+
+/* No comment provided by engineer. */
+"Delete selected item(s)" = "删除选中项目";
+
+/* No comment provided by engineer. */
+"Edit Item" = "修改项目";
+
+/* No comment provided by engineer. */
+"Failed to parse" = "解析失败";
+
+/* No comment provided by engineer. */
+"Item List" = "项目列表";
+
+/* No comment provided by engineer. */
+"Item List (%lu Item)" = "项目列表 (%lu 项)";
+
+/* No comment provided by engineer. */
+"Item List (%lu Items)" = "项目列表 (%lu 项)";
+
+/* No comment provided by engineer. */
+"Item List (No Item)" = "项目列表 (无项目)";
+
+/* No comment provided by engineer. */
 "key \"%@\" (\"%@\") is invalid." = "键 \"%@\" 的值 (\"%@\") 是无效的.";
 
 /* No comment provided by engineer. */
 "key \"%@\", should be \"%@\"." = "键 \"%@\", 应该为 \"%@\".";
+
+/* No comment provided by engineer. */
+"Manage Items" = "编辑项目";
+
+/* No comment provided by engineer. */
+"No Item" = "无项目";
 
 /* No comment provided by engineer. */
 "OK" = "好";
@@ -55,12 +106,3 @@
 
 /* No comment provided by engineer. */
 "XUI Error" = "XUI 错误";
-
-/* No comment provided by engineer. */
-"Cannot find suitable adapter for \"%@\"." = "找不到合适的 Adapter 处理 \"%@\"";
-
-/* No comment provided by engineer. */
-"Cannot initialize \"%@\"." = "无法初始化 \"%@\".";
-
-/* No comment provided by engineer. */
-"Failed to parse" = "解析失败";
