@@ -22,6 +22,8 @@ extern NSString * XUIBaseCellReuseIdentifier;
 @property (nonatomic, strong) NSNumber *xui_height;
 @property (nonatomic, strong) id xui_value;
 
+@property (nonatomic, strong) NSString *internalIcon;
+
 @property (nonatomic, strong) id <XUIAdapter> adapter;
 
 @property (nonatomic, assign) BOOL canDelete;

@@ -65,6 +65,11 @@
     return [self.tableView isEditing];
 }
 
+- (void)setEditing:(BOOL)editing {
+    [super setEditing:editing];
+    [self.tableView setEditing:editing];
+}
+
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
     [self.tableView setEditing:editing animated:animated];
@@ -85,6 +90,7 @@
                                                    reuseIdentifier:nil];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.adapter = self.adapter;
+        cell.internalIcon = @"XUIEditableListIconAdd.png";
         cell.xui_label = NSLocalizedStringFromTableInBundle(@"Add item...", nil, FRAMEWORK_BUNDLE, nil);
         [cell setTheme:self.theme];
         _addCell = cell;
@@ -98,6 +104,7 @@
                                                    reuseIdentifier:nil];
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.adapter = self.adapter;
+        cell.internalIcon = @"XUIEditableListIconManage.png";
         cell.xui_label = NSLocalizedStringFromTableInBundle(@"Manage Items", nil, FRAMEWORK_BUNDLE, nil);
         [cell setTheme:self.theme];
         _deleteCell = cell;
@@ -142,6 +149,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 56.f;
+    }
     return 44.f;
 }
 
@@ -208,22 +218,20 @@
         if (indexPath.row == 0) {
             [self presentItemViewControllerAtIndexPath:indexPath withItemContent:nil];
         } else if (indexPath.row == 1) {
-            if (tableView.isEditing) {
-                NSArray <NSIndexPath *> *selectedIndexPathes = [self.tableView indexPathsForSelectedRows];
-                if (selectedIndexPathes.count > 0) {
-                    NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
-                    for (NSIndexPath *indexPath in selectedIndexPathes) {
-                        [indexSet addIndex:indexPath.row];
-                    }
-                    [self.mutableContentList removeObjectsAtIndexes:[indexSet copy]];
-                    [tableView beginUpdates];
-                    [tableView deleteRowsAtIndexPaths:selectedIndexPathes withRowAnimation:UITableViewRowAnimationAutomatic];
-                    [tableView endUpdates];
-                    [self updateSelectionCount];
-                    [self notifyContentListUpdate];
+            NSArray <NSIndexPath *> *selectedIndexPathes = [self.tableView indexPathsForSelectedRows];
+            if (tableView.isEditing && selectedIndexPathes.count > 0) {
+                NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
+                for (NSIndexPath *indexPath in selectedIndexPathes) {
+                    [indexSet addIndex:indexPath.row];
                 }
+                [self.mutableContentList removeObjectsAtIndexes:[indexSet copy]];
+                [tableView beginUpdates];
+                [tableView deleteRowsAtIndexPaths:selectedIndexPathes withRowAnimation:UITableViewRowAnimationAutomatic];
+                [tableView endUpdates];
+                [self updateSelectionCount];
+                [self notifyContentListUpdate];
             } else {
-                [self setEditing:YES animated:YES];
+                [self setEditing:![self.tableView isEditing] animated:YES];
             }
         }
     }
@@ -242,6 +250,7 @@
 
 - (void)updateSelectionCount {
     NSString *deleteLabel = nil;
+    NSString *deleteIcon = nil;
     NSUInteger selectedCount = [self.tableView indexPathsForSelectedRows].count;
     if (self.tableView.isEditing && selectedCount > 0) {
         if (selectedCount == 1) {
@@ -249,10 +258,13 @@
         } else {
             deleteLabel = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Delete selected %lu items", nil, FRAMEWORK_BUNDLE, nil), selectedCount];
         }
+        deleteIcon = @"XUIEditableListIconDelete.png";
     } else {
         deleteLabel = NSLocalizedStringFromTableInBundle(@"Manage Items", nil, FRAMEWORK_BUNDLE, nil);
+        deleteIcon = @"XUIEditableListIconManage.png";
     }
     self.deleteCell.xui_label = deleteLabel;
+    self.deleteCell.internalIcon = deleteIcon;
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
 }
 

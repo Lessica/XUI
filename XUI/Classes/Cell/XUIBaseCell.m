@@ -202,6 +202,18 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     }
 }
 
+- (void)setInternalIcon:(NSString *)internalIcon {
+    _internalIcon = internalIcon;
+    if ([self.class layoutNeedsImageView]) {
+        if (internalIcon) {
+            NSString *imagePath = [FRAMEWORK_BUNDLE pathForResource:internalIcon ofType:nil];
+            self.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
+        } else {
+            self.imageView.image = nil;
+        }
+    }
+}
+
 - (void)setXui_label:(NSString *)xui_label {
     _xui_label = xui_label;
     if ([self.class layoutNeedsTextLabel]) {

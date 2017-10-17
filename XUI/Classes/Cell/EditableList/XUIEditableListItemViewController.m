@@ -7,11 +7,11 @@
 
 #import "XUIEditableListItemViewController.h"
 
-@interface XUIEditableListItemViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface XUIEditableListItemViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic, strong) XUITextFieldCell *textFieldCell;
 @property (nonatomic, strong) UIBarButtonItem *saveItem;
-@property (nonatomic, strong) UIBarButtonItem *addItem;
+//@property (nonatomic, strong) UIBarButtonItem *addItem;
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
@@ -31,11 +31,10 @@
     
     if (self.isAddMode) {
         self.title = NSLocalizedStringFromTableInBundle(@"Add Item", nil, FRAMEWORK_BUNDLE, nil);
-        self.navigationItem.rightBarButtonItem = self.addItem;
     } else {
         self.title = NSLocalizedStringFromTableInBundle(@"Edit Item", nil, FRAMEWORK_BUNDLE, nil);
-        self.navigationItem.rightBarButtonItem = self.saveItem;
     }
+    self.navigationItem.rightBarButtonItem = self.saveItem;
     
     [self.view addSubview:self.tableView];
 }
@@ -70,13 +69,13 @@
     return _tableView;
 }
 
-- (UIBarButtonItem *)addItem {
-    if (!_addItem) {
-        UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addOrSaveItemTapped:)];
-        _addItem = addItem;
-    }
-    return _addItem;
-}
+//- (UIBarButtonItem *)addItem {
+//    if (!_addItem) {
+//        UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addOrSaveItemTapped:)];
+//        _addItem = addItem;
+//    }
+//    return _addItem;
+//}
 
 - (UIBarButtonItem *)saveItem {
     if (!_saveItem) {
@@ -90,6 +89,8 @@
     if (!_textFieldCell) {
         XUITextFieldCell *cell = (XUITextFieldCell *)[[[XUITextFieldCell cellNib] instantiateWithOwner:self options:nil] lastObject];
         [cell setTheme:self.theme];
+        cell.cellTextField.returnKeyType = UIReturnKeyDone;
+        cell.cellTextField.delegate = self;
         cell.xui_value = self.content;
         _textFieldCell = cell;
     }
@@ -125,6 +126,13 @@
     if ([_delegate respondsToSelector:@selector(editableListItemViewController:contentUpdated:)]) {
         [_delegate editableListItemViewController:self contentUpdated:newContent];
     }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self addOrSaveItemTapped:nil];
+    return NO;
 }
 
 @end
