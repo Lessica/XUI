@@ -19,8 +19,8 @@
 
 @property (nonatomic, assign) BOOL needsUpdate;
 
-@property (nonatomic, strong) XUIButtonCell *addCell;
-@property (nonatomic, strong) XUIButtonCell *deleteCell;
+@property (nonatomic, strong) XUIBaseOptionCell *addCell;
+@property (nonatomic, strong) XUIBaseOptionCell *deleteCell;
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray <NSString *> *mutableContentList;
@@ -52,7 +52,6 @@
     [self.navigationItem setRightBarButtonItem:self.editButtonItem];
     
     [self.tableView registerClass:[XUIBaseOptionCell class] forCellReuseIdentifier:XUIBaseOptionCellReuseIdentifier];
-    [self.tableView registerClass:[XUIButtonCell class] forCellReuseIdentifier:XUIButtonCellReuseIdentifier];
     [self.view addSubview:self.tableView];
 }
 
@@ -84,10 +83,10 @@
 
 #pragma mark - UIView Getters
 
-- (XUIButtonCell *)addCell {
+- (XUIBaseOptionCell *)addCell {
     if (!_addCell) {
-        XUIButtonCell *cell = [[XUIButtonCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                   reuseIdentifier:nil];
+        XUIBaseOptionCell *cell = [[XUIBaseOptionCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                           reuseIdentifier:nil];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.adapter = self.adapter;
         cell.internalIcon = @"XUIEditableListIconAdd.png";
@@ -98,10 +97,10 @@
     return _addCell;
 }
 
-- (XUIButtonCell *)deleteCell {
+- (XUIBaseOptionCell *)deleteCell {
     if (!_deleteCell) {
-        XUIButtonCell *cell = [[XUIButtonCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                   reuseIdentifier:nil];
+        XUIBaseOptionCell *cell = [[XUIBaseOptionCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                           reuseIdentifier:nil];
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.adapter = self.adapter;
         cell.internalIcon = @"XUIEditableListIconManage.png";
