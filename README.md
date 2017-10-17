@@ -41,6 +41,7 @@ XUI provides more components than private framework "[Preferences.framework](htt
 - [x] StaticText
 - [x] Textarea
 - [x] Image
+- [x] Editable List (Strings)
 
 ## Usage
 
