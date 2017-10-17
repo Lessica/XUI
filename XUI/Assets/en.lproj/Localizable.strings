@@ -109,3 +109,6 @@
 
 /* No comment provided by engineer. */
 "XUI Error" = "XUI Error";
+
+/* No comment provided by engineer. */
+"The number of item exceeded the \"maxCount\" limit (%lu)." = "The number of item exceeded the \"maxCount\" limit (%lu).";

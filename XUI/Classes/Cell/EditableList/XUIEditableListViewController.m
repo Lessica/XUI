@@ -215,8 +215,21 @@
     if (indexPath.section == 0) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if (indexPath.row == 0) {
+            // Add Item
+            id maxCountValue = self.cell.xui_maxCount;
+            if (maxCountValue) {
+                NSUInteger currentCount = self.mutableContentList.count;
+                NSUInteger maxCount = [maxCountValue unsignedIntegerValue];
+                if (currentCount >= maxCount) {
+                    NSString *errorMessage = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"The number of item exceeded the \"maxCount\" limit (%lu).", nil, FRAMEWORK_BUNDLE, nil), maxCount];
+                    [self presentErrorMessageAlertController:errorMessage];
+                    return;
+                }
+            }
             [self presentItemViewControllerAtIndexPath:indexPath withItemContent:nil];
+            return;
         } else if (indexPath.row == 1) {
+            // Manage Items
             NSArray <NSIndexPath *> *selectedIndexPathes = [self.tableView indexPathsForSelectedRows];
             if (tableView.isEditing && selectedIndexPathes.count > 0) {
                 NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
@@ -232,7 +245,9 @@
             } else {
                 [self setEditing:![self.tableView isEditing] animated:YES];
             }
+            return;
         }
+        return;
     }
     else if (indexPath.section == 2) {
         if (!tableView.isEditing) {
@@ -240,6 +255,7 @@
         } else {
             [self updateSelectionCount];
         }
+        return;
     }
 }
 
@@ -388,6 +404,25 @@ XUI_END_IGNORE_PARTIAL
     if ([_delegate respondsToSelector:@selector(editableListViewControllerContentListChanged:)]) {
         [_delegate editableListViewControllerContentListChanged:self];
     }
+}
+
+#pragma mark - Alert
+
+- (void)presentErrorMessageAlertController:(NSString *)errorMessage {
+    __weak typeof(self) weak_self = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        __strong typeof(weak_self) self = weak_self;
+        XUI_START_IGNORE_PARTIAL
+        if (XUI_SYSTEM_8) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"XUI Error", nil) message:errorMessage preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
+            [self.navigationController presentViewController:alertController animated:YES completion:nil];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"XUI Error", nil) message:errorMessage delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+            [alertView show];
+        }
+        XUI_END_IGNORE_PARTIAL
+    });
 }
 
 #pragma mark - Memory
