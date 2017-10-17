@@ -36,7 +36,7 @@
 "Add Item" = "添加项目";
 
 /* No comment provided by engineer. */
-"Add item..." = "添加项目...";
+"Add Item..." = "添加项目...";
 
 /* No comment provided by engineer. */
 "Cannot find suitable adapter for \"%@\"." = "找不到合适的 Adapter 处理 \"%@\"";

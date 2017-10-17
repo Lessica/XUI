@@ -90,7 +90,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.adapter = self.adapter;
         cell.internalIcon = @"XUIEditableListIconAdd.png";
-        cell.xui_label = NSLocalizedStringFromTableInBundle(@"Add item...", nil, FRAMEWORK_BUNDLE, nil);
+        cell.xui_label = NSLocalizedStringFromTableInBundle(@"Add Item...", nil, FRAMEWORK_BUNDLE, nil);
         [cell setTheme:self.theme];
         _addCell = cell;
     }
