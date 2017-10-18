@@ -108,7 +108,7 @@
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
     self.cellSliderValueLabel.textColor = theme.valueColor;
-    self.cellSlider.minimumTrackTintColor = theme.successColor;
+    self.cellSlider.minimumTrackTintColor = theme.tintColor;
 }
 
 - (void)setNeedsUpdateValue {

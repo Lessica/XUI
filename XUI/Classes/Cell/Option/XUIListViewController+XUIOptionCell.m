@@ -50,7 +50,7 @@
     }
     if (optionIndex < cell.xui_options.count) {
         NSString *shortTitle = cell.xui_options[optionIndex][XUIOptionShortTitleKey];
-        cell.detailTextLabel.text = shortTitle;
+        cell.detailTextLabel.text = [self.adapter localizedStringForKey:shortTitle value:shortTitle];
     }
 }
 

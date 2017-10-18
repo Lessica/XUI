@@ -61,17 +61,28 @@
         if (themeDictionary[@"disclosureIndicatorColor"])
             _disclosureIndicatorColor = [UIColor xui_colorWithHex:themeDictionary[@"disclosureIndicatorColor"]];
         
+        if (themeDictionary[@"tagTextColor"])
+            _tagTextColor = [UIColor xui_colorWithHex:themeDictionary[@"tagTextColor"]];
+        if (themeDictionary[@"tagSelectedTextColor"])
+            _tagSelectedTextColor = [UIColor xui_colorWithHex:themeDictionary[@"tagSelectedTextColor"]];
+        if (themeDictionary[@"tagBorderColor"])
+            _tagBorderColor = [UIColor xui_colorWithHex:themeDictionary[@"tagBorderColor"]];
+        if (themeDictionary[@"tagSelectedBorderColor"])
+            _tagSelectedBorderColor = [UIColor xui_colorWithHex:themeDictionary[@"tagSelectedBorderColor"]];
+        if (themeDictionary[@"tagBackgroundColor"])
+            _tagBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"tagBackgroundColor"]];
+        if (themeDictionary[@"tagSelectedBackgroundColor"])
+            _tagSelectedBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"tagSelectedBackgroundColor"]];
+        
         
     }
     return self;
 }
 
 - (void)setup {
-    _tintColor = XUI_COLOR_HIGHLIGHTED;
     _dangerColor = XUI_COLOR_DANGER;
     _warningColor = XUI_COLOR_WARNING;
     _successColor = XUI_COLOR_SUCCESS;
-    _highlightedColor = XUI_COLOR_HIGHLIGHTED;
     
     _navigationBarColor = XUI_COLOR_HIGHLIGHTED;
     _navigationTitleColor = [UIColor whiteColor];
@@ -79,10 +90,19 @@
     _labelColor = [UIColor blackColor];
     _valueColor = [UIColor grayColor];
     
+     _tintColor = XUI_COLOR_HIGHLIGHTED;
     _backgroundColor = [UIColor whiteColor];
     _disclosureIndicatorColor = XUI_COLOR_DISCLOSURE;
     
     _selectedColor = [XUI_COLOR_HIGHLIGHTED colorWithAlphaComponent:0.1];
+    _highlightedColor = XUI_COLOR_HIGHLIGHTED;
+    
+    _tagTextColor = XUI_COLOR_HIGHLIGHTED;
+    _tagSelectedTextColor = [UIColor whiteColor];
+    _tagBorderColor = XUI_COLOR_HIGHLIGHTED;
+    _tagSelectedBorderColor = XUI_COLOR_HIGHLIGHTED;
+    _tagBackgroundColor = [UIColor whiteColor];
+    _tagSelectedBackgroundColor = XUI_COLOR_HIGHLIGHTED;
 }
 
 - (BOOL)isDarkMode {

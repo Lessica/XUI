@@ -72,9 +72,17 @@
     self.tagView.scrollView.scrollEnabled = NO;
     self.tagView.contentInset = UIEdgeInsetsZero;
     self.tagView.scrollDirection = XUITagCollectionScrollDirectionVertical;
+    
     self.tagView.defaultConfig.tagCornerRadius = 8.f;
     self.tagView.defaultConfig.tagSelectedCornerRadius = 8.f;
+    
     self.tagView.defaultConfig.tagShadowColor = UIColor.clearColor;
+    
+    self.tagView.defaultConfig.tagBorderColor = UIColor.clearColor;
+    self.tagView.defaultConfig.tagSelectedBorderColor = UIColor.clearColor;
+    
+    self.tagView.defaultConfig.tagBorderWidth = 1.f;
+    self.tagView.defaultConfig.tagSelectedBorderWidth = 1.f;
     
     // Alignment
     self.tagView.alignment = XUITagCollectionAlignmentLeft;
@@ -202,8 +210,16 @@
 
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
-    self.tagView.defaultConfig.tagBackgroundColor = theme.successColor;
-    self.tagView.defaultConfig.tagSelectedBackgroundColor = theme.highlightedColor;
+    
+    self.tagView.defaultConfig.tagTextColor = theme.tagTextColor;
+    self.tagView.defaultConfig.tagSelectedTextColor = theme.tagSelectedTextColor;
+    
+    self.tagView.defaultConfig.tagBackgroundColor = theme.tagBackgroundColor;
+    self.tagView.defaultConfig.tagSelectedBackgroundColor = theme.tagSelectedBackgroundColor;
+    
+    self.tagView.defaultConfig.tagBorderColor = theme.tagBorderColor;
+    self.tagView.defaultConfig.tagSelectedBorderColor = theme.tagSelectedBackgroundColor;
+    
     [self.tagView reload];
 }
 

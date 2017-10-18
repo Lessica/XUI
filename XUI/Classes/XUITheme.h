@@ -10,26 +10,46 @@
 
 @interface XUITheme : NSObject
 
-@property (nonatomic, strong) UIColor *tintColor;
+#pragma mark - Global
 
 @property (nonatomic, strong) UIColor *dangerColor;
 @property (nonatomic, strong) UIColor *warningColor;
-@property (nonatomic, strong) UIColor *successColor;
-
-@property (nonatomic, strong) UIColor *selectedColor;
-@property (nonatomic, strong) UIColor *highlightedColor;
+@property (nonatomic, strong) UIColor *successColor; // fill
 
 @property (nonatomic, strong) UIColor *navigationBarColor;
 @property (nonatomic, strong) UIColor *navigationTitleColor;
 
-@property (nonatomic, strong) UIColor *labelColor;
-@property (nonatomic, strong) UIColor *valueColor;
+#pragma mark - Cells
 
-@property (nonatomic, strong) UIColor *backgroundColor;
-@property (nonatomic, strong) UIColor *disclosureIndicatorColor;
+@property (nonatomic, strong) UIColor *tintColor; // cell tint
+@property (nonatomic, strong) UIColor *backgroundColor; // cell background
+@property (nonatomic, strong) UIColor *disclosureIndicatorColor; // cell disclosure
 
+@property (nonatomic, strong) UIColor *labelColor; // text
+@property (nonatomic, strong) UIColor *valueColor; // detail text
+
+@property (nonatomic, strong) UIColor *selectedColor; // cell selected
+@property (nonatomic, strong) UIColor *highlightedColor; // cell highlighted
+
+#pragma mark - Tag Views
+
+// Text color
+@property (strong, nonatomic) UIColor *tagTextColor;
+@property (strong, nonatomic) UIColor *tagSelectedTextColor;
+
+// Background color
+@property (strong, nonatomic) UIColor *tagBackgroundColor;
+@property (strong, nonatomic) UIColor *tagSelectedBackgroundColor;
+
+// Border color
+@property (strong, nonatomic) UIColor *tagBorderColor;
+@property (strong, nonatomic) UIColor *tagSelectedBorderColor;
+
+#pragma mark - Dark Mode
 
 @property (nonatomic, assign, readonly, getter=isDarkMode) BOOL darkMode;
+
+#pragma mark - Initializers
 
 - (instancetype)initWithDictionary:(NSDictionary *)themeDictionary;
 

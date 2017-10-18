@@ -114,14 +114,10 @@
     }
     
     // footer
-#ifdef DEBUG
     NSString *listFooter = rootEntry[@"footer"];
     if ([listFooter isKindOfClass:[NSString class]]) {
         self.footerView.footerText = [self.adapter localizedStringForKey:listFooter value:listFooter];
     }
-#else
-    self.footerView.footerText = NSLocalizedString(@"This page is provided by the script producer.", nil);
-#endif
     
     // setup frame
     [self setupSubviews];
