@@ -14,6 +14,15 @@
 #import "XUILogger.h"
 #import "XUITheme.h"
 
+void notificationCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
+    XUICellFactory *cellFactory = (__bridge XUICellFactory *)(observer);
+    
+}
+
+@interface XUICellFactory ()
+
+@end
+
 @implementation XUICellFactory
 
 #pragma mark - Initializers
@@ -22,11 +31,13 @@
     if (self = [super init]) {
         _parsed = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xuiValueChanged:) name:XUINotificationEventValueChanged object:nil];
+        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge const void *)(self), notificationCallback, ((__bridge CFStringRef)@""), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
     }
     return self;
 }
 
 - (void)dealloc {
+    CFNotificationCenterRemoveObserver(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge const void *)(self), ((__bridge CFStringRef)@""), NULL);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
