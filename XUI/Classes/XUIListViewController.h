@@ -19,8 +19,10 @@
 
 @property (nonatomic, strong, readonly) NSString *path;
 @property (nonatomic, strong, readonly) NSBundle *bundle;
+
 - (instancetype)initWithPath:(NSString *)path NS_REQUIRES_SUPER; // will use main bundle
 - (instancetype)initWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER;
+- (instancetype)initWithBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER;
 
 // Store
 - (void)storeCellWhenNeeded:(XUIBaseCell *)cell;

@@ -16,7 +16,9 @@
 @property (nonatomic, strong) NSString * xui_keyboard;
 @property (nonatomic, strong) NSString * xui_placeholder;
 @property (nonatomic, strong) NSNumber * xui_isSecure;
-// Max length
+
+@property (nonatomic, strong) NSNumber *xui_maxLength;
+
 // Regex
 
 @end

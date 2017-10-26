@@ -12,6 +12,11 @@
 
 @interface XUITextFieldCell () <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
+
+@property (nonatomic, assign) NSUInteger maxLength;
+
 @end
 
 @implementation XUITextFieldCell
@@ -36,7 +41,8 @@
       @"alignment": [NSString class],
       @"keyboard": [NSString class],
       @"placeholder": [NSString class],
-      @"value": [NSString class]
+      @"value": [NSString class],
+      @"maxLength": [NSNumber class],
       };
 }
 
@@ -95,6 +101,11 @@
     }
     XUI_END_IGNORE_PARTIAL
 #endif
+    
+    self.leftConstraint.constant = 0.f;
+    [self.titleLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    
+    _maxLength = UINT_MAX;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -178,6 +189,11 @@
     self.cellTextField.enabled = !readonly;
 }
 
+- (void)setXui_label:(NSString *)xui_label {
+    [super setXui_label:xui_label];
+    self.titleLabel.text = xui_label;
+}
+
 - (void)setXui_value:(id)xui_value {
     _xui_value = xui_value;
     self.cellTextField.text = xui_value;
@@ -188,11 +204,22 @@
     self.cellTextField.tintColor = theme.tintColor;
 }
 
+- (void)setXui_maxLength:(NSNumber *)xui_maxLength {
+    _xui_maxLength = xui_maxLength;
+    if (xui_maxLength) {
+        _maxLength = [xui_maxLength unsignedIntegerValue];
+    }
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     self.xui_value = textField.text;
     [self.adapter saveDefaultsFromCell:self];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return textField.text.length + (string.length - range.length) <= self.maxLength;
 }
 
 @end

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="NO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,25 +16,36 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fQa-B2-NMQ">
-                        <rect key="frame" x="16" y="4" width="382" height="35.5"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Value" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fQa-B2-NMQ">
+                        <rect key="frame" x="24" y="11.666666666666664" width="374" height="20"/>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                     </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rtI-Pq-0SW">
+                        <rect key="frame" x="8" y="12.000000000000002" width="0.0" height="19.666666666666671"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="fQa-B2-NMQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="BtL-Re-ZBK"/>
-                    <constraint firstAttribute="bottom" secondItem="fQa-B2-NMQ" secondAttribute="bottom" constant="4" id="H1Y-1K-jzd"/>
-                    <constraint firstItem="fQa-B2-NMQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="Xmp-Z4-ujB"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="rtI-Pq-0SW" secondAttribute="bottom" constant="4" id="60y-fz-O2O"/>
+                    <constraint firstItem="fQa-B2-NMQ" firstAttribute="leading" secondItem="rtI-Pq-0SW" secondAttribute="trailing" constant="16" id="81e-0x-i0m"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="fQa-B2-NMQ" secondAttribute="bottom" constant="4" id="EAr-x6-BEE"/>
+                    <constraint firstItem="rtI-Pq-0SW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="RPS-eP-fJN"/>
+                    <constraint firstItem="fQa-B2-NMQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="Sn7-EB-6I9"/>
                     <constraint firstAttribute="trailing" secondItem="fQa-B2-NMQ" secondAttribute="trailing" constant="16" id="cWo-9L-OfF"/>
+                    <constraint firstItem="rtI-Pq-0SW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="pCe-62-bBV"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellTextField" destination="fQa-B2-NMQ" id="kzc-uW-owE"/>
+                <outlet property="leftConstraint" destination="81e-0x-i0m" id="erU-fz-OC6"/>
+                <outlet property="titleLabel" destination="rtI-Pq-0SW" id="oy9-gc-qEA"/>
             </connections>
         </tableViewCell>
     </objects>

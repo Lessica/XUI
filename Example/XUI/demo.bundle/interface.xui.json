@@ -293,20 +293,28 @@
             "keyboard":"Default",
             "defaults":"com.yourcompany.yourscript",
             "cell":"TextField",
-            "label":"Username",
             "key":"username",
-            "noAutoCorrect":true,
             "default":""
         },
         {
             "placeholder":"Enter the password",
             "keyboard":"Alphabet",
             "defaults":"com.yourcompany.yourscript",
-            "cell":"SecureTextField",
-            "label":"Password",
+            "cell":"TextField",
             "key":"password",
-            "noAutoCorrect":true,
+            "isSecure":true,
             "default":""
+        },
+        {
+            "placeholder":"4 digits",
+            "keyboard":"NumberPad",
+            "defaults":"com.yourcompany.yourscript",
+            "cell":"TextField",
+            "label":"Number",
+            "key":"number",
+            "default":"",
+            "alignment":"Right",
+            "maxLength":4
         },
         {
             "label":"StaticText",

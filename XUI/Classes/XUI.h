@@ -29,7 +29,6 @@
 #import <XUI/XUIOrderedOptionCell.h>
 #import <XUI/XUIOrderedOptionViewController.h>
 #import <XUI/XUIRadioCell.h>
-#import <XUI/XUISecureTextFieldCell.h>
 #import <XUI/XUISegmentCell.h>
 #import <XUI/XUISliderCell.h>
 #import <XUI/XUIStaticTextCell.h>

@@ -47,8 +47,9 @@
 }
 
 - (instancetype)initWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath {
-    if (!path)
-        return nil;
+    if (!path) {
+        path = @"Root.plist";
+    }
     NSBundle *bundle = nil;
     if (bundlePath) {
         bundle = [NSBundle bundleWithPath:bundlePath];
@@ -68,6 +69,13 @@
     _callerPath = absolutePath;
     if (self = [super init]) {
         [self setupListController];
+    }
+    return self;
+}
+
+- (instancetype)initWithBundlePath:(NSString *)bundlePath {
+    if (self = [self initWithPath:nil withBundlePath:bundlePath]) {
+        
     }
     return self;
 }
