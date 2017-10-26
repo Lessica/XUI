@@ -15,7 +15,7 @@
 #import "XUITheme.h"
 
 void notificationCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
-    XUICellFactory *cellFactory = (__bridge XUICellFactory *)(observer);
+//    XUICellFactory *cellFactory = (__bridge XUICellFactory *)(observer);
     
 }
 
