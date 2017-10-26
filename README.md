@@ -28,7 +28,7 @@ XUI provides more components than private framework "[Preferences.framework](htt
 - [x] Link (Child Pane)
 - [x] Switch
 - [x] Button (Action)
-- [x] TextField / SecureTextField
+- [x] TextField
 - [x] Radio / Checkbox Group
 - [x] Segment Group
 - [x] Single Selection Option List
