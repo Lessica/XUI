@@ -102,7 +102,6 @@
     XUI_END_IGNORE_PARTIAL
 #endif
     
-    self.leftConstraint.constant = 0.f;
     [self.titleLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     
     _maxLength = UINT_MAX;
@@ -192,6 +191,11 @@
 - (void)setXui_label:(NSString *)xui_label {
     [super setXui_label:xui_label];
     self.titleLabel.text = xui_label;
+    if (xui_label.length == 0) {
+        self.leftConstraint.constant = 0.f;
+    } else {
+        self.leftConstraint.constant = 16.f;
+    }
 }
 
 - (void)setXui_value:(id)xui_value {
