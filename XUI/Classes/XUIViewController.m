@@ -56,6 +56,13 @@
     return self.navigationController.navigationBar;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     if (NO == [[self xui_previousViewController] isKindOfClass:[XUIViewController class]]) {
         self.outsideBackgroundColor = [self navigationBar].barTintColor;
