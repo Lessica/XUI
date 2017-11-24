@@ -46,26 +46,19 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 8.f, 0.f, 8.f, 0.f };
 
 + (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
     BOOL superResult = [super testEntry:cellEntry withError:error];
-    NSString *checkType = kXUICellFactoryErrorDomain;
-    @try {
-        {
-            NSString *alignmentString = cellEntry[@"alignment"];
-            if (alignmentString) {
-                NSArray <NSString *> *validAlignment = @[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ];
-                if (![validAlignment containsObject:alignmentString]) {
-                    superResult = NO;
-                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
-                }
+    if (superResult) {
+        NSString *checkType = kXUICellFactoryErrorDomain;
+        NSString *alignmentString = cellEntry[@"alignment"];
+        if (alignmentString) {
+            NSArray <NSString *> *validAlignment = @[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ];
+            if (![validAlignment containsObject:alignmentString]) {
+                checkType = kXUICellFactoryErrorUnknownEnumDomain;
+                NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
+                NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+                if (error) *error = exceptionError;
+                return NO;
             }
         }
-    } @catch (NSString *exceptionReason) {
-        NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: exceptionReason }];
-        if (error) {
-            *error = exceptionError;
-        }
-    } @finally {
-        
     }
     return superResult;
 }

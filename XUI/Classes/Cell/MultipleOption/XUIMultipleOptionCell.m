@@ -52,23 +52,17 @@
 
 + (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
     BOOL superResult = [super testEntry:cellEntry withError:error];
-    NSString *checkType = kXUICellFactoryErrorDomain;
-    @try {
+    if (superResult) {
+        NSString *checkType = kXUICellFactoryErrorDomain;
         NSArray *validOptions = cellEntry[@"options"];
         NSUInteger maxCount = [cellEntry[@"maxCount"] unsignedIntegerValue];
         if (maxCount > validOptions.count) {
-            superResult = NO;
             checkType = kXUICellFactoryErrorInvalidValueDomain;
-            @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"the value \"%@\" of key \"%@\" is invalid.", nil, FRAMEWORK_BUNDLE, nil), cellEntry[@"maxCount"], @"maxCount"];
+            NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"the value \"%@\" of key \"%@\" is invalid.", nil, FRAMEWORK_BUNDLE, nil), cellEntry[@"maxCount"], @"maxCount"];
+            NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
         }
-    } @catch (NSString *exceptionReason) {
-        superResult = NO;
-        NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: exceptionReason }];
-        if (error) {
-            *error = exceptionError;
-        }
-    } @finally {
-        
     }
     return superResult;
 }

@@ -92,28 +92,20 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
       @"height": [NSNumber class]
       } mutableCopy];
     [baseTypes addEntriesFromDictionary:[self.class entryValueTypes]];
-    BOOL checkResult = YES;
     NSString *checkType = kXUICellFactoryErrorDomain;
-    @try {
-        for (NSString *pairKey in cellEntry.allKeys) {
-            Class pairClass = baseTypes[pairKey];
-            if (pairClass) {
-                if (![cellEntry[pairKey] isKindOfClass:pairClass]) {
-                    checkType = kXUICellFactoryErrorInvalidTypeDomain;
-                    @throw [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\", should be \"%@\".", nil, FRAMEWORK_BUNDLE, nil), pairKey, NSStringFromClass(pairClass)];
-                }
+    for (NSString *pairKey in cellEntry.allKeys) {
+        Class pairClass = baseTypes[pairKey];
+        if (pairClass) {
+            if (![cellEntry[pairKey] isKindOfClass:pairClass]) {
+                checkType = kXUICellFactoryErrorInvalidTypeDomain;
+                NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\", should be \"%@\".", nil, FRAMEWORK_BUNDLE, nil), pairKey, NSStringFromClass(pairClass)];
+                NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+                if (error) *error = exceptionError;
+                return NO;
             }
         }
-    } @catch (NSString *exceptionReason) {
-        checkResult = NO;
-        NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: exceptionReason }];
-        if (error) {
-            *error = exceptionError;
-        }
-    } @finally {
-        
     }
-    return checkResult;
+    return YES;
 }
 
 - (NSString *)xui_cell {
