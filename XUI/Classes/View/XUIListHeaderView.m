@@ -9,6 +9,7 @@
 #import "XUIListHeaderView.h"
 
 #import "XUITheme.h"
+#import "XUIPrivate.h"
 
 static UIEdgeInsets const XUIListHeaderViewEdgeInsets = { 32.f, 20.f, 54.f, 20.f };
 
@@ -44,7 +45,11 @@ static UIEdgeInsets const XUIListHeaderViewEdgeInsets = { 32.f, 20.f, 54.f, 20.f
 - (void)setup {
     UIFont *lightHeaderFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:45.f];
     if (!lightHeaderFont) {
-        lightHeaderFont = [UIFont systemFontOfSize:45.f];
+        if (XUI_SYSTEM_8_2) {
+            lightHeaderFont = [UIFont systemFontOfSize:45.f weight:UIFontWeightUltraLight];
+        } else {
+            lightHeaderFont = [UIFont systemFontOfSize:45.f];
+        }
     }
     if (lightHeaderFont) {
         _headerAttributes = @{ NSFontAttributeName: lightHeaderFont,
@@ -52,7 +57,11 @@ static UIEdgeInsets const XUIListHeaderViewEdgeInsets = { 32.f, 20.f, 54.f, 20.f
     }
     UIFont *lightSubheaderFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:18.f];
     if (!lightSubheaderFont) {
-        lightSubheaderFont = [UIFont systemFontOfSize:18.f];
+        if (XUI_SYSTEM_8_2) {
+            lightSubheaderFont = [UIFont systemFontOfSize:18.f weight:UIFontWeightUltraLight];
+        } else {
+            lightSubheaderFont = [UIFont systemFontOfSize:18.f];
+        }
     }
     if (lightSubheaderFont) {
         _subheaderAttributes = @{ NSFontAttributeName: lightSubheaderFont,

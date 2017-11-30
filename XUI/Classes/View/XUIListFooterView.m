@@ -43,7 +43,11 @@ static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 40.f, 20.f, 40.f, 20.f
     
     UIFont *lightFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:14.f];
     if (!lightFont) {
-        lightFont = [UIFont systemFontOfSize:14.f];
+        if (XUI_SYSTEM_8_2) {
+            lightFont = [UIFont systemFontOfSize:14.f weight:UIFontWeightUltraLight];
+        } else {
+            lightFont = [UIFont systemFontOfSize:14.f];
+        }
     }
     if (lightFont) {
         _footerAttributes = @{ NSFontAttributeName: lightFont,

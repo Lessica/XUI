@@ -14,8 +14,9 @@
 #define XUI_START_IGNORE_PARTIAL _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wpartial-availability\"")
 #define XUI_END_IGNORE_PARTIAL _Pragma("clang diagnostic pop")
 
-#define XUI_SYSTEM_8 (floor(NSFoundationVersionNumber) > 1140.11)
-#define XUI_SYSTEM_9 (floor(NSFoundationVersionNumber) > 1240.1)
+#define XUI_SYSTEM_8 (NSFoundationVersionNumber >= 1140.11)
+#define XUI_SYSTEM_8_2 (NSFoundationVersionNumber >= 1142.14)
+#define XUI_SYSTEM_9 (NSFoundationVersionNumber >= 1240.1)
 
 #define XUI_PAD ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone)
 #define XUI_COLLAPSED \

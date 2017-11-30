@@ -140,7 +140,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     }
     if ([self.class layoutNeedsTextLabel]) {
         XUI_START_IGNORE_PARTIAL
-        if (XUI_SYSTEM_9) {
+        if (XUI_SYSTEM_8_2) {
             self.textLabel.font = [UIFont systemFontOfSize:17.f weight:UIFontWeightLight];
         } else {
             self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.f];
@@ -149,7 +149,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
         self.textLabel.text = nil;
         
         XUI_START_IGNORE_PARTIAL
-        if (XUI_SYSTEM_9) {
+        if (XUI_SYSTEM_8_2) {
             self.detailTextLabel.font = [UIFont systemFontOfSize:17.f weight:UIFontWeightLight];
         } else {
             self.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.f];
