@@ -116,7 +116,12 @@
     // header
     NSString *listHeader = rootEntry[@"header"];
     NSString *listSubheader = rootEntry[@"subheader"];
-    if ([listHeader isKindOfClass:[NSString class]] && [listSubheader isKindOfClass:[NSString class]]) {
+    if (
+        [listHeader isKindOfClass:[NSString class]] &&
+        [listSubheader isKindOfClass:[NSString class]] &&
+        listHeader.length > 0 &&
+        listSubheader.length > 0
+        ) {
         self.headerView.headerText = [self.adapter localizedStringForKey:listHeader value:listHeader];
         self.headerView.subheaderText = [self.adapter localizedStringForKey:listSubheader value:listSubheader];
     }
