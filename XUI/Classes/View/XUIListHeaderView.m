@@ -10,7 +10,7 @@
 
 #import "XUITheme.h"
 
-static UIEdgeInsets const XUIListHeaderViewEdgeInsets = { 40.f, 20.f, 20.f, 20.f };
+static UIEdgeInsets const XUIListHeaderViewEdgeInsets = { 32.f, 20.f, 54.f, 20.f };
 
 @interface XUIListHeaderView ()
 
