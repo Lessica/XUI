@@ -14,12 +14,14 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *cellSegmentControl;
 @property (assign, nonatomic) BOOL shouldUpdateValue;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *cellTitleLabel;
 
 @end
 
 @implementation XUISegmentCell
 
-@synthesize xui_value = _xui_value;
+@synthesize xui_value = _xui_value, xui_label = _xui_label;
 
 + (BOOL)xibBasedLayout {
     return YES;
@@ -60,8 +62,25 @@
 
 - (void)setupCell {
     [super setupCell];
-    
+    self.cellTitleLabel.text = @"";
     [self.cellSegmentControl addTarget:self action:@selector(xuiSegmentValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [self reloadLeftConstraints];
+}
+
+- (void)reloadLeftConstraints {
+    if (self.cellTitleLabel.text.length == 0) {
+        self.leftConstraint.constant = 0.0;
+        [self.cellTitleLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+        [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+        [self.cellSegmentControl setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+        [self.cellSegmentControl setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    } else {
+        self.leftConstraint.constant = self.separatorInset.left; // 20.0 or 15.0, depends on screen size
+        [self.cellTitleLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+        [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+        [self.cellSegmentControl setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+        [self.cellSegmentControl setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    }
 }
 
 - (void)setXui_options:(NSArray<NSDictionary *> *)xui_options {
@@ -89,6 +108,12 @@
         [self.cellSegmentControl setSelectedSegmentIndex:selectedIdx];
     }
     [self updateValueIfNeeded];
+}
+
+- (void)setXui_label:(NSString *)xui_label {
+    _xui_label = xui_label;
+    self.cellTitleLabel.text = xui_label;
+    [self reloadLeftConstraints];
 }
 
 - (void)setXui_value:(id)xui_value {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="NO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17B48" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="NO">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="7000" identifier="xcode"/>
@@ -15,24 +15,34 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0Zr-1q-gxK">
-                        <rect key="frame" x="16" y="8" width="382" height="29"/>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0Zr-1q-gxK">
+                        <rect key="frame" x="277" y="8" width="121" height="29"/>
                         <segments>
                             <segment title="First"/>
                             <segment title="Second"/>
                         </segments>
                         <color key="tintColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
                     </segmentedControl>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4a5-3t-vGA">
+                        <rect key="frame" x="20" y="11.5" width="241" height="21"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="4a5-3t-vGA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="FRa-yC-cAK"/>
+                    <constraint firstItem="4a5-3t-vGA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="JV6-rA-mmM"/>
+                    <constraint firstItem="0Zr-1q-gxK" firstAttribute="leading" secondItem="4a5-3t-vGA" secondAttribute="trailing" constant="16" id="LJz-Eg-iFD"/>
                     <constraint firstAttribute="bottom" secondItem="0Zr-1q-gxK" secondAttribute="bottom" constant="8" id="RKl-6d-3p5"/>
                     <constraint firstItem="0Zr-1q-gxK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="jlF-Z3-noC"/>
-                    <constraint firstItem="0Zr-1q-gxK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="lYI-JV-MoI"/>
                     <constraint firstAttribute="trailing" secondItem="0Zr-1q-gxK" secondAttribute="trailing" constant="16" id="nVa-3C-pJI"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellSegmentControl" destination="0Zr-1q-gxK" id="N3Q-3j-dGo"/>
+                <outlet property="cellTitleLabel" destination="4a5-3t-vGA" id="2OE-yw-PaS"/>
+                <outlet property="leftConstraint" destination="FRa-yC-cAK" id="UUs-m3-zy9"/>
             </connections>
         </tableViewCell>
     </objects>
