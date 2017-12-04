@@ -70,17 +70,17 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 8.f, 0.f, 8.f, 0.f };
     textView.textContainerInset = XUIStaticTextCellPadding;
     textView.layoutManager.hyphenationFactor = 1.0f;
     UIFont *font = [UIFont systemFontOfSize:17.f];
+    BOOL selectable = textView.selectable;
+    textView.selectable = YES;
     XUI_START_IGNORE_PARTIAL
     if ([[UIFont class] respondsToSelector:@selector(systemFontOfSize:weight:)]) {
         font = [UIFont systemFontOfSize:17.f weight:UIFontWeightLight];
         textView.font = font;
     } else {
         font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.f];
-        BOOL selectable = textView.selectable;
-        textView.selectable = YES;
         textView.font = font;
-        textView.selectable = selectable;
     }
+    textView.selectable = selectable;
     XUI_END_IGNORE_PARTIAL
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }

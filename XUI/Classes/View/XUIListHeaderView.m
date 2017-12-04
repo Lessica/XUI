@@ -11,7 +11,20 @@
 #import "XUITheme.h"
 #import "XUIPrivate.h"
 
-static UIEdgeInsets const XUIListHeaderViewEdgeInsets = { 32.f, 20.f, 54.f, 20.f };
+static UIEdgeInsets const XUIListHeaderViewEdgeInsetsLarge = { 32.f, 20.f, 54.f, 20.f };
+static UIEdgeInsets const XUIListHeaderViewEdgeInsetsSmall = { 32.f, 20.f, 16.f, 20.f };
+static inline UIEdgeInsets XUIListHeaderViewEdgeInsets() {
+    static UIEdgeInsets defaultEdgeInsets;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (([[UIScreen mainScreen] bounds].size.height <= 667.0)) {
+            defaultEdgeInsets = XUIListHeaderViewEdgeInsetsSmall;
+        } else {
+            defaultEdgeInsets = XUIListHeaderViewEdgeInsetsLarge;
+        }
+    });
+    return defaultEdgeInsets;
+}
 
 @interface XUIListHeaderView ()
 
@@ -74,13 +87,13 @@ static UIEdgeInsets const XUIListHeaderViewEdgeInsets = { 32.f, 20.f, 54.f, 20.f
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.headerLabel.frame = CGRectMake(XUIListHeaderViewEdgeInsets.left, XUIListHeaderViewEdgeInsets.top, self.bounds.size.width - XUIListHeaderViewEdgeInsets.left - XUIListHeaderViewEdgeInsets.right, self.headerHeight);
-    self.subheaderLabel.frame = CGRectMake(XUIListHeaderViewEdgeInsets.left, XUIListHeaderViewEdgeInsets.top + self.headerHeight + 12.f, self.bounds.size.width - XUIListHeaderViewEdgeInsets.left - XUIListHeaderViewEdgeInsets.right, self.subheaderHeight);
+    self.headerLabel.frame = CGRectMake(XUIListHeaderViewEdgeInsets().left, XUIListHeaderViewEdgeInsets().top, self.bounds.size.width - XUIListHeaderViewEdgeInsets().left - XUIListHeaderViewEdgeInsets().right, self.headerHeight);
+    self.subheaderLabel.frame = CGRectMake(XUIListHeaderViewEdgeInsets().left, XUIListHeaderViewEdgeInsets().top + self.headerHeight + 12.f, self.bounds.size.width - XUIListHeaderViewEdgeInsets().left - XUIListHeaderViewEdgeInsets().right, self.subheaderHeight);
 }
 
 - (CGSize)intrinsicContentSize {
     if (self.headerText && self.subheaderHeight) {
-        return CGSizeMake(self.bounds.size.width, XUIListHeaderViewEdgeInsets.top + self.headerHeight + 12.f + self.subheaderHeight + XUIListHeaderViewEdgeInsets.bottom);
+        return CGSizeMake(self.bounds.size.width, XUIListHeaderViewEdgeInsets().top + self.headerHeight + 12.f + self.subheaderHeight + XUIListHeaderViewEdgeInsets().bottom);
     }
     return CGSizeZero;
 }
@@ -121,7 +134,7 @@ static UIEdgeInsets const XUIListHeaderViewEdgeInsets = { 32.f, 20.f, 54.f, 20.f
     NSAttributedString *attributedHeaderText = [[NSAttributedString alloc] initWithString:headerText attributes:self.headerAttributes];
     [self.headerLabel setAttributedText:attributedHeaderText];
     
-    self.headerHeight = [attributedHeaderText boundingRectWithSize:CGSizeMake(self.bounds.size.width - XUIListHeaderViewEdgeInsets.left - XUIListHeaderViewEdgeInsets.right, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil].size.height;
+    self.headerHeight = [attributedHeaderText boundingRectWithSize:CGSizeMake(self.bounds.size.width - XUIListHeaderViewEdgeInsets().left - XUIListHeaderViewEdgeInsets().right, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil].size.height;
 }
 
 - (void)setSubheaderText:(NSString *)subheaderText {
@@ -130,7 +143,7 @@ static UIEdgeInsets const XUIListHeaderViewEdgeInsets = { 32.f, 20.f, 54.f, 20.f
     NSAttributedString *attributedSubheaderText = [[NSAttributedString alloc] initWithString:subheaderText attributes:self.subheaderAttributes];
     [self.subheaderLabel setAttributedText:attributedSubheaderText];
     
-    self.subheaderHeight = [attributedSubheaderText boundingRectWithSize:CGSizeMake(self.bounds.size.width - XUIListHeaderViewEdgeInsets.left - XUIListHeaderViewEdgeInsets.right, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil].size.height;
+    self.subheaderHeight = [attributedSubheaderText boundingRectWithSize:CGSizeMake(self.bounds.size.width - XUIListHeaderViewEdgeInsets().left - XUIListHeaderViewEdgeInsets().right, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil].size.height;
 }
 
 - (void)setTheme:(XUITheme *)theme {
