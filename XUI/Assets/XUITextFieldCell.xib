@@ -16,33 +16,36 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Value" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fQa-B2-NMQ">
-                        <rect key="frame" x="24" y="11.5" width="374" height="20"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Value" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fQa-B2-NMQ">
+                        <rect key="frame" x="36" y="12" width="362" height="19.5"/>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                     </textField>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rtI-Pq-0SW">
-                        <rect key="frame" x="8" y="12" width="0.0" height="19.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rtI-Pq-0SW">
+                        <rect key="frame" x="20" y="12" width="0.0" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" id="AAJ-T9-1og"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="rtI-Pq-0SW" secondAttribute="bottom" constant="4" id="60y-fz-O2O"/>
-                    <constraint firstItem="fQa-B2-NMQ" firstAttribute="leading" secondItem="rtI-Pq-0SW" secondAttribute="trailing" constant="16" id="81e-0x-i0m"/>
                     <constraint firstAttribute="bottomMargin" secondItem="fQa-B2-NMQ" secondAttribute="bottom" constant="4" id="EAr-x6-BEE"/>
-                    <constraint firstItem="rtI-Pq-0SW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="RPS-eP-fJN"/>
                     <constraint firstItem="fQa-B2-NMQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="Sn7-EB-6I9"/>
                     <constraint firstAttribute="trailing" secondItem="fQa-B2-NMQ" secondAttribute="trailing" constant="16" id="cWo-9L-OfF"/>
-                    <constraint firstItem="rtI-Pq-0SW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="pCe-62-bBV"/>
+                    <constraint firstItem="fQa-B2-NMQ" firstAttribute="leading" secondItem="rtI-Pq-0SW" secondAttribute="trailing" constant="16" id="cYY-xD-8Oq"/>
+                    <constraint firstItem="rtI-Pq-0SW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="pCe-62-bBV"/>
+                    <constraint firstItem="rtI-Pq-0SW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yPi-xR-g7C"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellTextField" destination="fQa-B2-NMQ" id="kzc-uW-owE"/>
-                <outlet property="leftConstraint" destination="81e-0x-i0m" id="erU-fz-OC6"/>
+                <outlet property="leftConstraint" destination="pCe-62-bBV" id="aoN-xx-Sun"/>
                 <outlet property="titleLabel" destination="rtI-Pq-0SW" id="oy9-gc-qEA"/>
+                <outlet property="titleWidthConstraint" destination="AAJ-T9-1og" id="8Jo-DD-SRo"/>
             </connections>
         </tableViewCell>
     </objects>

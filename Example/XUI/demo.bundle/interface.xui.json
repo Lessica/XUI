@@ -177,6 +177,7 @@
             "cell":"Checkbox",
             "minCount":0,
             "key":"checkbox1",
+            "alignment":"Justified",
             "options":[
                 {
                     "value":"Red",

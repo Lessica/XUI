@@ -14,6 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleWidthConstraint;
 
 @property (nonatomic, assign) NSUInteger maxLength;
 
@@ -82,6 +83,7 @@
 
 - (void)setupCell {
     [super setupCell];
+    self.titleLabel.text = @"";
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UITextField *textField = self.cellTextField;
@@ -99,9 +101,23 @@
     XUI_END_IGNORE_PARTIAL
 #endif
     
-    [self.titleLabel setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.titleLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    [self.titleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [self.cellTextField setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [self.cellTextField setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     
     _maxLength = UINT_MAX;
+    [self reloadLeftConstraints];
+}
+
+- (void)reloadLeftConstraints {
+    if (self.titleLabel.text.length == 0) {
+        self.leftConstraint.constant = 0.0;
+        self.titleWidthConstraint.active = YES;
+    } else {
+        self.leftConstraint.constant = self.separatorInset.left; // 20.0 or 15.0, depends on screen size
+        self.titleWidthConstraint.active = NO;
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -188,11 +204,7 @@
 - (void)setXui_label:(NSString *)xui_label {
     [super setXui_label:xui_label];
     self.titleLabel.text = xui_label;
-    if (xui_label.length == 0) {
-        self.leftConstraint.constant = 0.f;
-    } else {
-        self.leftConstraint.constant = 16.f;
-    }
+    [self reloadLeftConstraints];
 }
 
 - (void)setXui_value:(id)xui_value {

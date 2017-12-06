@@ -499,9 +499,8 @@ XUI_END_IGNORE_PARTIAL
 {
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    
-    UIEdgeInsets contentInsets = [self defaultContentInsets];
-    contentInsets.bottom = kbSize.height;
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    contentInsets.bottom -= self.defaultContentInsets.bottom;
     self.tableView.contentInset = contentInsets;
     self.tableView.scrollIndicatorInsets = contentInsets;
 }
@@ -509,8 +508,7 @@ XUI_END_IGNORE_PARTIAL
 - (void)keyboardWillDisappear:(NSNotification *)aNotification
 {
     UITableView *tableView = self.tableView;
-    UIEdgeInsets contentInsets = [self defaultContentInsets];
-    contentInsets.bottom = XUI_PAD ? 0.0 : self.tabBarController.tabBar.bounds.size.height;
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, (XUI_PAD ? 0.0 : self.tabBarController.tabBar.bounds.size.height), 0.0);
     tableView.contentInset = contentInsets;
     tableView.scrollIndicatorInsets = contentInsets;
 }
@@ -519,6 +517,11 @@ XUI_END_IGNORE_PARTIAL
 
 - (UIEdgeInsets)defaultContentInsets {
     UIEdgeInsets insets = UIEdgeInsetsZero;
+    XUI_START_IGNORE_PARTIAL
+    if ([self.view respondsToSelector:@selector(safeAreaInsets)]) {
+        insets = self.view.safeAreaInsets;
+    }
+    XUI_END_IGNORE_PARTIAL
     return insets;
 }
 

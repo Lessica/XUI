@@ -11,7 +11,6 @@
 
 @property (nonatomic, strong) XUITextFieldCell *textFieldCell;
 @property (nonatomic, strong) UIBarButtonItem *saveItem;
-//@property (nonatomic, strong) UIBarButtonItem *addItem;
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
@@ -28,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.saveItem.enabled = (self.content.length > 0);
     
     if (self.isAddMode) {
         self.title = NSLocalizedStringFromTableInBundle(@"Add Item", nil, FRAMEWORK_BUNDLE, nil);
@@ -42,11 +42,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.textFieldCell.cellTextField becomeFirstResponder];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - UIView Getters
@@ -69,17 +64,10 @@
     return _tableView;
 }
 
-//- (UIBarButtonItem *)addItem {
-//    if (!_addItem) {
-//        UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addOrSaveItemTapped:)];
-//        _addItem = addItem;
-//    }
-//    return _addItem;
-//}
-
 - (UIBarButtonItem *)saveItem {
     if (!_saveItem) {
         UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(addOrSaveItemTapped:)];
+        saveItem.enabled = NO;
         _saveItem = saveItem;
     }
     return _saveItem;
@@ -129,6 +117,18 @@
 }
 
 #pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    NSString *content = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    self.saveItem.enabled = (content.length > 0);
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    self.saveItem.enabled = NO;
+    return YES;
+}
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self addOrSaveItemTapped:nil];
