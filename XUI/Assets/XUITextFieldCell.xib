@@ -17,16 +17,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Value" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fQa-B2-NMQ">
-                        <rect key="frame" x="36" y="12" width="362" height="19.5"/>
+                        <rect key="frame" x="352" y="12" width="46" height="19.5"/>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                     </textField>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rtI-Pq-0SW">
-                        <rect key="frame" x="20" y="12" width="0.0" height="20.5"/>
-                        <constraints>
-                            <constraint firstAttribute="width" id="AAJ-T9-1og"/>
-                        </constraints>
+                        <rect key="frame" x="20" y="12" width="316" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -45,7 +42,6 @@
                 <outlet property="cellTextField" destination="fQa-B2-NMQ" id="kzc-uW-owE"/>
                 <outlet property="leftConstraint" destination="pCe-62-bBV" id="aoN-xx-Sun"/>
                 <outlet property="titleLabel" destination="rtI-Pq-0SW" id="oy9-gc-qEA"/>
-                <outlet property="titleWidthConstraint" destination="AAJ-T9-1og" id="8Jo-DD-SRo"/>
             </connections>
         </tableViewCell>
     </objects>

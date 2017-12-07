@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleWidthConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *titleWidthConstraint;
 
 @property (nonatomic, assign) NSUInteger maxLength;
 
@@ -106,6 +106,13 @@
     [self.cellTextField setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [self.cellTextField setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     
+    self.titleWidthConstraint = [NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.titleLabel attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0];
+    if (XUI_SYSTEM_8) {
+        [self.titleLabel addConstraint:self.titleWidthConstraint];
+    } else {
+        
+    }
+    
     _maxLength = UINT_MAX;
     [self reloadLeftConstraints];
 }
@@ -113,10 +120,22 @@
 - (void)reloadLeftConstraints {
     if (self.titleLabel.text.length == 0) {
         self.leftConstraint.constant = 0.0;
-        self.titleWidthConstraint.active = YES;
+        if (XUI_SYSTEM_8) {
+            self.titleWidthConstraint.active = YES;
+        } else {
+            if ([self.titleLabel.constraints containsObject:self.titleWidthConstraint]) {
+                [self.titleLabel removeConstraint:self.titleWidthConstraint];
+            }
+        }
     } else {
         self.leftConstraint.constant = self.separatorInset.left; // 20.0 or 15.0, depends on screen size
-        self.titleWidthConstraint.active = NO;
+        if (XUI_SYSTEM_8) {
+            self.titleWidthConstraint.active = NO;
+        } else {
+            if (![self.titleLabel.constraints containsObject:self.titleWidthConstraint]) {
+                [self.titleLabel addConstraint:self.titleWidthConstraint];
+            }
+        }
     }
 }
 
