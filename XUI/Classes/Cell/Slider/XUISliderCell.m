@@ -109,6 +109,10 @@
     [super setTheme:theme];
     self.cellSliderValueLabel.textColor = theme.valueColor;
     self.cellSlider.minimumTrackTintColor = theme.tintColor;
+    self.cellSlider.tintColor = theme.thumbColor;
+    if (NO == [theme.thumbColor isEqual:[UIColor whiteColor]]) {
+        self.cellSlider.thumbTintColor = theme.thumbColor;
+    }
 }
 
 - (void)setNeedsUpdateValue {

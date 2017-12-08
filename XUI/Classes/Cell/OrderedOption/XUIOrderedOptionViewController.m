@@ -67,6 +67,11 @@
     [super viewDidLoad];
     
     [self.tableView registerClass:[XUIBaseOptionCell class] forCellReuseIdentifier:XUIBaseOptionCellReuseIdentifier];
+    
+    XUITheme *theme = self.theme;
+    self.tableView.backgroundColor = theme.backgroundColor;
+    self.tableView.separatorColor = theme.separatorColor;
+    
     [self.view addSubview:self.tableView];
 }
 
@@ -74,7 +79,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:self.theme.tableViewStyle];
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

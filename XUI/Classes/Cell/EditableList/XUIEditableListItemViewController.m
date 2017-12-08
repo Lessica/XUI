@@ -36,6 +36,10 @@
     }
     self.navigationItem.rightBarButtonItem = self.saveItem;
     
+    XUITheme *theme = self.theme;
+    self.tableView.backgroundColor = theme.backgroundColor;
+    self.tableView.separatorColor = theme.separatorColor;
+    
     [self.view addSubview:self.tableView];
 }
 
@@ -48,7 +52,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:self.theme.tableViewStyle];
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -80,6 +84,7 @@
         cell.cellTextField.returnKeyType = UIReturnKeyDone;
         cell.cellTextField.delegate = self;
         cell.xui_value = self.content;
+        cell.xui_placeholder = @"Value";
         _textFieldCell = cell;
     }
     return _textFieldCell;

@@ -101,7 +101,10 @@
 
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
-//    self.cellSwitch.thumbTintColor = theme.backgroundColor;
+    if (NO == [theme.thumbColor isEqual:[UIColor whiteColor]]) {
+        self.cellSwitch.thumbTintColor = theme.thumbColor;
+    }
+    self.cellSwitch.tintColor = theme.thumbColor;
     self.cellSwitch.onTintColor = theme.tintColor;
 }
 

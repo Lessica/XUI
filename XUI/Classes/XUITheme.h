@@ -19,10 +19,16 @@
 @property (nonatomic, strong) UIColor *navigationBarColor;
 @property (nonatomic, strong) UIColor *navigationTitleColor;
 
+#pragma mark - Table View
+
+@property (nonatomic, assign) UITableViewStyle tableViewStyle;
+@property (nonatomic, strong) UIColor *tintColor;
+@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIColor *separatorColor;
+
 #pragma mark - Cells
 
-@property (nonatomic, strong) UIColor *tintColor; // cell tint
-@property (nonatomic, strong) UIColor *backgroundColor; // cell background
+@property (nonatomic, strong) UIColor *cellBackgroundColor; // cell background
 @property (nonatomic, strong) UIColor *disclosureIndicatorColor; // cell disclosure
 
 @property (nonatomic, strong) UIColor *labelColor; // text
@@ -30,6 +36,12 @@
 
 @property (nonatomic, strong) UIColor *selectedColor; // cell selected
 @property (nonatomic, strong) UIColor *highlightedColor; // cell highlighted
+
+#pragma mark - Inputs
+
+@property (nonatomic, strong) UIColor *textColor;
+@property (nonatomic, strong) UIColor *caretColor;
+@property (nonatomic, strong) UIColor *placeholderColor;
 
 #pragma mark - Tag Views
 
@@ -44,6 +56,10 @@
 // Border color
 @property (strong, nonatomic) UIColor *tagBorderColor;
 @property (strong, nonatomic) UIColor *tagSelectedBorderColor;
+
+#pragma mark - Switch
+
+@property (strong, nonatomic) UIColor *thumbColor;
 
 #pragma mark - Dark Mode
 

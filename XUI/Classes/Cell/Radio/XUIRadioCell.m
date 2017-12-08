@@ -218,7 +218,9 @@
     self.tagView.defaultConfig.tagSelectedBackgroundColor = theme.tagSelectedBackgroundColor;
     
     self.tagView.defaultConfig.tagBorderColor = theme.tagBorderColor;
-    self.tagView.defaultConfig.tagSelectedBorderColor = theme.tagSelectedBackgroundColor;
+    self.tagView.defaultConfig.tagSelectedBorderColor = theme.tagSelectedBorderColor;
+    
+    self.tagView.backgroundColor = [UIColor clearColor];
     
     [self.tagView reload];
 }

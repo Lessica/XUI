@@ -163,8 +163,15 @@
     XUIListHeaderView *headerView = [[XUIListHeaderView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 0.f)];
     _headerView = headerView;
     
+    XUIListFooterView *footerView = [[XUIListFooterView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 0.f)];
+    _footerView = footerView;
+}
+
+- (void)setupSubviews {
+    XUITheme *theme = self.theme;
+    
     _tableView = ({
-        UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:theme.tableViewStyle];
         tableView.dataSource = self;
         tableView.delegate = self;
         tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -179,16 +186,13 @@
         tableView;
     });
     
-    XUIListFooterView *footerView = [[XUIListFooterView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 0.f)];
-    _footerView = footerView;
-}
-
-- (void)setupSubviews {
-    [self.view addSubview:self.tableView];
-    
+    self.tableView.backgroundColor = theme.backgroundColor;
+    self.tableView.separatorColor = theme.separatorColor;
     self.tableView.contentInset =
     self.tableView.scrollIndicatorInsets = self.defaultContentInsets;
     [self.tableView setContentOffset:CGPointMake(0, -self.defaultContentInsets.top) animated:YES];
+    
+    [self.view addSubview:self.tableView];
     
     if (XUI_SYSTEM_8) {
         {
@@ -197,7 +201,7 @@
             headerFrame.size.height = height;
             self.headerView.frame = headerFrame;
             [self.tableView setTableHeaderView:self.headerView];
-            self.headerView.theme = self.theme;
+            self.headerView.theme = theme;
         }
         
         {
@@ -206,7 +210,7 @@
             footerFrame.size.height = height;
             self.footerView.frame = footerFrame;
             [self.tableView setTableFooterView:self.footerView];
-            self.footerView.theme = self.theme;
+            self.footerView.theme = theme;
         }
     } else {
         {
@@ -217,7 +221,7 @@
             headerFrame.size.height = height;
             self.headerView.frame = headerFrame;
             [self.tableView setTableHeaderView:self.headerView];
-            self.headerView.theme = self.theme;
+            self.headerView.theme = theme;
         }
         
         {
@@ -228,7 +232,7 @@
             footerFrame.size.height = height;
             self.footerView.frame = footerFrame;
             [self.tableView setTableFooterView:self.footerView];
-            self.footerView.theme = self.theme;
+            self.footerView.theme = theme;
         }
     }
 }
@@ -398,6 +402,16 @@
         }
     }
     return NO;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.textLabel.font = [UIFont systemFontOfSize:14.0];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.textLabel.font = [UIFont systemFontOfSize:14.0];
 }
 
 XUI_START_IGNORE_PARTIAL

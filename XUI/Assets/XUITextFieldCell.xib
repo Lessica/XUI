@@ -41,7 +41,7 @@
             <connections>
                 <outlet property="cellTextField" destination="fQa-B2-NMQ" id="kzc-uW-owE"/>
                 <outlet property="leftConstraint" destination="pCe-62-bBV" id="aoN-xx-Sun"/>
-                <outlet property="titleLabel" destination="rtI-Pq-0SW" id="oy9-gc-qEA"/>
+                <outlet property="cellTitleLabel" destination="rtI-Pq-0SW" id="oy9-gc-qEA"/>
             </connections>
         </tableViewCell>
     </objects>

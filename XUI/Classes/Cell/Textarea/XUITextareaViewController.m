@@ -67,6 +67,11 @@
     XUI_END_IGNORE_PARTIAL
 #endif
     
+    XUITheme *theme = self.theme;
+    textView.backgroundColor = theme.backgroundColor;
+    textView.textColor = theme.textColor;
+    textView.tintColor = theme.caretColor;
+    
     NSString *xui_alignment = self.cell.xui_alignment;
     if ([xui_alignment isEqualToString:@"Left"]) {
         textView.textAlignment = NSTextAlignmentLeft;

@@ -148,6 +148,7 @@ static inline UIEdgeInsets XUIListHeaderViewEdgeInsets() {
 
 - (void)setTheme:(XUITheme *)theme {
     _theme = theme;
+    self.backgroundColor = theme.backgroundColor;
     self.headerLabel.textColor = theme.labelColor;
     self.subheaderLabel.textColor = theme.labelColor;
 }

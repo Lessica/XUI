@@ -12,7 +12,7 @@
 
 @interface XUITextFieldCell () <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cellTitleLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *titleWidthConstraint;
 
@@ -83,7 +83,7 @@
 
 - (void)setupCell {
     [super setupCell];
-    self.titleLabel.text = @"";
+    self.cellTitleLabel.text = @"";
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UITextField *textField = self.cellTextField;
@@ -101,14 +101,14 @@
     XUI_END_IGNORE_PARTIAL
 #endif
     
-    [self.titleLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-    [self.titleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    [self.cellTitleLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+    [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [self.cellTextField setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [self.cellTextField setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     
-    self.titleWidthConstraint = [NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.titleLabel attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0];
+    self.titleWidthConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.cellTitleLabel attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0];
     if (XUI_SYSTEM_8) {
-        [self.titleLabel addConstraint:self.titleWidthConstraint];
+        [self.cellTitleLabel addConstraint:self.titleWidthConstraint];
     } else {
         
     }
@@ -118,13 +118,13 @@
 }
 
 - (void)reloadLeftConstraints {
-    if (self.titleLabel.text.length == 0) {
+    if (self.cellTitleLabel.text.length == 0) {
         self.leftConstraint.constant = 0.0;
         if (XUI_SYSTEM_8) {
             self.titleWidthConstraint.active = YES;
         } else {
-            if ([self.titleLabel.constraints containsObject:self.titleWidthConstraint]) {
-                [self.titleLabel removeConstraint:self.titleWidthConstraint];
+            if ([self.cellTitleLabel.constraints containsObject:self.titleWidthConstraint]) {
+                [self.cellTitleLabel removeConstraint:self.titleWidthConstraint];
             }
         }
     } else {
@@ -132,8 +132,8 @@
         if (XUI_SYSTEM_8) {
             self.titleWidthConstraint.active = NO;
         } else {
-            if (![self.titleLabel.constraints containsObject:self.titleWidthConstraint]) {
-                [self.titleLabel addConstraint:self.titleWidthConstraint];
+            if (![self.cellTitleLabel.constraints containsObject:self.titleWidthConstraint]) {
+                [self.cellTitleLabel addConstraint:self.titleWidthConstraint];
             }
         }
     }
@@ -184,6 +184,7 @@
 - (void)setXui_placeholder:(NSString *)xui_placeholder {
     _xui_placeholder = xui_placeholder;
     self.cellTextField.placeholder = xui_placeholder;
+    [self reloadPlaceholderAttributes];
 }
 
 - (void)setXui_isSecure:(NSNumber *)xui_isSecure {
@@ -222,7 +223,7 @@
 
 - (void)setXui_label:(NSString *)xui_label {
     [super setXui_label:xui_label];
-    self.titleLabel.text = xui_label;
+    self.cellTitleLabel.text = xui_label;
     [self reloadLeftConstraints];
 }
 
@@ -233,13 +234,34 @@
 
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
-    self.cellTextField.tintColor = theme.tintColor;
+    self.cellTextField.tintColor = theme.caretColor;
+    self.cellTitleLabel.textColor = theme.labelColor;
+    self.cellTextField.textColor = theme.textColor;
+    [self reloadPlaceholderAttributes];
 }
 
 - (void)setXui_maxLength:(NSNumber *)xui_maxLength {
     _xui_maxLength = xui_maxLength;
     if (xui_maxLength) {
         _maxLength = [xui_maxLength unsignedIntegerValue];
+    }
+}
+
+- (void)reloadPlaceholderAttributes {
+    UIFont *placeholderFont = nil;
+    XUI_START_IGNORE_PARTIAL
+    if (XUI_SYSTEM_8_2) {
+        placeholderFont = [UIFont systemFontOfSize:17.f weight:UIFontWeightLight];
+    } else {
+        placeholderFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.f];
+    }
+    XUI_END_IGNORE_PARTIAL
+    NSString *placeholder = self.xui_placeholder;
+    UIColor *placeholderColor = self.theme.placeholderColor;
+    if (placeholder.length > 0 && placeholderColor && placeholderFont) {
+        NSDictionary *attributes = @{ NSForegroundColorAttributeName: placeholderColor, NSFontAttributeName: placeholderFont };
+        NSMutableAttributedString *attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:placeholder attributes:attributes];
+        self.cellTextField.attributedPlaceholder = attributedPlaceholder;
     }
 }
 

@@ -31,8 +31,21 @@
     if (self) {
         [self setup];
         
+        if (themeDictionary[@"style"]) {
+            NSString *style = themeDictionary[@"style"];
+            if ([style isEqualToString:@"Plain"]) {
+                _tableViewStyle = UITableViewStylePlain;
+            } else {
+                _tableViewStyle = UITableViewStyleGrouped;
+            }
+        }
+        
         if (themeDictionary[@"tintColor"])
             _tintColor = [UIColor xui_colorWithHex:themeDictionary[@"tintColor"]];
+        if (themeDictionary[@"backgroundColor"])
+            _backgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"backgroundColor"]];
+        if (themeDictionary[@"separatorColor"])
+            _separatorColor = [UIColor xui_colorWithHex:themeDictionary[@"separatorColor"]];
         
         if (themeDictionary[@"dangerColor"])
             _dangerColor = [UIColor xui_colorWithHex:themeDictionary[@"dangerColor"]];
@@ -56,8 +69,15 @@
         if (themeDictionary[@"valueColor"])
             _valueColor = [UIColor xui_colorWithHex:themeDictionary[@"valueColor"]];
         
-        if (themeDictionary[@"backgroundColor"])
-            _backgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"backgroundColor"]];
+        if (themeDictionary[@"caretColor"])
+            _caretColor = [UIColor xui_colorWithHex:themeDictionary[@"caretColor"]];
+        if (themeDictionary[@"textColor"])
+            _textColor = [UIColor xui_colorWithHex:themeDictionary[@"textColor"]];
+        if (themeDictionary[@"placeholderColor"])
+            _placeholderColor = [UIColor xui_colorWithHex:themeDictionary[@"placeholderColor"]];
+        
+        if (themeDictionary[@"cellBackgroundColor"])
+            _cellBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"cellBackgroundColor"]];
         if (themeDictionary[@"disclosureIndicatorColor"])
             _disclosureIndicatorColor = [UIColor xui_colorWithHex:themeDictionary[@"disclosureIndicatorColor"]];
         
@@ -74,12 +94,19 @@
         if (themeDictionary[@"tagSelectedBackgroundColor"])
             _tagSelectedBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"tagSelectedBackgroundColor"]];
         
+        if (themeDictionary[@"thumbColor"])
+            _thumbColor = [UIColor xui_colorWithHex:themeDictionary[@"thumbColor"]];
         
     }
     return self;
 }
 
 - (void)setup {
+    _tableViewStyle = UITableViewStyleGrouped;
+    _tintColor = XUI_COLOR_HIGHLIGHTED;
+    _backgroundColor = [UIColor groupTableViewBackgroundColor];
+    _separatorColor = [UIColor lightGrayColor];
+    
     _dangerColor = XUI_COLOR_DANGER;
     _warningColor = XUI_COLOR_WARNING;
     _successColor = XUI_COLOR_SUCCESS;
@@ -90,8 +117,11 @@
     _labelColor = [UIColor blackColor];
     _valueColor = [UIColor grayColor];
     
-     _tintColor = XUI_COLOR_HIGHLIGHTED;
-    _backgroundColor = [UIColor whiteColor];
+    _textColor = [UIColor blackColor];
+    _caretColor = XUI_COLOR_HIGHLIGHTED;
+    _placeholderColor = [UIColor lightGrayColor];
+    
+    _cellBackgroundColor = [UIColor whiteColor];
     _disclosureIndicatorColor = XUI_COLOR_DISCLOSURE;
     
     _selectedColor = [XUI_COLOR_HIGHLIGHTED colorWithAlphaComponent:0.1];
@@ -103,6 +133,8 @@
     _tagSelectedBorderColor = XUI_COLOR_HIGHLIGHTED;
     _tagBackgroundColor = [UIColor whiteColor];
     _tagSelectedBackgroundColor = XUI_COLOR_HIGHLIGHTED;
+    
+    _thumbColor = [UIColor whiteColor];
 }
 
 - (BOOL)isDarkMode {

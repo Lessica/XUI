@@ -130,7 +130,9 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
         XUITheme *theme = nil;
         NSDictionary *itemTheme = itemDictionary[@"theme"];
         if ([itemTheme isKindOfClass:[NSDictionary class]]) {
-            theme = [[XUITheme alloc] initWithDictionary:itemTheme];
+            NSMutableDictionary *combinedTheme = [(themeDictionary ? themeDictionary : @{}) mutableCopy];
+            [combinedTheme addEntriesFromDictionary:itemTheme];
+            theme = [[XUITheme alloc] initWithDictionary:combinedTheme];
         } else {
             theme = self.theme;
         }
