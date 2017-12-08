@@ -162,7 +162,7 @@
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
     UIDatePicker *picker = self.dateTimePicker;
-    picker.tintColor = theme.tintColor;
+    picker.tintColor = theme.foregroundColor;
     [picker setValue:theme.labelColor forKeyPath:@"textColor"];
 //    if ([picker respondsToSelector:sel_registerName("setHighlightsToday:")]) {
 //#pragma clang diagnostic push

@@ -135,7 +135,7 @@
 
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
-    self.cellStepper.tintColor = theme.tintColor;
+    self.cellStepper.tintColor = theme.foregroundColor;
     self.cellNumberLabel.textColor = theme.valueColor;
 }
 

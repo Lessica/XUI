@@ -126,7 +126,7 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 8.f, 0.f, 8.f, 0.f };
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
     self.cellStaticTextView.textColor = theme.labelColor;
-    self.cellStaticTextView.tintColor = theme.tintColor;
+    self.cellStaticTextView.tintColor = theme.foregroundColor;
 }
 
 @end

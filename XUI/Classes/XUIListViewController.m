@@ -410,8 +410,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.textLabel.font = [UIFont systemFontOfSize:14.0];
+    if (tableView.style == UITableViewStylePlain) {
+        UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+        footer.textLabel.font = [UIFont systemFontOfSize:12.0];
+    }
 }
 
 XUI_START_IGNORE_PARTIAL

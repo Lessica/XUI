@@ -165,7 +165,7 @@
 
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
-    self.cellSegmentControl.tintColor = theme.tintColor;
+    self.cellSegmentControl.tintColor = theme.foregroundColor;
     self.cellTitleLabel.textColor = theme.labelColor;
 }
 

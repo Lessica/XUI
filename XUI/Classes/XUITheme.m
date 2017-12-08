@@ -41,7 +41,10 @@
         }
         
         if (themeDictionary[@"tintColor"])
-            _tintColor = [UIColor xui_colorWithHex:themeDictionary[@"tintColor"]];
+            _foregroundColor = [UIColor xui_colorWithHex:themeDictionary[@"tintColor"]];
+        if (themeDictionary[@"foregroundColor"])
+            _foregroundColor = [UIColor xui_colorWithHex:themeDictionary[@"foregroundColor"]];
+        
         if (themeDictionary[@"backgroundColor"])
             _backgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"backgroundColor"]];
         if (themeDictionary[@"separatorColor"])
@@ -95,7 +98,9 @@
             _tagSelectedBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"tagSelectedBackgroundColor"]];
         
         if (themeDictionary[@"thumbColor"])
-            _thumbColor = [UIColor xui_colorWithHex:themeDictionary[@"thumbColor"]];
+            _thumbTintColor = [UIColor xui_colorWithHex:themeDictionary[@"thumbColor"]];
+        if (themeDictionary[@"thumbTintColor"])
+            _thumbTintColor = [UIColor xui_colorWithHex:themeDictionary[@"thumbTintColor"]];
         
     }
     return self;
@@ -103,7 +108,7 @@
 
 - (void)setup {
     _tableViewStyle = UITableViewStyleGrouped;
-    _tintColor = XUI_COLOR_HIGHLIGHTED;
+    _foregroundColor = XUI_COLOR_HIGHLIGHTED;
     _backgroundColor = [UIColor groupTableViewBackgroundColor];
     _separatorColor = [UIColor lightGrayColor];
     
@@ -134,7 +139,7 @@
     _tagBackgroundColor = [UIColor whiteColor];
     _tagSelectedBackgroundColor = XUI_COLOR_HIGHLIGHTED;
     
-    _thumbColor = [UIColor whiteColor];
+    _thumbTintColor = [UIColor whiteColor];
 }
 
 - (BOOL)isDarkMode {

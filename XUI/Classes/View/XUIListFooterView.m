@@ -106,7 +106,7 @@ static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 40.f, 20.f, 40.f, 20.f
 - (void)setTheme:(XUITheme *)theme {
     _theme = theme;
     self.backgroundColor = theme.backgroundColor;
-    self.footerIconView.tintColor = theme.tintColor;
+    self.footerIconView.tintColor = theme.foregroundColor;
     self.footerLabel.textColor = theme.labelColor;
 }
 

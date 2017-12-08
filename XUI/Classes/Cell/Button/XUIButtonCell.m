@@ -67,7 +67,7 @@ NSString * const XUIButtonCellReuseIdentifier = @"XUIButtonCellReuseIdentifier";
 
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
-    self.textLabel.textColor = theme.tintColor;
+    self.textLabel.textColor = theme.foregroundColor;
 }
 
 - (void)setXui_alignment:(NSString *)xui_alignment {

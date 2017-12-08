@@ -12,12 +12,12 @@
 #import "XUIPrivate.h"
 
 static UIEdgeInsets const XUIListHeaderViewEdgeInsetsLarge = { 32.f, 20.f, 54.f, 20.f };
-static UIEdgeInsets const XUIListHeaderViewEdgeInsetsSmall = { 32.f, 20.f, 16.f, 20.f };
+static UIEdgeInsets const XUIListHeaderViewEdgeInsetsSmall = { 32.f, 20.f, 24.f, 20.f };
 static inline UIEdgeInsets XUIListHeaderViewEdgeInsets() {
     static UIEdgeInsets defaultEdgeInsets;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (([[UIScreen mainScreen] bounds].size.height <= 667.0)) {
+        if (UIScreen.mainScreen.nativeBounds.size.height < 2000) {
             defaultEdgeInsets = XUIListHeaderViewEdgeInsetsSmall;
         } else {
             defaultEdgeInsets = XUIListHeaderViewEdgeInsetsLarge;

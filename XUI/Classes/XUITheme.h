@@ -22,7 +22,7 @@
 #pragma mark - Table View
 
 @property (nonatomic, assign) UITableViewStyle tableViewStyle;
-@property (nonatomic, strong) UIColor *tintColor;
+@property (nonatomic, strong) UIColor *foregroundColor;
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, strong) UIColor *separatorColor;
 
@@ -59,7 +59,7 @@
 
 #pragma mark - Switch
 
-@property (strong, nonatomic) UIColor *thumbColor;
+@property (strong, nonatomic) UIColor *thumbTintColor;
 
 #pragma mark - Dark Mode
 

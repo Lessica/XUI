@@ -217,10 +217,9 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 
 - (void)setTheme:(XUITheme *)theme {
     _theme = theme;
-    self.tintColor = theme.tintColor;
-    self.contentView.tintColor = theme.tintColor;
+    self.tintColor = theme.foregroundColor;
+    self.contentView.tintColor = theme.foregroundColor;
     self.backgroundColor = theme.cellBackgroundColor;
-    self.contentView.backgroundColor = theme.cellBackgroundColor;
     self.textLabel.textColor = theme.labelColor;
     self.detailTextLabel.textColor = theme.valueColor;
     self.xui_disclosureIndicatorColor = theme.disclosureIndicatorColor;

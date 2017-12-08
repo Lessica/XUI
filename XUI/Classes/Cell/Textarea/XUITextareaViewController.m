@@ -221,7 +221,7 @@
     if (!_textView) {
         UITextView *textView = [[UITextView alloc] initWithFrame:self.view.bounds];
         
-        textView.tintColor = self.theme.tintColor;
+        textView.tintColor = self.theme.foregroundColor;
         textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         textView.delegate = self;
