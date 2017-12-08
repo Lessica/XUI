@@ -14,8 +14,6 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 
 @interface XUIBaseCell ()
 
-@property (nonatomic, strong) XUITheme *theme;
-
 @end
 
 @implementation XUIBaseCell {

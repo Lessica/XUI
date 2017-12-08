@@ -93,24 +93,28 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 8.f, 0.f, 8.f, 0.f };
 
 - (void)setXui_alignment:(NSString *)xui_alignment {
     _xui_alignment = xui_alignment;
+    UITextView *textView = self.cellStaticTextView;
+    BOOL selectable = textView.selectable;
+    textView.selectable = YES;
     if ([xui_alignment isEqualToString:@"Left"]) {
-        self.cellStaticTextView.textAlignment = NSTextAlignmentLeft;
+        textView.textAlignment = NSTextAlignmentLeft;
     }
     else if ([xui_alignment isEqualToString:@"Center"]) {
-        self.cellStaticTextView.textAlignment = NSTextAlignmentCenter;
+        textView.textAlignment = NSTextAlignmentCenter;
     }
     else if ([xui_alignment isEqualToString:@"Right"]) {
-        self.cellStaticTextView.textAlignment = NSTextAlignmentRight;
+        textView.textAlignment = NSTextAlignmentRight;
     }
     else if ([xui_alignment isEqualToString:@"Natural"]) {
-        self.cellStaticTextView.textAlignment = NSTextAlignmentNatural;
+        textView.textAlignment = NSTextAlignmentNatural;
     }
     else if ([xui_alignment isEqualToString:@"Justified"]) {
-        self.cellStaticTextView.textAlignment = NSTextAlignmentJustified;
+        textView.textAlignment = NSTextAlignmentJustified;
     }
     else {
-        self.cellStaticTextView.textAlignment = NSTextAlignmentNatural;
+        textView.textAlignment = NSTextAlignmentNatural;
     }
+    textView.selectable = selectable;
 }
 
 - (void)setXui_selectable:(NSNumber *)xui_selectable {

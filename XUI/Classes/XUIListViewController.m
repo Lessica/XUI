@@ -517,11 +517,13 @@ XUI_END_IGNORE_PARTIAL
 
 - (UIEdgeInsets)defaultContentInsets {
     UIEdgeInsets insets = UIEdgeInsetsZero;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     XUI_START_IGNORE_PARTIAL
     if ([self.view respondsToSelector:@selector(safeAreaInsets)]) {
         insets = self.view.safeAreaInsets;
     }
     XUI_END_IGNORE_PARTIAL
+#endif
     return insets;
 }
 
