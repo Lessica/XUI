@@ -3,6 +3,7 @@
 //
 
 #import "XUITextTagCollectionView.h"
+#import "XUIPrivate.h"
 
 #pragma mark - -----XUITextTagConfig-----
 
@@ -11,7 +12,15 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _tagTextFont = [UIFont systemFontOfSize:16.0f];
+        UIFont *lightFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
+        if (!lightFont) {
+            if (XUI_SYSTEM_8_2) {
+                lightFont = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
+            } else {
+                lightFont = [UIFont systemFontOfSize:16.f];
+            }
+        }
+        _tagTextFont = lightFont;
         
         _tagTextColor = [UIColor whiteColor];
         _tagSelectedTextColor = [UIColor whiteColor];

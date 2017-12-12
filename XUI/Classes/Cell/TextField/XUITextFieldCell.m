@@ -251,9 +251,9 @@
     UIFont *placeholderFont = nil;
     XUI_START_IGNORE_PARTIAL
     if (XUI_SYSTEM_8_2) {
-        placeholderFont = [UIFont systemFontOfSize:17.f weight:UIFontWeightLight];
+        placeholderFont = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
     } else {
-        placeholderFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.f];
+        placeholderFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
     }
     XUI_END_IGNORE_PARTIAL
     NSString *placeholder = self.xui_placeholder;

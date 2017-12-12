@@ -11,16 +11,26 @@
 #import "XUITheme.h"
 #import "XUIPrivate.h"
 
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define IS_IPHONE_6P_ABOVE (IS_IPHONE && SCREEN_MAX_LENGTH >= 736.0)
+
 static UIEdgeInsets const XUIListHeaderViewEdgeInsetsLarge = { 32.f, 20.f, 54.f, 20.f };
 static UIEdgeInsets const XUIListHeaderViewEdgeInsetsSmall = { 32.f, 20.f, 24.f, 20.f };
 static inline UIEdgeInsets XUIListHeaderViewEdgeInsets() {
     static UIEdgeInsets defaultEdgeInsets;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (UIScreen.mainScreen.nativeBounds.size.height < 2000) {
-            defaultEdgeInsets = XUIListHeaderViewEdgeInsetsSmall;
-        } else {
+        if (IS_IPHONE_6P_ABOVE) {
             defaultEdgeInsets = XUIListHeaderViewEdgeInsetsLarge;
+        } else {
+            defaultEdgeInsets = XUIListHeaderViewEdgeInsetsSmall;
         }
     });
     return defaultEdgeInsets;
@@ -56,12 +66,12 @@ static inline UIEdgeInsets XUIListHeaderViewEdgeInsets() {
 }
 
 - (void)setup {
-    UIFont *lightHeaderFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:45.f];
+    UIFont *lightHeaderFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:36.f];
     if (!lightHeaderFont) {
         if (XUI_SYSTEM_8_2) {
-            lightHeaderFont = [UIFont systemFontOfSize:45.f weight:UIFontWeightUltraLight];
+            lightHeaderFont = [UIFont systemFontOfSize:36.f weight:UIFontWeightUltraLight];
         } else {
-            lightHeaderFont = [UIFont systemFontOfSize:45.f];
+            lightHeaderFont = [UIFont systemFontOfSize:36.f];
         }
     }
     if (lightHeaderFont) {

@@ -10,7 +10,7 @@
 #import "XUIPrivate.h"
 #import "XUILogger.h"
 
-static UIEdgeInsets const XUIStaticTextCellPadding = { 8.f, 0.f, 8.f, 0.f };
+static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
 
 @interface XUIStaticTextCell ()
 
@@ -70,15 +70,15 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 8.f, 0.f, 8.f, 0.f };
     textView.textContainerInset = XUIStaticTextCellPadding;
     textView.layoutManager.hyphenationFactor = 1.0f;
     textView.backgroundColor = [UIColor clearColor];
-    UIFont *font = [UIFont systemFontOfSize:17.f];
+    UIFont *font = [UIFont systemFontOfSize:16.f];
     BOOL selectable = textView.selectable;
     textView.selectable = YES;
     XUI_START_IGNORE_PARTIAL
     if ([[UIFont class] respondsToSelector:@selector(systemFontOfSize:weight:)]) {
-        font = [UIFont systemFontOfSize:17.f weight:UIFontWeightLight];
+        font = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
         textView.font = font;
     } else {
-        font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.f];
+        font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
         textView.font = font;
     }
     textView.selectable = selectable;

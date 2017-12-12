@@ -234,6 +234,7 @@
         
         textView.textColor = UIColor.blackColor;
         textView.font = [UIFont systemFontOfSize:14.f];
+        textView.textContainerInset = UIEdgeInsetsMake(12.0, 8.0, 12.0, 8.0);
         
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         XUI_START_IGNORE_PARTIAL
