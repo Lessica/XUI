@@ -68,6 +68,7 @@
 #endif
     
     XUITheme *theme = self.theme;
+    self.view.backgroundColor = theme.backgroundColor;
     textView.backgroundColor = theme.backgroundColor;
     textView.textColor = theme.textColor;
     textView.tintColor = theme.caretColor;
