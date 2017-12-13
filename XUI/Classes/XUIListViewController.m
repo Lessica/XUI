@@ -186,6 +186,7 @@
         tableView;
     });
     
+    self.view.backgroundColor = theme ? theme.backgroundColor : [UIColor groupTableViewBackgroundColor];
     self.tableView.backgroundColor = theme.backgroundColor;
     self.tableView.separatorColor = theme.separatorColor;
     self.tableView.contentInset =

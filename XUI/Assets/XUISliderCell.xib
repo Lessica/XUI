@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1036" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17B1003" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="NO">
     <dependencies>
         <deployment identifier="iOS"/>
+        <development version="7000" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="CourierNew.ttf">
@@ -29,13 +26,13 @@
                             <constraint firstAttribute="width" id="487-Zw-yXY"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="16"/>
-                        <color key="textColor" red="0.40781933069229126" green="0.40781933069229126" blue="0.40781933069229126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" red="0.40781933069229126" green="0.40781933069229126" blue="0.40781933069229126" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="CLP-vg-ahh">
                         <rect key="frame" x="22" y="4" width="370" height="37"/>
-                        <color key="minimumTrackTintColor" red="0.024425927549600601" green="0.77249389886856079" blue="0.59627270698547363" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="maximumTrackTintColor" red="0.72336632013320923" green="0.72336632013320923" blue="0.72336632013320923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="minimumTrackTintColor" red="0.024425927549600601" green="0.77249389886856079" blue="0.59627270698547363" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="maximumTrackTintColor" red="0.72336632013320923" green="0.72336632013320923" blue="0.72336632013320923" alpha="1" colorSpace="calibratedRGB"/>
                     </slider>
                 </subviews>
                 <constraints>
@@ -47,7 +44,7 @@
                     <constraint firstAttribute="bottom" secondItem="CLP-vg-ahh" secondAttribute="bottom" constant="4" id="wYZ-KT-4SA"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="tintColor" red="0.1019607843" green="0.63137254899999995" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="tintColor" red="0.1019607843" green="0.63137254899999995" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="cellSlider" destination="CLP-vg-ahh" id="mKO-7Z-76t"/>
                 <outlet property="cellSliderValueLabel" destination="iN3-Jr-y0a" id="iTG-dy-wYZ"/>

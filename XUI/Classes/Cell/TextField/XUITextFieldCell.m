@@ -195,24 +195,27 @@
 
 - (void)setXui_alignment:(NSString *)xui_alignment {
     _xui_alignment = xui_alignment;
+    UITextField *textField = self.cellTextField;
+    NSTextAlignment alignment = NSTextAlignmentNatural;
     if ([xui_alignment isEqualToString:@"Left"]) {
-        self.cellTextField.textAlignment = NSTextAlignmentLeft;
+        alignment = NSTextAlignmentLeft;
     }
     else if ([xui_alignment isEqualToString:@"Center"]) {
-        self.cellTextField.textAlignment = NSTextAlignmentCenter;
+        alignment = NSTextAlignmentCenter;
     }
     else if ([xui_alignment isEqualToString:@"Right"]) {
-        self.cellTextField.textAlignment = NSTextAlignmentRight;
+        alignment = NSTextAlignmentRight;
     }
     else if ([xui_alignment isEqualToString:@"Natural"]) {
-        self.cellTextField.textAlignment = NSTextAlignmentNatural;
+        alignment = NSTextAlignmentNatural;
     }
     else if ([xui_alignment isEqualToString:@"Justified"]) {
-        self.cellTextField.textAlignment = NSTextAlignmentJustified;
+        alignment = NSTextAlignmentJustified;
     }
     else {
-        self.cellTextField.textAlignment = NSTextAlignmentNatural;
+        alignment = NSTextAlignmentNatural;
     }
+    textField.textAlignment = alignment;
 }
 
 - (void)setXui_readonly:(NSNumber *)xui_readonly {

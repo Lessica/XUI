@@ -58,7 +58,7 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
         }
         id <XUIAdapter> adapter = (id <XUIAdapter>) [[(id)adapterClass alloc] initWithXUIPath:path Bundle:bundle];
         if (!adapter) {
-            [self callbackWithErrorReason:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Cannot initialize \"%@\".", nil, frameworkBundle, nil), adapterName]];
+            [self callbackWithErrorReason:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Cannot initialize \"%@\".\nCheck schema file to ensure it is in valid format.", nil, frameworkBundle, nil), adapterName]];
             return;
         }
         _adapter = adapter;

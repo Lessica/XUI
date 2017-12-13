@@ -42,7 +42,7 @@
 "Cannot find suitable adapter for \"%@\"." = "找不到合适的 Adapter 处理 \"%@\"";
 
 /* No comment provided by engineer. */
-"Cannot initialize \"%@\"." = "无法初始化 \"%@\".";
+"Cannot initialize \"%@\".\nCheck schema file to ensure it is in valid format." = "无法初始化 \"%@\".\n请检查数据文件并确保其格式有效.";
 
 /* No comment provided by engineer. */
 "Close" = "关闭";

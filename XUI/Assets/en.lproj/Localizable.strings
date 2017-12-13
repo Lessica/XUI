@@ -42,7 +42,7 @@
 "Cannot find suitable adapter for \"%@\"." = "Cannot find suitable adapter for \"%@\".";
 
 /* No comment provided by engineer. */
-"Cannot initialize \"%@\"." = "Cannot initialize \"%@\".";
+"Cannot initialize \"%@\".\nCheck schema file to ensure it is in valid format." = "Cannot initialize \"%@\".\nCheck schema file to ensure it is in valid format.";
 
 /* No comment provided by engineer. */
 "Close" = "Close";

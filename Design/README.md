@@ -1,18 +1,17 @@
 # XXTouch UI (XUI) 界面库使用手册
 
-标签（空格分隔）:  XXTouch XXTouchApp XUI
+标签（空格分隔）:  XXTouch XXTouchApp
 
 
 ----------
 
 
-*此文档是为测试版编写的, 暂不适用于线上正式版本.*
-
 在阅读本文前, 您需要对 Lua 语法有所了解, 并能理解 数值/布尔型/字符串/数组/字典 等基本数据类型.
 
- - 适用于 **v1.2-1** 及以上平台版本
+ - 适用于 **v1\.2\-1** 及以上平台版本
  - 支持 iPhone/iPad 横竖屏, 支持 iOS 7 及以上系统版本
- - XUI 不与原有的对话框 (dialog) 和 WebView UI 冲突
+ - XUI 不与原有的对话框 \( dialog \) 和 WebView UI 冲突
+ - XUI 为 [脚本应用包 \( XPP \)](https://www.zybuluo.com/xxtouch/note/738353) 提供界面扩展
 
 
 ----------
@@ -28,7 +27,7 @@
 
 ## 前言
 
-XUI 用于在 XXTouch 上提供配置界面, 采用 iOS 系统原生组件. 本手册提供了 XUI 界面布局的规范. XUI 是 XPP 脚本包的一部分, 用来为脚本包创建配置, 不能独立使用, **无法在脚本运行的时候启动 XUI 界面**. 
+XUI 用于在 XXTouch 上提供配置界面, 采用 iOS 系统原生组件. 本手册提供了 XUI 界面布局的规范. XUI 是 [脚本应用包 \( XPP \)](https://www.zybuluo.com/xxtouch/note/738353) 的一部分, 用来为脚本包创建配置, 不能独立使用. 
 
 如需使用 XUI, 您需要创建指定格式的 xui / json / plist 文件, 在脚本包中激活. 保存的配置项, 可以通过 plist 库进行读取. 
 
@@ -36,13 +35,13 @@ XUI 用于在 XXTouch 上提供配置界面, 采用 iOS 系统原生组件. 本�
 ----------
 
 
-## 示例
+## 综合示例
 
-![A-Script-Bundle.xpp.zip-997.2kB][1]
+![A-Script-Bundle.xpa-1001kB][1]
 
-![1508307717.png-2.9kB][2]
+![1512233554.png-1.9kB][2]
 
-脚本开发者可以下载示例包, 在 XXTouch 中解压并运行. 
+脚本开发者可以下载示例包, 在 XXTouch 中安装并运行. 
 
 ![IMG_0716.JPG-152.2kB][3]
 
@@ -80,7 +79,7 @@ return {
 		header = "Example";
 		title = "Demo";
 		theme = {
-				"tintColor" = "#FFFFFF";
+				tintColor = "#FFFFFF";
 		};
 		items = {};
 };
@@ -94,13 +93,20 @@ return {
 
 在根层级设置 **theme** 属性, 能为界面配置统一的样式.
 
+**界面**
+
+|   键   |   类型   |   描述   |
+|--------|----------|----------|
+|style|风格|界面风格|
+|tintColor|颜色|前景颜色|
+|backgroundColor|颜色|背景颜色|
+
 **组件**
 
 |   键   |   类型   |   描述   |
 |--------|----------|----------|
-|tintColor|颜色|前景颜色|
-|backgroundColor|颜色|背景颜色|
-|disclosureIndicatorColor|颜色|指示器颜色|
+|cellBackgroundColor|颜色|组件背景颜色|
+|disclosureIndicatorColor|颜色|组件指示器颜色|
 |selectedColor|颜色|选中颜色|
 |highlightedColor|颜色|高亮颜色|
 |labelColor|颜色|标题文字颜色|
@@ -121,7 +127,12 @@ return {
 |warningColor|颜色|警告颜色|
 |successColor|颜色|成功颜色|
 
-在组件层级设置 **theme** 属性, 每个组件单独设置样式, 参见每个组件的 *主题键* 表格.
+在组件层级设置 **theme** 属性, 每个组件单独设置样式, 参见每个组件的 *主题键* 表格. 推荐配色方案: http://www.bootcss.com/p/flat-ui/
+
+| style | 描述 |
+|--------|------|
+|Grouped|传统风格 (默认)|
+|Plain|平铺风格|
 
 类型 **颜色**, 即十六进制 RGB (RGBA) 字符串形式, 如 *#FF0000* 代表红色. 
 
@@ -268,6 +279,7 @@ local enabled = conf.enabled
 |  主题键  |  描述  |
 |----------|--------|
 |tintColor|开关底色|
+|thumbColor|开关中心色|
 
 |   返回类型   |   描述   |
 |--------------|----------|
@@ -302,7 +314,7 @@ local enabled = conf.enabled
 
 | alignment | 描述 |
 |--------|------|
-|Left|左对齐|
+|Left|左对齐 (默认)|
 |Center|居中|
 |Right|右对齐|
 |Natural|自然对齐|
@@ -382,11 +394,17 @@ local enabled = conf.enabled
 |placeholder|字符串|文本框占位符|可选|
 |isSecure|布尔型|字符是否显示为小圆点|可选|
 
-*此组件不支持 **icon***
+*此组件不支持 __icon__, 若设置 __title__ 属性, 建议将 __alignment__ 属性设为 "Right".*
+
+|  主题键  |  描述  |
+|----------|--------|
+|textColor|颜色|文字颜色|
+|caretColor|颜色|光标颜色|
+|placeholderColor|颜色|占位符颜色|
 
 | alignment | 描述 |
 |--------|------|
-|Left|左对齐|
+|Left|左对齐 (默认)|
 |Center|居中|
 |Right|右对齐|
 |Natural|自然对齐|
@@ -394,7 +412,7 @@ local enabled = conf.enabled
 
 | keyboard | 描述 |
 |--------|------|
-|Default|默认|
+|Default|标准及第三方键盘 (默认)|
 |Alphabet|标准 ASCII|
 |ASCIICapable|标准 ASCII|
 |NumbersAndPunctuation|数字与标点|
@@ -421,7 +439,8 @@ local enabled = conf.enabled
 {
 		defaults = "com.yourcompany.yourscript";
 		default = "";
-		cell = "SecureTextField";
+		isSecure = true;
+		cell = "TextField";
 		key = "password";
 		keyboard = "Alphabet";
 		placeholder = "Enter the password";
@@ -450,7 +469,7 @@ local enabled = conf.enabled
 
 | alignment | 描述 |
 |--------|------|
-|Left|左对齐|
+|Left|左对齐 (默认)|
 |Center|居中|
 |Right|右对齐|
 |Natural|扩展空白部分使两边对齐|
@@ -561,7 +580,7 @@ local enabled = conf.enabled
 |title|字符串|选项标题|可本地化|
 |value|基本类型|选项配置值<br />若不填, 则与 **title** 一致.|可选|
 
-*此组件不支持 **label/icon***
+*此组件不支持 **icon***
 
 |   返回类型   |   描述   |
 |--------------|----------|
@@ -619,9 +638,7 @@ local enabled = conf.enabled
 ``` lua
 {
 		defaults = "com.yourcompany.yourscript";
-		default = {
-				"Green; it's green!"
-		};
+		default = "Green; it's green!";
 		label = "List of Options";
 		cell = "Option";
 		key = "list-1";
@@ -764,6 +781,12 @@ local enabled = conf.enabled
 |footerText|字符串|显示在列表选项下方的小字|可选, 可本地化|
 |maxCount|整数|最多选择项目数|\-|
 
+|  主题键  |  描述  |
+|----------|--------|
+|textColor|颜色|文字颜色|
+|caretColor|颜色|光标颜色|
+|placeholderColor|颜色|占位符颜色|
+
 |   返回类型   |   描述   |
 |--------------|----------|
 |包含字符串的数组|列表内容|
@@ -802,6 +825,7 @@ local enabled = conf.enabled
 |  主题键  |  描述  |
 |----------|--------|
 |tintColor|滑块进度底色|
+|thumbColor|开关中心色|
 
 |   返回类型   |   描述   |
 |--------------|----------|
@@ -878,7 +902,7 @@ local enabled = conf.enabled
 
 | mode | 描述 |
 |--------|------|
-|datetime|日期时间选择器|
+|datetime|日期时间选择器 (默认)|
 |date|日期选择器|
 |time|时间选择器|
 |interval|时间间隔选择器|
@@ -959,7 +983,7 @@ local enabled = conf.enabled
 
 | alignment | 描述 |
 |--------|------|
-|Left|左对齐|
+|Left|左对齐 (默认)|
 |Center|居中|
 |Right|右对齐|
 |Natural|自然对齐|
@@ -994,9 +1018,15 @@ local enabled = conf.enabled
 |autoCapitalization|字符串|自动大写模式|可选|
 |autoCorrection|字符串|自动更正模式|可选|
 
+|  主题键  |  描述  |
+|----------|--------|
+|textColor|颜色|文字颜色|
+|caretColor|颜色|光标颜色|
+|placeholderColor|颜色|占位符颜色|
+
 | keyboard | 描述 |
 |--------|------|
-|Default|默认|
+|Default|标准及第三方键盘 (默认)|
 |Alphabet|标准 ASCII|
 |ASCIICapable|标准 ASCII|
 |NumbersAndPunctuation|数字与标点|
@@ -1009,14 +1039,14 @@ local enabled = conf.enabled
 
 | autoCapitalization | 描述 |
 |--------|------|
-|None|无|
+|None|无 (默认)|
 |Sentences|按句自动大写|
 |Words|按单词自动大写|
 |AllCharacters|全部大写|
 
 | autoCorrection | 描述 |
 |--------|------|
-|Default|默认|
+|Default|默认 (默认)|
 |No|关闭自动更正|
 |Yes|打开自动更正|
 
@@ -1119,8 +1149,8 @@ local enabled = conf.enabled
 ----------
 
 
-	[1]: http://static.zybuluo.com/xxtouch/tqnle7by1buwdws4ick2frre/A-Script-Bundle.xpp.zip
-	[2]: http://static.zybuluo.com/xxtouch/31ao450shf4vgi0b17mr8yg0/1508307717.png
+	[1]: http://static.zybuluo.com/xxtouch/9so2wyf6ennrc0s2ar7vl0ov/A-Script-Bundle.xpa
+	[2]: http://static.zybuluo.com/xxtouch/vb58yu2p3c8ihd3xztk66bar/1512233554.png
 	[3]: http://static.zybuluo.com/xxtouch/yp88j1ws4na1r8enodb7ydhl/IMG_0716.JPG
 	[4]: http://static.zybuluo.com/xxtouch/hxvpaqv424u4b4gjjg98aw2d/CFE17DA4-C299-4533-A0E9-E1E2F9734C8D.png
 	[5]: http://static.zybuluo.com/xxtouch/8taro66htfohfw09hryyl0hv/QQ20170914-191445.png
@@ -1142,4 +1172,3 @@ local enabled = conf.enabled
 	[21]: http://static.zybuluo.com/xxtouch/6jhlork14eat0w2xej0x6hj5/QQ20170918-022558.png
 	[22]: http://static.zybuluo.com/xxtouch/keg9dr84ef52tc6cboq64nqi/QQ20170918-022520.png
 	[23]: http://static.zybuluo.com/xxtouch/71dr9w7yn4pz4wi8orpnkwlz/A0EE71ED-F67B-4A88-9E57-30F2C581E3A3.png
-	
