@@ -59,7 +59,7 @@
     textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     XUI_START_IGNORE_PARTIAL
-    if ([textView respondsToSelector:@selector(smartDashesType)]) {
+    if ([textView respondsToSelector:@selector(setSmartDashesType:)]) {
         textView.smartDashesType = UITextSmartDashesTypeNo;
         textView.smartQuotesType = UITextSmartQuotesTypeNo;
         textView.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
@@ -69,7 +69,7 @@
     
     XUITheme *theme = self.theme;
     self.view.backgroundColor = theme.backgroundColor;
-    textView.backgroundColor = theme.backgroundColor;
+    textView.backgroundColor = theme.cellBackgroundColor;
     textView.textColor = theme.textColor;
     textView.tintColor = theme.caretColor;
     
@@ -239,7 +239,7 @@
         
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         XUI_START_IGNORE_PARTIAL
-        if ([textView respondsToSelector:@selector(smartDashesType)]) {
+        if ([textView respondsToSelector:@selector(setSmartDashesType:)]) {
             textView.smartDashesType = UITextSmartDashesTypeNo;
             textView.smartQuotesType = UITextSmartQuotesTypeNo;
             textView.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;

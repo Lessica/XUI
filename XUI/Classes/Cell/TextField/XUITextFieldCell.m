@@ -93,7 +93,7 @@
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     XUI_START_IGNORE_PARTIAL
-    if ([textField respondsToSelector:@selector(smartDashesType)]) {
+    if ([textField respondsToSelector:@selector(setSmartDashesType:)]) {
         textField.smartDashesType = UITextSmartDashesTypeNo;
         textField.smartQuotesType = UITextSmartQuotesTypeNo;
         textField.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
