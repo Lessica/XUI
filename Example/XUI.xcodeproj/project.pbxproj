@@ -620,6 +620,7 @@
 				D61619241F8F3170008C1FC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

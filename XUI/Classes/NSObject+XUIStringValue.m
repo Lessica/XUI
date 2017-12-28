@@ -28,6 +28,7 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setTimeStyle:NSDateFormatterMediumStyle];
         [formatter setDateStyle:NSDateFormatterMediumStyle];
+        [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
         return [formatter stringFromDate:(NSDate *)self];
     }
     else if ([self isKindOfClass:[NSNull class]]) {
