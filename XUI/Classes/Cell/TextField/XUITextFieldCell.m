@@ -240,6 +240,8 @@
     self.cellTextField.tintColor = theme.caretColor;
     self.cellTitleLabel.textColor = theme.labelColor;
     self.cellTextField.textColor = theme.textColor;
+    [self.cellTextField setColorButtonClearNormal:[theme.textColor colorWithAlphaComponent:0.6]];
+    [self.cellTextField setColorButtonClearHighlighted:theme.textColor];
     [self reloadPlaceholderAttributes];
 }
 

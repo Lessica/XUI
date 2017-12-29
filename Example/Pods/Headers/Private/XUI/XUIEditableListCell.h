@@ -1,1 +1,1 @@
-../../../../../XUI/Classes/Cell/List/XUIEditableListCell.h
+../../../../../XUI/Classes/Cell/EditableList/XUIEditableListCell.h

@@ -7,10 +7,11 @@
 //
 
 #import "XUIBaseCell.h"
+#import "XUITextField.h"
 
 @interface XUITextFieldCell : XUIBaseCell
 
-@property (weak, nonatomic) IBOutlet UITextField *cellTextField;
+@property (weak, nonatomic) IBOutlet XUITextField *cellTextField;
 
 @property (nonatomic, strong) NSString * xui_alignment;
 @property (nonatomic, strong) NSString * xui_keyboard;

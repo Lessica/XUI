@@ -1,1 +1,1 @@
-../../../../../XUI/Classes/Cell/List/XUIListViewController+XUIEditableListCell.h
+../../../../../XUI/Classes/Cell/EditableList/XUIListViewController+XUIEditableListCell.h
