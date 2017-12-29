@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17B1003" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="NO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="17C88" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="NO">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="7000" identifier="xcode"/>
@@ -22,11 +22,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="ZMa-kl-dlC">
-                        <rect key="frame" x="304" y="8" width="94" height="29"/>
+                        <rect key="frame" x="300" y="8" width="94" height="29"/>
                         <color key="tintColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
                     </stepper>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSj-Lo-akP">
-                        <rect key="frame" x="16" y="12.5" width="272" height="18.5"/>
+                        <rect key="frame" x="20" y="8" width="264" height="27.5"/>
                         <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="16"/>
                         <color key="textColor" red="0.40781933069229126" green="0.40781933069229126" blue="0.40781933069229126" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -34,10 +34,11 @@
                 </subviews>
                 <color key="tintColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
+                    <constraint firstItem="wSj-Lo-akP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="0sb-JP-IZN"/>
                     <constraint firstItem="ZMa-kl-dlC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="K0A-LD-6Gs"/>
-                    <constraint firstItem="wSj-Lo-akP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="dYM-ay-2V3"/>
-                    <constraint firstItem="wSj-Lo-akP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lg2-WP-RPa"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="ZMa-kl-dlC" secondAttribute="trailing" constant="8" id="tXS-gI-o26"/>
+                    <constraint firstItem="wSj-Lo-akP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="dYM-ay-2V3"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="wSj-Lo-akP" secondAttribute="bottom" id="rHy-Iz-JNf"/>
+                    <constraint firstAttribute="trailing" secondItem="ZMa-kl-dlC" secondAttribute="trailing" constant="20" id="tXS-gI-o26"/>
                     <constraint firstItem="ZMa-kl-dlC" firstAttribute="leading" secondItem="wSj-Lo-akP" secondAttribute="trailing" constant="16" id="unJ-6v-7tq"/>
                 </constraints>
             </tableViewCellContentView>
