@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSNumber * xui_isSecure;
 
 @property (nonatomic, strong) NSNumber *xui_maxLength;
+@property (nonatomic, strong) NSString *xui_clearButtonMode;
 
 // Regex
 

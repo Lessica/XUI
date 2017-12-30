@@ -44,6 +44,7 @@
       @"placeholder": [NSString class],
       @"value": [NSString class],
       @"maxLength": [NSNumber class],
+      @"clearButtonMode": [NSString class],
       };
 }
 
@@ -77,6 +78,19 @@
                 }
             }
         }
+        {
+            NSString *clearButtonModeString = cellEntry[@"clearButtonMode"];
+            if (clearButtonModeString) {
+                NSArray <NSString *> *validClearButtonModeString = @[ @"Never", @"WhileEditing", @"UnlessEditing", @"Always" ];
+                if (![validClearButtonModeString containsObject:clearButtonModeString]) {
+                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
+                    NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"clearButtonMode", clearButtonModeString];
+                    NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+                    if (error) *error = exceptionError;
+                    return NO;
+                }
+            }
+        }
     }
     return superResult;
 }
@@ -88,7 +102,7 @@
     
     UITextField *textField = self.cellTextField;
     textField.delegate = self;
-    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    textField.clearButtonMode = UITextFieldViewModeNever;
     textField.autocorrectionType = UITextAutocorrectionTypeNo;
     textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
@@ -146,39 +160,58 @@
 
 - (void)setXui_keyboard:(NSString *)xui_keyboard {
     _xui_keyboard = xui_keyboard;
+    XUITextField *cellTextField = self.cellTextField;
+    UIKeyboardType keyboardType = UIKeyboardTypeDefault;
     if ([xui_keyboard isEqualToString:@"Default"]) {
-        self.cellTextField.keyboardType = UIKeyboardTypeDefault;
+        keyboardType = UIKeyboardTypeDefault;
     }
     else if ([xui_keyboard isEqualToString:@"ASCIICapable"]) {
-        self.cellTextField.keyboardType = UIKeyboardTypeASCIICapable;
+        keyboardType = UIKeyboardTypeASCIICapable;
     }
     else if ([xui_keyboard isEqualToString:@"NumbersAndPunctuation"]) {
-        self.cellTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     }
     else if ([xui_keyboard isEqualToString:@"URL"]) {
-        self.cellTextField.keyboardType = UIKeyboardTypeURL;
+        keyboardType = UIKeyboardTypeURL;
     }
     else if ([xui_keyboard isEqualToString:@"NumberPad"]) {
-        self.cellTextField.keyboardType = UIKeyboardTypeNumberPad;
+        keyboardType = UIKeyboardTypeNumberPad;
     }
     else if ([xui_keyboard isEqualToString:@"PhonePad"]) {
-        self.cellTextField.keyboardType = UIKeyboardTypePhonePad;
+        keyboardType = UIKeyboardTypePhonePad;
     }
     else if ([xui_keyboard isEqualToString:@"NamePhonePad"]) {
-        self.cellTextField.keyboardType = UIKeyboardTypeNamePhonePad;
+        keyboardType = UIKeyboardTypeNamePhonePad;
     }
     else if ([xui_keyboard isEqualToString:@"EmailAddress"]) {
-        self.cellTextField.keyboardType = UIKeyboardTypeEmailAddress;
+        keyboardType = UIKeyboardTypeEmailAddress;
     }
     else if ([xui_keyboard isEqualToString:@"DecimalPad"]) {
-        self.cellTextField.keyboardType = UIKeyboardTypeDecimalPad;
+        keyboardType = UIKeyboardTypeDecimalPad;
     }
     else if ([xui_keyboard isEqualToString:@"Alphabet"]) {
-        self.cellTextField.keyboardType = UIKeyboardTypeASCIICapable;
+        keyboardType = UIKeyboardTypeASCIICapable;
     }
     else {
-        self.cellTextField.keyboardType = UIKeyboardTypeDefault;
+        keyboardType = UIKeyboardTypeDefault;
     }
+    cellTextField.keyboardType = keyboardType;
+}
+
+- (void)setXui_clearButtonMode:(NSString *)xui_clearButtonMode {
+    _xui_clearButtonMode = xui_clearButtonMode;
+    XUITextField *cellTextField = self.cellTextField;
+    UITextFieldViewMode clearButtonMode = UITextFieldViewModeNever;
+    if ([xui_clearButtonMode isEqualToString:@"Never"]) {
+        clearButtonMode = UITextFieldViewModeNever;
+    } else if ([xui_clearButtonMode isEqualToString:@"Always"]) {
+        clearButtonMode = UITextFieldViewModeAlways;
+    } else if ([xui_clearButtonMode isEqualToString:@"WhileEditing"]) {
+        clearButtonMode = UITextFieldViewModeWhileEditing;
+    } else if ([xui_clearButtonMode isEqualToString:@"UnlessEditing"]) {
+        clearButtonMode = UITextFieldViewModeUnlessEditing;
+    }
+    cellTextField.clearButtonMode = clearButtonMode;
 }
 
 - (void)setXui_placeholder:(NSString *)xui_placeholder {
