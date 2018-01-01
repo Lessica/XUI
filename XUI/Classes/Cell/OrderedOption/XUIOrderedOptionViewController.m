@@ -89,7 +89,7 @@
     [self.tableView removeObserver:self forKeyPath:@"contentSize"];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"contentSize"]) {
         UITableView *tableView = object;
         self.preferredContentSize = tableView.contentSize;
