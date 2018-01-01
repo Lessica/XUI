@@ -11,6 +11,7 @@
 #import "XUICellFactory.h"
 #import "XUIOptionModel.h"
 #import "XUIOptionViewController.h"
+#import "XUIPrivate.h"
 
 @implementation XUIListViewController (XUIOptionCell)
 
