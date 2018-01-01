@@ -22,7 +22,7 @@
         optionViewController.cellFactory.theme = self.cellFactory.theme;
         optionViewController.cellFactory.adapter = self.cellFactory.adapter;
         optionViewController.delegate = self;
-        if (@available(iOS 8.0, *)) {
+        if (XUI_SYSTEM_8) {
             BOOL popoverMode = [linkListCell.xui_popoverMode boolValue];
             if (popoverMode) {
                 optionViewController.modalPresentationStyle = UIModalPresentationPopover;
