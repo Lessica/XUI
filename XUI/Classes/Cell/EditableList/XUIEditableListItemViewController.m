@@ -84,7 +84,7 @@
         cell.cellTextField.returnKeyType = UIReturnKeyDone;
         cell.cellTextField.delegate = self;
         cell.xui_value = self.content;
-        cell.xui_placeholder = @"Value";
+        cell.xui_placeholder = NSLocalizedString(@"Value", nil);
         _textFieldCell = cell;
     }
     return _textFieldCell;

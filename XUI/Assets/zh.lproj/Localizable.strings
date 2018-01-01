@@ -106,3 +106,6 @@
 
 /* No comment provided by engineer. */
 "The number of item exceeded the \"maxCount\" limit (%lu)." = "项目数量超出 \"maxCount\" 限制数量 (%lu).";
+
+/* No comment provided by engineer. */
+"Value" = "值";

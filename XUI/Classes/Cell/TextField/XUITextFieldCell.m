@@ -270,12 +270,18 @@
 
 - (void)setTheme:(XUITheme *)theme {
     [super setTheme:theme];
-    self.cellTextField.tintColor = theme.caretColor;
+    XUITextField *textField = self.cellTextField;
+    textField.tintColor = theme.caretColor;
     self.cellTitleLabel.textColor = theme.labelColor;
-    self.cellTextField.textColor = theme.textColor;
-    [self.cellTextField setColorButtonClearNormal:[theme.textColor colorWithAlphaComponent:0.6]];
-    [self.cellTextField setColorButtonClearHighlighted:theme.textColor];
+    textField.textColor = theme.textColor;
+    [textField setColorButtonClearNormal:[theme.textColor colorWithAlphaComponent:0.6]];
+    [textField setColorButtonClearHighlighted:theme.textColor];
     [self reloadPlaceholderAttributes];
+    if (theme.isDarkMode) {
+        textField.keyboardAppearance = UIKeyboardAppearanceDark;
+    } else {
+        textField.keyboardAppearance = UIKeyboardAppearanceDefault;
+    }
 }
 
 - (void)setXui_maxLength:(NSNumber *)xui_maxLength {

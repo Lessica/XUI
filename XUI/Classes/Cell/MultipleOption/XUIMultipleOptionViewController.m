@@ -60,11 +60,44 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.tableView removeObserver:self forKeyPath:@"contentSize"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"contentSize"]) {
+        UITableView *tableView = object;
+        self.preferredContentSize = tableView.contentSize;
+    }
+}
+
+- (BOOL)popoverMode {
+    return self.modalPresentationStyle == UIModalPresentationPopover;
+}
+
 #pragma mark - UIView Getters
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:self.theme.tableViewStyle];
+        UITableViewStyle tableViewStyle;
+        if ([self popoverMode])
+        {
+            tableViewStyle = UITableViewStylePlain;
+        }
+        else
+        {
+            tableViewStyle = self.theme.tableViewStyle;
+        }
+        UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:tableViewStyle];
+        if ([self popoverMode]) {
+            tableView.bounces = NO;
+        }
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;

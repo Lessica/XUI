@@ -140,22 +140,19 @@
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 2;
-    } else if (section == 2) {
+    } else if (section == 1) {
         return self.mutableContentList.count;
     }
     return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return 56.f;
-    }
     return 44.f;
 }
 
@@ -173,16 +170,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (1 == section) {
-        NSUInteger itemCount = self.mutableContentList.count;
-        NSString *shortTitle = nil;
-        if (itemCount == 0) {
-            shortTitle =  NSLocalizedStringFromTableInBundle(@"Item List (No Item)", nil, FRAMEWORK_BUNDLE, nil);
-        } else if (itemCount == 1) {
-            shortTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Item List (%lu Item)", nil, FRAMEWORK_BUNDLE, nil), (unsigned long)itemCount];
-        } else {
-            shortTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Item List (%lu Items)", nil, FRAMEWORK_BUNDLE, nil), (unsigned long)itemCount];
-        }
-        return shortTitle;
+        return NSLocalizedStringFromTableInBundle(@"Item List", nil, FRAMEWORK_BUNDLE, nil);;
     }
     return nil;
 }
@@ -202,7 +190,7 @@
         else if (indexPath.row == 1) {
             return self.deleteCell;
         }
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 1) {
         XUIBaseOptionCell *cell =
         [tableView dequeueReusableCellWithIdentifier:XUIBaseOptionCellReuseIdentifier];
         if (nil == cell)
@@ -261,7 +249,7 @@
         }
         return;
     }
-    else if (indexPath.section == 2) {
+    else if (indexPath.section == 1) {
         if (!tableView.isEditing) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
         } else {
@@ -292,18 +280,17 @@
     }
     self.deleteCell.xui_label = deleteLabel;
     self.deleteCell.internalIcon = deleteIcon;
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2) {
+    if (indexPath.section == 1) {
         return YES;
     }
     return NO;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2) {
+    if (indexPath.section == 1) {
         return UITableViewCellEditingStyleDelete;
     }
     return UITableViewCellEditingStyleNone;
@@ -311,7 +298,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        if (indexPath.section == 2) {
+        if (indexPath.section == 1) {
             [self.mutableContentList removeObjectAtIndex:indexPath.row];
             [tableView beginUpdates];
             [tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -323,21 +310,21 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2) {
+    if (indexPath.section == 1) {
         return YES;
     }
     return NO;
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
-    if (sourceIndexPath.section == 2 && proposedDestinationIndexPath.section == 2) {
+    if (sourceIndexPath.section == 1 && proposedDestinationIndexPath.section == 1) {
         return proposedDestinationIndexPath;
     }
     return sourceIndexPath;
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    if (sourceIndexPath.section == 2 && destinationIndexPath.section == 2) {
+    if (sourceIndexPath.section == 1 && destinationIndexPath.section == 1) {
         [self.mutableContentList exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
         [self notifyContentListUpdate];
     }
@@ -345,7 +332,7 @@
 
 XUI_START_IGNORE_PARTIAL
 - (NSArray <UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2) {
+    if (indexPath.section == 1) {
         __weak typeof(self) weak_self = self;
         UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedStringFromTableInBundle(@"Delete", nil, FRAMEWORK_BUNDLE, nil) handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
                                         {
@@ -360,7 +347,7 @@ XUI_START_IGNORE_PARTIAL
 XUI_END_IGNORE_PARTIAL
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2) {
+    if (indexPath.section == 1) {
         XUIBaseCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         [self presentItemViewControllerAtIndexPath:indexPath withItemContent:cell.xui_label];
     }
@@ -369,7 +356,7 @@ XUI_END_IGNORE_PARTIAL
 #pragma mark - Item
 
 - (void)presentItemViewControllerAtIndexPath:(NSIndexPath *)indexPath withItemContent:(NSString *)content {
-    if (indexPath.section == 2) {
+    if (indexPath.section == 1) {
         self.editingIndex = indexPath.row;
     } else {
         self.editingIndex = UINT_MAX;
@@ -404,7 +391,7 @@ XUI_END_IGNORE_PARTIAL
 - (void)updateIfNeeded {
     if (self.needsUpdate) {
         self.needsUpdate = NO;
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView reloadData];
         [self updateSelectionCount];
     }
 }

@@ -350,7 +350,7 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     SEL cellActionSelector = NSSelectorFromString([NSString stringWithFormat:@"tableView:configure%@:", cellClassName]);
     if ([self respondsToSelector:cellActionSelector]) {
-        [self performSelector:cellActionSelector withObject:self withObject:cell];
+        [self performSelector:cellActionSelector withObject:self.tableView withObject:cell];
     }
 #pragma clang diagnostic pop
     return cell;
@@ -369,7 +369,7 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         SEL cellActionSelector = NSSelectorFromString([NSString stringWithFormat:@"tableView:%@:", cellClassName]);
         if ([self respondsToSelector:cellActionSelector]) {
-            [self performSelector:cellActionSelector withObject:self withObject:cell];
+            [self performSelector:cellActionSelector withObject:self.tableView withObject:cell];
         }
 #pragma clang diagnostic pop
     }
@@ -386,7 +386,7 @@
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     SEL cellActionSelector = NSSelectorFromString([NSString stringWithFormat:@"tableView:accessory%@:", cellClassName]);
     if ([self respondsToSelector:cellActionSelector]) {
-        [self performSelector:cellActionSelector withObject:self withObject:cell];
+        [self performSelector:cellActionSelector withObject:self.tableView withObject:cell];
     }
 #pragma clang diagnostic pop
 }
@@ -581,6 +581,12 @@ XUI_END_IGNORE_PARTIAL
         NSLog(@"-[XUIListViewController setTheme:] cannot be called after view is loaded.");
 #endif
     }
+}
+
+#pragma mark - UIPopoverPresentationControllerDelegate
+
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    return UIModalPresentationNone;
 }
 
 #pragma mark - Memory

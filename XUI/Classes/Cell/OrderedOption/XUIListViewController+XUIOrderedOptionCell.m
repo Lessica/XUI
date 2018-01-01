@@ -15,13 +15,26 @@
 
 - (void)tableView:(UITableView *)tableView XUIOrderedOptionCell:(UITableViewCell *)cell {
     XUIOrderedOptionCell *linkListCell = (XUIOrderedOptionCell *)cell;
+    NSIndexPath *indexPath = [tableView indexPathForCell:cell];
     if (linkListCell.xui_options)
     {
         XUIOrderedOptionViewController *optionViewController = [[XUIOrderedOptionViewController alloc] initWithCell:linkListCell];
         optionViewController.cellFactory.theme = self.cellFactory.theme;
         optionViewController.cellFactory.adapter = self.cellFactory.adapter;
         optionViewController.delegate = self;
-        optionViewController.title = linkListCell.xui_label;
+        if (@available(iOS 8.0, *)) {
+            BOOL popoverMode = [linkListCell.xui_popoverMode boolValue];
+            if (popoverMode) {
+                optionViewController.modalPresentationStyle = UIModalPresentationPopover;
+                UIPopoverPresentationController *popController = optionViewController.popoverPresentationController;
+                popController.sourceView = self.tableView;
+                popController.sourceRect = [self.tableView rectForRowAtIndexPath:indexPath];
+                popController.backgroundColor = self.theme.backgroundColor;
+                popController.delegate = self;
+                [self.navigationController presentViewController:optionViewController animated:YES completion:nil];
+                return;
+            }
+        }
         [self.navigationController pushViewController:optionViewController animated:YES];
     }
 }

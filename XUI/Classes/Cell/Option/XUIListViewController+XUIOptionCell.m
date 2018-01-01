@@ -23,13 +23,27 @@
 
 - (void)tableView:(UITableView *)tableView XUIOptionCell:(UITableViewCell *)cell {
     XUIOptionCell *linkListCell = (XUIOptionCell *)cell;
-    if (linkListCell.xui_options)
+    NSIndexPath *indexPath = [tableView indexPathForCell:cell];
+    if (indexPath && linkListCell.xui_options)
     {
         XUIOptionViewController *optionViewController = [[XUIOptionViewController alloc] initWithCell:linkListCell];
         optionViewController.cellFactory.theme = self.cellFactory.theme;
         optionViewController.cellFactory.adapter = self.cellFactory.adapter;
         optionViewController.delegate = self;
         optionViewController.title = linkListCell.xui_label;
+        if (@available(iOS 8.0, *)) {
+            BOOL popoverMode = [linkListCell.xui_popoverMode boolValue];
+            if (popoverMode) {
+                optionViewController.modalPresentationStyle = UIModalPresentationPopover;
+                UIPopoverPresentationController *popController = optionViewController.popoverPresentationController;
+                popController.sourceView = self.tableView;
+                popController.sourceRect = [self.tableView rectForRowAtIndexPath:indexPath];
+                popController.backgroundColor = self.theme.backgroundColor;
+                popController.delegate = self;
+                [self.navigationController presentViewController:optionViewController animated:YES completion:nil];
+                return;
+            }
+        }
         [self.navigationController pushViewController:optionViewController animated:YES];
     }
 }

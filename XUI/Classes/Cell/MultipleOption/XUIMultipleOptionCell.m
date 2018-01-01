@@ -37,7 +37,8 @@
       @"options": [NSArray class],
       @"maxCount": [NSNumber class],
       @"footerText": [NSString class],
-      @"value": [NSArray class]
+      @"value": [NSArray class],
+      @"popoverMode": [NSNumber class],
       };
 }
 

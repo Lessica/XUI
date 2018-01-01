@@ -34,7 +34,8 @@
     return
     @{
       @"options": [NSArray class],
-      @"footerText": [NSString class]
+      @"footerText": [NSString class],
+      @"popoverMode": [NSNumber class],
       };
 }
 

@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSString *xui_footerText;
 @property (nonatomic, strong) NSNumber *xui_minCount;
 @property (nonatomic, strong) NSNumber *xui_maxCount;
+@property (nonatomic, strong) NSNumber *xui_popoverMode;
 
 @end

@@ -69,7 +69,7 @@
 "Failed to parse entry" = "Failed to parse entry";
 
 /* No comment provided by engineer. */
-"Item List" = "Items";
+"Item List" = "Item List";
 
 /* No comment provided by engineer. */
 "Item List (%lu Item)" = "Item List (%lu Item)";
@@ -109,3 +109,6 @@
 
 /* No comment provided by engineer. */
 "The number of item exceeded the \"maxCount\" limit (%lu)." = "The number of item exceeded the \"maxCount\" limit (%lu).";
+
+/* No comment provided by engineer. */
+"Value" = "Value";

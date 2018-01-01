@@ -10,7 +10,7 @@
 
 @class XUIBaseCell, XUICellFactory, XUIListHeaderView, XUIListFooterView;
 
-@interface XUIListViewController : XUIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface XUIListViewController : XUIViewController <UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate>
 
 // Views
 @property (nonatomic, strong, readonly) XUIListHeaderView *headerView;

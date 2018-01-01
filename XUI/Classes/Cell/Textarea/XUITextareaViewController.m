@@ -73,6 +73,12 @@
     textView.textColor = theme.textColor;
     textView.tintColor = theme.caretColor;
     
+    if (theme.isDarkMode) {
+        textView.keyboardAppearance = UIKeyboardAppearanceDark;
+    } else {
+        textView.keyboardAppearance = UIKeyboardAppearanceDefault;
+    }
+    
     NSString *xui_alignment = self.cell.xui_alignment;
     if ([xui_alignment isEqualToString:@"Left"]) {
         textView.textAlignment = NSTextAlignmentLeft;

@@ -164,12 +164,6 @@
     UIDatePicker *picker = self.dateTimePicker;
     picker.tintColor = theme.foregroundColor;
     [picker setValue:theme.labelColor forKeyPath:@"textColor"];
-//    if ([picker respondsToSelector:sel_registerName("setHighlightsToday:")]) {
-//#pragma clang diagnostic push
-//#pragma clang diagnostic ignored "-Wundeclared-selector"
-//        [picker performSelector:@selector(setHighlightsToday:) withObject:[NSNumber numberWithBool:NO]];
-//#pragma clang diagnostic pop
-//    }
 }
 
 @end
