@@ -6,6 +6,7 @@
 #import "XUIBaseCell.h"
 #import "XUILogger.h"
 #import "XUIPrivate.h"
+#import "XUICellFactory.h"
 
 #import <objc/runtime.h>
 #import "UITableViewCell+XUIDisclosureIndicatorColor.h"
@@ -19,6 +20,8 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 @implementation XUIBaseCell {
 
 }
+
+#pragma mark - Layouts
 
 + (BOOL)xibBasedLayout {
     return NO;
@@ -74,6 +77,8 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     }
 }
 
+#pragma mark - Property Tests
+
 + (NSDictionary <NSString *, NSString *> *)entryValueTypes {
     return @{};
 }
@@ -105,6 +110,8 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     }
     return YES;
 }
+
+#pragma mark - Initializers
 
 - (NSString *)xui_cell {
     return NSStringFromClass([self class]);
@@ -172,6 +179,8 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     self.xui_value = entry[@"value"]; // do not change its order
 }
 
+#pragma mark - Key Value
+
 - (id)valueForUndefinedKey:(NSString *)key {
     return nil; // do nothing
 }
@@ -180,23 +189,13 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     // do nothing
 }
 
+#pragma mark - XUI Setters
+
 - (void)setXui_icon:(NSString *)xui_icon {
     _xui_icon = xui_icon;
     if ([self.class layoutNeedsImageView]) {
         if (xui_icon) {
             NSString *imagePath = [self.adapter.bundle pathForResource:xui_icon ofType:nil];
-            self.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
-        } else {
-            self.imageView.image = nil;
-        }
-    }
-}
-
-- (void)setInternalIcon:(NSString *)internalIcon {
-    _internalIcon = internalIcon;
-    if ([self.class layoutNeedsImageView]) {
-        if (internalIcon) {
-            NSString *imagePath = [FRAMEWORK_BUNDLE pathForResource:internalIcon ofType:nil];
             self.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
         } else {
             self.imageView.image = nil;
@@ -215,8 +214,16 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     _xui_value = xui_value;
 }
 
-- (void)setTheme:(XUITheme *)theme {
-    _theme = theme;
+#pragma mark - Overrides
+
+- (BOOL)canDelete {
+    return NO;
+}
+
+#pragma mark - Internals
+
+- (void)setInternalTheme:(XUITheme *)theme {
+    _internalTheme = theme;
     self.tintColor = theme.foregroundColor;
     self.contentView.tintColor = theme.foregroundColor;
     self.backgroundColor = theme.cellBackgroundColor;
@@ -226,8 +233,30 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     self.selectedBackgroundView.backgroundColor = theme.selectedColor;
 }
 
-- (BOOL)canDelete {
-    return NO;
+- (void)setInternalIconPath:(NSString *)internalIconPath {
+    _internalIconPath = internalIconPath;
+    if ([self.class layoutNeedsImageView]) {
+        if (internalIconPath) {
+            NSString *imagePath = [FRAMEWORK_BUNDLE pathForResource:internalIconPath ofType:nil];
+            self.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
+        } else {
+            self.imageView.image = nil;
+        }
+    }
+}
+
+#pragma mark - Default Values
+
+- (XUITheme *)theme {
+    return self.factory.theme;
+}
+
+- (id <XUIAdapter>)adapter {
+    return self.factory.adapter;
+}
+
+- (XUILogger *)logger {
+    return self.factory.logger;
 }
 
 @end

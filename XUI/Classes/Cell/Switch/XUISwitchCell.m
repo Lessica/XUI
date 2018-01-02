@@ -99,8 +99,8 @@
     }
 }
 
-- (void)setTheme:(XUITheme *)theme {
-    [super setTheme:theme];
+- (void)setInternalTheme:(XUITheme *)theme {
+    [super setInternalTheme:theme];
     if (NO == [theme.thumbTintColor isEqual:[UIColor whiteColor]]) {
         self.cellSwitch.thumbTintColor = theme.thumbTintColor;
     }

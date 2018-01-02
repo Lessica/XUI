@@ -544,16 +544,6 @@ XUI_END_IGNORE_PARTIAL
     return insets;
 }
 
-#pragma mark - Getters
-
-- (NSString *)path {
-    return self.cellFactory.adapter.path;
-}
-
-- (NSBundle *)bundle {
-    return self.cellFactory.adapter.bundle;
-}
-
 #pragma mark - Setters
 
 - (void)updateAdapter:(id<XUIAdapter>)adapter {

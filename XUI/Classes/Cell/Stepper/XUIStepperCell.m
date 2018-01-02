@@ -133,8 +133,8 @@
     }
 }
 
-- (void)setTheme:(XUITheme *)theme {
-    [super setTheme:theme];
+- (void)setInternalTheme:(XUITheme *)theme {
+    [super setInternalTheme:theme];
     self.cellStepper.tintColor = theme.foregroundColor;
     self.cellNumberLabel.textColor = theme.valueColor;
 }

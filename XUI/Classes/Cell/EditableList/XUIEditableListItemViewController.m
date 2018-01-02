@@ -80,7 +80,7 @@
 - (XUITextFieldCell *)textFieldCell {
     if (!_textFieldCell) {
         XUITextFieldCell *cell = (XUITextFieldCell *)[[[XUITextFieldCell cellNib] instantiateWithOwner:self options:nil] lastObject];
-        [cell setTheme:self.theme];
+        [cell setInternalTheme:self.theme];
         cell.cellTextField.returnKeyType = UIReturnKeyDone;
         cell.cellTextField.delegate = self;
         cell.xui_value = self.content;

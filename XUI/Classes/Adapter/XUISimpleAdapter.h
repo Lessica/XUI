@@ -8,7 +8,7 @@
 
 @interface XUISimpleAdapter : NSObject <XUIAdapter>
 
-@property (nonatomic, strong) NSDictionary *rawEntry;
+@property (nonatomic, copy, readonly) NSDictionary *rawEntry;
 - (BOOL)setupWithError:(NSError **)error NS_REQUIRES_SUPER;
 
 @end

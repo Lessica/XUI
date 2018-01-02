@@ -208,8 +208,8 @@
     self.tagView.enableTagSelection = !readonly;
 }
 
-- (void)setTheme:(XUITheme *)theme {
-    [super setTheme:theme];
+- (void)setInternalTheme:(XUITheme *)theme {
+    [super setInternalTheme:theme];
     
     self.tagView.defaultConfig.tagTextColor = theme.tagTextColor;
     self.tagView.defaultConfig.tagSelectedTextColor = theme.tagSelectedTextColor;

@@ -143,7 +143,7 @@
             cell = [[XUIBaseOptionCell alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:XUIBaseOptionCellReuseIdentifier];
         }
-        cell.adapter = self.adapter;
+        cell.factory = self.cellFactory;
         NSDictionary *optionDictionary = self.cell.xui_options[(NSUInteger) indexPath.row];
         cell.xui_icon = optionDictionary[XUIOptionIconKey];
         cell.xui_label = optionDictionary[XUIOptionTitleKey];
@@ -152,7 +152,7 @@
         } else {
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
-        [cell setTheme:self.theme];
+        [cell setInternalTheme:self.theme];
         return cell;
     }
     return [UITableViewCell new];

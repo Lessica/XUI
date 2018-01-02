@@ -65,8 +65,8 @@ NSString * const XUIButtonCellReuseIdentifier = @"XUIButtonCellReuseIdentifier";
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
 }
 
-- (void)setTheme:(XUITheme *)theme {
-    [super setTheme:theme];
+- (void)setInternalTheme:(XUITheme *)theme {
+    [super setInternalTheme:theme];
     self.textLabel.textColor = theme.foregroundColor;
 }
 

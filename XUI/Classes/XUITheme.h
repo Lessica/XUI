@@ -8,58 +8,58 @@
 
 #import <UIKit/UIKit.h>
 
-@interface XUITheme : NSObject
+@interface XUITheme : NSObject <NSCopying>
 
 #pragma mark - Global
 
-@property (nonatomic, strong) UIColor *dangerColor;
-@property (nonatomic, strong) UIColor *warningColor;
-@property (nonatomic, strong) UIColor *successColor; // fill
+@property (nonatomic, strong, readonly) UIColor *dangerColor;
+@property (nonatomic, strong, readonly) UIColor *warningColor;
+@property (nonatomic, strong, readonly) UIColor *successColor; // fill
 
-@property (nonatomic, strong) UIColor *navigationBarColor;
-@property (nonatomic, strong) UIColor *navigationTitleColor;
+@property (nonatomic, strong, readonly) UIColor *navigationBarColor;
+@property (nonatomic, strong, readonly) UIColor *navigationTitleColor;
 
 #pragma mark - Table View
 
-@property (nonatomic, assign) UITableViewStyle tableViewStyle;
-@property (nonatomic, strong) UIColor *foregroundColor;
-@property (nonatomic, strong) UIColor *backgroundColor;
-@property (nonatomic, strong) UIColor *separatorColor;
+@property (nonatomic, assign, readonly) UITableViewStyle tableViewStyle;
+@property (nonatomic, strong, readonly) UIColor *foregroundColor;
+@property (nonatomic, strong, readonly) UIColor *backgroundColor;
+@property (nonatomic, strong, readonly) UIColor *separatorColor;
 
 #pragma mark - Cells
 
-@property (nonatomic, strong) UIColor *cellBackgroundColor; // cell background
-@property (nonatomic, strong) UIColor *disclosureIndicatorColor; // cell disclosure
+@property (nonatomic, strong, readonly) UIColor *cellBackgroundColor; // cell background
+@property (nonatomic, strong, readonly) UIColor *disclosureIndicatorColor; // cell disclosure
 
-@property (nonatomic, strong) UIColor *labelColor; // text
-@property (nonatomic, strong) UIColor *valueColor; // detail text
+@property (nonatomic, strong, readonly) UIColor *labelColor; // text
+@property (nonatomic, strong, readonly) UIColor *valueColor; // detail text
 
-@property (nonatomic, strong) UIColor *selectedColor; // cell selected
-@property (nonatomic, strong) UIColor *highlightedColor; // cell highlighted
+@property (nonatomic, strong, readonly) UIColor *selectedColor; // cell selected
+@property (nonatomic, strong, readonly) UIColor *highlightedColor; // cell highlighted
 
 #pragma mark - Inputs
 
-@property (nonatomic, strong) UIColor *textColor;
-@property (nonatomic, strong) UIColor *caretColor;
-@property (nonatomic, strong) UIColor *placeholderColor;
+@property (nonatomic, strong, readonly) UIColor *textColor;
+@property (nonatomic, strong, readonly) UIColor *caretColor;
+@property (nonatomic, strong, readonly) UIColor *placeholderColor;
 
 #pragma mark - Tag Views
 
 // Text color
-@property (strong, nonatomic) UIColor *tagTextColor;
-@property (strong, nonatomic) UIColor *tagSelectedTextColor;
+@property (strong, nonatomic, readonly) UIColor *tagTextColor;
+@property (strong, nonatomic, readonly) UIColor *tagSelectedTextColor;
 
 // Background color
-@property (strong, nonatomic) UIColor *tagBackgroundColor;
-@property (strong, nonatomic) UIColor *tagSelectedBackgroundColor;
+@property (strong, nonatomic, readonly) UIColor *tagBackgroundColor;
+@property (strong, nonatomic, readonly) UIColor *tagSelectedBackgroundColor;
 
 // Border color
-@property (strong, nonatomic) UIColor *tagBorderColor;
-@property (strong, nonatomic) UIColor *tagSelectedBorderColor;
+@property (strong, nonatomic, readonly) UIColor *tagBorderColor;
+@property (strong, nonatomic, readonly) UIColor *tagSelectedBorderColor;
 
 #pragma mark - Switch
 
-@property (strong, nonatomic) UIColor *thumbTintColor;
+@property (strong, nonatomic, readonly) UIColor *thumbTintColor;
 
 #pragma mark - Dark Mode
 
@@ -67,6 +67,7 @@
 
 #pragma mark - Initializers
 
+@property (nonatomic, copy) NSDictionary *rawTheme;
 - (instancetype)initWithDictionary:(NSDictionary *)themeDictionary;
 
 @end

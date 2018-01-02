@@ -268,8 +268,8 @@
     self.cellTextField.text = xui_value;
 }
 
-- (void)setTheme:(XUITheme *)theme {
-    [super setTheme:theme];
+- (void)setInternalTheme:(XUITheme *)theme {
+    [super setInternalTheme:theme];
     XUITextField *textField = self.cellTextField;
     textField.tintColor = theme.caretColor;
     self.cellTitleLabel.textColor = theme.labelColor;
@@ -301,7 +301,7 @@
     }
     XUI_END_IGNORE_PARTIAL
     NSString *placeholder = self.xui_placeholder;
-    UIColor *placeholderColor = self.theme.placeholderColor;
+    UIColor *placeholderColor = self.internalTheme.placeholderColor;
     if (placeholder.length > 0 && placeholderColor && placeholderFont) {
         NSDictionary *attributes = @{ NSForegroundColorAttributeName: placeholderColor, NSFontAttributeName: placeholderFont };
         NSMutableAttributedString *attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:placeholder attributes:attributes];

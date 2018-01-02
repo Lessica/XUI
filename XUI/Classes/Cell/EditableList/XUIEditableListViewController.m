@@ -93,10 +93,10 @@
         XUIBaseOptionCell *cell = [[XUIBaseOptionCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                            reuseIdentifier:nil];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.adapter = self.adapter;
-        cell.internalIcon = @"XUIEditableListIconAdd.png";
+        cell.factory = self.cellFactory;
+        cell.internalIconPath = @"XUIEditableListIconAdd.png";
         cell.xui_label = NSLocalizedStringFromTableInBundle(@"Add Item...", nil, FRAMEWORK_BUNDLE, nil);
-        [cell setTheme:self.theme];
+        [cell setInternalTheme:self.theme];
         _addCell = cell;
     }
     return _addCell;
@@ -107,10 +107,10 @@
         XUIBaseOptionCell *cell = [[XUIBaseOptionCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                            reuseIdentifier:nil];
         cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.adapter = self.adapter;
-        cell.internalIcon = @"XUIEditableListIconManage.png";
+        cell.factory = self.cellFactory;
+        cell.internalIconPath = @"XUIEditableListIconManage.png";
         cell.xui_label = NSLocalizedStringFromTableInBundle(@"Manage Items", nil, FRAMEWORK_BUNDLE, nil);
-        [cell setTheme:self.theme];
+        [cell setInternalTheme:self.theme];
         _deleteCell = cell;
     }
     return _deleteCell;
@@ -198,14 +198,14 @@
             cell = [[XUIBaseOptionCell alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:XUIBaseOptionCellReuseIdentifier];
         }
-        cell.adapter = self.adapter;
+        cell.factory = self.cellFactory;
         NSUInteger idx = indexPath.row;
         if (idx < self.mutableContentList.count) {
             cell.xui_label = self.mutableContentList[idx];
         }
         cell.accessoryType = UITableViewCellAccessoryDetailButton;
         cell.showsReorderControl = YES;
-        [cell setTheme:self.theme];
+        [cell setInternalTheme:self.theme];
         return cell;
     }
     return [XUIBaseCell new];
@@ -279,7 +279,7 @@
         deleteIcon = @"XUIEditableListIconManage.png";
     }
     self.deleteCell.xui_label = deleteLabel;
-    self.deleteCell.internalIcon = deleteIcon;
+    self.deleteCell.internalIconPath = deleteIcon;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

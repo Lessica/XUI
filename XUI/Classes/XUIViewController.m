@@ -138,6 +138,14 @@
     return self.cellFactory.adapter;
 }
 
+- (NSString *)path {
+    return self.cellFactory.adapter.path;
+}
+
+- (NSBundle *)bundle {
+    return self.cellFactory.adapter.bundle;
+}
+
 #pragma mark - XUICellFactoryDelegate
 
 - (void)cellFactory:(XUICellFactory *)parser didFailWithError:(NSError *)error {

@@ -39,7 +39,7 @@ XUI 用于在 XXTouch 上提供配置界面, 采用 iOS 系统原生组件. 本�
 
 ![A-Script-Bundle.xpa-1001kB][1]
 
-![1512233554.png-1.9kB][2]
+![1514623624.png-1.9kB][2]
 
 脚本开发者可以下载示例包, 在 XXTouch 中安装并运行. 
 
@@ -621,6 +621,7 @@ local enabled = conf.enabled
 |--------|----------|----------|----------|
 |options|包含字典的数组|选项列表数组|\-|
 |footerText|字符串|显示在列表选项下方的小字|可选, 可本地化|
+|popoverMode|布尔型|采用悬浮样式|\>= 1.2-4|
 
 **options** 包含若干 *选项*, *选项* 为字典, 有如下属性: 
 
@@ -674,6 +675,7 @@ local enabled = conf.enabled
 |options|包含字典的数组|选项列表数组|\-|
 |footerText|字符串|显示在列表选项下方的小字|可选, 可本地化|
 |maxCount|整数|最多选择项目数|\-|
+|popoverMode|布尔型|采用悬浮样式|\>= 1.2-4|
 
 **options** 包含若干 *选项*, *选项* 为字典, 有如下属性: 
 
@@ -727,6 +729,7 @@ local enabled = conf.enabled
 |footerText|字符串|显示在列表选项下方的小字|可选, 可本地化|
 |minCount|整数|最少选择项目数|\-|
 |maxCount|整数|最多选择项目数|\-|
+|popoverMode|布尔型|采用悬浮样式|\>= 1.2-4|
 
 **options** 包含若干 *选项*, *选项* 为字典, 有如下属性: 
 
@@ -897,6 +900,7 @@ local enabled = conf.enabled
 |max|数值|时间间隔最大值|可选|
 |minuteInterval|整数|时间间隔歩长, 单位分钟|可选|
 |mode|字符串|选择器模式|可选|
+|popoverMode|布尔型|采用悬浮样式|\>= 1.2-4|
 
 *此组件不支持 **label/icon***
 
@@ -1149,8 +1153,8 @@ local enabled = conf.enabled
 ----------
 
 
-	[1]: http://static.zybuluo.com/xxtouch/9so2wyf6ennrc0s2ar7vl0ov/A-Script-Bundle.xpa
-	[2]: http://static.zybuluo.com/xxtouch/vb58yu2p3c8ihd3xztk66bar/1512233554.png
+	[1]: http://static.zybuluo.com/xxtouch/ninyratay1ty4z1aarl0j40d/A-Script-Bundle.xpa
+	[2]: http://static.zybuluo.com/xxtouch/5kb6v7vly8gu22mvx9wcod76/1514623624.png
 	[3]: http://static.zybuluo.com/xxtouch/yp88j1ws4na1r8enodb7ydhl/IMG_0716.JPG
 	[4]: http://static.zybuluo.com/xxtouch/hxvpaqv424u4b4gjjg98aw2d/CFE17DA4-C299-4533-A0E9-E1E2F9734C8D.png
 	[5]: http://static.zybuluo.com/xxtouch/8taro66htfohfw09hryyl0hv/QQ20170914-191445.png

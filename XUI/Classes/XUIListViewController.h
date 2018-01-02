@@ -12,33 +12,37 @@
 
 @interface XUIListViewController : XUIViewController <UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate>
 
-// Views
+#pragma mark - Views
+
 @property (nonatomic, strong, readonly) XUIListHeaderView *headerView;
 @property (nonatomic, strong, readonly) UITableView *tableView;
 @property (nonatomic, strong, readonly) XUIListFooterView *footerView;
 
-@property (nonatomic, strong, readonly) NSString *path;
-@property (nonatomic, strong, readonly) NSBundle *bundle;
+#pragma mark - Update Factory
+
+- (void)updateAdapter:(id<XUIAdapter>)adapter;
+- (void)updateLogger:(XUILogger *)logger;
+- (void)updateTheme:(XUITheme *)theme;
+
+#pragma mark - Initializers
 
 - (instancetype)initWithPath:(NSString *)path NS_REQUIRES_SUPER; // will use main bundle
 - (instancetype)initWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER;
 - (instancetype)initWithBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER;
 
-// Store
+#pragma mark - Storage
+
 - (void)storeCellWhenNeeded:(XUIBaseCell *)cell;
 - (void)setNeedsStoreCells;
 - (void)storeCellsIfNecessary;
 
-// Error
+#pragma mark - Error popups
+
 - (void)presentErrorAlertController:(NSError *)error;
 
-// Dismiss
-- (void)dismissViewController:(id)dismissViewController NS_REQUIRES_SUPER;
+#pragma mark - Dismissal
 
-// Update
-- (void)updateAdapter:(id<XUIAdapter>)adapter;
-- (void)updateLogger:(XUILogger *)logger;
-- (void)updateTheme:(XUITheme *)theme;
+- (void)dismissViewController:(id)dismissViewController NS_REQUIRES_SUPER;
 
 @end
 

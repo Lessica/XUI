@@ -183,7 +183,7 @@
         cell = [[XUIBaseOptionCell alloc] initWithStyle:UITableViewCellStyleDefault
                                         reuseIdentifier:XUIBaseOptionCellReuseIdentifier];
     }
-    cell.adapter = self.adapter;
+    cell.factory = self.cellFactory;
     cell.showsReorderControl = YES;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0)
@@ -204,7 +204,7 @@
         cell.xui_label = nil;
         cell.xui_icon = nil;
     }
-    [cell setTheme:self.theme];
+    [cell setInternalTheme:self.theme];
     return cell;
 }
 

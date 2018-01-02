@@ -124,8 +124,8 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
     self.cellStaticTextView.selectable = [xui_selectable boolValue];
 }
 
-- (void)setTheme:(XUITheme *)theme {
-    [super setTheme:theme];
+- (void)setInternalTheme:(XUITheme *)theme {
+    [super setInternalTheme:theme];
     self.cellStaticTextView.textColor = theme.labelColor;
     self.cellStaticTextView.tintColor = theme.foregroundColor;
 }

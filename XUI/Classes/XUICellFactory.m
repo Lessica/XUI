@@ -126,7 +126,7 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
             [self.logger logMessage:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"[%@]\nPath \"items[%lu]\", %@", nil, frameworkBundle, nil), checkError.domain, itemIdx, checkError.localizedDescription]];
             continue;
         }
-        cellInstance.adapter = self.adapter;
+        cellInstance.factory = self;
         XUITheme *theme = nil;
         NSDictionary *itemTheme = itemDictionary[@"theme"];
         if ([itemTheme isKindOfClass:[NSDictionary class]]) {
@@ -134,10 +134,10 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
             [combinedTheme addEntriesFromDictionary:itemTheme];
             theme = [[XUITheme alloc] initWithDictionary:combinedTheme];
         } else {
-            theme = self.theme;
+            theme = [self.theme copy];
         }
         if (theme) {
-            cellInstance.theme = theme;
+            [cellInstance setInternalTheme:theme];
         }
         NSArray <NSString *> *itemAllKeys = [itemDictionary allKeys];
         for (NSUInteger keyIdx = 0; keyIdx < itemAllKeys.count; ++keyIdx) {
@@ -148,6 +148,7 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
         [cellInstance configureCellWithEntry:itemDictionary];
         [cells addObject:cellInstance];
     }
+    _cells = [cells copy];
     
     // generate group cells
     NSMutableArray <XUIGroupCell *> *groupCells = [[NSMutableArray alloc] init];

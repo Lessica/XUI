@@ -7,6 +7,9 @@
 
 #import "XUITheme.h"
 #import "XUIAdapter.h"
+#import "XUILogger.h"
+
+@class XUICellFactory;
 
 extern NSString * XUIBaseCellReuseIdentifier;
 
@@ -21,11 +24,18 @@ extern NSString * XUIBaseCellReuseIdentifier;
 @property (nonatomic, strong) NSNumber *xui_readonly;
 @property (nonatomic, strong) NSNumber *xui_height;
 @property (nonatomic, strong) id xui_value;
+@property (nonatomic, assign, readonly) BOOL canDelete;
 
-@property (nonatomic, strong) XUITheme *theme;
-@property (nonatomic, strong) NSString *internalIcon;
-@property (nonatomic, strong) id <XUIAdapter> adapter;
-@property (nonatomic, assign) BOOL canDelete;
+@property (nonatomic, weak) XUICellFactory *factory;
+@property (nonatomic, strong, readonly) XUITheme *theme; // shortcut for factory.theme
+@property (nonatomic, strong, readonly) id <XUIAdapter> adapter; // shortcut for factory.adapter
+@property (nonatomic, strong, readonly) XUILogger *logger; // shortcut for factory.logger
+
+@property (nonatomic, strong, setter=setInternalTheme:) XUITheme *internalTheme;
+- (void)setInternalTheme:(XUITheme *)theme NS_REQUIRES_SUPER;
+
+@property (nonatomic, strong, setter=setInternalIconPath:) NSString *internalIconPath;
+- (void)setInternalIconPath:(NSString *)internalIconPath NS_REQUIRES_SUPER;
 
 + (BOOL)xibBasedLayout;
 + (UINib *)cellNib;
@@ -39,6 +49,5 @@ extern NSString * XUIBaseCellReuseIdentifier;
 
 - (void)setupCell NS_REQUIRES_SUPER;
 - (void)configureCellWithEntry:(NSDictionary *)entry NS_REQUIRES_SUPER;
-- (void)setTheme:(XUITheme *)theme NS_REQUIRES_SUPER;
 
 @end

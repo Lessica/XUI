@@ -102,6 +102,7 @@
         if (themeDictionary[@"thumbTintColor"])
             _thumbTintColor = [UIColor xui_colorWithHex:themeDictionary[@"thumbTintColor"]];
         
+        _rawTheme = themeDictionary;
     }
     return self;
 }
@@ -144,6 +145,13 @@
 
 - (BOOL)isDarkMode {
     return [self.navigationBarColor xui_isDarkColor];
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone {
+    XUITheme *theme = [[XUITheme alloc] initWithDictionary:self.rawTheme];
+    return theme;
 }
 
 @end
