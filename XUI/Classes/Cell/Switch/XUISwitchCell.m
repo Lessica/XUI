@@ -104,7 +104,7 @@
     if (NO == [theme.thumbTintColor isEqual:[UIColor whiteColor]]) {
         self.cellSwitch.thumbTintColor = theme.thumbTintColor;
     }
-    self.cellSwitch.tintColor = theme.thumbTintColor;
+    self.cellSwitch.tintColor = theme.foregroundColor;
     self.cellSwitch.onTintColor = theme.foregroundColor;
 }
 

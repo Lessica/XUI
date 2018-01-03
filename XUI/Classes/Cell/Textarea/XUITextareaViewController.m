@@ -73,7 +73,7 @@
     textView.textColor = theme.textColor;
     textView.tintColor = theme.caretColor;
     
-    if (theme.isDarkMode) {
+    if (theme.isBackgroundDark) {
         textView.keyboardAppearance = UIKeyboardAppearanceDark;
     } else {
         textView.keyboardAppearance = UIKeyboardAppearanceDefault;

@@ -64,6 +64,7 @@
 #pragma mark - Dark Mode
 
 @property (nonatomic, assign, readonly, getter=isDarkMode) BOOL darkMode;
+@property (nonatomic, assign, readonly, getter=isBackgroundDark) BOOL backgroundDark;
 
 #pragma mark - Initializers
 

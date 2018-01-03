@@ -277,7 +277,7 @@
     [textField setColorButtonClearNormal:[theme.textColor colorWithAlphaComponent:0.6]];
     [textField setColorButtonClearHighlighted:theme.textColor];
     [self reloadPlaceholderAttributes];
-    if (theme.isDarkMode) {
+    if (theme.isBackgroundDark) {
         textField.keyboardAppearance = UIKeyboardAppearanceDark;
     } else {
         textField.keyboardAppearance = UIKeyboardAppearanceDefault;

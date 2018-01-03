@@ -73,8 +73,8 @@
     self.tagView.contentInset = UIEdgeInsetsZero;
     self.tagView.scrollDirection = XUITagCollectionScrollDirectionVertical;
     
-    self.tagView.defaultConfig.tagCornerRadius = 8.f;
-    self.tagView.defaultConfig.tagSelectedCornerRadius = 8.f;
+    self.tagView.defaultConfig.tagCornerRadius = 4.f;
+    self.tagView.defaultConfig.tagSelectedCornerRadius = 4.f;
     
     self.tagView.defaultConfig.tagShadowColor = UIColor.clearColor;
     

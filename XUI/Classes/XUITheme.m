@@ -147,6 +147,10 @@
     return [self.navigationBarColor xui_isDarkColor];
 }
 
+- (BOOL)isBackgroundDark {
+    return [self.backgroundColor xui_isDarkColor];
+}
+
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
