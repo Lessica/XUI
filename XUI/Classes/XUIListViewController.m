@@ -456,6 +456,7 @@ XUI_END_IGNORE_PARTIAL
 }
 
 - (void)presentErrorAlertController:(NSError *)error {
+    if (!error) return;
     __weak typeof(self) weak_self = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         __strong typeof(weak_self) self = weak_self;
