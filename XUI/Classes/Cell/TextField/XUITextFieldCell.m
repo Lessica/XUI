@@ -134,6 +134,7 @@
 - (void)reloadLeftConstraints {
     if (self.cellTitleLabel.text.length == 0) {
         self.leftConstraint.constant = 0.0;
+        XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_8) {
             self.titleWidthConstraint.active = YES;
         } else {
@@ -141,8 +142,10 @@
                 [self.cellTitleLabel removeConstraint:self.titleWidthConstraint];
             }
         }
+        XUI_END_IGNORE_PARTIAL
     } else {
         self.leftConstraint.constant = self.separatorInset.left; // 20.0 or 15.0, depends on screen size
+        XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_8) {
             self.titleWidthConstraint.active = NO;
         } else {
@@ -150,6 +153,7 @@
                 [self.cellTitleLabel addConstraint:self.titleWidthConstraint];
             }
         }
+        XUI_END_IGNORE_PARTIAL
     }
 }
 

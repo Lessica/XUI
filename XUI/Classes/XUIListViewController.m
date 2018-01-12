@@ -576,9 +576,11 @@ XUI_END_IGNORE_PARTIAL
 
 #pragma mark - UIPopoverPresentationControllerDelegate
 
+XUI_START_IGNORE_PARTIAL
 - (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
 }
+XUI_END_IGNORE_PARTIAL
 
 #pragma mark - Memory
 

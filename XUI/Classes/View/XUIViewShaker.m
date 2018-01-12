@@ -7,6 +7,7 @@
 //
 
 #import "XUIViewShaker.h"
+#import "XUIPrivate.h"
 
 static NSTimeInterval const kXUIViewShakerDefaultDuration = 0.5;
 static NSString * const kXUIViewShakerAnimationKey = @"kXUIViewShakerAnimationKey";
@@ -50,10 +51,12 @@ static NSString * const kXUIViewShakerAnimationKey = @"kXUIViewShakerAnimationKe
 - (void)shakeWithDuration:(NSTimeInterval)duration completion:(void (^)(void))completion {
     self.completionBlock = completion;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+    XUI_START_IGNORE_PARTIAL
     if ([UINotificationFeedbackGenerator class]) {
         UINotificationFeedbackGenerator *feedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
         [feedbackGenerator notificationOccurred:UINotificationFeedbackTypeError];
     }
+    XUI_END_IGNORE_PARTIAL
 #endif
     for (UIView * view in self.views) {
         [self addShakeAnimationForView:view withDuration:duration];

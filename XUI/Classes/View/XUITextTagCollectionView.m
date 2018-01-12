@@ -14,11 +14,13 @@
     if (self) {
         UIFont *lightFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
         if (!lightFont) {
+            XUI_START_IGNORE_PARTIAL
             if (XUI_SYSTEM_8_2) {
                 lightFont = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
             } else {
                 lightFont = [UIFont systemFontOfSize:16.f];
             }
+            XUI_END_IGNORE_PARTIAL
         }
         _tagTextFont = lightFont;
         

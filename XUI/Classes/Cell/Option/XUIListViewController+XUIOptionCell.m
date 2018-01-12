@@ -32,6 +32,7 @@
         optionViewController.cellFactory.adapter = self.cellFactory.adapter;
         optionViewController.delegate = self;
         optionViewController.title = linkListCell.xui_label;
+        XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_8) {
             BOOL popoverMode = [linkListCell.xui_popoverMode boolValue];
             if (popoverMode) {
@@ -45,6 +46,7 @@
                 return;
             }
         }
+        XUI_END_IGNORE_PARTIAL
         [self.navigationController pushViewController:optionViewController animated:YES];
     }
 }

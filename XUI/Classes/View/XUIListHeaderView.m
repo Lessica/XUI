@@ -68,11 +68,13 @@ static inline UIEdgeInsets XUIListHeaderViewEdgeInsets() {
 - (void)setup {
     UIFont *lightHeaderFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:36.f];
     if (!lightHeaderFont) {
+        XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_8_2) {
             lightHeaderFont = [UIFont systemFontOfSize:36.f weight:UIFontWeightUltraLight];
         } else {
             lightHeaderFont = [UIFont systemFontOfSize:36.f];
         }
+        XUI_END_IGNORE_PARTIAL
     }
     if (lightHeaderFont) {
         _headerAttributes = @{ NSFontAttributeName: lightHeaderFont,
@@ -80,11 +82,13 @@ static inline UIEdgeInsets XUIListHeaderViewEdgeInsets() {
     }
     UIFont *lightSubheaderFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:18.f];
     if (!lightSubheaderFont) {
+        XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_8_2) {
             lightSubheaderFont = [UIFont systemFontOfSize:18.f weight:UIFontWeightUltraLight];
         } else {
             lightSubheaderFont = [UIFont systemFontOfSize:18.f];
         }
+        XUI_END_IGNORE_PARTIAL
     }
     if (lightSubheaderFont) {
         _subheaderAttributes = @{ NSFontAttributeName: lightSubheaderFont,

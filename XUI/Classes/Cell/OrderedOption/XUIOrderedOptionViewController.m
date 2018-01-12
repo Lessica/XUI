@@ -76,7 +76,13 @@
 }
 
 - (BOOL)popoverMode {
-    return self.modalPresentationStyle == UIModalPresentationPopover;
+    XUI_START_IGNORE_PARTIAL
+    if (XUI_SYSTEM_8) {
+        return self.modalPresentationStyle == UIModalPresentationPopover;
+    } else {
+        return NO;
+    }
+    XUI_END_IGNORE_PARTIAL
 }
 
 - (void)viewWillAppear:(BOOL)animated {
