@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIDatePicker *dateTimePicker;
 @property (assign, nonatomic) BOOL shouldUpdateValue;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -71,6 +72,18 @@
         return _xui_height;
     } else {
         return @(217.0);
+    }
+}
+
+- (void)setXui_format:(NSString *)xui_format {
+    _xui_format = xui_format;
+    if (xui_format.length) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [dateFormatter setDateFormat:xui_format];
+        _dateFormatter = dateFormatter;
+    } else {
+        _dateFormatter = nil;
     }
 }
 
@@ -141,13 +154,12 @@
                 self.dateTimePicker.countDownDuration = duration;
             }
         } else {
-            NSString *dateFormat = self.xui_format;
-            if (dateFormat.length > 0) {
+            if (self.dateFormatter) {
                 if ([xuiValue isKindOfClass:[NSString class]]) {
-                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                    [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-                    [dateFormatter setDateFormat:dateFormat];
-                    NSDate *savedDate = [dateFormatter dateFromString:xuiValue];
+                    NSDate *savedDate = [self.dateFormatter dateFromString:xuiValue];
+                    if (!savedDate) {
+                        savedDate = [NSDate date];
+                    }
                     self.dateTimePicker.date = savedDate;
                 }
             } else {
@@ -169,12 +181,8 @@
             [self.adapter saveDefaultsFromCell:self];
         } else {
             NSDate *toDate = sender.date;
-            NSString *dateFormat = self.xui_format;
-            if (dateFormat.length > 0) {
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-                [dateFormatter setDateFormat:dateFormat];
-                NSString *savedDate = [dateFormatter stringFromDate:toDate];
+            if (self.dateFormatter) {
+                NSString *savedDate = [self.dateFormatter stringFromDate:toDate];
                 self.xui_value = savedDate;
             } else {
                 NSTimeInterval toInterval = [toDate timeIntervalSince1970];
