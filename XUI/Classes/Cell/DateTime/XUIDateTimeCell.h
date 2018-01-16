@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSNumber *xui_minuteInterval;
 @property (nonatomic, strong) NSNumber *xui_max;
 @property (nonatomic, strong) NSNumber *xui_min;
+@property (nonatomic, strong) NSString *xui_format;
 
 @end

@@ -43,7 +43,8 @@
       @"minuteInterval": [NSNumber class],
       @"max": [NSNumber class],
       @"min": [NSNumber class],
-      @"value": [NSNumber class]
+      @"format": [NSString class],
+//      @"value": [NSNumber class]
       };
 }
 
@@ -133,13 +134,29 @@
 - (void)updateValueIfNeeded {
     if (self.shouldUpdateValue) {
         self.shouldUpdateValue = NO;
+        id xuiValue = self.xui_value;
         if ([self.xui_mode isEqualToString:@"interval"]) {
-            NSTimeInterval duration = [self.xui_value doubleValue];
-            self.dateTimePicker.countDownDuration = duration;
+            if ([xuiValue isKindOfClass:[NSNumber class]]) {
+                NSTimeInterval duration = [self.xui_value doubleValue];
+                self.dateTimePicker.countDownDuration = duration;
+            }
         } else {
-            NSTimeInterval timestamp = [self.xui_value doubleValue];
-            NSDate *valueDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
-            self.dateTimePicker.date = valueDate;
+            NSString *dateFormat = self.xui_format;
+            if (dateFormat.length > 0) {
+                if ([xuiValue isKindOfClass:[NSString class]]) {
+                    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                    [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+                    [dateFormatter setDateFormat:dateFormat];
+                    NSDate *savedDate = [dateFormatter dateFromString:xuiValue];
+                    self.dateTimePicker.date = savedDate;
+                }
+            } else {
+                if ([xuiValue isKindOfClass:[NSNumber class]]) {
+                    NSTimeInterval timestamp = [xuiValue doubleValue];
+                    NSDate *valueDate = [NSDate dateWithTimeIntervalSince1970:timestamp];
+                    self.dateTimePicker.date = valueDate;
+                }
+            }
         }
     }
 }
@@ -152,8 +169,17 @@
             [self.adapter saveDefaultsFromCell:self];
         } else {
             NSDate *toDate = sender.date;
-            NSTimeInterval toInterval = [toDate timeIntervalSince1970];
-            self.xui_value = @(toInterval);
+            NSString *dateFormat = self.xui_format;
+            if (dateFormat.length > 0) {
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+                [dateFormatter setDateFormat:dateFormat];
+                NSString *savedDate = [dateFormatter stringFromDate:toDate];
+                self.xui_value = savedDate;
+            } else {
+                NSTimeInterval toInterval = [toDate timeIntervalSince1970];
+                self.xui_value = @(toInterval);
+            }
             [self.adapter saveDefaultsFromCell:self];
         }
     }
