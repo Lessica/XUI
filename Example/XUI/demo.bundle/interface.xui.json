@@ -38,6 +38,8 @@
         {
             "label":"Load another pane",
             "cell":"Link",
+            "defaults":"com.yourcompany.yourscript",
+            "key":"datetime1",
             "url":"sub/xui-sub.xui.json"
         },
         {

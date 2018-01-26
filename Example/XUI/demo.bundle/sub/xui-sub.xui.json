@@ -72,7 +72,8 @@
         {
             "cell":"DateTime",
             "defaults":"com.yourcompany.yourscript",
-            "default":1507611018,
+            "default":"2017-01-01",
+            "format":"yyyy-MM-dd",
             "key":"datetime1"
         },
         {
