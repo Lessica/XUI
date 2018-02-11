@@ -53,7 +53,11 @@ static NSString * const kXUIViewShakerAnimationKey = @"kXUIViewShakerAnimationKe
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
     XUI_START_IGNORE_PARTIAL
     if ([UINotificationFeedbackGenerator class]) {
-        UINotificationFeedbackGenerator *feedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
+        static UINotificationFeedbackGenerator *feedbackGenerator = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            feedbackGenerator = [[UINotificationFeedbackGenerator alloc] init];
+        });
         [feedbackGenerator notificationOccurred:UINotificationFeedbackTypeError];
     }
     XUI_END_IGNORE_PARTIAL
