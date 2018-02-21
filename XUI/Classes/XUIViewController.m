@@ -119,8 +119,20 @@
     [self navigationBar].barTintColor = backgroundColor;
     self.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
     self.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
+    for (UIBarButtonItem *item in self.navigationItem.leftBarButtonItems) {
+        item.tintColor = foregroundColor;
+    }
+    for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
+        item.tintColor = foregroundColor;
+    }
     self.navigationController.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
     self.navigationController.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
+    for (UIBarButtonItem *item in self.navigationController.navigationItem.leftBarButtonItems) {
+        item.tintColor = foregroundColor;
+    }
+    for (UIBarButtonItem *item in self.navigationController.navigationItem.rightBarButtonItems) {
+        item.tintColor = foregroundColor;
+    }
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
