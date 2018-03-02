@@ -67,7 +67,7 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
     [super setupCell];
     UITextView *textView = self.cellStaticTextView;
     textView.scrollEnabled = NO;
-    if (@available(iOS 8.0, *)) {
+    if (XUI_SYSTEM_8) {
         textView.textContainerInset = XUIStaticTextCellPadding;
     }
     textView.textContainer.lineFragmentPadding = 0;
