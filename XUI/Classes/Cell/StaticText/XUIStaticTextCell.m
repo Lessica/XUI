@@ -67,7 +67,9 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
     [super setupCell];
     UITextView *textView = self.cellStaticTextView;
     textView.scrollEnabled = NO;
-    textView.textContainerInset = XUIStaticTextCellPadding;
+    if (@available(iOS 8.0, *)) {
+        textView.textContainerInset = XUIStaticTextCellPadding;
+    }
     textView.textContainer.lineFragmentPadding = 0;
     textView.contentInset = UIEdgeInsetsZero;
 //    textView.layoutManager.hyphenationFactor = 1.0f;
