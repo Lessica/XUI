@@ -21,6 +21,7 @@ extern NSString * XUIBaseCellReuseIdentifier;
 @property (nonatomic, strong) NSString *xui_key;
 @property (nonatomic, strong) id xui_default;
 @property (nonatomic, strong) NSString *xui_icon;
+@property (nonatomic, strong) NSString *xui_iconRenderingMode;
 @property (nonatomic, strong) NSNumber *xui_readonly;
 @property (nonatomic, strong) NSNumber *xui_height;
 @property (nonatomic, strong) id xui_value;

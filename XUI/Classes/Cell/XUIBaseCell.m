@@ -91,6 +91,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
       @"defaults": [NSString class],
       @"key": [NSString class],
       @"icon": [NSString class],
+      @"iconRenderingMode": [NSString class],
       @"enabled": [NSNumber class],
       @"height": [NSNumber class]
       } mutableCopy];
@@ -102,6 +103,19 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
             if (![cellEntry[pairKey] isKindOfClass:pairClass]) {
                 checkType = kXUICellFactoryErrorInvalidTypeDomain;
                 NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\", should be \"%@\".", nil, FRAMEWORK_BUNDLE, nil), pairKey, NSStringFromClass(pairClass)];
+                NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+                if (error) *error = exceptionError;
+                return NO;
+            }
+        }
+    }
+    {
+        NSString *renderingModeString = cellEntry[@"iconRenderingMode"];
+        if (renderingModeString) {
+            NSArray <NSString *> *validRenderingModes = @[ @"Automatic", @"AlwaysOriginal", @"AlwaysTemplate", ];
+            if (![validRenderingModes containsObject:renderingModeString]) {
+                checkType = kXUICellFactoryErrorUnknownEnumDomain;
+                NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"iconRenderingMode", renderingModeString];
                 NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
                 if (error) *error = exceptionError;
                 return NO;
@@ -196,11 +210,33 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     if ([self.class layoutNeedsImageView]) {
         if (xui_icon) {
             NSString *imagePath = [self.adapter.bundle pathForResource:xui_icon ofType:nil];
-            self.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
+            self.imageView.image = [self imageWithCurrentRenderingMode:[UIImage imageWithContentsOfFile:imagePath]];
         } else {
             self.imageView.image = nil;
         }
     }
+}
+
+- (void)setXui_iconRenderingMode:(NSString *)xui_iconRenderingMode {
+    _xui_iconRenderingMode = xui_iconRenderingMode;
+    if ([self.class layoutNeedsImageView]) {
+        UIImage *originalImage = self.imageView.image;
+        if (originalImage)
+        {
+            self.imageView.image = [self imageWithCurrentRenderingMode:originalImage];
+        }
+    }
+}
+
+- (UIImage *)imageWithCurrentRenderingMode:(UIImage *)image {
+    NSString *renderingModeString = _xui_iconRenderingMode;
+    UIImageRenderingMode renderingMode = UIImageRenderingModeAutomatic;
+    if ([renderingModeString isEqualToString:@"AlwaysOriginal"]) {
+        renderingMode = UIImageRenderingModeAlwaysOriginal;
+    } else if ([renderingModeString isEqualToString:@"AlwaysTemplate"]) {
+        renderingMode = UIImageRenderingModeAlwaysTemplate;
+    }
+    return [image imageWithRenderingMode:renderingMode];
 }
 
 - (void)setXui_label:(NSString *)xui_label {
