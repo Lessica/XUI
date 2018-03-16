@@ -115,7 +115,7 @@ To know if there is any invalid part in our interface schema...
 
 ## Configuration References
 
-Sorry for the inconvenience, but there's no English reference for now. See more (Simplified Chinese): https://www.zybuluo.com/xxtouch/note/716787
+https://kb.xxtouch.com/XUI/
 
 ## Example
 
