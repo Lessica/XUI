@@ -39,8 +39,6 @@ static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 32.f, 20.f, 32.f, 20.f
 }
 
 - (void)setup {
-    _footerIcon = [[UIImage alloc] init];
-    
     UIFont *lightFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:14.f];
     if (!lightFont) {
         XUI_START_IGNORE_PARTIAL
@@ -76,7 +74,6 @@ static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 32.f, 20.f, 32.f, 20.f
     if (!_footerIconView) {
         UIImageView *footerIconView = [[UIImageView alloc] init];
         footerIconView.contentMode = UIViewContentModeScaleAspectFit;
-        footerIconView.image = self.footerIcon;
         _footerIconView = footerIconView;
     }
     return _footerIconView;
@@ -103,6 +100,12 @@ static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 32.f, 20.f, 32.f, 20.f
     [self.footerLabel setAttributedText:attributedFooterText];
     
     self.footerHeight = [attributedFooterText boundingRectWithSize:CGSizeMake(self.bounds.size.width - XUIListFooterViewEdgeInsets.left - XUIListFooterViewEdgeInsets.right, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil].size.height;
+}
+
+- (void)setFooterIcon:(UIImage *)footerIcon {
+    _footerIcon = footerIcon;
+    
+    self.footerIconView.image = footerIcon;
 }
 
 - (void)setTheme:(XUITheme *)theme {
