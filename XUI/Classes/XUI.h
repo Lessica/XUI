@@ -54,5 +54,6 @@
 #import <XUI/XUIPrivate.h>
 #import <XUI/XUITheme.h>
 #import <XUI/XUIViewController.h>
+#import <XUI/XUITableViewProxy.h>
 
 #endif /* XUI_h */
