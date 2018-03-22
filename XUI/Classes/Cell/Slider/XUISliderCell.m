@@ -12,9 +12,9 @@
 
 @interface XUISliderCell ()
 
-@property (weak, nonatomic) IBOutlet UISlider *cellSlider;
-@property (weak, nonatomic) IBOutlet UILabel *cellSliderValueLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *cellSliderValueLabelWidth;
+@property (strong, nonatomic) UISlider *cellSlider;
+@property (strong, nonatomic) UILabel *cellSliderValueLabel;
+@property (strong, nonatomic) NSLayoutConstraint *cellSliderValueLabelWidth;
 @property (assign, nonatomic) BOOL shouldUpdateValue;
 
 @end
@@ -24,7 +24,7 @@
 @synthesize xui_value = _xui_value;
 
 + (BOOL)xibBasedLayout {
-    return YES;
+    return NO;
 }
 
 + (BOOL)layoutNeedsTextLabel {
@@ -50,12 +50,71 @@
     return superResult;
 }
 
+#pragma mark - Setup
+
 - (void)setupCell {
     [super setupCell];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.cellSlider addTarget:self action:@selector(xuiSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.cellSlider addTarget:self action:@selector(xuiSliderValueDidFinishChanging:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.contentView addSubview:self.cellSliderValueLabel];
+    [self.contentView addSubview:self.cellSlider];
+    {
+        self.cellSliderValueLabelWidth = [NSLayoutConstraint constraintWithItem:self.cellSliderValueLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0];
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          self.cellSliderValueLabelWidth,
+          [NSLayoutConstraint constraintWithItem:self.cellSliderValueLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellSliderValueLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.cellSlider attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-8.0],
+          [NSLayoutConstraint constraintWithItem:self.cellSliderValueLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
+          ];
+        [self.contentView addConstraints:constraints];
+    }
+    {
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          [NSLayoutConstraint constraintWithItem:self.cellSlider attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-24.0],
+          [NSLayoutConstraint constraintWithItem:self.cellSlider attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
+          ];
+        [self.contentView addConstraints:constraints];
+    }
 }
+
+#pragma mark - UIView Getters
+
+- (UISlider *)cellSlider {
+    if (!_cellSlider) {
+        _cellSlider = [[UISlider alloc] init];
+        _cellSlider.minimumValue = 0.0;
+        _cellSlider.maximumValue = 1.0;
+        _cellSlider.value = 0.5;
+        _cellSlider.continuous = YES;
+        _cellSlider.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellSlider;
+}
+
+- (UILabel *)cellSliderValueLabel {
+    if (!_cellSliderValueLabel) {
+        _cellSliderValueLabel = [[UILabel alloc] init];
+        _cellSliderValueLabel.numberOfLines = 1;
+        _cellSliderValueLabel.textAlignment = NSTextAlignmentCenter;
+        XUI_START_IGNORE_PARTIAL
+        if (XUI_SYSTEM_9) {
+            _cellSliderValueLabel.font = [UIFont monospacedDigitSystemFontOfSize:16.0 weight:UIFontWeightLight];
+        } else if (XUI_SYSTEM_8_2) {
+            _cellSliderValueLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightLight];
+        } else {
+            _cellSliderValueLabel.font = [UIFont systemFontOfSize:16.0];
+        }
+        XUI_END_IGNORE_PARTIAL
+        _cellSliderValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellSliderValueLabel;
+}
+
+#pragma mark - Setters
 
 - (void)setXui_readonly:(NSNumber *)xui_readonly {
     [super setXui_readonly:xui_readonly];
@@ -91,13 +150,13 @@
     }
 }
 
-- (IBAction)xuiSliderValueChanged:(UISlider *)sender {
+- (void)xuiSliderValueChanged:(UISlider *)sender {
     if (sender == self.cellSlider) {
         self.cellSliderValueLabel.text = [NSString stringWithFormat:@"%.2f", sender.value];
     }
 }
 
-- (IBAction)xuiSliderValueDidFinishChanging:(UISlider *)sender {
+- (void)xuiSliderValueDidFinishChanging:(UISlider *)sender {
     if (sender == self.cellSlider) {
         self.xui_value = @(sender.value);
         [self.adapter saveDefaultsFromCell:self];

@@ -10,7 +10,7 @@
 
 @interface XUISwitchCell ()
 
-@property (weak, nonatomic) IBOutlet UISwitch *cellSwitch;
+@property (strong, nonatomic) UISwitch *cellSwitch;
 @property (assign, nonatomic) BOOL shouldUpdateValue;
 
 @end
@@ -20,7 +20,7 @@
 @synthesize xui_value = _xui_value;
 
 + (BOOL)xibBasedLayout {
-    return YES;
+    return NO;
 }
 
 + (BOOL)layoutNeedsTextLabel {
@@ -44,11 +44,37 @@
     return superResult;
 }
 
+#pragma mark - Setup
+
 - (void)setupCell {
     [super setupCell];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.cellSwitch addTarget:self action:@selector(xuiSwitchValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.contentView addSubview:self.cellSwitch];
+    {
+        NSLayoutConstraint *labelConstraint = [NSLayoutConstraint constraintWithItem:self.cellSwitch attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.textLabel attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:16.0];
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          labelConstraint,
+          [NSLayoutConstraint constraintWithItem:self.cellSwitch attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-20.0],
+          [NSLayoutConstraint constraintWithItem:self.cellSwitch attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
+          ];
+        [self.contentView addConstraints:constraints];
+    }
 }
+
+#pragma mark - UIView Getters
+
+- (UISwitch *)cellSwitch {
+    if (!_cellSwitch) {
+        _cellSwitch = [[UISwitch alloc] init];
+        _cellSwitch.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellSwitch;
+}
+
+#pragma mark - Setters
 
 - (void)setXui_value:(id)xui_value {
     _xui_value = xui_value;

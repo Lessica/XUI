@@ -10,7 +10,7 @@
 #import "XUIPrivate.h"
 #import "XUITheme.h"
 
-static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 40.f, 20.f, 40.f, 20.f };
+static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 32.f, 20.f, 32.f, 20.f };
 
 @interface XUIListFooterView ()
 
@@ -39,7 +39,7 @@ static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 40.f, 20.f, 40.f, 20.f
 }
 
 - (void)setup {
-    _footerIcon = [[UIImage imageWithContentsOfFile:[FRAMEWORK_BUNDLE pathForResource:@"XUIAboutIcon" ofType:@"png"]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    _footerIcon = [[UIImage alloc] init];
     
     UIFont *lightFont = [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:14.f];
     if (!lightFont) {

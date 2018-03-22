@@ -12,8 +12,8 @@
 
 @interface XUITextFieldCell () <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UILabel *cellTitleLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
+@property (strong, nonatomic) UILabel *cellTitleLabel;
+@property (strong, nonatomic) NSLayoutConstraint *leftConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *titleWidthConstraint;
 
 @property (nonatomic, assign) NSUInteger maxLength;
@@ -25,7 +25,7 @@
 @synthesize xui_value = _xui_value;
 
 + (BOOL)xibBasedLayout {
-    return YES;
+    return NO;
 }
 
 + (BOOL)layoutNeedsTextLabel {
@@ -95,6 +95,8 @@
     return superResult;
 }
 
+#pragma mark - Setup
+
 - (void)setupCell {
     [super setupCell];
     self.cellTitleLabel.text = @"";
@@ -120,14 +122,42 @@
     [self.cellTextField setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [self.cellTextField setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     
-    self.titleWidthConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.cellTitleLabel attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0];
+    _maxLength = UINT_MAX;
+    
+    [self.contentView addSubview:self.cellTextField];
+    [self.contentView addSubview:self.cellTitleLabel];
+    {
+        [self.cellTitleLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+        [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:20.0];
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          self.leftConstraint,
+          [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.cellTextField attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:8.0],
+          [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-8.0],
+          ];
+        [self.contentView addConstraints:constraints];
+    }
+    {
+        [self.cellTextField setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
+        [self.cellTextField setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          [NSLayoutConstraint constraintWithItem:self.cellTextField attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellTextField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:8.0],
+          [NSLayoutConstraint constraintWithItem:self.cellTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-8.0],
+          ];
+        [self.contentView addConstraints:constraints];
+    }
+    
+    self.titleWidthConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0];
     if (XUI_SYSTEM_8) {
-        [self.cellTitleLabel addConstraint:self.titleWidthConstraint];
+        [self.contentView addConstraint:self.titleWidthConstraint];
     } else {
         
     }
     
-    _maxLength = UINT_MAX;
     [self reloadLeftConstraints];
 }
 
@@ -138,8 +168,8 @@
         if (XUI_SYSTEM_8) {
             self.titleWidthConstraint.active = YES;
         } else {
-            if ([self.cellTitleLabel.constraints containsObject:self.titleWidthConstraint]) {
-                [self.cellTitleLabel removeConstraint:self.titleWidthConstraint];
+            if ([self.contentView.constraints containsObject:self.titleWidthConstraint]) {
+                [self.contentView removeConstraint:self.titleWidthConstraint];
             }
         }
         XUI_END_IGNORE_PARTIAL
@@ -149,18 +179,46 @@
         if (XUI_SYSTEM_8) {
             self.titleWidthConstraint.active = NO;
         } else {
-            if (![self.cellTitleLabel.constraints containsObject:self.titleWidthConstraint]) {
-                [self.cellTitleLabel addConstraint:self.titleWidthConstraint];
+            if (![self.contentView.constraints containsObject:self.titleWidthConstraint]) {
+                [self.contentView addConstraint:self.titleWidthConstraint];
             }
         }
         XUI_END_IGNORE_PARTIAL
     }
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
+#pragma mark - UIView Getters
+
+- (XUITextField *)cellTextField {
+    if (!_cellTextField) {
+        _cellTextField = [[XUITextField alloc] init];
+        _cellTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        _cellTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+        _cellTextField.spellCheckingType = UITextSpellCheckingTypeNo;
+        _cellTextField.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellTextField;
 }
+
+- (UILabel *)cellTitleLabel {
+    if (!_cellTitleLabel) {
+        _cellTitleLabel = [[UILabel alloc] init];
+        XUI_START_IGNORE_PARTIAL
+        if (XUI_SYSTEM_8_2) {
+            _cellTitleLabel.font = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
+        } else {
+            _cellTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
+        }
+        XUI_END_IGNORE_PARTIAL
+        _cellTitleLabel.textAlignment = NSTextAlignmentLeft;
+        _cellTitleLabel.numberOfLines = 1;
+        _cellTitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _cellTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellTitleLabel;
+}
+
+#pragma mark - Setters
 
 - (void)setXui_keyboard:(NSString *)xui_keyboard {
     _xui_keyboard = xui_keyboard;
@@ -322,6 +380,11 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     return textField.text.length + (string.length - range.length) <= self.maxLength;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

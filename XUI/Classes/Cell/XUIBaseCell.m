@@ -131,13 +131,6 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     return NSStringFromClass([self class]);
 }
 
-- (instancetype)init {
-    if (self = [super init]) {
-        [self setupCell];
-    }
-    return self;
-}
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(nullable NSString *)reuseIdentifier {
     if (self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier]) {
         [self setupCell];

@@ -13,8 +13,8 @@
 
 @interface XUIStepperCell ()
 
-@property (weak, nonatomic) IBOutlet UIStepper *cellStepper;
-@property (weak, nonatomic) IBOutlet UILabel *cellNumberLabel;
+@property (strong, nonatomic) UIStepper *cellStepper;
+@property (strong, nonatomic) UILabel *cellNumberLabel;
 
 @end
 
@@ -23,7 +23,7 @@
 @synthesize xui_value = _xui_value;
 
 + (BOOL)xibBasedLayout {
-    return YES;
+    return NO;
 }
 
 + (BOOL)layoutNeedsTextLabel {
@@ -67,16 +67,70 @@
     return superResult;
 }
 
+#pragma mark - Setup
+
 - (void)setupCell {
     [super setupCell];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    self.cellStepper.wraps = NO;
-    self.cellStepper.continuous = YES;
-    
     [self.cellStepper addTarget:self action:@selector(xuiStepperValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.cellStepper addTarget:self action:@selector(xuiStepperValueDidFinishChanging:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.contentView addSubview:self.cellNumberLabel];
+    [self.contentView addSubview:self.cellStepper];
+    {
+        NSLayoutConstraint *labelConstraint = [NSLayoutConstraint constraintWithItem:self.cellNumberLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.textLabel attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:16.0];
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          labelConstraint,
+          [NSLayoutConstraint constraintWithItem:self.cellNumberLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.cellStepper attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellNumberLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
+          ];
+        [self.contentView addConstraints:constraints];
+    }
+    {
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          [NSLayoutConstraint constraintWithItem:self.cellStepper attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-20.0],
+          [NSLayoutConstraint constraintWithItem:self.cellStepper attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
+          ];
+        [self.contentView addConstraints:constraints];
+    }
 }
+
+#pragma mark - UIView Getters
+
+- (UILabel *)cellNumberLabel {
+    if (!_cellNumberLabel) {
+        _cellNumberLabel = [[UILabel alloc] init];
+        _cellNumberLabel.numberOfLines = 1;
+        _cellNumberLabel.textAlignment = NSTextAlignmentRight;
+        XUI_START_IGNORE_PARTIAL
+        if (XUI_SYSTEM_9) {
+            _cellNumberLabel.font = [UIFont monospacedDigitSystemFontOfSize:16.0 weight:UIFontWeightLight];
+        } else if (XUI_SYSTEM_8_2) {
+            _cellNumberLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightLight];
+        } else {
+            _cellNumberLabel.font = [UIFont systemFontOfSize:16.0];
+        }
+        XUI_END_IGNORE_PARTIAL
+        _cellNumberLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellNumberLabel;
+}
+
+- (UIStepper *)cellStepper {
+    if (!_cellStepper) {
+        _cellStepper = [[UIStepper alloc] init];
+        _cellStepper.wraps = NO;
+        _cellStepper.continuous = YES;
+        _cellStepper.autorepeat = YES;
+        _cellStepper.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellStepper;
+}
+
+#pragma mark - Setters
 
 - (void)setXui_readonly:(NSNumber *)xui_readonly {
     [super setXui_readonly:xui_readonly];

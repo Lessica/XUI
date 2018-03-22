@@ -11,7 +11,7 @@
 
 @interface XUITextFieldCell : XUIBaseCell
 
-@property (weak, nonatomic) IBOutlet XUITextField *cellTextField;
+@property (strong, nonatomic) XUITextField *cellTextField;
 
 @property (nonatomic, strong) NSString * xui_alignment;
 @property (nonatomic, strong) NSString * xui_keyboard;
