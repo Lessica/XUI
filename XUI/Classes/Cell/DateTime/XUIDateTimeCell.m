@@ -11,7 +11,7 @@
 
 @interface XUIDateTimeCell ()
 
-@property (weak, nonatomic) IBOutlet UIDatePicker *dateTimePicker;
+@property (strong, nonatomic) UIDatePicker *dateTimePicker;
 @property (assign, nonatomic) BOOL shouldUpdateValue;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
@@ -22,7 +22,7 @@
 @synthesize xui_value = _xui_value, xui_height = _xui_height;
 
 + (BOOL)xibBasedLayout {
-    return YES;
+    return NO;
 }
 
 + (BOOL)layoutNeedsTextLabel {
@@ -54,6 +54,8 @@
     return superResult;
 }
 
+#pragma mark - Setup
+
 - (void)setupCell {
     [super setupCell];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -65,7 +67,34 @@
     self.dateTimePicker.date = [NSDate date];
     
     [self.dateTimePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    {
+        [self addSubview:self.dateTimePicker];
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
+          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
+          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:4.0],
+          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-4.0],
+          ];
+        [self addConstraints:constraints];
+    }
 }
+
+#pragma mark - UIView Getters
+
+- (UIDatePicker *)dateTimePicker {
+    if (!_dateTimePicker) {
+        _dateTimePicker = [[UIDatePicker alloc] init];
+        _dateTimePicker.datePickerMode = UIDatePickerModeDateAndTime;
+        _dateTimePicker.minuteInterval = 1;
+        _dateTimePicker.date = [NSDate date];
+        _dateTimePicker.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _dateTimePicker;
+}
+
+#pragma mark - Getters
 
 - (NSNumber *)xui_height {
     if (XUI_SYSTEM_8) {
@@ -74,6 +103,8 @@
         return @(217.0);
     }
 }
+
+#pragma mark - Setters
 
 - (void)setXui_format:(NSString *)xui_format {
     _xui_format = xui_format;

@@ -10,14 +10,14 @@
 
 @interface XUIImageCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *cellImageView;
+@property (strong, nonatomic) UIImageView *cellImageView;
 
 @end
 
 @implementation XUIImageCell
 
 + (BOOL)xibBasedLayout {
-    return YES;
+    return NO;
 }
 
 + (BOOL)layoutNeedsTextLabel {
@@ -44,10 +44,37 @@
     return superResult;
 }
 
+#pragma mark - Setup
+
 - (void)setupCell {
     [super setupCell];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    {
+        [self addSubview:self.cellImageView];
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeading multiplier:1.0 constant:16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:4.0],
+          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-4.0],
+          ];
+        [self addConstraints:constraints];
+    }
 }
+
+#pragma mark - UIView Getters
+
+- (UIImageView *)cellImageView {
+    if (!_cellImageView) {
+        _cellImageView = [[UIImageView alloc] init];
+        _cellImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _cellImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellImageView;
+}
+
+#pragma mark - Setters
 
 - (void)setXui_path:(NSString *)xui_path {
     _xui_path = xui_path;
