@@ -51,15 +51,15 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     {
-        [self addSubview:self.cellImageView];
+        [self.contentView addSubview:self.cellImageView];
         NSArray <NSLayoutConstraint *> *constraints =
         @[
-          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeading multiplier:1.0 constant:16.0],
-          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-16.0],
-          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:4.0],
-          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-4.0],
+          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:4.0],
+          [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-4.0],
           ];
-        [self addConstraints:constraints];
+        [self.contentView addConstraints:constraints];
     }
 }
 

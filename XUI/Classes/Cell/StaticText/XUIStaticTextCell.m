@@ -14,14 +14,14 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
 
 @interface XUIStaticTextCell ()
 
-@property (weak, nonatomic) IBOutlet UITextView *cellStaticTextView;
+@property (strong, nonatomic) UITextView *cellStaticTextView;
 
 @end
 
 @implementation XUIStaticTextCell
 
 + (BOOL)xibBasedLayout {
-    return YES;
+    return NO;
 }
 
 + (BOOL)layoutNeedsTextLabel {
@@ -63,6 +63,8 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
     return superResult;
 }
 
+#pragma mark - Setup
+
 - (void)setupCell {
     [super setupCell];
     UITextView *textView = self.cellStaticTextView;
@@ -87,7 +89,36 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
     textView.selectable = selectable;
     XUI_END_IGNORE_PARTIAL
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    {
+        [self.contentView addSubview:self.cellStaticTextView];
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          [NSLayoutConstraint constraintWithItem:self.cellStaticTextView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellStaticTextView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellStaticTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:8.0],
+          [NSLayoutConstraint constraintWithItem:self.cellStaticTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-8.0],
+          ];
+        [self.contentView addConstraints:constraints];
+    }
 }
+
+#pragma mark - UIView Getters
+
+- (UITextView *)cellStaticTextView {
+    if (!_cellStaticTextView) {
+        _cellStaticTextView = [[UITextView alloc] init];
+        _cellStaticTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        _cellStaticTextView.autocorrectionType = UITextAutocorrectionTypeNo;
+        _cellStaticTextView.spellCheckingType = UITextSpellCheckingTypeNo;
+        _cellStaticTextView.editable = NO;
+        _cellStaticTextView.selectable = NO;
+        _cellStaticTextView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellStaticTextView;
+}
+
+#pragma mark - Setters
 
 - (void)setXui_label:(NSString *)xui_label {
     [super setXui_label:xui_label];

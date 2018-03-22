@@ -69,15 +69,15 @@
     [self.dateTimePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     {
-        [self addSubview:self.dateTimePicker];
+        [self.contentView addSubview:self.dateTimePicker];
         NSArray <NSLayoutConstraint *> *constraints =
         @[
-          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
-          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
-          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:4.0],
-          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-4.0],
+          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
+          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
+          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:4.0],
+          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-4.0],
           ];
-        [self addConstraints:constraints];
+        [self.contentView addConstraints:constraints];
     }
 }
 

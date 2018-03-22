@@ -15,7 +15,7 @@
 
 @interface XUIRadioCell () <XUITextTagCollectionViewDelegate>
 
-@property (weak, nonatomic) IBOutlet XUITextTagCollectionView *tagView;
+@property (strong, nonatomic) XUITextTagCollectionView *tagView;
 @property (assign, nonatomic) BOOL shouldUpdateValue;
 
 @end
@@ -65,6 +65,8 @@
     return superResult;
 }
 
+#pragma mark - Setup
+
 - (void)setupCell {
     [super setupCell];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -90,12 +92,36 @@
     // Use manual calculate height
     self.tagView.delegate = self;
     self.tagView.manualCalculateHeight = NO;
+    
+    {
+        [self.contentView addSubview:self.tagView];
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          [NSLayoutConstraint constraintWithItem:self.tagView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:16.0],
+          [NSLayoutConstraint constraintWithItem:self.tagView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-16.0],
+          [NSLayoutConstraint constraintWithItem:self.tagView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:12.0],
+          [NSLayoutConstraint constraintWithItem:self.tagView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-12.0],
+          ];
+        [self.contentView addConstraints:constraints];
+    }
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.tagView.preferredMaxLayoutWidth = CGRectGetWidth(self.frame) - 32.f;
 }
+
+#pragma mark - UIView Getters
+
+- (XUITextTagCollectionView *)tagView {
+    if (!_tagView) {
+        _tagView = [[XUITextTagCollectionView alloc] init];
+        _tagView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _tagView;
+}
+
+#pragma mark - Setters
 
 - (void)setXui_options:(NSArray<NSDictionary *> *)xui_options {
     for (NSDictionary *pair in xui_options) {
