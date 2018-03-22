@@ -22,7 +22,7 @@
 #define IS_IPHONE_6P_ABOVE (IS_IPHONE && SCREEN_MAX_LENGTH >= 736.0)
 
 static UIEdgeInsets const XUIListHeaderViewEdgeInsetsLarge = { 32.f, 20.f, 32.f, 20.f };
-static UIEdgeInsets const XUIListHeaderViewEdgeInsetsSmall = { 32.f, 20.f, 32.f, 20.f };
+static UIEdgeInsets const XUIListHeaderViewEdgeInsetsSmall = { 32.f, 20.f, 26.f, 20.f };
 static inline UIEdgeInsets XUIListHeaderViewEdgeInsets() {
     static UIEdgeInsets defaultEdgeInsets;
     static dispatch_once_t onceToken;

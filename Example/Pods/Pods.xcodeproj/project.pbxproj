@@ -30,7 +30,6 @@
 		2CDC112955E716AB8A1F8867D193FE5F /* XUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6EC008093DE9F8AF7D6BB37A9541389B /* XUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2FF356FAA508CD28D334EE643B407292 /* XUIEditableListIconManage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4632D5FBF8FB353E46C027BBD3110A99 /* XUIEditableListIconManage@3x.png */; };
 		31EF388ED33F91124EBBB6657BB87B89 /* XUIStaticTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9653B60B9EE4E54E4F5B7E9BE85CA6E /* XUIStaticTextCell.m */; };
-		326BD785D5AE2A7BE2F3E952A09B840A /* XUISegmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5818233ECAD52C0725B35B6102708ABB /* XUISegmentCell.xib */; };
 		32909F439EDE1879D17EB3DB82831C37 /* XUISimpleAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 90776917BCA19066FD134B9BB1FA8CE6 /* XUISimpleAdapter.m */; };
 		35A0B0C5D2EC308840E927F70E349EAD /* XUIEditableListIconDelete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A6D2E821CCCE24A89A6974B5A117BAC /* XUIEditableListIconDelete@3x.png */; };
 		3CCEE8FBF4C18D3E9A09E9EFFAD836C5 /* XUIEditableListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 711D4AA7FA34304128316B891189A252 /* XUIEditableListViewController.m */; };
@@ -200,7 +199,6 @@
 		506B2944A520315C29BF42855527405C /* XUITextareaCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUITextareaCell.h; sourceTree = "<group>"; };
 		50C1F2A31D8CA14971DE26EA01393A03 /* XUIRadioCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUIRadioCell.h; sourceTree = "<group>"; };
 		5274D266F304CF8B828F557E77E6D7F6 /* libPods-XUI_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XUI_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5818233ECAD52C0725B35B6102708ABB /* XUISegmentCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = XUISegmentCell.xib; path = XUI/Assets/XUISegmentCell.xib; sourceTree = "<group>"; };
 		59EEBDC956F02F1620C1DE19DA43BE49 /* Pods-XUI_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-XUI_Example-resources.sh"; sourceTree = "<group>"; };
 		5B8BBF7C03AF3EAEEC6CEBE109652B80 /* XUIBaseCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = XUIBaseCell.m; sourceTree = "<group>"; };
 		5D05887641F483C8AAC26DDABC9CF5B5 /* UIColor+XUIDarkColor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+XUIDarkColor.m"; path = "XUI/Classes/UIColor+XUIDarkColor.m"; sourceTree = "<group>"; };
@@ -684,7 +682,6 @@
 				8DD76A14DF119B17B540EAD41F1E01FE /* XUIEditableListIconManage.png */,
 				93BFB9CE73FB49D35EBE5AF80CE3CEA6 /* XUIEditableListIconManage@2x.png */,
 				4632D5FBF8FB353E46C027BBD3110A99 /* XUIEditableListIconManage@3x.png */,
-				5818233ECAD52C0725B35B6102708ABB /* XUISegmentCell.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -916,7 +913,6 @@
 				B7B45D231F04D6DD7A51BED21E9B1DA8 /* XUIEditableListIconManage.png in Resources */,
 				8883C5F062C01DD92901104D431D6F90 /* XUIEditableListIconManage@2x.png in Resources */,
 				2FF356FAA508CD28D334EE643B407292 /* XUIEditableListIconManage@3x.png in Resources */,
-				326BD785D5AE2A7BE2F3E952A09B840A /* XUISegmentCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

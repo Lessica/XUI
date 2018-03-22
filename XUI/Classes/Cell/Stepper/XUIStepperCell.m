@@ -91,7 +91,7 @@
     {
         NSArray <NSLayoutConstraint *> *constraints =
         @[
-          [NSLayoutConstraint constraintWithItem:self.cellStepper attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-20.0],
+          [NSLayoutConstraint constraintWithItem:self.cellStepper attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-16.0],
           [NSLayoutConstraint constraintWithItem:self.cellStepper attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
           ];
         [self.contentView addConstraints:constraints];

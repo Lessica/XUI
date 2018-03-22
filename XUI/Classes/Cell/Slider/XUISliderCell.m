@@ -74,7 +74,7 @@
     {
         NSArray <NSLayoutConstraint *> *constraints =
         @[
-          [NSLayoutConstraint constraintWithItem:self.cellSlider attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-24.0],
+          [NSLayoutConstraint constraintWithItem:self.cellSlider attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-16.0],
           [NSLayoutConstraint constraintWithItem:self.cellSlider attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
           ];
         [self.contentView addConstraints:constraints];

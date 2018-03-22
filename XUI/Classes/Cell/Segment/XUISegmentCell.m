@@ -7,15 +7,18 @@
 //
 
 #import "XUISegmentCell.h"
+
+#import "XUIPrivate.h"
 #import "XUILogger.h"
 #import "XUIOptionModel.h"
 
 @interface XUISegmentCell ()
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *cellSegmentControl;
+@property (strong, nonatomic) UISegmentedControl *cellSegmentControl;
+@property (strong, nonatomic) UILabel *cellTitleLabel;
+@property (strong, nonatomic) NSLayoutConstraint *leftConstraint;
+
 @property (assign, nonatomic) BOOL shouldUpdateValue;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
-@property (weak, nonatomic) IBOutlet UILabel *cellTitleLabel;
 
 @end
 
@@ -24,7 +27,7 @@
 @synthesize xui_value = _xui_value, xui_label = _xui_label;
 
 + (BOOL)xibBasedLayout {
-    return YES;
+    return NO;
 }
 
 + (BOOL)layoutNeedsTextLabel {
@@ -42,7 +45,7 @@
 + (NSDictionary <NSString *, Class> *)entryValueTypes {
     return
     @{
-      @"options": [NSArray class]
+      @"options": [NSArray class],
       };
 }
 
@@ -60,10 +63,33 @@
     return superResult;
 }
 
+#pragma mark - Setup
+
 - (void)setupCell {
     [super setupCell];
     self.cellTitleLabel.text = @"";
     [self.cellSegmentControl addTarget:self action:@selector(xuiSegmentValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    [self.contentView addSubview:self.cellTitleLabel];
+    [self.contentView addSubview:self.cellSegmentControl];
+    {
+        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:16.0];
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          self.leftConstraint,
+          [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.cellSegmentControl attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
+          ];
+        [self.contentView addConstraints:constraints];
+    }
+    {
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          [NSLayoutConstraint constraintWithItem:self.cellSegmentControl attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-16.0],
+          [NSLayoutConstraint constraintWithItem:self.cellSegmentControl attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
+          ];
+        [self.contentView addConstraints:constraints];
+    }
     [self reloadLeftConstraints];
 }
 
@@ -82,6 +108,38 @@
         [self.cellSegmentControl setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     }
 }
+
+#pragma mark - UIView Getters
+
+- (UISegmentedControl *)cellSegmentControl {
+    if (!_cellSegmentControl) {
+        _cellSegmentControl = [[UISegmentedControl alloc] init];
+        _cellSegmentControl.momentary = NO;
+        _cellSegmentControl.apportionsSegmentWidthsByContent = NO;
+        _cellSegmentControl.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellSegmentControl;
+}
+
+- (UILabel *)cellTitleLabel {
+    if (!_cellTitleLabel) {
+        _cellTitleLabel = [[UILabel alloc] init];
+        XUI_START_IGNORE_PARTIAL
+        if (XUI_SYSTEM_8_2) {
+            _cellTitleLabel.font = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
+        } else {
+            _cellTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
+        }
+        XUI_END_IGNORE_PARTIAL
+        _cellTitleLabel.textAlignment = NSTextAlignmentLeft;
+        _cellTitleLabel.numberOfLines = 1;
+        _cellTitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _cellTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellTitleLabel;
+}
+
+#pragma mark - Setters
 
 - (void)setXui_options:(NSArray<NSDictionary *> *)xui_options {
     for (NSDictionary *pair in xui_options) {
@@ -152,7 +210,15 @@
     self.cellSegmentControl.enabled = !readonly;
 }
 
-- (IBAction)xuiSegmentValueChanged:(UISegmentedControl *)sender {
+- (void)setInternalTheme:(XUITheme *)theme {
+    [super setInternalTheme:theme];
+    self.cellSegmentControl.tintColor = theme.foregroundColor;
+    self.cellTitleLabel.textColor = theme.labelColor;
+}
+
+#pragma mark - Actions
+
+- (void)xuiSegmentValueChanged:(UISegmentedControl *)sender {
     if (sender == self.cellSegmentControl) {
         NSUInteger selectedIndex = sender.selectedSegmentIndex;
         if (selectedIndex < self.xui_options.count) {
@@ -161,12 +227,6 @@
             [self.adapter saveDefaultsFromCell:self];
         }
     }
-}
-
-- (void)setInternalTheme:(XUITheme *)theme {
-    [super setInternalTheme:theme];
-    self.cellSegmentControl.tintColor = theme.foregroundColor;
-    self.cellTitleLabel.textColor = theme.labelColor;
 }
 
 @end
