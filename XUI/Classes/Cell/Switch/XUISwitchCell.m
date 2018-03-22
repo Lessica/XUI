@@ -54,10 +54,11 @@
     [self.contentView addSubview:self.cellSwitch];
     {
         NSLayoutConstraint *labelConstraint = [NSLayoutConstraint constraintWithItem:self.cellSwitch attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.textLabel attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:16.0];
+        labelConstraint.priority = UILayoutPriorityDefaultLow;
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           labelConstraint,
-          [NSLayoutConstraint constraintWithItem:self.cellSwitch attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-20.0],
+          [NSLayoutConstraint constraintWithItem:self.cellSwitch attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-16.0],
           [NSLayoutConstraint constraintWithItem:self.cellSwitch attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
           ];
         [self.contentView addConstraints:constraints];

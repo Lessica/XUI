@@ -80,6 +80,8 @@
     [self.contentView addSubview:self.cellStepper];
     {
         NSLayoutConstraint *labelConstraint = [NSLayoutConstraint constraintWithItem:self.cellNumberLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.textLabel attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:16.0];
+        labelConstraint.priority = UILayoutPriorityDefaultLow;
+        
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           labelConstraint,
