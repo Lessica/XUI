@@ -68,8 +68,8 @@
     
     [self.dateTimePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     
+    [self.contentView addSubview:self.dateTimePicker];
     {
-        [self.contentView addSubview:self.dateTimePicker];
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],

@@ -50,8 +50,8 @@
     [super setupCell];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    [self.contentView addSubview:self.cellImageView];
     {
-        [self.contentView addSubview:self.cellImageView];
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           [NSLayoutConstraint constraintWithItem:self.cellImageView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:16.0],

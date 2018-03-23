@@ -193,6 +193,15 @@
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
+    XUI_START_IGNORE_PARTIAL
+    if (XUI_SYSTEM_9) {
+        BOOL isLocal = [info[UIKeyboardIsLocalUserInfoKey] boolValue];
+        if (!isLocal) {
+            return;
+        }
+    }
+    XUI_END_IGNORE_PARTIAL
+    
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
     self.textView.contentInset = contentInsets;
     self.textView.scrollIndicatorInsets = contentInsets;
@@ -206,7 +215,7 @@
     UITextRange * selectionRange = [textView selectedTextRange];
     CGRect selectionStartRect = [textView caretRectForPosition:selectionRange.start];
     CGRect selectionEndRect = [textView caretRectForPosition:selectionRange.end];
-    CGPoint selectionCenterPoint = (CGPoint){(selectionStartRect.origin.x + selectionEndRect.origin.x)/2,(selectionStartRect.origin.y + selectionStartRect.size.height / 2)};
+    CGPoint selectionCenterPoint = (CGPoint){(selectionStartRect.origin.x + selectionEndRect.origin.x) / 2.0,(selectionStartRect.origin.y + selectionStartRect.size.height / 2.0)};
     
     if (!CGRectContainsPoint(aRect, selectionCenterPoint) ) {
         [textView scrollRectToVisible:CGRectMake(selectionStartRect.origin.x, selectionStartRect.origin.y, selectionEndRect.origin.x - selectionStartRect.origin.x, selectionStartRect.size.height) animated:YES];
@@ -216,6 +225,17 @@
 // Called when the UIKeyboardWillHideNotification is sent
 - (void)keyboardWillDisappear:(NSNotification *)aNotification
 {
+    NSDictionary* info = [aNotification userInfo];
+    
+    XUI_START_IGNORE_PARTIAL
+    if (XUI_SYSTEM_9) {
+        BOOL isLocal = [info[UIKeyboardIsLocalUserInfoKey] boolValue];
+        if (!isLocal) {
+            return;
+        }
+    }
+    XUI_END_IGNORE_PARTIAL
+    
     UITextView *textView = self.textView;
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
     textView.contentInset = contentInsets;
@@ -241,7 +261,8 @@
         
         textView.textColor = UIColor.blackColor;
         textView.font = [UIFont systemFontOfSize:14.f];
-        textView.textContainerInset = UIEdgeInsetsMake(12.0, 8.0, 12.0, 8.0);
+        textView.textContainerInset = UIEdgeInsetsMake(8.0, 4.0, 8.0, 4.0);
+        textView.scrollIndicatorInsets = UIEdgeInsetsMake(8.0, 4.0, 8.0, 4.0);
         
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
         XUI_START_IGNORE_PARTIAL

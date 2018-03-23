@@ -517,6 +517,16 @@ XUI_END_IGNORE_PARTIAL
 {
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    XUI_START_IGNORE_PARTIAL
+    if (XUI_SYSTEM_9) {
+        BOOL isLocal = [info[UIKeyboardIsLocalUserInfoKey] boolValue];
+        if (!isLocal) {
+            return;
+        }
+    }
+    XUI_END_IGNORE_PARTIAL
+    
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
     contentInsets.bottom -= self.defaultContentInsets.bottom;
     self.tableView.contentInset = contentInsets;
@@ -525,6 +535,17 @@ XUI_END_IGNORE_PARTIAL
 
 - (void)keyboardWillDisappear:(NSNotification *)aNotification
 {
+    NSDictionary* info = [aNotification userInfo];
+    
+    XUI_START_IGNORE_PARTIAL
+    if (XUI_SYSTEM_9) {
+        BOOL isLocal = [info[UIKeyboardIsLocalUserInfoKey] boolValue];
+        if (!isLocal) {
+            return;
+        }
+    }
+    XUI_END_IGNORE_PARTIAL
+    
     UITableView *tableView = self.tableView;
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, (XUI_PAD ? 0.0 : self.tabBarController.tabBar.bounds.size.height), 0.0);
     tableView.contentInset = contentInsets;

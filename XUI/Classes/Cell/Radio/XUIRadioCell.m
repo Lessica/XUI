@@ -93,8 +93,8 @@
     self.tagView.delegate = self;
     self.tagView.manualCalculateHeight = NO;
     
+    [self.contentView addSubview:self.tagView];
     {
-        [self.contentView addSubview:self.tagView];
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           [NSLayoutConstraint constraintWithItem:self.tagView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:16.0],
