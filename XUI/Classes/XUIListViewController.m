@@ -6,15 +6,15 @@
 //  Copyright © 2017 Zheng. All rights reserved.
 //
 
-#import "XUIPrivate.h"
 #import "XUIListViewController.h"
 
+#import "XUIPrivate.h"
+
+#import "XUICellFactory.h"
+#import "XUIGroupCell.h"
 #import "XUIListHeaderView.h"
 #import "XUIListFooterView.h"
 
-#import "XUIGroupCell.h"
-
-#import "XUICellFactory.h"
 #import "XUILogger.h"
 #import "XUITheme.h"
 #import "XUIAdapter.h"
@@ -242,7 +242,7 @@
 
 - (UIBarButtonItem *)closeButtonItem {
     if (!_closeButtonItem) {
-        UIBarButtonItem *closeButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", nil) style:UIBarButtonItemStylePlain target:self action:@selector(closeButtonItemTapped:)];
+        UIBarButtonItem *closeButtonItem = [[UIBarButtonItem alloc] initWithTitle:[XUIStrings localizedStringForString:@"Close"] style:UIBarButtonItemStylePlain target:self action:@selector(closeButtonItemTapped:)];
         closeButtonItem.tintColor = [UIColor whiteColor];
         _closeButtonItem = closeButtonItem;
     }
@@ -420,7 +420,7 @@
 XUI_START_IGNORE_PARTIAL
 - (NSArray <UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     __weak typeof(self) weak_self = self;
-    UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Delete", nil) handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
+    UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[XUIStrings localizedStringForString:@"Delete"] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
                                     {
                                         __strong typeof(weak_self) self = weak_self;
                                         [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
@@ -463,11 +463,11 @@ XUI_END_IGNORE_PARTIAL
         NSString *entryName = [self.callerPath lastPathComponent];
         XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_8) {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"XUI Error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"%@\n%@: %@", nil), entryName, error.localizedFailureReason, error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[XUIStrings localizedStringForString:@"XUI Error"] message:[NSString stringWithFormat:[XUIStrings localizedStringForString:@"%@\n%@: %@"], entryName, error.localizedFailureReason, error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:[XUIStrings localizedStringForString:@"OK"] style:UIAlertActionStyleCancel handler:nil]];
             [self.navigationController presentViewController:alertController animated:YES completion:nil];
         } else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"XUI Error", nil) message:[NSString stringWithFormat:NSLocalizedString(@"%@\n%@: %@", nil), entryName, error.localizedFailureReason, error.localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[XUIStrings localizedStringForString:@"XUI Error"] message:[NSString stringWithFormat:[XUIStrings localizedStringForString:@"%@\n%@: %@"], entryName, error.localizedFailureReason, error.localizedDescription] delegate:nil cancelButtonTitle:[XUIStrings localizedStringForString:@"OK"] otherButtonTitles:nil];
             [alertView show];
         }
         XUI_END_IGNORE_PARTIAL

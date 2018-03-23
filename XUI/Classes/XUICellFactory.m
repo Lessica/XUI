@@ -6,13 +6,16 @@
 //  Copyright © 2017 Zheng. All rights reserved.
 //
 
-#import <objc/runtime.h>
-#import "XUIPrivate.h"
 #import "XUICellFactory.h"
-#import "XUIBaseCell.h"
-#import "XUIGroupCell.h"
+
+#import <objc/runtime.h>
+
+#import "XUIPrivate.h"
 #import "XUILogger.h"
 #import "XUITheme.h"
+
+#import "XUIBaseCell.h"
+#import "XUIGroupCell.h"
 
 void notificationCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
 //    XUICellFactory *cellFactory = (__bridge XUICellFactory *)(observer);
@@ -45,20 +48,18 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
 
 - (void)parsePath:(NSString *)path Bundle:(NSBundle *)bundle {
     assert(!self.parsed);
-    NSBundle *frameworkBundle = FRAMEWORK_BUNDLE;
-    NSAssert(frameworkBundle, @"Cannot find XUI Framework Bundle.");
     
     if (!_adapter) {
         NSString *entryExtension = [path pathExtension];
         NSString *adapterName = [NSString stringWithFormat:@"XUIAdapter_%@", [entryExtension lowercaseString]];
         Class adapterClass = NSClassFromString(adapterName);
         if (!adapterClass) {
-            [self callbackWithErrorReason:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Cannot find suitable adapter for \"%@\".", nil, frameworkBundle, nil), path]];
+            [self callbackWithErrorReason:[NSString stringWithFormat:[XUIStrings localizedStringForString:@"Cannot find suitable adapter for \"%@\"."], path]];
             return;
         }
         id <XUIAdapter> adapter = (id <XUIAdapter>) [[(id)adapterClass alloc] initWithXUIPath:path Bundle:bundle];
         if (!adapter) {
-            [self callbackWithErrorReason:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Cannot initialize \"%@\".\nCheck schema file to ensure it is in valid format.", nil, frameworkBundle, nil), adapterName]];
+            [self callbackWithErrorReason:[NSString stringWithFormat:[XUIStrings localizedStringForString:@"Cannot initialize \"%@\".\nCheck schema file to ensure it is in valid format."], adapterName]];
             return;
         }
         _adapter = adapter;
@@ -123,7 +124,7 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
         NSError *checkError = nil;
         BOOL checkResult = [[cellInstance class] testEntry:itemDictionary withError:&checkError];
         if (!checkResult) {
-            [self.logger logMessage:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"[%@]\nPath \"items[%lu]\", %@", nil, frameworkBundle, nil), checkError.domain, itemIdx, checkError.localizedDescription]];
+            [self.logger logMessage:[NSString stringWithFormat:[XUIStrings localizedStringForString:@"[%@]\nPath \"items[%lu]\", %@"], checkError.domain, itemIdx, checkError.localizedDescription]];
             continue;
         }
         cellInstance.factory = self;
@@ -191,9 +192,7 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
 }
 
 - (void)callbackWithErrorReason:(NSString *)exceptionReason {
-    NSBundle *frameworkBundle = FRAMEWORK_BUNDLE;
-    NSAssert(frameworkBundle, @"Cannot find XUI Framework Bundle.");
-    NSError *error = [NSError errorWithDomain:kXUICellFactoryErrorDomain code:400 userInfo:@{ NSLocalizedFailureReasonErrorKey: NSLocalizedStringFromTableInBundle(@"Failed to parse", nil, frameworkBundle, nil), NSLocalizedDescriptionKey: exceptionReason }];
+    NSError *error = [NSError errorWithDomain:kXUICellFactoryErrorDomain code:400 userInfo:@{ NSLocalizedFailureReasonErrorKey: [XUIStrings localizedStringForString:@"Failed to parse"], NSLocalizedDescriptionKey: exceptionReason }];
     if (_delegate && [_delegate respondsToSelector:@selector(cellFactory:didFailWithError:)]) {
         [_delegate cellFactory:self didFailWithError:error];
     }

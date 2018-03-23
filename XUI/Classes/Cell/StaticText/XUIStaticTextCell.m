@@ -49,7 +49,7 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
             NSArray <NSString *> *validAlignment = @[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ];
             if (![validAlignment containsObject:alignmentString]) {
                 checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
+                NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"alignment", alignmentString];
                 NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
                 if (error) *error = exceptionError;
                 return NO;

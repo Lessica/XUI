@@ -51,7 +51,7 @@
 
 - (void)tableView:(UITableView *)tableView configureXUIOrderedOptionCell:(XUIOrderedOptionCell *)cell {
     NSArray *optionValues = cell.xui_value;
-    NSString *shortTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu Selected", nil, FRAMEWORK_BUNDLE, nil), optionValues.count];
+    NSString *shortTitle = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"%lu Selected"], optionValues.count];
     cell.detailTextLabel.text = shortTitle;
 }
 

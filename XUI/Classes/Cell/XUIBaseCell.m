@@ -39,10 +39,10 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
             return cellNibs[cellName];
         }
         NSBundle *nibBundle = FRAMEWORK_BUNDLE;
-        if (!( [nibBundle pathForResource:cellName ofType:@"nib"] )) {
+        if (!([nibBundle pathForResource:cellName ofType:@"nib"])) {
             nibBundle = [NSBundle bundleForClass:[self class]];
         }
-        if (!( [nibBundle pathForResource:cellName ofType:@"nib"] )) {
+        if (!([nibBundle pathForResource:cellName ofType:@"nib"])) {
             NSAssert(YES, @"XUI cannot find the xib of \"%@\", please inherit +[XUIBaseCell cellNib] to specify it.", cellName);
             return nil;
         }
@@ -102,7 +102,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
         if (pairClass) {
             if (![cellEntry[pairKey] isKindOfClass:pairClass]) {
                 checkType = kXUICellFactoryErrorInvalidTypeDomain;
-                NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\", should be \"%@\".", nil, FRAMEWORK_BUNDLE, nil), pairKey, NSStringFromClass(pairClass)];
+                NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\", should be \"%@\"."], pairKey, NSStringFromClass(pairClass)];
                 NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
                 if (error) *error = exceptionError;
                 return NO;
@@ -115,7 +115,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
             NSArray <NSString *> *validRenderingModes = @[ @"Automatic", @"AlwaysOriginal", @"AlwaysTemplate", ];
             if (![validRenderingModes containsObject:renderingModeString]) {
                 checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"iconRenderingMode", renderingModeString];
+                NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"iconRenderingMode", renderingModeString];
                 NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
                 if (error) *error = exceptionError;
                 return NO;

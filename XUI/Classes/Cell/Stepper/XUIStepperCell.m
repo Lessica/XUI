@@ -54,7 +54,7 @@
         double maxValue = [cellEntry[@"max"] doubleValue];
         if (minValue > maxValue) {
             checkType = kXUICellFactoryErrorInvalidValueDomain;
-            NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"the value \"%@\" of key \"%@\" is invalid.", nil, FRAMEWORK_BUNDLE, nil), cellEntry[@"maxValue"], @"maxValue"];
+            NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"the value \"%@\" of key \"%@\" is invalid."], cellEntry[@"maxValue"], @"maxValue"];
             NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
             if (error) *error = exceptionError;
             return NO;

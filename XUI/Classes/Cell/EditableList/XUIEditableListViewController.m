@@ -94,8 +94,7 @@
                                                            reuseIdentifier:nil];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.factory = self.cellFactory;
-        cell.internalIconPath = @"XUIEditableListIconAdd.png";
-        cell.xui_label = NSLocalizedStringFromTableInBundle(@"Add Item...", nil, FRAMEWORK_BUNDLE, nil);
+        cell.xui_label = [XUIStrings localizedStringForString:@"Add Item..."];
         [cell setInternalTheme:self.theme];
         _addCell = cell;
     }
@@ -108,8 +107,7 @@
                                                            reuseIdentifier:nil];
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.factory = self.cellFactory;
-        cell.internalIconPath = @"XUIEditableListIconManage.png";
-        cell.xui_label = NSLocalizedStringFromTableInBundle(@"Manage Items", nil, FRAMEWORK_BUNDLE, nil);
+        cell.xui_label = [XUIStrings localizedStringForString:@"Manage Items"];
         [cell setInternalTheme:self.theme];
         _deleteCell = cell;
     }
@@ -170,7 +168,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (1 == section) {
-        return NSLocalizedStringFromTableInBundle(@"Item List", nil, FRAMEWORK_BUNDLE, nil);;
+        return [XUIStrings localizedStringForString:@"Item List"];;
     }
     return nil;
 }
@@ -221,7 +219,7 @@
                 NSUInteger currentCount = self.mutableContentList.count;
                 NSUInteger maxCount = [maxCountValue unsignedIntegerValue];
                 if (currentCount >= maxCount) {
-                    NSString *errorMessage = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"The number of item exceeded the \"maxCount\" limit (%lu).", nil, FRAMEWORK_BUNDLE, nil), maxCount];
+                    NSString *errorMessage = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"The number of item exceeded the \"maxCount\" limit (%lu)."], maxCount];
                     [self presentErrorMessageAlertController:errorMessage];
                     return;
                 }
@@ -265,21 +263,17 @@
 
 - (void)updateSelectionCount {
     NSString *deleteLabel = nil;
-    NSString *deleteIcon = nil;
     NSUInteger selectedCount = [self.tableView indexPathsForSelectedRows].count;
     if (self.tableView.isEditing && selectedCount > 0) {
         if (selectedCount == 1) {
-            deleteLabel = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Delete selected %lu item", nil, FRAMEWORK_BUNDLE, nil), selectedCount];
+            deleteLabel = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"Delete selected %lu item"], selectedCount];
         } else {
-            deleteLabel = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Delete selected %lu items", nil, FRAMEWORK_BUNDLE, nil), selectedCount];
+            deleteLabel = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"Delete selected %lu items"], selectedCount];
         }
-        deleteIcon = @"XUIEditableListIconDelete.png";
     } else {
-        deleteLabel = NSLocalizedStringFromTableInBundle(@"Manage Items", nil, FRAMEWORK_BUNDLE, nil);
-        deleteIcon = @"XUIEditableListIconManage.png";
+        deleteLabel = [XUIStrings localizedStringForString:@"Manage Items"];
     }
     self.deleteCell.xui_label = deleteLabel;
-    self.deleteCell.internalIconPath = deleteIcon;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -334,7 +328,7 @@ XUI_START_IGNORE_PARTIAL
 - (NSArray <UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
         __weak typeof(self) weak_self = self;
-        UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedStringFromTableInBundle(@"Delete", nil, FRAMEWORK_BUNDLE, nil) handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
+        UITableViewRowAction *button = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[XUIStrings localizedStringForString:@"Delete"] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath)
                                         {
                                             __strong typeof(weak_self) self = weak_self;
                                             [self tableView:tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:indexPath];
@@ -413,11 +407,11 @@ XUI_END_IGNORE_PARTIAL
         __strong typeof(weak_self) self = weak_self;
         XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_8) {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"XUI Error", nil) message:errorMessage preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil]];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[XUIStrings localizedStringForString:@"XUI Error"] message:errorMessage preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:[XUIStrings localizedStringForString:@"OK"] style:UIAlertActionStyleCancel handler:nil]];
             [self.navigationController presentViewController:alertController animated:YES completion:nil];
         } else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"XUI Error", nil) message:errorMessage delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[XUIStrings localizedStringForString:@"XUI Error"] message:errorMessage delegate:nil cancelButtonTitle:[XUIStrings localizedStringForString:@"OK"] otherButtonTitles:nil];
             [alertView show];
         }
         XUI_END_IGNORE_PARTIAL

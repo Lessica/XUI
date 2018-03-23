@@ -54,7 +54,7 @@
                 NSArray <NSString *> *validAlignment = @[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ];
                 if (![validAlignment containsObject:alignmentString]) {
                     checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                    NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"alignment", alignmentString];
+                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"alignment", alignmentString];
                     NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
                     if (error) *error = exceptionError;
                     return NO;
@@ -67,7 +67,7 @@
                 NSArray <NSString *> *validKeyboard = @[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad", @"Alphabet" ];
                 if (![validKeyboard containsObject:keyboardString]) {
                     checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                    NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"keyboard", keyboardString];
+                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"keyboard", keyboardString];
                     NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
                     if (error) *error = exceptionError;
                     return NO;
@@ -80,7 +80,7 @@
                 NSArray <NSString *> *validClearButtonModeString = @[ @"Never", @"WhileEditing", @"UnlessEditing", @"Always" ];
                 if (![validClearButtonModeString containsObject:clearButtonModeString]) {
                     checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                    NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"key \"%@\" (\"%@\") is invalid.", nil, FRAMEWORK_BUNDLE, nil), @"clearButtonMode", clearButtonModeString];
+                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"clearButtonMode", clearButtonModeString];
                     NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
                     if (error) *error = exceptionError;
                     return NO;
@@ -112,11 +112,6 @@
     }
     XUI_END_IGNORE_PARTIAL
 #endif
-    
-    [self.cellTitleLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-    [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-    [self.cellTextField setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-    [self.cellTextField setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     
     _maxLength = UINT_MAX;
     

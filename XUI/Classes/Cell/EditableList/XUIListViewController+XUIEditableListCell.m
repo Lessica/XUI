@@ -33,11 +33,11 @@
     NSUInteger count = listValues.count;
     NSString *shortTitle = nil;
     if (count == 0) {
-        shortTitle = NSLocalizedStringFromTableInBundle(@"No Item", nil, FRAMEWORK_BUNDLE, nil);
+        shortTitle = [XUIStrings localizedStringForString:@"No Item"];
     } else if (count <= 1) {
-        shortTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu Item", nil, FRAMEWORK_BUNDLE, nil), (unsigned long)count];
+        shortTitle = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"%lu Item"], (unsigned long)count];
     } else {
-        shortTitle = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"%lu Items", nil, FRAMEWORK_BUNDLE, nil), (unsigned long)count];
+        shortTitle = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"%lu Items"], (unsigned long)count];
     }
     cell.detailTextLabel.text = shortTitle;
 }

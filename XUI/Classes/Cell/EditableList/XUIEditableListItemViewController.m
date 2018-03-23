@@ -30,9 +30,9 @@
     self.saveItem.enabled = (self.content.length > 0);
     
     if (self.isAddMode) {
-        self.title = NSLocalizedStringFromTableInBundle(@"Add Item", nil, FRAMEWORK_BUNDLE, nil);
+        self.title = [XUIStrings localizedStringForString:@"Add Item"];
     } else {
-        self.title = NSLocalizedStringFromTableInBundle(@"Edit Item", nil, FRAMEWORK_BUNDLE, nil);
+        self.title = [XUIStrings localizedStringForString:@"Edit Item"];
     }
     self.navigationItem.rightBarButtonItem = self.saveItem;
     
@@ -84,7 +84,7 @@
         cell.cellTextField.returnKeyType = UIReturnKeyDone;
         cell.cellTextField.delegate = self;
         cell.xui_value = self.content;
-        cell.xui_placeholder = NSLocalizedString(@"Value", nil);
+        cell.xui_placeholder = [XUIStrings localizedStringForString:@"Value"];
         _textFieldCell = cell;
     }
     return _textFieldCell;

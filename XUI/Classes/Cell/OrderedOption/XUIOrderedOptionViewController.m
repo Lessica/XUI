@@ -166,10 +166,10 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (0 == section) {
-        return NSLocalizedStringFromTableInBundle(@"Selected", nil, FRAMEWORK_BUNDLE, nil);
+        return [XUIStrings localizedStringForString:@"Selected"];
     }
     else if (1 == section) {
-        return NSLocalizedStringFromTableInBundle(@"Others", nil, FRAMEWORK_BUNDLE, nil);
+        return [XUIStrings localizedStringForString:@"Others"];
     }
     return nil;
 }

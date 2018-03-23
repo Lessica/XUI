@@ -10,7 +10,16 @@
 #import "XUIPrivate.h"
 #import "XUITheme.h"
 
-static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 32.f, 20.f, 32.f, 20.f };
+static inline UIEdgeInsets XUIListFooterViewEdgeInsets() {
+    static UIEdgeInsets defaultEdgeInsets;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        CGFloat headerPadding = SCREEN_MIN_LENGTH * 0.05;
+        CGFloat headerMargin = SCREEN_MIN_LENGTH * 0.37 / 4.0;
+        defaultEdgeInsets = UIEdgeInsetsMake(headerMargin, headerPadding, headerMargin, headerPadding);
+    });
+    return defaultEdgeInsets;
+}
 
 @interface XUIListFooterView ()
 
@@ -60,12 +69,12 @@ static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 32.f, 20.f, 32.f, 20.f
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.footerIconView.frame = CGRectMake(XUIListFooterViewEdgeInsets.left, XUIListFooterViewEdgeInsets.top, CGRectGetWidth(self.bounds) - XUIListFooterViewEdgeInsets.left - XUIListFooterViewEdgeInsets.right, 32.f);
-    self.footerLabel.frame = CGRectMake(XUIListFooterViewEdgeInsets.left, XUIListFooterViewEdgeInsets.top + 32.f + 12.f, CGRectGetWidth(self.bounds) - XUIListFooterViewEdgeInsets.left - XUIListFooterViewEdgeInsets.right, self.footerHeight);
+    self.footerIconView.frame = CGRectMake(XUIListFooterViewEdgeInsets().left, XUIListFooterViewEdgeInsets().top, CGRectGetWidth(self.bounds) - XUIListFooterViewEdgeInsets().left - XUIListFooterViewEdgeInsets().right, 32.f);
+    self.footerLabel.frame = CGRectMake(XUIListFooterViewEdgeInsets().left, XUIListFooterViewEdgeInsets().top + 32.f + 12.f, CGRectGetWidth(self.bounds) - XUIListFooterViewEdgeInsets().left - XUIListFooterViewEdgeInsets().right, self.footerHeight);
 }
 
 - (CGSize)intrinsicContentSize {
-    return CGSizeMake(self.bounds.size.width, XUIListFooterViewEdgeInsets.top + 32.f + 12.f + self.footerHeight + XUIListFooterViewEdgeInsets.bottom);
+    return CGSizeMake(self.bounds.size.width, XUIListFooterViewEdgeInsets().top + 32.f + 12.f + self.footerHeight + XUIListFooterViewEdgeInsets().bottom);
 }
 
 #pragma mark - UIView Getters
@@ -99,7 +108,7 @@ static UIEdgeInsets const XUIListFooterViewEdgeInsets = { 32.f, 20.f, 32.f, 20.f
     NSAttributedString *attributedFooterText = [[NSAttributedString alloc] initWithString:footerText attributes:self.footerAttributes];
     [self.footerLabel setAttributedText:attributedFooterText];
     
-    self.footerHeight = [attributedFooterText boundingRectWithSize:CGSizeMake(self.bounds.size.width - XUIListFooterViewEdgeInsets.left - XUIListFooterViewEdgeInsets.right, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil].size.height;
+    self.footerHeight = [attributedFooterText boundingRectWithSize:CGSizeMake(self.bounds.size.width - XUIListFooterViewEdgeInsets().left - XUIListFooterViewEdgeInsets().right, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil].size.height;
 }
 
 - (void)setFooterIcon:(UIImage *)footerIcon {

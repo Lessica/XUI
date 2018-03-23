@@ -55,7 +55,7 @@
         NSUInteger maxCount = [cellEntry[@"maxCount"] unsignedIntegerValue];
         if (maxCount > validOptions.count) {
             checkType = kXUICellFactoryErrorInvalidValueDomain;
-            NSString *errorReason = [NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"the value \"%@\" of key \"%@\" is invalid.", nil, FRAMEWORK_BUNDLE, nil), cellEntry[@"maxCount"], @"maxCount"];
+            NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"the value \"%@\" of key \"%@\" is invalid."], cellEntry[@"maxCount"], @"maxCount"];
             NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
             if (error) *error = exceptionError;
             return NO;
