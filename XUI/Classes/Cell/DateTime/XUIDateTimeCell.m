@@ -21,10 +21,6 @@
 
 @synthesize xui_value = _xui_value, xui_height = _xui_height;
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return NO;
 }
@@ -44,14 +40,8 @@
       @"minuteInterval": [NSNumber class],
       @"max": [NSNumber class],
       @"min": [NSNumber class],
-      @"format": [NSString class],
-//      @"value": [NSNumber class]
+      @"format": [NSString class]
       };
-}
-
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    return superResult;
 }
 
 #pragma mark - Setup

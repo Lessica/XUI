@@ -18,10 +18,6 @@
 
 @synthesize xui_value = _xui_value;
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return YES;
 }
@@ -39,11 +35,6 @@
     @{
       @"url": [NSString class]
       };
-}
-
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    return superResult;
 }
 
 - (void)setupCell {

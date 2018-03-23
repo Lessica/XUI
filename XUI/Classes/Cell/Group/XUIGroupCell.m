@@ -8,10 +8,6 @@
 
 @implementation XUIGroupCell
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return NO;
 }
@@ -29,11 +25,6 @@
     @{
       @"footerText": [NSString class]
       };
-}
-
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    return superResult;
 }
 
 @end

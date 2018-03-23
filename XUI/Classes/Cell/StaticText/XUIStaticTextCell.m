@@ -20,10 +20,6 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
 
 @implementation XUIStaticTextCell
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return NO;
 }

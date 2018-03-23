@@ -23,10 +23,6 @@
 
 @synthesize xui_value = _xui_value;
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return NO;
 }
@@ -43,11 +39,6 @@
       @"showValue": [NSNumber class],
       @"value": [NSNumber class]
       };
-}
-
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    return superResult;
 }
 
 #pragma mark - Setup

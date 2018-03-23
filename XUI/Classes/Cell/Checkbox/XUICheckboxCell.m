@@ -26,10 +26,6 @@
 
 @synthesize xui_value = _xui_value;
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return NO;
 }
@@ -63,11 +59,6 @@
       XUIOptionShortTitleKey: [NSString class],
       XUIOptionIconKey: [NSString class],
       };
-}
-
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    return superResult;
 }
 
 #pragma mark - Setup

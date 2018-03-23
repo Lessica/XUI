@@ -20,10 +20,6 @@ NSString * const XUIButtonCellReuseIdentifier = @"XUIButtonCellReuseIdentifier";
 
 @implementation XUIButtonCell
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return YES;
 }

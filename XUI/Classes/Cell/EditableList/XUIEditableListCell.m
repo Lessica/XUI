@@ -9,10 +9,6 @@
 
 @implementation XUIEditableListCell
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return YES;
 }
@@ -32,11 +28,6 @@
       @"footerText": [NSString class],
       @"value": [NSArray class],
       };
-}
-
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    return superResult;
 }
 
 - (void)setupCell {

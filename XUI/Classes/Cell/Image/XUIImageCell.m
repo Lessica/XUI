@@ -16,10 +16,6 @@
 
 @implementation XUIImageCell
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return NO;
 }
@@ -37,11 +33,6 @@
     @{
       @"path": [NSString class]
       };
-}
-
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    return superResult;
 }
 
 #pragma mark - Setup

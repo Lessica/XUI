@@ -12,10 +12,6 @@
 
 @implementation XUITextareaCell
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return YES;
 }

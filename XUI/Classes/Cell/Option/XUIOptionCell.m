@@ -14,10 +14,6 @@
 
 @implementation XUIOptionCell
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return YES;
 }
@@ -46,11 +42,6 @@
       XUIOptionShortTitleKey: [NSString class],
       XUIOptionIconKey: [NSString class],
       };
-}
-
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    return superResult;
 }
 
 - (void)setupCell {

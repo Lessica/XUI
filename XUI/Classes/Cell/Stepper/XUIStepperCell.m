@@ -22,10 +22,6 @@
 
 @synthesize xui_value = _xui_value;
 
-+ (BOOL)xibBasedLayout {
-    return NO;
-}
-
 + (BOOL)layoutNeedsTextLabel {
     return YES;
 }
