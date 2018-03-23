@@ -10,17 +10,29 @@
 
 @implementation XUITableViewProxy
 
-- (instancetype)initWithObject:(id)object keyName:(NSString *)tableViewName {
+- (instancetype)initWithObject:(id)object
+                       keyName:(NSString *)tableViewName {
+    return [self initWithObject:object keyName:tableViewName cellClass:nil cellTitlePropertyName:nil];
+}
+
+- (instancetype)initWithObject:(id)object
+                       keyName:(NSString *)tableViewName
+                     cellClass:(Class)tableViewCellClass
+         cellTitlePropertyName:(NSString *)tableViewCellTitlePropertyName {
     if (self = [super init]) {
         _origDelegate = object;
         _origDataSource = object;
         _displayName = @"Tweak Settings";
+        _tableViewCellClass = tableViewCellClass ? tableViewCellClass : [UITableViewCell class];
+        _tableViewCellTitlePropertyName = tableViewCellTitlePropertyName ? tableViewCellTitlePropertyName : @"text";
         
         UITableView *tableView = [object valueForKey:tableViewName];
         tableView.delegate = self;
         tableView.dataSource = self;
         
-        [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:[NSString stringWithFormat:@"%@Cell", NSStringFromClass([self class])]];
+        if (_tableViewCellClass) {
+            [tableView registerClass:self.tableViewCellClass forCellReuseIdentifier:[NSString stringWithFormat:@"%@Cell", NSStringFromClass([self class])]];
+        }
     }
     return self;
 }
@@ -54,8 +66,13 @@
         return [_origDataSource tableView:tableView cellForRowAtIndexPath:indexPath];
     }
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"%@Cell", NSStringFromClass([self class])] forIndexPath:indexPath];
-    cell.textLabel.text = self.displayName;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (self.tableViewCellClass) {
+        [cell setValue:self.displayName forKey:self.tableViewCellTitlePropertyName];
+    } else {
+        cell.textLabel.text = self.displayName;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    cell.separatorInset = UIEdgeInsetsZero;
     return cell;
 }
 

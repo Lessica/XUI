@@ -26,9 +26,6 @@ XUI_END_IGNORE_PARTIAL
 
 #define FRAMEWORK_BUNDLE ([NSBundle bundleWithURL:[[[NSBundle bundleForClass:[self classForCoder]] resourceURL] URLByAppendingPathComponent:@"XUI.bundle"]])
 
-#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 #define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
