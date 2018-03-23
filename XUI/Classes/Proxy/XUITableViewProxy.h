@@ -12,6 +12,7 @@
 
 @property (nonatomic, weak) id<UITableViewDelegate> origDelegate;
 @property (nonatomic, weak) id<UITableViewDataSource> origDataSource;
+@property (nonatomic, copy) NSString *displayName;
 
 @property (nonatomic, copy) void (^callbackBlock)(UITableView *, NSIndexPath *);
 
