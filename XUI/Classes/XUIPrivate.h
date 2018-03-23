@@ -36,6 +36,6 @@ XUI_END_IGNORE_PARTIAL
 
 static NSString * const XUINotificationEventValueChanged = @"XUINotificationEventValueChanged";
 
-#import "XUIStrings.h"
+#import <XUI/XUIStrings.h>
 
 #endif /* XUI_PRIVATE_h */
