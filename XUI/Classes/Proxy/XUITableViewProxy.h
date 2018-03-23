@@ -13,11 +13,7 @@
 @property (nonatomic, weak) id<UITableViewDelegate> origDelegate;
 @property (nonatomic, weak) id<UITableViewDataSource> origDataSource;
 
-@property (nonatomic, strong) NSString *iconPath;
-@property (nonatomic, strong) NSString *entryPath;
-@property (nonatomic, strong) NSString *bundlePath;
-
-@property (nonatomic, copy) NSString *displayName;
+@property (nonatomic, copy) void (^callbackBlock)(UITableView *, NSIndexPath *);
 
 - (instancetype)initWithObject:(id)object keyName:(NSString *)tableViewName;
 

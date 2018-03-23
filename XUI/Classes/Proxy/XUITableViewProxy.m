@@ -98,7 +98,11 @@
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSLog(@"Modified: %ld, %ld", (long)indexPath.section, (long)indexPath.row);
+    {
+        if (self.callbackBlock) {
+            self.callbackBlock(tableView, indexPath);
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
