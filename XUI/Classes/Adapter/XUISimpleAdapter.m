@@ -4,10 +4,11 @@
 //
 
 #import "XUISimpleAdapter.h"
-#import "XUIBaseCell.h"
-#import "XUIPrivate.h"
-
 #import <sys/stat.h>
+
+#import "XUI.h"
+#import "XUIPrivate.h"
+#import "XUIBaseCell.h"
 
 @interface XUISimpleAdapter ()
 

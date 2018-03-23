@@ -43,17 +43,15 @@
 #import <XUI/XUIBaseOptionCell.h>
 #import <XUI/XUIListFooterView.h>
 #import <XUI/XUIListHeaderView.h>
-#import <XUI/XUITagCollectionView.h>
-#import <XUI/XUITextTagCollectionView.h>
-#import <XUI/XUIViewShaker.h>
 #import <XUI/XUICellFactory.h>
 #import <XUI/XUIListViewController.h>
 #import <XUI/XUILogger.h>
 #import <XUI/XUINavigationController.h>
 #import <XUI/XUIOptionModel.h>
-#import <XUI/XUIPrivate.h>
 #import <XUI/XUITheme.h>
 #import <XUI/XUIViewController.h>
 #import <XUI/XUITableViewProxy.h>
+
+static NSString * const XUINotificationEventValueChanged = @"XUINotificationEventValueChanged";
 
 #endif /* XUI_h */

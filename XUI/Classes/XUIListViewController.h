@@ -24,11 +24,25 @@
 - (void)updateLogger:(XUILogger *)logger;
 - (void)updateTheme:(XUITheme *)theme;
 
+#pragma mark - Convenience Helper
+
+/* These helper methods will try their best to find the top most view controller and present XUI from it. */
++ (void)presentFromTopViewControllerWithPath:(NSString *)path;
++ (void)presentFromTopViewControllerWithBundlePath:(NSString *)bundlePath;
++ (void)presentFromTopViewControllerWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath;
+
+#pragma mark - Convenience Initializers
+
++ (instancetype)XUIWithPath:(NSString *)path;
++ (instancetype)XUIWithBundlePath:(NSString *)bundlePath;
++ (instancetype)XUIWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath;
+
 #pragma mark - Initializers
 
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithPath:(NSString *)path NS_REQUIRES_SUPER; // will use main bundle
-- (instancetype)initWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER;
 - (instancetype)initWithBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER;
+- (instancetype)initWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER;
 
 #pragma mark - Storage
 

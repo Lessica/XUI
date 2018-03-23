@@ -31,8 +31,6 @@ XUI_END_IGNORE_PARTIAL
 #define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
 #define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
 
-static NSString * const XUINotificationEventValueChanged = @"XUINotificationEventValueChanged";
-
 #import <XUI/XUIStrings.h>
 
 #endif /* XUI_PRIVATE_h */

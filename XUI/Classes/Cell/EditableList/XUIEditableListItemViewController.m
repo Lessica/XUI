@@ -6,6 +6,7 @@
 //
 
 #import "XUIEditableListItemViewController.h"
+#import "XUIPrivate.h"
 
 @interface XUIEditableListItemViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 

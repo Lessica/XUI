@@ -10,6 +10,10 @@
 
 @implementation XUITableViewProxy
 
+- (instancetype)initWithObject:(id)object {
+    return [self initWithObject:object keyName:nil cellClass:nil cellTitlePropertyName:nil];
+}
+
 - (instancetype)initWithObject:(id)object
                        keyName:(NSString *)tableViewName {
     return [self initWithObject:object keyName:tableViewName cellClass:nil cellTitlePropertyName:nil];
@@ -25,6 +29,10 @@
         _displayName = @"Tweak Settings";
         _tableViewCellClass = tableViewCellClass ? tableViewCellClass : [UITableViewCell class];
         _tableViewCellTitlePropertyName = tableViewCellTitlePropertyName ? tableViewCellTitlePropertyName : @"text";
+        
+        if (!tableViewName) {
+            tableViewName = @"tableView";
+        }
         
         UITableView *tableView = [object valueForKey:tableViewName];
         tableView.delegate = self;

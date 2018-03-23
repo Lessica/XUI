@@ -70,8 +70,6 @@
 		D621EC881F8C7B1B00E03B6D /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D621EC891F8C7B1B00E03B6D /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D621EC971F8C8ACF00E03B6D /* demo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = demo.bundle; sourceTree = "<group>"; };
-		D62F7D9E2064D4AA001F4995 /* libxui.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libxui.h; sourceTree = "<group>"; };
-		D62F7D9F2064D4AA001F4995 /* libxui.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libxui.m; sourceTree = "<group>"; };
 		D62F7DA62064D4C2001F4995 /* libXUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libXUI.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA2381CAF7AB6BB5EB12F38B /* libPods-XUI_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XUI_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -105,7 +103,6 @@
 				6003F593195388D20070C39A /* Example for XUI */,
 				6003F5B5195388D20070C39A /* Tests */,
 				D616191D1F8F3170008C1FC8 /* XUI_ExampleTests */,
-				D62F7D9D2064D4AA001F4995 /* libxui */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				63B76C69DB0E4002C81BFA4B /* Pods */,
@@ -211,15 +208,6 @@
 				D61619201F8F3170008C1FC8 /* Info.plist */,
 			);
 			path = XUI_ExampleTests;
-			sourceTree = "<group>";
-		};
-		D62F7D9D2064D4AA001F4995 /* libxui */ = {
-			isa = PBXGroup;
-			children = (
-				D62F7D9E2064D4AA001F4995 /* libxui.h */,
-				D62F7D9F2064D4AA001F4995 /* libxui.m */,
-			);
-			path = libxui;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

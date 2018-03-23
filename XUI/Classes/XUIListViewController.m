@@ -19,6 +19,8 @@
 #import "XUITheme.h"
 #import "XUIAdapter.h"
 
+#import "UIViewController+topMostViewController.h"
+
 @interface XUIListViewController () <XUICellFactoryDelegate>
 
 @property (nonatomic, strong) NSMutableArray <XUIBaseCell *> *cellsNeedStore;
@@ -37,13 +39,50 @@
 
 @synthesize cellFactory = _cellFactory;
 
+#pragma mark - Convenience Helpers
+
++ (void)presentFromTopViewControllerWithPath:(NSString *)path {
+    [self presentFromTopViewControllerWithPath:path withBundlePath:nil];
+}
+
++ (void)presentFromTopViewControllerWithBundlePath:(NSString *)bundlePath {
+    [self presentFromTopViewControllerWithPath:nil withBundlePath:bundlePath];
+}
+
++ (void)presentFromTopViewControllerWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath {
+    UIViewController *topMost = [[UIApplication sharedApplication].keyWindow.rootViewController xui_topMostViewController];
+    if (!topMost) {
+        topMost = [UIApplication sharedApplication].keyWindow.rootViewController;
+    }
+    if (!topMost) {
+        return;
+    }
+    XUIListViewController *controller = [self XUIWithPath:path withBundlePath:bundlePath];
+    [topMost presentViewController:controller animated:YES completion:nil];
+}
+
+#pragma mark - Convenience Initializers
+
++ (instancetype)XUIWithPath:(NSString *)path {
+    return [[[self class] alloc] initWithPath:path];
+}
+
++ (instancetype)XUIWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath {
+    return [[[self class] alloc] initWithPath:path withBundlePath:bundlePath];
+}
+
++ (instancetype)XUIWithBundlePath:(NSString *)bundlePath {
+    return [[[self class] alloc] initWithBundlePath:bundlePath];
+}
+
 #pragma mark - Initializers
 
 - (instancetype)initWithPath:(NSString *)path {
-    if (self = [self initWithPath:path withBundlePath:nil]) {
-        
-    }
-    return self;
+    return [self initWithPath:path withBundlePath:nil];
+}
+
+- (instancetype)initWithBundlePath:(NSString *)bundlePath {
+    return [self initWithPath:nil withBundlePath:bundlePath];
 }
 
 - (instancetype)initWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath {
@@ -67,15 +106,8 @@
     }
     _callerBundle = bundle;
     _callerPath = absolutePath;
-    if (self = [super init]) {
+    if (self = [super initWithNibName:nil bundle:nil]) {
         [self setupListController];
-    }
-    return self;
-}
-
-- (instancetype)initWithBundlePath:(NSString *)bundlePath {
-    if (self = [self initWithPath:nil withBundlePath:bundlePath]) {
-        
     }
     return self;
 }

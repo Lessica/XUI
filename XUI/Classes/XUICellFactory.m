@@ -10,6 +10,7 @@
 
 #import <objc/runtime.h>
 
+#import "XUI.h"
 #import "XUIPrivate.h"
 #import "XUILogger.h"
 #import "XUITheme.h"

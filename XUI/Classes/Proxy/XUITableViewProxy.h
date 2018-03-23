@@ -19,8 +19,8 @@
 
 @property (nonatomic, copy) void (^callbackBlock)(UITableView *, NSIndexPath *);
 
+- (instancetype)initWithObject:(id)object;
 - (instancetype)initWithObject:(id)object keyName:(NSString *)tableViewName;
-
 - (instancetype)initWithObject:(id)object
                        keyName:(NSString *)tableViewName
                      cellClass:(Class)tableViewCellClass

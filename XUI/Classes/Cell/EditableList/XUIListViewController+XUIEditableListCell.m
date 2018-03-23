@@ -6,6 +6,8 @@
 //
 
 #import "XUIListViewController+XUIEditableListCell.h"
+
+#import "XUIPrivate.h"
 #import "XUIEditableListViewController.h"
 #import "XUIEditableListCell.h"
 
