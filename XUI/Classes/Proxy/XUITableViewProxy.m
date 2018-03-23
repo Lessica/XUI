@@ -135,8 +135,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section < [_origDataSource numberOfSectionsInTableView:tableView]) {
-        if ([_origDelegate respondsToSelector:@selector(tableView:heightForFooterInSection:)]) {
-            return [_origDelegate tableView:tableView heightForFooterInSection:section];
+        if ([_origDelegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)]) {
+            return [_origDelegate tableView:tableView heightForHeaderInSection:section];
         }
     }
     return UITableViewAutomaticDimension;
