@@ -20,6 +20,7 @@
 #import "XUIAdapter.h"
 
 #import "UIViewController+topMostViewController.h"
+#import "XUINavigationController.h"
 
 @interface XUIListViewController () <XUICellFactoryDelegate>
 
@@ -58,7 +59,8 @@
         return;
     }
     XUIListViewController *controller = [self XUIWithPath:path withBundlePath:bundlePath];
-    [topMost presentViewController:controller animated:YES completion:nil];
+    XUINavigationController *navController = [[XUINavigationController alloc] initWithRootViewController:controller];
+    [topMost presentViewController:navController animated:YES completion:nil];
 }
 
 #pragma mark - Convenience Initializers
