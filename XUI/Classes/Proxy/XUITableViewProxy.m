@@ -115,4 +115,31 @@
     return 44.0;
 }
 
+- (id)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section < [_origDataSource numberOfSectionsInTableView:tableView]) {
+        if ([_origDelegate respondsToSelector:@selector(tableView:viewForHeaderInSection:)]) {
+            return [_origDelegate tableView:tableView viewForHeaderInSection:section];
+        }
+    }
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section < [_origDataSource numberOfSectionsInTableView:tableView]) {
+        if ([_origDelegate respondsToSelector:@selector(tableView:heightForFooterInSection:)]) {
+            return [_origDelegate tableView:tableView heightForFooterInSection:section];
+        }
+    }
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section < [_origDataSource numberOfSectionsInTableView:tableView]) {
+        if ([_origDelegate respondsToSelector:@selector(tableView:heightForFooterInSection:)]) {
+            return [_origDelegate tableView:tableView heightForFooterInSection:section];
+        }
+    }
+    return UITableViewAutomaticDimension;
+}
+
 @end
