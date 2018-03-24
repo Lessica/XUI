@@ -42,6 +42,22 @@
 
 #pragma mark - Convenience Helpers
 
++ (NSString *)jsonPathForDictionary:(NSDictionary *)dictionary {
+    if (![NSJSONSerialization isValidJSONObject:dictionary]) return nil;
+    NSData *tempData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:nil];
+    if (!tempData) return nil;
+    NSString *uuidString = [[NSUUID UUID] UUIDString];
+    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[uuidString stringByAppendingPathExtension:@"json"]];
+    if (![tempData writeToFile:tempPath atomically:YES]) {
+        return nil;
+    }
+    return tempPath;
+}
+
++ (void)presentFromTopViewControllerWithDictionary:(NSDictionary *)dictionary {
+    [self presentFromTopViewControllerWithPath:[self jsonPathForDictionary:dictionary]];
+}
+
 + (void)presentFromTopViewControllerWithPath:(NSString *)path {
     [self presentFromTopViewControllerWithPath:path withBundlePath:nil];
 }
@@ -65,6 +81,10 @@
 
 #pragma mark - Convenience Initializers
 
++ (instancetype)XUIWithDictionary:(NSDictionary *)dictionary {
+    return [[[self class] alloc] initWithDictionary:dictionary];
+}
+
 + (instancetype)XUIWithPath:(NSString *)path {
     return [[[self class] alloc] initWithPath:path];
 }
@@ -78,6 +98,10 @@
 }
 
 #pragma mark - Initializers
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    return [self initWithPath:[[self class] jsonPathForDictionary:dictionary]];
+}
 
 - (instancetype)initWithPath:(NSString *)path {
     return [self initWithPath:path withBundlePath:nil];

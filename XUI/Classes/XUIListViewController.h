@@ -27,12 +27,14 @@
 #pragma mark - Convenience Helper
 
 /* These helper methods will try their best to find the top most view controller and present XUI from it. */
++ (void)presentFromTopViewControllerWithDictionary:(NSDictionary *)dictionary;
 + (void)presentFromTopViewControllerWithPath:(NSString *)path;
 + (void)presentFromTopViewControllerWithBundlePath:(NSString *)bundlePath;
 + (void)presentFromTopViewControllerWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath;
 
 #pragma mark - Convenience Initializers
 
++ (instancetype)XUIWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)XUIWithPath:(NSString *)path;
 + (instancetype)XUIWithBundlePath:(NSString *)bundlePath;
 + (instancetype)XUIWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath;
@@ -40,8 +42,9 @@
 #pragma mark - Initializers
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithPath:(NSString *)path NS_REQUIRES_SUPER; // will use main bundle
-- (instancetype)initWithBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary NS_REQUIRES_SUPER;
+- (instancetype)initWithPath:(NSString *)path NS_REQUIRES_SUPER; // use main bundle
+- (instancetype)initWithBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER; // use "Root.plist" as its path
 - (instancetype)initWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER;
 
 #pragma mark - Storage
