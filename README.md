@@ -45,7 +45,7 @@ XUI provides more components than private framework "[Preferences.framework](htt
 
 ## Usage
 
-### Basic Usage
+### Presentation
 
 ```objective-c
 // to specify the path for Settings.bundle
@@ -58,18 +58,25 @@ NSString *xuiPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"Root
 XUIListViewController *xuiController = [[XUIListViewController alloc] initWithPath:xuiPath withBundlePath:bundlePath];
 XUINavigationController *navController = [[XUINavigationController alloc] initWithRootViewController:xuiController];
 [self presentViewController:navController animated:YES completion:nil];
+
+// directly present XUI from the top most view controller
+[XUIListViewController presentFromTopViewControllerWithPath:xuiPath];
 ```
 
-### Read Defaults
+### Read Configurations
 
-The configuration will be saved to Standard User Defaults.
+If the key ```defaults``` is not set for any components, configuration will be saved to Standard User Defaults.
 
 ```objective-c
 NSNumber *enabled = [[NSUserDefaults standardUserDefaults] objectForKey:@"enabled"];
 [enabled boolValue];
 ```
 
-### Theme
+### Notification
+
+Receive notifications named ```XUINotificationEventValueChanged``` from ```[NSNotificationCenter defaultCenter]``` if there is any changes.
+
+### Custom Theme
 
 Change the theme parsed from configuration **before view is loaded**.
 
@@ -81,39 +88,11 @@ xuiController.theme.tintColor = [UIColor yourOwnColor];
 
 Create custom adapter to read the interface schema from any format you like: *plist*, *json*, *lua*, etc. Adapter also handles **data persistence** and **notifications**.
 
-```objective-c
-@protocol XUIAdapter <NSObject>
-
-@property (nonatomic, strong, readonly) NSString *path;
-@property (nonatomic, strong, readonly) NSBundle *bundle;
-@property (nonatomic, strong, readonly) NSString *stringsTable;
-
-- (instancetype)initWithXUIPath:(NSString *)path;
-- (instancetype)initWithXUIPath:(NSString *)path Bundle:(NSBundle *)bundle;
-
-- (NSDictionary *)rootEntryWithError:(NSError **)error;
-- (void)saveDefaultsFromCell:(XUIBaseCell *)cell;
-- (id)objectForKey:(NSString *)key Defaults:(NSString *)identifier;
-- (void)setObject:(id)obj forKey:(NSString *)key Defaults:(NSString *)identifier;
-
-- (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value;
-
-@end
-```
-
 ### Logger
 
 To know if there is any invalid part in our interface schema...
 
-```objective-c
-@interface XUILogger : NSObject
-
-- (void)logMessage:(NSString *)message;
-
-@end
-```
-
-## Configuration References
+## Documentation
 
 https://kb.xxtouch.com/XUI/
 
@@ -125,9 +104,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-- Xcode 8 or above (Xcode 7 cannot complie xib files in this project properly.)
+- Xcode 7 or above
 - iOS 7 or above
-- Objective-C / Swift (ARC is required)
+- Objective-C (ARC)
 - iPhone / iPad compatible.
 
 ## Installation
