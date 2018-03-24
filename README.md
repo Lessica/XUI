@@ -45,7 +45,7 @@ XUI provides more components than private framework "[Preferences.framework](htt
 
 ## Usage
 
-### Basic Usage
+### Presentation
 
 ```objective-c
 // to specify the path for Settings.bundle
@@ -58,9 +58,12 @@ NSString *xuiPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"Root
 XUIListViewController *xuiController = [[XUIListViewController alloc] initWithPath:xuiPath withBundlePath:bundlePath];
 XUINavigationController *navController = [[XUINavigationController alloc] initWithRootViewController:xuiController];
 [self presentViewController:navController animated:YES completion:nil];
+
+// directly present XUI from the top most view controller
+[XUIListViewController presentFromTopViewControllerWithPath:xuiPath];
 ```
 
-### Read Defaults
+### Read Configurations
 
 The configuration will be saved to Standard User Defaults.
 
@@ -69,7 +72,7 @@ NSNumber *enabled = [[NSUserDefaults standardUserDefaults] objectForKey:@"enable
 [enabled boolValue];
 ```
 
-### Theme
+### Custom Theme
 
 Change the theme parsed from configuration **before view is loaded**.
 
@@ -113,7 +116,7 @@ To know if there is any invalid part in our interface schema...
 @end
 ```
 
-## Configuration References
+## Documentation
 
 https://kb.xxtouch.com/XUI/
 
@@ -125,9 +128,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-- Xcode 8 or above (Xcode 7 cannot complie xib files in this project properly.)
+- Xcode 7 or above
 - iOS 7 or above
-- Objective-C / Swift (ARC is required)
+- Objective-C (ARC)
 - iPhone / iPad compatible.
 
 ## Installation
