@@ -10,7 +10,7 @@
 
 
 // ----
-// !!! Do not override and use this class directly !!!
+// !!! Do not use this class directly !!!
 // ----
 @interface XUIViewController : UIViewController
 
