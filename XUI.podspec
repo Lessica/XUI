@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'XUI'
-  s.version          = '1.1'
+  s.version          = '1.1.2'
   s.summary          = 'A configuration based native TableView UI.'
   s.description      = <<-DESC
 XUI is a drop-in replacement for "Settings Application Schema" on iOS.
