@@ -1,6 +1,7 @@
 # XUI
 
 [![CI Status](http://img.shields.io/travis/Lessica/XUI.svg?style=flat)](https://travis-ci.org/Lessica/XUI)
+[![Cocoapods](https://img.shields.io/cocoapods/v/XUI.svg?style=flat)](https://travis-ci.org/Lessica/XUI)
 
 ```objective-c
 // XUI in a single line
