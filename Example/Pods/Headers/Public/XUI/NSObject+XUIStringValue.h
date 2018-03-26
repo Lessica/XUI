@@ -1,1 +1,1 @@
-../../../../../XUI/Classes/NSObject+XUIStringValue.h
+../../../../../XUI/Classes/Category/NSObject+XUIStringValue.h

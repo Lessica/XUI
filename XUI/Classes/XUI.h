@@ -50,7 +50,6 @@
 #import <XUI/XUIOptionModel.h>
 #import <XUI/XUITheme.h>
 #import <XUI/XUIViewController.h>
-#import <XUI/XUITableViewProxy.h>
 
 static NSString * const XUINotificationEventValueChanged = @"XUINotificationEventValueChanged";
 

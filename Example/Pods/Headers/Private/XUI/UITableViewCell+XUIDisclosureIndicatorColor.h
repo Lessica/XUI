@@ -1,1 +1,1 @@
-../../../../../XUI/Classes/UITableViewCell+XUIDisclosureIndicatorColor.h
+../../../../../XUI/Classes/Category/UITableViewCell+XUIDisclosureIndicatorColor.h
