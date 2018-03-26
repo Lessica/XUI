@@ -41,6 +41,7 @@
 
 #import <XUI/XUIButtonCell.h>
 #import <XUI/XUIListViewController+XUIButtonCell.h>
+#import <XUI/XUIListViewController+OpenURL.h>
 
 #import <XUI/XUILinkCell.h>
 #import <XUI/XUIListViewController+XUILinkCell.h>
