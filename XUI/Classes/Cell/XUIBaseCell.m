@@ -93,7 +93,8 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
       @"icon": [NSString class],
       @"iconRenderingMode": [NSString class],
       @"enabled": [NSNumber class],
-      @"height": [NSNumber class]
+      @"height": [NSNumber class],
+      @"postNotification": [NSString class],
       } mutableCopy];
     [baseTypes addEntriesFromDictionary:[self.class entryValueTypes]];
     NSString *checkType = kXUICellFactoryErrorDomain;

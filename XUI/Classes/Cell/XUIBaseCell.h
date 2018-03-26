@@ -25,6 +25,7 @@ extern NSString * XUIBaseCellReuseIdentifier;
 @property (nonatomic, strong) NSNumber *xui_readonly;
 @property (nonatomic, strong) NSNumber *xui_height;
 @property (nonatomic, strong) id xui_value;
+@property (nonatomic, strong) NSString *xui_postNotification;
 @property (nonatomic, assign, readonly) BOOL canDelete;
 
 @property (nonatomic, weak) XUICellFactory *factory;

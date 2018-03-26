@@ -144,7 +144,7 @@
 		01B961FFC780547563C62BC315E1B366 /* XUIRadioCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUIRadioCell.h; sourceTree = "<group>"; };
 		049E0EE0B9405C890946FB3A3FD345B0 /* Pods-XUI_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-XUI_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		06E4772BE3D7F3F2E34FDC79D625AD9A /* XUITextareaCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = XUITextareaCell.m; sourceTree = "<group>"; };
-		0A338F30EB2BAE45AB90439C318E755E /* libPods-XUI_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-XUI_Example.a"; path = "libPods-XUI_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A338F30EB2BAE45AB90439C318E755E /* libPods-XUI_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XUI_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AC7B604118686B680101F128CB65645 /* Pods-XUI_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-XUI_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		0B51A6FB5FAA1991C8C14F66B0DDADCB /* XUILogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XUILogger.h; path = XUI/Classes/XUILogger.h; sourceTree = "<group>"; };
 		0B86BF273479FFFA9E29D0607C58A172 /* XUITextTagCollectionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = XUITextTagCollectionView.m; sourceTree = "<group>"; };
@@ -225,7 +225,7 @@
 		8F0646A0FD4BEBF0FC6258EB731F0A03 /* XUIOptionCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUIOptionCell.h; sourceTree = "<group>"; };
 		8F73947083A7BA51D88E1B7266394B76 /* XUINavigationController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XUINavigationController.h; path = XUI/Classes/XUINavigationController.h; sourceTree = "<group>"; };
 		92098728BF9E96D18E9B76A604C17091 /* XUITagCollectionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUITagCollectionView.h; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		95B102B0E8D43447FC6D504E2C7E5843 /* XUIViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XUIViewController.h; path = XUI/Classes/XUIViewController.h; sourceTree = "<group>"; };
 		976753FEA40E6D998EF6FEDF7D9E019E /* XUIListViewController+XUILinkCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "XUIListViewController+XUILinkCell.h"; sourceTree = "<group>"; };
 		97A28457786AC6DEFA61598EA47EECC1 /* UIColor+XUIDarkColor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+XUIDarkColor.h"; path = "XUI/Classes/UIColor+XUIDarkColor.h"; sourceTree = "<group>"; };
@@ -234,7 +234,7 @@
 		9B2221F881AA2079DDC35A2CA2ED06F6 /* XUIMultipleOptionViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUIMultipleOptionViewController.h; sourceTree = "<group>"; };
 		9C6B3E749D2FE7E9036D5E9BBFF46727 /* NSObject+XUIStringValue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+XUIStringValue.m"; path = "XUI/Classes/NSObject+XUIStringValue.m"; sourceTree = "<group>"; };
 		A3EBC6158429EE125D5FF0D94644C667 /* Pods-XUI_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-XUI_Example-dummy.m"; sourceTree = "<group>"; };
-		A8C6A5DF76D9D9B0003DA4F6A642417B /* libXUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libXUI.a; path = libXUI.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8C6A5DF76D9D9B0003DA4F6A642417B /* libXUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libXUI.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA74C711837AFF5F9E381DFEABDDDFD7 /* XUIOrderedOptionViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUIOrderedOptionViewController.h; sourceTree = "<group>"; };
 		AAAA48A3E36E925C38F632610A712ABF /* XUIDateTimeCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = XUIDateTimeCell.h; sourceTree = "<group>"; };
 		B2BE749154CE1C47EFB8952043D1E856 /* XUIPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XUIPrivate.h; path = XUI/Classes/XUIPrivate.h; sourceTree = "<group>"; };
@@ -315,7 +315,6 @@
 				EC8B1C368133E4C8C61D2397B37BD04B /* XUIStepperCell.h */,
 				1C0A3DEA0F1313A61357717B578B3746 /* XUIStepperCell.m */,
 			);
-			name = Stepper;
 			path = Stepper;
 			sourceTree = "<group>";
 		};
@@ -384,7 +383,6 @@
 				14C85F12E26C22D23EE269471C540369 /* XUIAdapter_json.h */,
 				EAB973CD0C7D4540C3C69F3BE77D31D8 /* XUIAdapter_json.m */,
 			);
-			name = Json;
 			path = Json;
 			sourceTree = "<group>";
 		};
@@ -403,7 +401,6 @@
 				EFA21932E75E32643752FF102E33237F /* XUICheckboxCell.h */,
 				480DC0A74407EAC44865BD33D48F0859 /* XUICheckboxCell.m */,
 			);
-			name = Checkbox;
 			path = Checkbox;
 			sourceTree = "<group>";
 		};
@@ -413,7 +410,6 @@
 				F3B1594C23D62DFB7478F382C679832C /* XUISwitchCell.h */,
 				57A6D55648D4102D0166FFD22600BFB9 /* XUISwitchCell.m */,
 			);
-			name = Switch;
 			path = Switch;
 			sourceTree = "<group>";
 		};
@@ -423,7 +419,6 @@
 				AAAA48A3E36E925C38F632610A712ABF /* XUIDateTimeCell.h */,
 				6E4CDC253A9ACE31CB122B6C5EBCDF47 /* XUIDateTimeCell.m */,
 			);
-			name = DateTime;
 			path = DateTime;
 			sourceTree = "<group>";
 		};
@@ -435,7 +430,6 @@
 				976753FEA40E6D998EF6FEDF7D9E019E /* XUIListViewController+XUILinkCell.h */,
 				2288FFB82A37017754E787572BF5D57D /* XUIListViewController+XUILinkCell.m */,
 			);
-			name = Link;
 			path = Link;
 			sourceTree = "<group>";
 		};
@@ -451,7 +445,6 @@
 				1733BFD79ED2B317BBA5D999E5640384 /* XUIListViewController+XUIEditableListCell.h */,
 				6592B0A6BE6EC2ABB441C65A5BB54DE1 /* XUIListViewController+XUIEditableListCell.m */,
 			);
-			name = EditableList;
 			path = EditableList;
 			sourceTree = "<group>";
 		};
@@ -472,7 +465,6 @@
 				61C5B19094B7075E77349BB34DE9EC51 /* XUIStaticTextCell.h */,
 				212CB6FC5D3C61A725BF4662449CB8D7 /* XUIStaticTextCell.m */,
 			);
-			name = StaticText;
 			path = StaticText;
 			sourceTree = "<group>";
 		};
@@ -486,7 +478,6 @@
 				AA74C711837AFF5F9E381DFEABDDDFD7 /* XUIOrderedOptionViewController.h */,
 				1668177FBA2CC276EFFA2A9AEE9D5A02 /* XUIOrderedOptionViewController.m */,
 			);
-			name = OrderedOption;
 			path = OrderedOption;
 			sourceTree = "<group>";
 		};
@@ -506,7 +497,6 @@
 				BF981D1812718FB7F7A5D7CA9B91E54C /* XUITitleValueCell.h */,
 				BD2B2FF6D3875957E3E4102964414AE9 /* XUITitleValueCell.m */,
 			);
-			name = TitleValue;
 			path = TitleValue;
 			sourceTree = "<group>";
 		};
@@ -516,7 +506,6 @@
 				6593A2A855B98378585F3AAFA5530C34 /* XUIImageCell.h */,
 				D0ACD9D9D6C9FFDBBDE110DE417E21EB /* XUIImageCell.m */,
 			);
-			name = Image;
 			path = Image;
 			sourceTree = "<group>";
 		};
@@ -530,7 +519,6 @@
 				7622C041B03A8B998EE663F5D4FBFA6F /* XUITextareaViewController.h */,
 				6E12F6A144A1DA68FA10B64B2DD58D1F /* XUITextareaViewController.m */,
 			);
-			name = Textarea;
 			path = Textarea;
 			sourceTree = "<group>";
 		};
@@ -548,7 +536,6 @@
 				0F50677F6E45CD260DEAE58775B107FA /* XUIAdapter_plist.h */,
 				7642A91EDB2C3677A0AAC74175CD4999 /* XUIAdapter_plist.m */,
 			);
-			name = Plist;
 			path = Plist;
 			sourceTree = "<group>";
 		};
@@ -558,7 +545,6 @@
 				01B961FFC780547563C62BC315E1B366 /* XUIRadioCell.h */,
 				5D944415A5C9DEEA53998E39B4FD070C /* XUIRadioCell.m */,
 			);
-			name = Radio;
 			path = Radio;
 			sourceTree = "<group>";
 		};
@@ -581,7 +567,6 @@
 				2CBCAA24E0DF4352C66CA1767F3ADEF7 /* XUIGroupCell.h */,
 				556EE759CC1156CC88561476CD53FBEE /* XUIGroupCell.m */,
 			);
-			name = Group;
 			path = Group;
 			sourceTree = "<group>";
 		};
@@ -593,7 +578,6 @@
 				565718B5DBD12B46EA277B775B7A0DE1 /* XUITextFieldCell.h */,
 				712634A8B42EE284CEE5963A626C9DA8 /* XUITextFieldCell.m */,
 			);
-			name = TextField;
 			path = TextField;
 			sourceTree = "<group>";
 		};
@@ -615,7 +599,6 @@
 				9B2221F881AA2079DDC35A2CA2ED06F6 /* XUIMultipleOptionViewController.h */,
 				35D3AD6027F5C34C51AD39D51991A6B2 /* XUIMultipleOptionViewController.m */,
 			);
-			name = MultipleOption;
 			path = MultipleOption;
 			sourceTree = "<group>";
 		};
@@ -643,7 +626,6 @@
 				59FA6617851C559C7AD4668BB678EF9E /* XUIListViewController+XUIButtonCell.h */,
 				4C38E8F48677C7D48B3D8EE368015B5E /* XUIListViewController+XUIButtonCell.m */,
 			);
-			name = Button;
 			path = Button;
 			sourceTree = "<group>";
 		};
@@ -653,7 +635,6 @@
 				B35D43E3A8610D2E4D789E3BC2ED1347 /* XUISliderCell.h */,
 				71CC7BD21379E03C1E46065DC5F01B6E /* XUISliderCell.m */,
 			);
-			name = Slider;
 			path = Slider;
 			sourceTree = "<group>";
 		};
@@ -667,7 +648,6 @@
 				41389E58CA3DB91365A0D9CF45AF94E9 /* XUIOptionViewController.h */,
 				878893E9D294F24BC340D49510231569 /* XUIOptionViewController.m */,
 			);
-			name = Option;
 			path = Option;
 			sourceTree = "<group>";
 		};
@@ -677,7 +657,6 @@
 				C69A40ACA35B5C9A8A98B6A54C3BDB68 /* XUISegmentCell.h */,
 				15DAF3A8F44EB3CBAA18ED8E894B1981 /* XUISegmentCell.m */,
 			);
-			name = Segment;
 			path = Segment;
 			sourceTree = "<group>";
 		};
