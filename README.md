@@ -69,7 +69,7 @@ NSString *xuiPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"Root
 ```
 
 
-### Read Configurations
+### Configurations
 
 If the key ```defaults``` is not set, configuration will be saved to Standard User Defaults.
 
@@ -97,6 +97,11 @@ Create custom adapter to read the interface schema from any format you like: *pl
 ### Logger
 
 To know if there is any invalid part in our interface schema...
+
+
+### Custom Cells
+
+Inherit from ```XUIBaseCell``` then have fun with your own cells.
 
 
 ## More Documentation
