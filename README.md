@@ -101,7 +101,7 @@ To know if there is any invalid part in our interface schema...
 
 ### Custom Cells
 
-Inherit from ```XUIBaseCell``` then have fun with your own cells.
+Inherit from ```XUIBaseCell``` then have fun with your own cells whether it is xib based layout or not. XUI will automatically load custom cells by runtime.
 
 
 ## More Documentation
