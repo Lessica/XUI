@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+
+// ----
+// Just a simple NavigationController
+// ----
 @interface XUINavigationController : UINavigationController
 
 - (BOOL)shouldAutorotate;

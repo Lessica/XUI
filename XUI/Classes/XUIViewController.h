@@ -8,12 +8,14 @@
 
 @class XUITheme, XUILogger, XUICellFactory;
 
+
+// ----
+// !!! Do not override and use this class directly !!!
+// ----
 @interface XUIViewController : UIViewController
 
-@property (nonatomic, strong, readonly, nonnull) XUICellFactory *cellFactory;
-
 #pragma mark - Shortcuts
-
+@property (nonatomic, strong, readonly, nonnull) XUICellFactory *cellFactory;
 @property (nonatomic, strong, readonly, nullable) XUITheme *theme; // shortcut for factory.theme
 @property (nonatomic, strong, readonly, nullable) XUILogger *logger; // shortcut for factory.logger
 @property (nonatomic, strong, readonly, nullable) id <XUIAdapter> adapter; // shortcut for factory.adapter
