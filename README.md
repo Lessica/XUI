@@ -107,8 +107,7 @@ Inherit from ```XUIBaseCell``` then have fun with your own cells whether it is x
 
 ## More Documentation
 
-https://kb.xxtouch.com/XUI/
-
+https://github.com/Lessica/XUI/wiki/
 
 ## Example
 
