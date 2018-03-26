@@ -2,9 +2,10 @@
 
 [![CI Status](http://img.shields.io/travis/Lessica/XUI.svg?style=flat)](https://travis-ci.org/Lessica/XUI)
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/Lessica/XUI/master/Design/XUIAboutIcon.png" width="160"/><br />
-</p>
+```objective-c
+// XUI in a single line
+[XUIListViewController presentFromTopViewControllerWithDictionary:@{  @"items": { @"default": @YES, @"label": @"Feature", @"cell": @"Switch", @"key": @"switch1" } }];
+```
 
 Make a configuration UITableView in 5 minutes? Let's do it!
 
@@ -65,12 +66,6 @@ NSString *xuiPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"Root
 
 // directly present XUI from the top most view controller
 [XUIListViewController presentFromTopViewControllerWithPath:xuiPath];
-```
-
-
-```objective-c
-// present XUI in just one line
-[XUIListViewController presentFromTopViewControllerWithDictionary:@{  @"items": { @"default": @YES, @"label": @"Feature", @"cell": @"Switch", @"key": @"switch1" } }];
 ```
 
 
