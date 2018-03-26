@@ -10,56 +10,58 @@
 
 @class XUIBaseCell, XUICellFactory, XUIListHeaderView, XUIListFooterView;
 
+
 @interface XUIListViewController : XUIViewController <UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate>
 
-#pragma mark - Views
 
+#pragma mark - Views
 @property (nonatomic, strong, readonly) XUIListHeaderView *headerView;
 @property (nonatomic, strong, readonly) UITableView *tableView;
 @property (nonatomic, strong, readonly) XUIListFooterView *footerView;
 
-#pragma mark - Update Factory
 
+#pragma mark - Update Factory
 - (void)updateAdapter:(id<XUIAdapter>)adapter;
 - (void)updateLogger:(XUILogger *)logger;
 - (void)updateTheme:(XUITheme *)theme;
 
-#pragma mark - Convenience Helper
 
+#pragma mark - Convenience Helper
 /* These helper methods will try their best to find the top most view controller and present XUI from it. */
 + (void)presentFromTopViewControllerWithDictionary:(NSDictionary *)dictionary;
 + (void)presentFromTopViewControllerWithPath:(NSString *)path;
 + (void)presentFromTopViewControllerWithBundlePath:(NSString *)bundlePath;
 + (void)presentFromTopViewControllerWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath;
 
-#pragma mark - Convenience Initializers
 
+#pragma mark - Convenience Initializers
 + (instancetype)XUIWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)XUIWithPath:(NSString *)path;
 + (instancetype)XUIWithBundlePath:(NSString *)bundlePath;
 + (instancetype)XUIWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath;
 
-#pragma mark - Initializers
 
+#pragma mark - Initializers
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary NS_REQUIRES_SUPER;
 - (instancetype)initWithPath:(NSString *)path NS_REQUIRES_SUPER; // use main bundle
 - (instancetype)initWithBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER; // use "Root.plist" as its path
 - (instancetype)initWithPath:(NSString *)path withBundlePath:(NSString *)bundlePath NS_REQUIRES_SUPER;
 
-#pragma mark - Storage
 
+#pragma mark - Storage
 - (void)storeCellWhenNeeded:(XUIBaseCell *)cell;
 - (void)setNeedsStoreCells;
 - (void)storeCellsIfNecessary;
 
-#pragma mark - Error popups
 
+#pragma mark - Error popups
 - (void)presentErrorAlertController:(NSError *)error;
 
-#pragma mark - Dismissal
 
+#pragma mark - Dismissal
 - (void)dismissViewController:(id)dismissViewController NS_REQUIRES_SUPER;
+
 
 @end
 

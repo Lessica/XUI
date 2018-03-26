@@ -15,6 +15,7 @@ extern NSString * XUIBaseCellReuseIdentifier;
 
 @interface XUIBaseCell : UITableViewCell
 
+#pragma mark - Properties
 @property (nonatomic, strong) NSString *xui_cell;
 @property (nonatomic, strong) NSString *xui_label;
 @property (nonatomic, strong) NSString *xui_defaults;
@@ -28,28 +29,34 @@ extern NSString * XUIBaseCellReuseIdentifier;
 @property (nonatomic, strong) NSString *xui_postNotification;
 @property (nonatomic, assign, readonly) BOOL canDelete;
 
-@property (nonatomic, weak) XUICellFactory *factory;
-@property (nonatomic, strong, readonly) XUITheme *theme; // shortcut for factory.theme
-@property (nonatomic, strong, readonly) id <XUIAdapter> adapter; // shortcut for factory.adapter
-@property (nonatomic, strong, readonly) XUILogger *logger; // shortcut for factory.logger
-
-@property (nonatomic, strong, setter=setInternalTheme:) XUITheme *internalTheme;
-- (void)setInternalTheme:(XUITheme *)theme NS_REQUIRES_SUPER;
-
-@property (nonatomic, strong, setter=setInternalIconPath:) NSString *internalIconPath;
-- (void)setInternalIconPath:(NSString *)internalIconPath NS_REQUIRES_SUPER;
-
+#pragma mark - Layout
 + (BOOL)xibBasedLayout;
 + (UINib *)cellNib;
-
 + (BOOL)layoutNeedsTextLabel;
 + (BOOL)layoutNeedsImageView;
 + (BOOL)layoutRequiresDynamicRowHeight;
 + (BOOL)layoutUsesAutoResizing;
+
+#pragma mark - Setup
+- (void)setupCell NS_REQUIRES_SUPER;
+- (void)configureCellWithEntry:(NSDictionary *)entry NS_REQUIRES_SUPER;
+
+#pragma mark - Validators
 + (NSDictionary <NSString *, Class> *)entryValueTypes;
 + (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error NS_REQUIRES_SUPER;
 
-- (void)setupCell NS_REQUIRES_SUPER;
-- (void)configureCellWithEntry:(NSDictionary *)entry NS_REQUIRES_SUPER;
+
+// ----
+// You should not override methods below.
+// ----
+#pragma mark - Internal Methods
+@property (nonatomic, weak) XUICellFactory *factory;
+@property (nonatomic, strong, readonly) XUITheme *theme; // shortcut for factory.theme
+@property (nonatomic, strong, readonly) id <XUIAdapter> adapter; // shortcut for factory.adapter
+@property (nonatomic, strong, readonly) XUILogger *logger; // shortcut for factory.logger
+@property (nonatomic, strong, setter=setInternalTheme:) XUITheme *internalTheme;
+- (void)setInternalTheme:(XUITheme *)theme NS_REQUIRES_SUPER;
+@property (nonatomic, strong, setter=setInternalIconPath:) NSString *internalIconPath;
+- (void)setInternalIconPath:(NSString *)internalIconPath NS_REQUIRES_SUPER;
 
 @end

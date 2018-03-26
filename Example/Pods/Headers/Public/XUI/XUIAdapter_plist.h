@@ -1,1 +1,0 @@
-../../../../../XUI/Classes/Adapter/Plist/XUIAdapter_plist.h
