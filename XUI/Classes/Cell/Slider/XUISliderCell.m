@@ -45,7 +45,15 @@
 
 - (void)setupCell {
     [super setupCell];
+    
+    _xui_step = @(0.25);
+    _xui_min = @(0);
+    _xui_max = @(1.0);
+    _xui_value = @(0.0);
+    _xui_showValue = @(NO);
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     [self.cellSlider addTarget:self action:@selector(xuiSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.cellSlider addTarget:self action:@selector(xuiSliderValueDidFinishChanging:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -79,7 +87,7 @@
         _cellSlider = [[UISlider alloc] init];
         _cellSlider.minimumValue = 0.0;
         _cellSlider.maximumValue = 1.0;
-        _cellSlider.value = 0.5;
+        _cellSlider.value = 0.0;
         _cellSlider.continuous = YES;
         _cellSlider.translatesAutoresizingMaskIntoConstraints = NO;
     }
@@ -131,6 +139,11 @@
     [self updateValueIfNeeded];
 }
 
+- (void)setXui_step:(NSNumber *)xui_step {
+    _xui_step = xui_step;
+    [self updateValueIfNeeded];
+}
+
 - (void)setXui_showValue:(NSNumber *)xui_showValue {
     _xui_showValue = xui_showValue;
     BOOL showValue = [xui_showValue boolValue];
@@ -143,7 +156,14 @@
 
 - (void)xuiSliderValueChanged:(UISlider *)sender {
     if (sender == self.cellSlider) {
-        self.cellSliderValueLabel.text = [NSString stringWithFormat:@"%.2f", sender.value];
+        float value = sender.value;
+        float stepValue = [self.xui_step floatValue];
+        if (stepValue > 0.f) {
+            float newStep = roundf((value) / stepValue);
+            value = newStep * stepValue;
+            sender.value = value;
+        }
+        self.cellSliderValueLabel.text = [NSString stringWithFormat:@"%.2f", value];
     }
 }
 
@@ -173,6 +193,11 @@
     if (self.shouldUpdateValue) {
         self.shouldUpdateValue = NO;
         float value = [self.xui_value floatValue];
+        float stepValue = [self.xui_step floatValue];
+        if (stepValue > 0) {
+            float newStep = roundf((value) / stepValue);
+            value = newStep * stepValue;
+        }
         self.cellSlider.value = value;
         self.cellSliderValueLabel.text = [NSString stringWithFormat:@"%.2f", value];
     }

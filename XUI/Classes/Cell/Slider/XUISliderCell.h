@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSNumber *xui_min;
 @property (nonatomic, strong) NSNumber *xui_max;
+@property (nonatomic, strong) NSNumber *xui_step;
 @property (nonatomic, strong) NSNumber *xui_showValue;
 
 @end

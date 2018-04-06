@@ -67,6 +67,14 @@
 
 - (void)setupCell {
     [super setupCell];
+    
+    _xui_min = @(0);
+    _xui_max = @(100);
+    _xui_step = @(1);
+    _xui_value = @(0);
+    _xui_isInteger = @(NO);
+    _xui_autoRepeat = @(YES);
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     [self.cellStepper addTarget:self action:@selector(xuiStepperValueChanged:) forControlEvents:UIControlEventValueChanged];
