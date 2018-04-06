@@ -203,7 +203,13 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     _xui_icon = xui_icon;
     if ([self.class layoutNeedsImageView]) {
         if (xui_icon) {
-            NSString *imagePath = [self.adapter.bundle pathForResource:xui_icon ofType:nil];
+            NSBundle *bundle = nil;
+            if (self.adapter) {
+                bundle = self.adapter.bundle;
+            } else {
+                bundle = [NSBundle mainBundle];
+            }
+            NSString *imagePath = [bundle pathForResource:xui_icon ofType:nil];
             self.imageView.image = [self imageWithCurrentRenderingMode:[UIImage imageWithContentsOfFile:imagePath]];
         } else {
             self.imageView.image = nil;
@@ -236,7 +242,11 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 - (void)setXui_label:(NSString *)xui_label {
     _xui_label = xui_label;
     if ([self.class layoutNeedsTextLabel]) {
-        self.textLabel.text = [self.adapter localizedStringForKey:xui_label value:xui_label];
+        if (self.adapter) {
+            self.textLabel.text = [self.adapter localizedStringForKey:xui_label value:xui_label];
+        } else {
+            self.textLabel.text = xui_label;
+        }
     }
 }
 

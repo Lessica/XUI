@@ -1,5 +1,5 @@
 PODS:
-  - XUI (0.1.0)
+  - XUI (1.1.2)
 
 DEPENDENCIES:
   - XUI (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  XUI: 3fb9846165e60b8785a1886f75835ac26bf6b22c
+  XUI: de0dd8c99edeaa5b60303240df9d53cc0cdfd1a7
 
 PODFILE CHECKSUM: e77dd1163202f13ed5ea7611f63a35302ebae870
 
