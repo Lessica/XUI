@@ -46,7 +46,7 @@
 - (void)setupCell {
     [super setupCell];
     
-    _xui_step = @(0.25);
+    _xui_step = @(0);
     _xui_min = @(0);
     _xui_max = @(1.0);
     _xui_value = @(0.0);
@@ -194,7 +194,7 @@
         self.shouldUpdateValue = NO;
         float value = [self.xui_value floatValue];
         float stepValue = [self.xui_step floatValue];
-        if (stepValue > 0) {
+        if (stepValue > 0.f) {
             float newStep = roundf((value) / stepValue);
             value = newStep * stepValue;
         }
