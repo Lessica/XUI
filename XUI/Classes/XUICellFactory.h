@@ -43,4 +43,6 @@
 @property (nonatomic, strong, nullable) XUILogger *logger;
 @property (nonatomic, strong, nullable) id <XUIAdapter> adapter;
 
+- (void)setNeedsReload;
+
 @end

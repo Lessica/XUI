@@ -18,10 +18,6 @@
 #import "XUIBaseCell.h"
 #import "XUIGroupCell.h"
 
-void notificationCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
-//    XUICellFactory *cellFactory = (__bridge XUICellFactory *)(observer);
-    
-}
 
 @interface XUICellFactory ()
 
@@ -35,20 +31,19 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
     if (self = [super init]) {
         _parsed = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xuiValueChanged:) name:XUINotificationEventValueChanged object:nil];
-        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge const void *)(self), notificationCallback, ((__bridge CFStringRef)@""), NULL, CFNotificationSuspensionBehaviorDeliverImmediately);
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xuiUpdated:) name:XUINotificationEventUIUpdated object:nil];
     }
     return self;
 }
 
 - (void)dealloc {
-    CFNotificationCenterRemoveObserver(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge const void *)(self), ((__bridge CFStringRef)@""), NULL);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Parse
 
 - (void)parsePath:(NSString *)path Bundle:(NSBundle *)bundle {
-    assert(!self.parsed);
+    if (self.parsed) return;
     
     if (!_adapter) {
         NSString *entryExtension = [path pathExtension];
@@ -211,10 +206,41 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
 
 #pragma mark - Notifications
 
-- (void)xuiValueChanged:(NSNotification *)aNotification {
+static NSTimeInterval _kXUILastReloadTime = 0.0;
+
+- (void)setNeedsReload {
+    NSTimeInterval currentTime = CACurrentMediaTime();
+    if (_kXUILastReloadTime > 0.0 &&
+        fabs(_kXUILastReloadTime - currentTime) < (0.3)) { // max responding interval: 300 ms
+        return;
+    }
+    _kXUILastReloadTime = currentTime;
+    _parsed = NO;
+}
+
+- (void)xuiUpdated:(NSNotification *)aNotification {
     XUIBaseCell *cell = aNotification.object;
     if ([cell isKindOfClass:[XUIBaseCell class]]) {
+        
+    }
+    [self setNeedsReload];
+    id <XUIAdapter> adapter = self.adapter;
+    [self parsePath:adapter.path Bundle:adapter.bundle];
+}
+
+- (void)xuiValueChanged:(NSNotification *)aNotification {
+    id cellOrArray = aNotification.object;
+    if ([cellOrArray isKindOfClass:[XUIBaseCell class]]) {
+        XUIBaseCell *cell = (XUIBaseCell *)cellOrArray;
         [self updateRelatedCellsForCell:cell];
+    } else if ([cellOrArray isKindOfClass:[NSArray class]]) {
+        NSArray *cellArr = (NSArray *)cellOrArray;
+        for (NSDictionary *cellDict in cellArr) {
+            [self updateRelatedCellsForConfigurationPair:cellDict];
+        }
+    } else if ([cellOrArray isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *cellDict = (NSDictionary *)cellOrArray;
+        [self updateRelatedCellsForConfigurationPair:cellDict];
     }
 }
 
@@ -227,6 +253,28 @@ void notificationCallback(CFNotificationCenterRef center, void *observer, CFStri
         [cellArray enumerateObjectsUsingBlock:^(XUIBaseCell * _Nonnull cell, NSUInteger idx, BOOL * _Nonnull stop) {
             if (cell != inCell &&
                 cell.xui_defaults.length > 0 &&
+                [cell.xui_defaults isEqualToString:cellDefaults] &&
+                cell.xui_key.length > 0 &&
+                [cell.xui_key isEqualToString:cellKey]
+                ) {
+                NSDictionary *testEntry = @{ @"value": cellValue };
+                BOOL testResult = [[cell class] testEntry:testEntry withError:nil];
+                if (testResult) {
+                    cell.xui_value = cellValue;
+                }
+            }
+        }];
+    }
+}
+
+- (void)updateRelatedCellsForConfigurationPair:(NSDictionary *)pair {
+    NSString *cellDefaults = pair[@"defaults"];
+    NSString *cellKey = pair[@"key"];
+    NSString *cellValue = pair[@"value"];
+    if (!cellValue) return;
+    for (NSArray <XUIBaseCell *> *cellArray in self.otherCells) {
+        [cellArray enumerateObjectsUsingBlock:^(XUIBaseCell * _Nonnull cell, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (cell.xui_defaults.length > 0 &&
                 [cell.xui_defaults isEqualToString:cellDefaults] &&
                 cell.xui_key.length > 0 &&
                 [cell.xui_key isEqualToString:cellKey]

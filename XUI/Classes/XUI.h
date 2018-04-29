@@ -63,6 +63,7 @@
 #import <XUI/XUIListViewController+XUITextareaCell.h>
 
 
+static NSString * const XUINotificationEventUIUpdated = @"XUINotificationEventUIUpdated";
 static NSString * const XUINotificationEventValueChanged = @"XUINotificationEventValueChanged";
 
 #endif /* XUI_h */
