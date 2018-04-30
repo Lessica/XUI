@@ -52,6 +52,6 @@
 - (void)reloadIfNeeded;
 
 - (void)updateRelatedCellsForCell:(nonnull XUIBaseCell *)inCell;
-- (void)updateRelatedCellsForConfigurationPair:(NSDictionary *)pair;
+- (void)updateRelatedCellsForConfigurationPair:(nonnull NSDictionary *)pair;
 
 @end
