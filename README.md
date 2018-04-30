@@ -72,7 +72,7 @@ NSString *xuiPath = [[NSBundle bundleWithPath:bundlePath] pathForResource:@"Root
 
 ### Configurations
 
-If the key ```defaults``` is not set, configuration will be saved to Standard User Defaults.
+If the key `defaults` is not set, configuration will be saved to Standard User Defaults.
 
 ```objective-c
 NSNumber *enabled = [[NSUserDefaults standardUserDefaults] objectForKey:@"enabled"];
@@ -82,12 +82,12 @@ NSNumber *enabled = [[NSUserDefaults standardUserDefaults] objectForKey:@"enable
 
 ### Notification
 
-Receive notifications named ```XUINotificationEventValueChanged``` from ```[NSNotificationCenter defaultCenter]```.
+`XUINotificationEventValueChanged`: Any
 
 
 ### Theme
 
-XUI Theme can be configured in ```theme``` dictionary.
+XUI Theme can be configured in `theme` dictionary.
 
 
 ### Adapter
@@ -97,12 +97,12 @@ Create custom adapter to read the interface schema from any format you like: *pl
 
 ### Logger
 
-To know if there is any invalid part in our interface schema...
+To know if there is any invalid  in our interface schema...
 
 
 ### Custom Cells
 
-Inherit from ```XUIBaseCell``` then have fun with your own cells whether it is xib based layout or not. XUI will automatically load custom cells by runtime.
+Inherit from `XUIBaseCell` then have fun with your own cells whether it is xib based layout or not. XUI will automatically load custom cells.
 
 
 ## More Documentation
