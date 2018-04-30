@@ -21,6 +21,8 @@
 
 @interface XUICellFactory ()
 
+@property (nonatomic, assign) BOOL shouldReload;
+
 @end
 
 @implementation XUICellFactory
@@ -29,7 +31,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _parsed = NO;
+        _shouldReload = NO;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xuiValueChanged:) name:XUINotificationEventValueChanged object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xuiUpdated:) name:XUINotificationEventUIUpdated object:nil];
     }
@@ -43,7 +45,6 @@
 #pragma mark - Parse
 
 - (void)parsePath:(NSString *)path Bundle:(NSBundle *)bundle {
-    if (self.parsed) return;
     
     if (!_adapter) {
         NSString *entryExtension = [path pathExtension];
@@ -184,7 +185,6 @@
     }
     
     assert(self.sectionCells.count == self.otherCells.count);
-    self.parsed = YES;
 }
 
 - (void)callbackWithErrorReason:(NSString *)exceptionReason {
@@ -194,7 +194,8 @@
     }
 }
 
-- (void)testObject:(id)itemValue forKey:(NSString *)itemKey forCellInstance:(XUIBaseCell *)cellInstance atIndex:(NSUInteger)itemIdx {
+- (void)testObject:(id)itemValue forKey:(NSString *)itemKey forCellInstance:(XUIBaseCell *)cellInstance atIndex:(NSUInteger)itemIdx
+{
     if (!itemValue || !itemKey || !cellInstance) return;
     NSString *propertyName = [NSString stringWithFormat:@"xui_%@", itemKey];
     if (class_getProperty([cellInstance class], [propertyName UTF8String])) {
@@ -204,7 +205,24 @@
     }
 }
 
+
 #pragma mark - Notifications
+
+- (void)xuiUpdated:(NSNotification *)aNotification {
+    [self setNeedsReload];
+    [self reloadIfNeeded];
+}
+
+- (void)xuiValueChanged:(NSNotification *)aNotification {
+    id cellOrArray = aNotification.object;
+    if ([cellOrArray isKindOfClass:[XUIBaseCell class]]) {
+        XUIBaseCell *cell = (XUIBaseCell *)cellOrArray;
+        [self updateRelatedCellsForCell:cell];
+    }
+}
+
+
+#pragma mark - Reload
 
 static NSTimeInterval _kXUILastReloadTime = 0.0;
 
@@ -215,32 +233,14 @@ static NSTimeInterval _kXUILastReloadTime = 0.0;
         return;
     }
     _kXUILastReloadTime = currentTime;
-    _parsed = NO;
+    self.shouldReload = YES;
 }
 
-- (void)xuiUpdated:(NSNotification *)aNotification {
-    XUIBaseCell *cell = aNotification.object;
-    if ([cell isKindOfClass:[XUIBaseCell class]]) {
-        
-    }
-    [self setNeedsReload];
-    id <XUIAdapter> adapter = self.adapter;
-    [self parsePath:adapter.path Bundle:adapter.bundle];
-}
-
-- (void)xuiValueChanged:(NSNotification *)aNotification {
-    id cellOrArray = aNotification.object;
-    if ([cellOrArray isKindOfClass:[XUIBaseCell class]]) {
-        XUIBaseCell *cell = (XUIBaseCell *)cellOrArray;
-        [self updateRelatedCellsForCell:cell];
-    } else if ([cellOrArray isKindOfClass:[NSArray class]]) {
-        NSArray *cellArr = (NSArray *)cellOrArray;
-        for (NSDictionary *cellDict in cellArr) {
-            [self updateRelatedCellsForConfigurationPair:cellDict];
-        }
-    } else if ([cellOrArray isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *cellDict = (NSDictionary *)cellOrArray;
-        [self updateRelatedCellsForConfigurationPair:cellDict];
+- (void)reloadIfNeeded {
+    if (self.shouldReload) {
+        id <XUIAdapter> adapter = self.adapter;
+        [self parsePath:adapter.path Bundle:adapter.bundle];
+        self.shouldReload = NO;
     }
 }
 

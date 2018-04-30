@@ -22,20 +22,22 @@
 
 @interface XUICellFactory : NSObject
 
+
 #pragma mark - Adapter Parsing
 
 @property (nonatomic, weak, nullable) id <XUICellFactoryDelegate> delegate;
 @property (nonatomic, strong, readonly, nullable) NSDictionary <NSString *, id> *rootEntry;
-@property (nonatomic, assign) BOOL parsed;
+@property (nonatomic, readonly, assign) BOOL shouldReload;
 - (void)parsePath:(nonnull NSString *)path Bundle:(nonnull NSBundle *)bundle;
 // this method should run in main thread
+
 
 #pragma mark - Factory Cells
 
 @property (nonatomic, strong, readonly, nullable) NSArray <XUIGroupCell *> *sectionCells;
 @property (nonatomic, strong, readonly, nullable) NSArray <NSArray <XUIBaseCell *> *> *otherCells;
 @property (nonatomic, strong, readonly, nullable) NSArray <XUIBaseCell *> *cells; // section cells + other cells
-- (void)updateRelatedCellsForCell:(nonnull XUIBaseCell *)inCell;
+
 
 #pragma mark - Factory Properties
 
@@ -43,6 +45,13 @@
 @property (nonatomic, strong, nullable) XUILogger *logger;
 @property (nonatomic, strong, nullable) id <XUIAdapter> adapter;
 
+
+#pragma mark - Reload Manually
+
 - (void)setNeedsReload;
+- (void)reloadIfNeeded;
+
+- (void)updateRelatedCellsForCell:(nonnull XUIBaseCell *)inCell;
+- (void)updateRelatedCellsForConfigurationPair:(NSDictionary *)pair;
 
 @end

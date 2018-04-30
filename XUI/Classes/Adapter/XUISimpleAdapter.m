@@ -100,11 +100,13 @@
 
 - (void)saveDefaultsFromCell:(XUIBaseCell *)cell {
     [self setObject:cell.xui_value forKey:cell.xui_key Defaults:cell.xui_defaults];
-    NSString *notificationName = cell.xui_postNotification;
-    if (!notificationName) {
-        notificationName = XUINotificationEventValueChanged;
+    
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:XUINotificationEventValueChanged object:cell userInfo:nil];
+        NSString *customNotificationName = cell.xui_postNotification;
+        if (customNotificationName.length)
+            [[NSNotificationCenter defaultCenter] postNotificationName:customNotificationName object:cell userInfo:nil];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:cell userInfo:@{}];
 }
 
 - (id)objectForKey:(NSString *)key Defaults:(NSString *)identifier {

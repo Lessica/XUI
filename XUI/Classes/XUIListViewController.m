@@ -210,6 +210,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillDisappear:) name:UIKeyboardWillHideNotification object:nil];
     [super viewWillAppear:animated];
     [self storeCellsIfNecessary];
+    [self.cellFactory reloadIfNeeded];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -628,7 +629,7 @@ XUI_END_IGNORE_PARTIAL
 
 - (void)updateAdapter:(id<XUIAdapter>)adapter {
     [self.cellFactory setAdapter:adapter];
-    if ([self.cellFactory parsed]) {
+    if (![self.cellFactory shouldReload]) {
 #ifdef DEBUG
         NSLog(@"-[XUIListViewController setAdapter:] cannot be called after view is loaded.");
 #endif
@@ -637,7 +638,7 @@ XUI_END_IGNORE_PARTIAL
 
 - (void)updateLogger:(XUILogger *)logger {
     [self.cellFactory setLogger:logger];
-    if ([self.cellFactory parsed]) {
+    if (![self.cellFactory shouldReload]) {
 #ifdef DEBUG
         NSLog(@"-[XUIListViewController setLogger:] cannot be called after view is loaded.");
 #endif
@@ -646,7 +647,7 @@ XUI_END_IGNORE_PARTIAL
 
 - (void)updateTheme:(XUITheme *)theme {
     [self.cellFactory setTheme:theme];
-    if ([self.cellFactory parsed]) {
+    if (![self.cellFactory shouldReload]) {
 #ifdef DEBUG
         NSLog(@"-[XUIListViewController setTheme:] cannot be called after view is loaded.");
 #endif
