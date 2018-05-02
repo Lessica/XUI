@@ -176,6 +176,11 @@
         if (selectedValues.count > maxCount || selectedValues.count < minCount) {
             return; // Invalid value, ignore
         }
+        XUITextTagCollectionView *tagView = self.tagView;
+        for (NSUInteger tagIndex = 0; tagIndex < tagView.allTags.count; tagIndex++)
+        {
+            [tagView setTagAtIndex:tagIndex selected:NO];
+        }
         for (id selectedValue in selectedValues) {
             NSUInteger selectedIndex = [self.xui_options indexOfObjectPassingTest:^BOOL(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if ([selectedValue isEqual:obj[XUIOptionValueKey]]) {
@@ -184,7 +189,7 @@
                 return NO;
             }];
             if (selectedIndex != NSNotFound) {
-                [self.tagView setTagAtIndex:selectedIndex selected:YES];
+                [tagView setTagAtIndex:selectedIndex selected:YES];
             }
         }
     }

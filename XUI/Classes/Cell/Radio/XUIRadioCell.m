@@ -154,6 +154,11 @@
 - (void)updateValueIfNeeded {
     if (self.shouldUpdateValue && self.tagView.allTags.count > 0) {
         self.shouldUpdateValue = NO;
+        XUITextTagCollectionView *tagView = self.tagView;
+        for (NSUInteger tagIndex = 0; tagIndex < tagView.allTags.count; tagIndex++)
+        {
+            [tagView setTagAtIndex:tagIndex selected:NO];
+        }
         id selectedValue = self.xui_value;
         NSUInteger selectedIndex = [self.xui_options indexOfObjectPassingTest:^BOOL(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([selectedValue isEqual:obj[XUIOptionValueKey]]) {
