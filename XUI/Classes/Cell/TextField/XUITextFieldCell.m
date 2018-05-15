@@ -17,7 +17,6 @@
 @property (strong, nonatomic) NSLayoutConstraint *titleWidthConstraint;
 
 @property (nonatomic, assign) NSUInteger maxLength;
-@property (nonatomic, strong) NSRegularExpression *expression;
 
 @end
 
@@ -46,6 +45,7 @@
       @"message": [NSString class],
       @"okTitle": [NSString class],
       @"cancelTitle": [NSString class],
+      @"validationRegex": [NSString class],
       };
 }
 
@@ -86,6 +86,20 @@
                 if (![validClearButtonModeString containsObject:clearButtonModeString]) {
                     checkType = kXUICellFactoryErrorUnknownEnumDomain;
                     NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"clearButtonMode", clearButtonModeString];
+                    NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+                    if (error) *error = exceptionError;
+                    return NO;
+                }
+            }
+        }
+        {
+            NSString *regexString = cellEntry[@"validationRegex"];
+            if (regexString) {
+                NSError *regexError = nil;
+                NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:regexString options:0 error:&regexError];
+                if (!regex) {
+                    checkType = kXUICellFactoryErrorInvalidValueDomain;
+                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"validationRegex", regexString];
                     NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
                     if (error) *error = exceptionError;
                     return NO;
@@ -191,6 +205,22 @@
         _cellTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         _cellTextField.spellCheckingType = UITextSpellCheckingTypeNo;
         _cellTextField.translatesAutoresizingMaskIntoConstraints = NO;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
+        XUI_START_IGNORE_PARTIAL
+        if ([_cellTextField respondsToSelector:@selector(setSmartDashesType:)]) {
+            _cellTextField.smartDashesType = UITextSmartDashesTypeNo;
+            _cellTextField.smartQuotesType = UITextSmartQuotesTypeNo;
+            _cellTextField.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
+        }
+        XUI_END_IGNORE_PARTIAL
+#endif
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+        XUI_START_IGNORE_PARTIAL
+        if ([_cellTextField respondsToSelector:@selector(setTextContentType:)]) {
+            _cellTextField.textContentType = @"";
+        }
+        XUI_END_IGNORE_PARTIAL
+#endif
     }
     return _cellTextField;
 }
@@ -433,7 +463,8 @@
 }
 
 + (void)savePrompt:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell {
-    cell.xui_value = textField.text ? [NSString stringWithString:textField.text] : nil;
+    NSString *content = textField.text;
+    cell.xui_value = content ? [NSString stringWithString:content] : nil;
     [cell.adapter saveDefaultsFromCell:cell];
 }
 

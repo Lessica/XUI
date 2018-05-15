@@ -10,7 +10,6 @@
 
 @implementation XUIListViewController (XUITextFieldCell)
 
-XUI_START_IGNORE_PARTIAL
 - (void)tableView:(UITableView *)tableView XUITextFieldCell:(UITableViewCell *)cell
 {
     XUITextFieldCell *textFieldCell = (XUITextFieldCell *)cell;
@@ -18,6 +17,19 @@ XUI_START_IGNORE_PARTIAL
     
     BOOL readonly = (textFieldCell.xui_readonly != nil && [textFieldCell.xui_readonly boolValue] == YES);
     if (readonly) return;
+    
+    NSString *regexString = textFieldCell.xui_validationRegex;
+    NSRegularExpression *validationRegex = nil;
+    if (regexString.length > 0)
+    {
+        NSError *regexError = nil;
+        validationRegex = [[NSRegularExpression alloc] initWithPattern:regexString options:0 error:&regexError];
+        if (!validationRegex)
+        {
+            [self presentErrorAlertController:regexError];
+            return;
+        }
+    }
     
     NSUInteger maxLength = UINT_MAX;
     if (textFieldCell.xui_maxLength)
@@ -30,6 +42,9 @@ XUI_START_IGNORE_PARTIAL
         return;
     }
     
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    XUI_START_IGNORE_PARTIAL
     NSString *alertTitle = textFieldCell.xui_prompt ? [NSString stringWithString:textFieldCell.xui_prompt] : nil;
     NSString *alertBody = textFieldCell.xui_message ? [NSString stringWithString:textFieldCell.xui_message] : nil;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle message:alertBody preferredStyle:UIAlertControllerStyleAlert];
@@ -41,24 +56,46 @@ XUI_START_IGNORE_PARTIAL
     }];
     NSString *cancelTitle = textFieldCell.xui_cancelTitle ? [NSString stringWithString:textFieldCell.xui_cancelTitle] : nil;
     if (cancelTitle.length == 0) cancelTitle = [XUIStrings localizedStringForString:@"Cancel"];
+    __weak typeof(self) weakSelf = self;
     [alertController addAction:[UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        // cancel action
+        __strong typeof(self) strongSelf = weakSelf;
+        [center removeObserver:strongSelf name:UITextFieldTextDidChangeNotification object:nil];
     }]];
     NSString *okTitle = textFieldCell.xui_okTitle ? [NSString stringWithString:textFieldCell.xui_okTitle] : nil;
     if (okTitle.length == 0) okTitle = [XUIStrings localizedStringForString:@"OK"];
     __weak UIAlertController *alertRef = alertController; // avoid memory leak
-    [alertController addAction:[UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *submitAction = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        __strong typeof(self) strongSelf = weakSelf;
         UITextField *textField = [alertRef.textFields firstObject];
         if (textField)
         {
             [XUITextFieldCell savePrompt:textField forTextFieldCell:textFieldCell];
         }
-    }]];
-    [self presentViewController:alertController animated:YES completion:^{
-        
+        [center removeObserver:strongSelf name:UITextFieldTextDidChangeNotification object:nil];
+    }];
+    submitAction.enabled = NO;
+    [alertController addAction:submitAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+    XUI_END_IGNORE_PARTIAL
+    
+    [center addObserverForName:UITextFieldTextDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull aNotification) {
+        UITextField *textField = (UITextField *)aNotification.object;
+        NSString *content = textField.text;
+        if (validationRegex)
+        {
+            NSTextCheckingResult *result
+            = [validationRegex firstMatchInString:content options:0 range:NSMakeRange(0, content.length)];
+            if (!result)
+            { // validation failed
+                submitAction.enabled = NO;
+            }
+            else
+            {
+                submitAction.enabled = YES;
+            }
+        }
     }];
     
 }
-XUI_END_IGNORE_PARTIAL
 
 @end

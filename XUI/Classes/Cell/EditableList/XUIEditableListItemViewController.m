@@ -28,7 +28,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.saveItem.enabled = (self.content.length > 0);
     
     if (self.isAddMode) {
         self.title = [XUIStrings localizedStringForString:@"Add Item"];
@@ -82,10 +81,12 @@
     if (!_textFieldCell) {
         XUITextFieldCell *cell = [[XUITextFieldCell alloc] init];
         [cell setInternalTheme:self.theme];
+        [cell.cellTextField addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventEditingChanged];
         cell.cellTextField.returnKeyType = UIReturnKeyDone;
+        cell.cellTextField.enablesReturnKeyAutomatically = YES;
         cell.cellTextField.delegate = self;
-        cell.xui_value = self.content;
         cell.xui_placeholder = [XUIStrings localizedStringForString:@"Value"];
+        cell.xui_value = self.content;
         _textFieldCell = cell;
     }
     return _textFieldCell;
@@ -124,11 +125,19 @@
 
 #pragma mark - UITextFieldDelegate
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    NSString *content = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    self.saveItem.enabled = (content.length > 0);
-    return YES;
+- (void)textFieldValueChanged:(UITextField *)textField {
+    NSString *content = textField.text;
+    BOOL validated = YES;
+    if (self.validationRegex)
+    {
+        NSTextCheckingResult *result
+        = [self.validationRegex firstMatchInString:content options:0 range:NSMakeRange(0, content.length)];
+        if (!result)
+        { // validation failed
+            validated = NO;
+        }
+    }
+    self.saveItem.enabled = (content.length > 0) && (![content isEqualToString:self.content]) && validated;
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
@@ -137,7 +146,9 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self addOrSaveItemTapped:nil];
+    if (self.saveItem.enabled) {
+        [self addOrSaveItemTapped:self.saveItem];
+    }
     return NO;
 }
 

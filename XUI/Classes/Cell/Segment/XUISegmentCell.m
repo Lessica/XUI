@@ -58,6 +58,9 @@
 
 - (void)setupCell {
     [super setupCell];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     self.cellTitleLabel.text = @"";
     [self.cellSegmentControl addTarget:self action:@selector(xuiSegmentValueChanged:) forControlEvents:UIControlEventValueChanged];
     

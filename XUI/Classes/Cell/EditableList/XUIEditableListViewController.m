@@ -26,15 +26,31 @@
 @property (nonatomic, strong) NSMutableArray <NSString *> *mutableContentList;
 @property (nonatomic, assign) NSUInteger editingIndex;
 
+@property (nonatomic, strong) NSRegularExpression *validationRegex;
+@property (nonatomic, strong) NSError *regexError;
+
 @end
 
-@implementation XUIEditableListViewController
+@implementation XUIEditableListViewController {
+    BOOL _firstLoaded;
+}
 
 - (instancetype)initWithCell:(XUIEditableListCell *)cell {
     if (self = [super init]) {
         _cell = cell;
         _mutableContentList = [[NSMutableArray alloc] init];
         _editingIndex = UINT_MAX;
+        _firstLoaded = NO;
+        
+        if (cell.xui_validationRegex.length > 0)
+        {
+            NSError *regexError = nil;
+            NSRegularExpression *validationRegex
+            = [[NSRegularExpression alloc] initWithPattern:cell.xui_validationRegex options:0 error:&regexError];
+            
+            _validationRegex = validationRegex;
+            _regexError = regexError;
+        }
     }
     return self;
 }
@@ -63,6 +79,17 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateIfNeeded];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (_firstLoaded == NO) {
+        if (self.regexError)
+        {
+            [self presentErrorMessageAlertController:[NSString stringWithFormat:[XUIStrings localizedStringForString:@"Field \"%@\" cannot be parsed into a regular expression: %@"], @"validationRegex", [self.regexError localizedDescription]]];
+        }
+        _firstLoaded = YES;
+    }
 }
 
 - (BOOL)isEditing {
@@ -358,6 +385,7 @@ XUI_END_IGNORE_PARTIAL
     XUIEditableListItemViewController *itemViewController = [[XUIEditableListItemViewController alloc] initWithContent:content];
     itemViewController.cellFactory.theme = self.cellFactory.theme;
     itemViewController.cellFactory.adapter = self.cellFactory.adapter;
+    itemViewController.validationRegex = self.validationRegex;
     itemViewController.delegate = self;
     [self.navigationController pushViewController:itemViewController animated:YES];
 }
@@ -365,7 +393,8 @@ XUI_END_IGNORE_PARTIAL
 #pragma mark - XUIEditableListItemViewControllerDelegate
 
 - (void)editableListItemViewController:(XUIEditableListItemViewController *)controller contentUpdated:(NSString *)content {
-    if (controller.isAddMode) {
+    if (controller.isAddMode)
+    {
         [self.mutableContentList insertObject:content atIndex:0];
     } else {
         if (self.editingIndex < self.mutableContentList.count) {

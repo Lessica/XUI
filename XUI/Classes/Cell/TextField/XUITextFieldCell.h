@@ -21,8 +21,7 @@
 @property (nonatomic, strong) NSNumber *xui_maxLength;
 @property (nonatomic, strong) NSString *xui_clearButtonMode;
 
-// Regex && Prompt
-
+// Prompt
 @property (nonatomic, strong) NSString *xui_prompt;
 @property (nonatomic, strong) NSString *xui_message;
 @property (nonatomic, strong) NSString *xui_okTitle;
@@ -33,5 +32,8 @@
 + (void)reloadTextFieldStatus:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell isPrompt:(BOOL)prompt;
 
 + (void)savePrompt:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell;
+
+// Validation
+@property (nonatomic, strong) NSString *xui_validationRegex;
 
 @end

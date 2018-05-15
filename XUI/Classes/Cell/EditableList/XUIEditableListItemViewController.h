@@ -20,6 +20,8 @@
 @property (nonatomic, assign, readonly, getter=isAddMode) BOOL addMode;
 @property (nonatomic, weak) id <XUIEditableListItemViewControllerDelegate> delegate;
 @property (nonatomic, strong, readonly) NSString *content;
+@property (nonatomic, strong) NSRegularExpression *validationRegex;
+
 - (instancetype)initWithContent:(NSString *)content;
 
 @end

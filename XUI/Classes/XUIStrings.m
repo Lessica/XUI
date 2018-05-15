@@ -73,6 +73,9 @@
       @"The number of item exceeded the \"maxCount\" limit (%lu).": @"项目数量超出 \"maxCount\" 限制数量 (%lu).",
       @"Value": @"值",
       @"This feature requires iOS %@ or later.": @"该功能需要 iOS %@ 或更高版本.",
+      @"Field \"%@\" cannot be parsed into a regular expression: %@": @"键 \"%@\" 无法被解析为正则表达式: %@",
+      @"Cannot save value: %@": @"无法保存值: %@",
+      @"Validation failed.": @"校验失败.",
       };
 }
 
