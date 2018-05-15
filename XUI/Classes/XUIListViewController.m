@@ -236,7 +236,7 @@
         tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 44.f;
-        tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
+        tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag; // instead of Interactive
         XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_9) {
             tableView.cellLayoutMarginsFollowReadableWidth = NO;
@@ -418,6 +418,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.tableView) {
+        [tableView endEditing:YES];
         XUIBaseCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         BOOL readonly = [cell.xui_readonly boolValue];
         if (readonly) {

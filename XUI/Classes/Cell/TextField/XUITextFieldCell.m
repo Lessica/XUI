@@ -10,13 +10,14 @@
 #import "XUIPrivate.h"
 #import "XUILogger.h"
 
-@interface XUITextFieldCell () <UITextFieldDelegate>
+@interface XUITextFieldCell ()
 
 @property (strong, nonatomic) UILabel *cellTitleLabel;
 @property (strong, nonatomic) NSLayoutConstraint *leftConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *titleWidthConstraint;
 
 @property (nonatomic, assign) NSUInteger maxLength;
+@property (nonatomic, strong) NSRegularExpression *expression;
 
 @end
 
@@ -41,6 +42,10 @@
       @"value": [NSString class],
       @"maxLength": [NSNumber class],
       @"clearButtonMode": [NSString class],
+      @"prompt": [NSString class],
+      @"message": [NSString class],
+      @"okTitle": [NSString class],
+      @"cancelTitle": [NSString class],
       };
 }
 
@@ -95,6 +100,7 @@
 
 - (void)setupCell {
     [super setupCell];
+    
     self.cellTitleLabel.text = @"";
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -211,42 +217,7 @@
 
 - (void)setXui_keyboard:(NSString *)xui_keyboard {
     _xui_keyboard = xui_keyboard;
-    XUITextField *cellTextField = self.cellTextField;
-    UIKeyboardType keyboardType = UIKeyboardTypeDefault;
-    if ([xui_keyboard isEqualToString:@"Default"]) {
-        keyboardType = UIKeyboardTypeDefault;
-    }
-    else if ([xui_keyboard isEqualToString:@"ASCIICapable"]) {
-        keyboardType = UIKeyboardTypeASCIICapable;
-    }
-    else if ([xui_keyboard isEqualToString:@"NumbersAndPunctuation"]) {
-        keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-    }
-    else if ([xui_keyboard isEqualToString:@"URL"]) {
-        keyboardType = UIKeyboardTypeURL;
-    }
-    else if ([xui_keyboard isEqualToString:@"NumberPad"]) {
-        keyboardType = UIKeyboardTypeNumberPad;
-    }
-    else if ([xui_keyboard isEqualToString:@"PhonePad"]) {
-        keyboardType = UIKeyboardTypePhonePad;
-    }
-    else if ([xui_keyboard isEqualToString:@"NamePhonePad"]) {
-        keyboardType = UIKeyboardTypeNamePhonePad;
-    }
-    else if ([xui_keyboard isEqualToString:@"EmailAddress"]) {
-        keyboardType = UIKeyboardTypeEmailAddress;
-    }
-    else if ([xui_keyboard isEqualToString:@"DecimalPad"]) {
-        keyboardType = UIKeyboardTypeDecimalPad;
-    }
-    else if ([xui_keyboard isEqualToString:@"Alphabet"]) {
-        keyboardType = UIKeyboardTypeASCIICapable;
-    }
-    else {
-        keyboardType = UIKeyboardTypeDefault;
-    }
-    cellTextField.keyboardType = keyboardType;
+    [self.class reloadTextFieldStatus:self.cellTextField forTextFieldCell:self isPrompt:NO];
 }
 
 - (void)setXui_clearButtonMode:(NSString *)xui_clearButtonMode {
@@ -267,45 +238,22 @@
 
 - (void)setXui_placeholder:(NSString *)xui_placeholder {
     _xui_placeholder = xui_placeholder;
-    self.cellTextField.placeholder = xui_placeholder;
-    [self reloadPlaceholderAttributes];
+    [self.class reloadPlaceholderAttributes:self.cellTextField forTextFieldCell:self];
 }
 
 - (void)setXui_isSecure:(NSNumber *)xui_isSecure {
     _xui_isSecure = xui_isSecure;
-    BOOL isSecure = [xui_isSecure boolValue];
-    self.cellTextField.secureTextEntry = isSecure;
+    [self.class reloadTextFieldStatus:self.cellTextField forTextFieldCell:self isPrompt:NO];
 }
 
 - (void)setXui_alignment:(NSString *)xui_alignment {
     _xui_alignment = xui_alignment;
-    UITextField *textField = self.cellTextField;
-    NSTextAlignment alignment = NSTextAlignmentNatural;
-    if ([xui_alignment isEqualToString:@"Left"]) {
-        alignment = NSTextAlignmentLeft;
-    }
-    else if ([xui_alignment isEqualToString:@"Center"]) {
-        alignment = NSTextAlignmentCenter;
-    }
-    else if ([xui_alignment isEqualToString:@"Right"]) {
-        alignment = NSTextAlignmentRight;
-    }
-    else if ([xui_alignment isEqualToString:@"Natural"]) {
-        alignment = NSTextAlignmentNatural;
-    }
-    else if ([xui_alignment isEqualToString:@"Justified"]) {
-        alignment = NSTextAlignmentJustified;
-    }
-    else {
-        alignment = NSTextAlignmentNatural;
-    }
-    textField.textAlignment = alignment;
+    [self.class reloadTextFieldStatus:self.cellTextField forTextFieldCell:self isPrompt:NO];
 }
 
 - (void)setXui_readonly:(NSNumber *)xui_readonly {
     [super setXui_readonly:xui_readonly];
-    BOOL readonly = [xui_readonly boolValue];
-    self.cellTextField.enabled = !readonly;
+    [self.class reloadTextFieldStatus:self.cellTextField forTextFieldCell:self isPrompt:NO];
 }
 
 - (void)setXui_label:(NSString *)xui_label {
@@ -316,18 +264,19 @@
 
 - (void)setXui_value:(id)xui_value {
     _xui_value = xui_value;
-    self.cellTextField.text = xui_value;
+    [self.class reloadTextAttributes:self.cellTextField forTextFieldCell:self];
 }
 
 - (void)setInternalTheme:(XUITheme *)theme {
     [super setInternalTheme:theme];
+    self.cellTitleLabel.textColor = theme.labelColor;
     XUITextField *textField = self.cellTextField;
     textField.tintColor = theme.caretColor;
-    self.cellTitleLabel.textColor = theme.labelColor;
     textField.textColor = theme.textColor;
     [textField setColorButtonClearNormal:[theme.textColor colorWithAlphaComponent:0.6]];
     [textField setColorButtonClearHighlighted:theme.textColor];
-    [self reloadPlaceholderAttributes];
+    [self.class reloadTextAttributes:textField forTextFieldCell:self];
+    [self.class reloadPlaceholderAttributes:textField forTextFieldCell:self];
     if (theme.isBackgroundDark) {
         textField.keyboardAppearance = UIKeyboardAppearanceDark;
     } else {
@@ -342,7 +291,42 @@
     }
 }
 
-- (void)reloadPlaceholderAttributes {
+- (void)setXui_prompt:(NSString *)xui_prompt {
+    _xui_prompt = xui_prompt;
+    [self.class reloadTextFieldStatus:self.cellTextField forTextFieldCell:self isPrompt:NO];
+}
+
+- (void)setXui_message:(NSString *)xui_message {
+    _xui_message = xui_message;
+    [self.class reloadTextFieldStatus:self.cellTextField forTextFieldCell:self isPrompt:NO];
+}
+
++ (void)reloadTextAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell {
+    UIFont *font = nil;
+    XUI_START_IGNORE_PARTIAL
+    if (XUI_SYSTEM_8_2) {
+        font = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
+    } else {
+        font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
+    }
+    XUI_END_IGNORE_PARTIAL
+    NSString *text = [cell.xui_value copy];
+    UIColor *textColor = [cell.internalTheme.textColor copy];
+    if (textColor && font) {
+        NSDictionary *attributes = @{ NSForegroundColorAttributeName: textColor, NSFontAttributeName: font };
+        textField.font = font;
+        textField.textColor = textColor;
+        textField.typingAttributes = attributes;
+        if (text) {
+            NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
+            textField.attributedText = attributedText;
+        }
+    } else if (text) {
+        textField.text = text;
+    }
+}
+
++ (void)reloadPlaceholderAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell {
     UIFont *placeholderFont = nil;
     XUI_START_IGNORE_PARTIAL
     if (XUI_SYSTEM_8_2) {
@@ -351,20 +335,114 @@
         placeholderFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
     }
     XUI_END_IGNORE_PARTIAL
-    NSString *placeholder = self.xui_placeholder;
-    UIColor *placeholderColor = self.internalTheme.placeholderColor;
-    if (placeholder.length > 0 && placeholderColor && placeholderFont) {
+    NSString *placeholder = [cell.xui_placeholder copy];
+    UIColor *placeholderColor = [cell.internalTheme.placeholderColor copy];
+    if (placeholderColor && placeholderFont) {
         NSDictionary *attributes = @{ NSForegroundColorAttributeName: placeholderColor, NSFontAttributeName: placeholderFont };
-        NSMutableAttributedString *attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:placeholder attributes:attributes];
-        self.cellTextField.attributedPlaceholder = attributedPlaceholder;
+        if (placeholder) {
+            NSMutableAttributedString *attributedPlaceholder = [[NSMutableAttributedString alloc] initWithString:placeholder attributes:attributes];
+            textField.attributedPlaceholder = attributedPlaceholder;
+        }
+    } else if (placeholder) {
+        textField.placeholder = placeholder;
     }
+}
+
++ (void)reloadTextFieldStatus:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell isPrompt:(BOOL)prompt
+{
+    BOOL readonly = (cell.xui_readonly != nil && [cell.xui_readonly boolValue] == YES);
+    
+    if (!prompt) {
+        if ((cell.xui_prompt && cell.xui_prompt.length != 0) ||
+            (cell.xui_message && cell.xui_message.length != 0) ||
+            (readonly))
+        {
+            textField.enabled = NO;
+            if (readonly) {
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            } else {
+                cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            }
+        }
+        else
+        {
+            textField.enabled = YES;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        NSTextAlignment alignment = NSTextAlignmentNatural;
+        if ([cell.xui_alignment isEqualToString:@"Left"]) {
+            alignment = NSTextAlignmentLeft;
+        }
+        else if ([cell.xui_alignment isEqualToString:@"Center"]) {
+            alignment = NSTextAlignmentCenter;
+        }
+        else if ([cell.xui_alignment isEqualToString:@"Right"]) {
+            alignment = NSTextAlignmentRight;
+        }
+        else if ([cell.xui_alignment isEqualToString:@"Natural"]) {
+            alignment = NSTextAlignmentNatural;
+        }
+        else if ([cell.xui_alignment isEqualToString:@"Justified"]) {
+            alignment = NSTextAlignmentJustified;
+        }
+        else {
+            alignment = NSTextAlignmentNatural;
+        }
+        textField.textAlignment = alignment;
+    }
+    
+    BOOL isSecure = (cell.xui_isSecure != nil && [cell.xui_isSecure boolValue] == YES);
+    textField.secureTextEntry = isSecure;
+    
+    UIKeyboardType keyboardType = UIKeyboardTypeDefault;
+    if ([cell.xui_keyboard isEqualToString:@"Default"]) {
+        keyboardType = UIKeyboardTypeDefault;
+    }
+    else if ([cell.xui_keyboard isEqualToString:@"ASCIICapable"]) {
+        keyboardType = UIKeyboardTypeASCIICapable;
+    }
+    else if ([cell.xui_keyboard isEqualToString:@"NumbersAndPunctuation"]) {
+        keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    }
+    else if ([cell.xui_keyboard isEqualToString:@"URL"]) {
+        keyboardType = UIKeyboardTypeURL;
+    }
+    else if ([cell.xui_keyboard isEqualToString:@"NumberPad"]) {
+        keyboardType = UIKeyboardTypeNumberPad;
+    }
+    else if ([cell.xui_keyboard isEqualToString:@"PhonePad"]) {
+        keyboardType = UIKeyboardTypePhonePad;
+    }
+    else if ([cell.xui_keyboard isEqualToString:@"NamePhonePad"]) {
+        keyboardType = UIKeyboardTypeNamePhonePad;
+    }
+    else if ([cell.xui_keyboard isEqualToString:@"EmailAddress"]) {
+        keyboardType = UIKeyboardTypeEmailAddress;
+    }
+    else if ([cell.xui_keyboard isEqualToString:@"DecimalPad"]) {
+        keyboardType = UIKeyboardTypeDecimalPad;
+    }
+    else if ([cell.xui_keyboard isEqualToString:@"Alphabet"]) {
+        keyboardType = UIKeyboardTypeASCIICapable;
+    }
+    else {
+        keyboardType = UIKeyboardTypeDefault;
+    }
+    textField.keyboardType = keyboardType;
+}
+
++ (void)savePrompt:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell {
+    cell.xui_value = textField.text ? [NSString stringWithString:textField.text] : nil;
+    [cell.adapter saveDefaultsFromCell:cell];
 }
 
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    self.xui_value = textField.text;
-    [self.adapter saveDefaultsFromCell:self];
+    if (textField == self.cellTextField) {
+        [self.class savePrompt:textField forTextFieldCell:self];
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

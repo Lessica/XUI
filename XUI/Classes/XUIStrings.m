@@ -65,12 +65,14 @@
       @"Manage Items": @"编辑项目",
       @"No Item": @"无项目",
       @"OK": @"好",
+      @"Cancel": @"取消",
       @"Others": @"其它",
       @"Selected": @"已选择",
       @"the value \"%@\" of key \"%@\" is invalid.": @"值 \"%@\" 键 \"%@\" 是无效的.",
       @"XUI Error": @"XUI 错误",
       @"The number of item exceeded the \"maxCount\" limit (%lu).": @"项目数量超出 \"maxCount\" 限制数量 (%lu).",
       @"Value": @"值",
+      @"This feature requires iOS %@ or later.": @"该功能需要 iOS %@ 或更高版本.",
       };
 }
 

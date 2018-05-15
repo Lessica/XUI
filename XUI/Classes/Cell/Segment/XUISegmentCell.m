@@ -64,7 +64,7 @@
     [self.contentView addSubview:self.cellTitleLabel];
     [self.contentView addSubview:self.cellSegmentControl];
     {
-        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:16.0];
+        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:20.0];
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           self.leftConstraint,
