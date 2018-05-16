@@ -32,24 +32,21 @@
       };
 }
 
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    if (superResult) {
-        NSString *checkType = kXUICellFactoryErrorDomain;
-        NSString *regexString = cellEntry[@"validationRegex"];
-        if (regexString) {
-            NSError *regexError = nil;
-            NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:regexString options:0 error:&regexError];
-            if (!regex) {
-                checkType = kXUICellFactoryErrorInvalidValueDomain;
-                NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"validationRegex", regexString];
-                NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-                if (error) *error = exceptionError;
-                return NO;
-            }
++ (BOOL)testValue:(id)value forKey:(NSString *)key error:(NSError **)error {
+    if ([key isEqualToString:@"validationRegex"]) {
+        NSError *regexError = nil;
+        NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:value options:0 error:&regexError];
+        if (!regex)
+        {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"validationRegex", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorInvalidValueDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
         }
     }
-    return superResult;
+    return [super testValue:value forKey:key error:error];
 }
 
 - (void)setupCell {

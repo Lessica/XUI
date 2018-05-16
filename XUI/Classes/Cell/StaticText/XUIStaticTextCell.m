@@ -40,23 +40,18 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
       };
 }
 
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    if (superResult) {
-        NSString *checkType = kXUICellFactoryErrorDomain;
-        NSString *alignmentString = cellEntry[@"alignment"];
-        if (alignmentString) {
-            NSArray <NSString *> *validAlignment = @[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ];
-            if (![validAlignment containsObject:alignmentString]) {
-                checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"alignment", alignmentString];
-                NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-                if (error) *error = exceptionError;
-                return NO;
-            }
++ (BOOL)testValue:(id)value forKey:(NSString *)key error:(NSError **)error {
+    if ([key isEqualToString:@"alignment"]) {
+        if (NO == [@[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ] containsObject:value]) {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"alignment", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorUnknownEnumDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
         }
     }
-    return superResult;
+    return [super testValue:value forKey:key error:error];
 }
 
 #pragma mark - Setup

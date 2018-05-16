@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSLayoutConstraint *titleWidthConstraint;
 
 @property (nonatomic, assign) NSUInteger maxLength;
+@property (strong, nonatomic) NSRegularExpression *validationRegex;
 
 @end
 
@@ -49,65 +50,50 @@
       };
 }
 
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    if (superResult) {
-        NSString *checkType = kXUICellFactoryErrorDomain;
-        {
-            NSString *alignmentString = cellEntry[@"alignment"];
-            if (alignmentString) {
-                NSArray <NSString *> *validAlignment = @[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ];
-                if (![validAlignment containsObject:alignmentString]) {
-                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"alignment", alignmentString];
-                    NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-                    if (error) *error = exceptionError;
-                    return NO;
-                }
-            }
-        }
-        {
-            NSString *keyboardString = cellEntry[@"keyboard"];
-            if (keyboardString) {
-                NSArray <NSString *> *validKeyboard = @[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad", @"Alphabet" ];
-                if (![validKeyboard containsObject:keyboardString]) {
-                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"keyboard", keyboardString];
-                    NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-                    if (error) *error = exceptionError;
-                    return NO;
-                }
-            }
-        }
-        {
-            NSString *clearButtonModeString = cellEntry[@"clearButtonMode"];
-            if (clearButtonModeString) {
-                NSArray <NSString *> *validClearButtonModeString = @[ @"Never", @"WhileEditing", @"UnlessEditing", @"Always" ];
-                if (![validClearButtonModeString containsObject:clearButtonModeString]) {
-                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"clearButtonMode", clearButtonModeString];
-                    NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-                    if (error) *error = exceptionError;
-                    return NO;
-                }
-            }
-        }
-        {
-            NSString *regexString = cellEntry[@"validationRegex"];
-            if (regexString) {
-                NSError *regexError = nil;
-                NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:regexString options:0 error:&regexError];
-                if (!regex) {
-                    checkType = kXUICellFactoryErrorInvalidValueDomain;
-                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"validationRegex", regexString];
-                    NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-                    if (error) *error = exceptionError;
-                    return NO;
-                }
-            }
++ (BOOL)testValue:(id)value forKey:(NSString *)key error:(NSError **)error {
+    if ([key isEqualToString:@"alignment"]) {
+        if (NO == [@[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ] containsObject:value]) {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"alignment", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorUnknownEnumDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
         }
     }
-    return superResult;
+    else if ([key isEqualToString:@"keyboard"]) {
+        if (NO == [@[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad", @"Alphabet" ] containsObject:value]) {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"keyboard", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorUnknownEnumDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
+        }
+    }
+    else if ([key isEqualToString:@"clearButtonMode"]) {
+        if (NO == [@[ @"Never", @"WhileEditing", @"UnlessEditing", @"Always" ] containsObject:value]) {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"clearButtonMode", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorUnknownEnumDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
+        }
+    }
+    else if ([key isEqualToString:@"validationRegex"]) {
+        NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:value options:0 error:nil];
+        if (!regex)
+        {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"validationRegex", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorInvalidValueDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
+        }
+    }
+    return [super testValue:value forKey:key error:error];
 }
 
 #pragma mark - Setup
@@ -331,6 +317,11 @@
     [self.class reloadTextFieldStatus:self.cellTextField forTextFieldCell:self isPrompt:NO];
 }
 
+- (void)setXui_validationRegex:(NSString *)xui_validationRegex {
+    _xui_validationRegex = xui_validationRegex;
+    _validationRegex = [[NSRegularExpression alloc] initWithPattern:xui_validationRegex options:0 error:nil];
+}
+
 + (void)reloadTextAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell {
     UIFont *font = nil;
     XUI_START_IGNORE_PARTIAL
@@ -471,7 +462,25 @@
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    if (textField == self.cellTextField) {
+    if (textField == self.cellTextField)
+    {
+        NSString *raw = self.xui_value;
+        NSRegularExpression *validationRegex = self.validationRegex;
+        NSString *content = textField.text;
+        if ([content isEqualToString:raw]) {
+            return; // skip save
+        } else {
+            if (validationRegex)
+            {
+                NSTextCheckingResult *result
+                = [validationRegex firstMatchInString:content options:0 range:NSMakeRange(0, content.length)];
+                if (!result)
+                { // validation failed, restore to raw content.
+                    textField.text = raw;
+                    return;
+                }
+            }
+        }
         [self.class savePrompt:textField forTextFieldCell:self];
     }
 }

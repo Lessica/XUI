@@ -42,6 +42,7 @@
         return;
     }
     
+    NSString *raw = textFieldCell.xui_value;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
     XUI_START_IGNORE_PARTIAL
@@ -81,17 +82,21 @@
     [center addObserverForName:UITextFieldTextDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification * _Nonnull aNotification) {
         UITextField *textField = (UITextField *)aNotification.object;
         NSString *content = textField.text;
-        if (validationRegex)
-        {
-            NSTextCheckingResult *result
-            = [validationRegex firstMatchInString:content options:0 range:NSMakeRange(0, content.length)];
-            if (!result)
-            { // validation failed
-                submitAction.enabled = NO;
-            }
-            else
+        if ([content isEqualToString:raw]) {
+            submitAction.enabled = NO;
+        } else {
+            if (validationRegex)
             {
-                submitAction.enabled = YES;
+                NSTextCheckingResult *result
+                = [validationRegex firstMatchInString:content options:0 range:NSMakeRange(0, content.length)];
+                if (!result)
+                { // validation failed
+                    submitAction.enabled = NO;
+                }
+                else
+                {
+                    submitAction.enabled = YES;
+                }
             }
         }
     }];

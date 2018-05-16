@@ -83,7 +83,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     return @{};
 }
 
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
++ (BOOL)testEntry:(NSDictionary *)cellEntry error:(NSError **)error {
     NSMutableDictionary *baseTypes =
     [@{
       @"cell": [NSString class],
@@ -97,30 +97,39 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
       @"postNotification": [NSString class],
       } mutableCopy];
     [baseTypes addEntriesFromDictionary:[self.class entryValueTypes]];
-    NSString *checkType = kXUICellFactoryErrorDomain;
     for (NSString *pairKey in cellEntry.allKeys) {
         Class pairClass = baseTypes[pairKey];
         if (pairClass) {
             if (![cellEntry[pairKey] isKindOfClass:pairClass]) {
-                checkType = kXUICellFactoryErrorInvalidTypeDomain;
-                NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\", should be \"%@\"."], pairKey, NSStringFromClass(pairClass)];
-                NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+                NSString *errorReason
+                = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\", should be \"%@\"."], pairKey, NSStringFromClass(pairClass)];
+                NSError *exceptionError
+                = [NSError errorWithDomain:kXUICellFactoryErrorInvalidTypeDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
                 if (error) *error = exceptionError;
                 return NO;
             }
         }
     }
-    {
-        NSString *renderingModeString = cellEntry[@"iconRenderingMode"];
-        if (renderingModeString) {
-            NSArray <NSString *> *validRenderingModes = @[ @"Automatic", @"AlwaysOriginal", @"AlwaysTemplate", ];
-            if (![validRenderingModes containsObject:renderingModeString]) {
-                checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"iconRenderingMode", renderingModeString];
-                NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-                if (error) *error = exceptionError;
-                return NO;
-            }
+    for (NSString *pairKey in cellEntry.allKeys) {
+        id pairValue = cellEntry[pairKey];
+        BOOL testResult = [self testValue:pairValue forKey:pairKey error:error];
+        if (!testResult) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
++ (BOOL)testValue:(id)value forKey:(NSString *)key error:(NSError **)error {
+    if ([key isEqualToString:@"iconRenderingMode"]) {
+        if (NO == [@[ @"Automatic", @"AlwaysOriginal", @"AlwaysTemplate" ] containsObject:value])
+        {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"iconRenderingMode", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorUnknownEnumDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
         }
     }
     return YES;

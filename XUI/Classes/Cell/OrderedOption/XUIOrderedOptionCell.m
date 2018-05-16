@@ -48,24 +48,6 @@
       };
 }
 
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    if (superResult) {
-        NSString *checkType = kXUICellFactoryErrorDomain;
-        NSArray *validOptions = cellEntry[@"options"];
-        NSUInteger maxCount = [cellEntry[@"maxCount"] unsignedIntegerValue];
-        NSUInteger minCount = [cellEntry[@"minCount"] unsignedIntegerValue];
-        if (maxCount > validOptions.count || minCount > maxCount) {
-            checkType = kXUICellFactoryErrorInvalidValueDomain;
-            NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"the value \"%@\" of key \"%@\" is invalid."], cellEntry[@"maxCount"], @"maxCount"];
-            NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-            if (error) *error = exceptionError;
-            return NO;
-        }
-    }
-    return superResult;
-}
-
 - (void)setupCell {
     [super setupCell];
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

@@ -43,8 +43,8 @@ extern NSString * XUIBaseCellReuseIdentifier;
 
 #pragma mark - Validators
 + (NSDictionary <NSString *, Class> *)entryValueTypes;
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error NS_REQUIRES_SUPER;
-
++ (BOOL)testEntry:(NSDictionary *)cellEntry error:(NSError **)error NS_REQUIRES_SUPER;
++ (BOOL)testValue:(id)value forKey:(NSString *)key error:(NSError **)error NS_REQUIRES_SUPER;
 
 // ----
 // You should not override methods below.

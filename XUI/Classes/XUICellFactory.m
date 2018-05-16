@@ -119,7 +119,7 @@
             cellInstance = [[cellClass alloc] init];
         }
         NSError *checkError = nil;
-        BOOL checkResult = [[cellInstance class] testEntry:itemDictionary withError:&checkError];
+        BOOL checkResult = [[cellInstance class] testEntry:itemDictionary error:&checkError];
         if (!checkResult) {
             [self.logger logMessage:[NSString stringWithFormat:[XUIStrings localizedStringForString:@"[%@]\nPath \"items[%lu]\", %@"], checkError.domain, itemIdx, checkError.localizedDescription]];
             continue;
@@ -258,7 +258,7 @@ static NSTimeInterval _kXUILastReloadTime = 0.0;
                 [cell.xui_key isEqualToString:cellKey]
                 ) {
                 NSDictionary *testEntry = @{ @"value": cellValue };
-                BOOL testResult = [[cell class] testEntry:testEntry withError:nil];
+                BOOL testResult = [[cell class] testEntry:testEntry error:nil];
                 if (testResult) {
                     cell.xui_value = cellValue;
                 }
@@ -280,8 +280,9 @@ static NSTimeInterval _kXUILastReloadTime = 0.0;
                 [cell.xui_key isEqualToString:cellKey]
                 ) {
                 NSDictionary *testEntry = @{ @"value": cellValue };
-                BOOL testResult = [[cell class] testEntry:testEntry withError:nil];
-                if (testResult) {
+                BOOL testResult = [[cell class] testEntry:testEntry error:nil];
+                if (testResult)
+                {
                     cell.xui_value = cellValue;
                 }
             }

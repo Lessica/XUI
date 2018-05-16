@@ -35,64 +35,50 @@
       };
 }
 
-+ (BOOL)testEntry:(NSDictionary *)cellEntry withError:(NSError **)error {
-    BOOL superResult = [super testEntry:cellEntry withError:error];
-    if (superResult) {
-        NSString *checkType = kXUICellFactoryErrorDomain;
-        {
-            NSString *alignmentString = cellEntry[@"alignment"];
-            if (alignmentString) {
-                NSArray <NSString *> *validAlignment = @[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ];
-                if (![validAlignment containsObject:alignmentString]) {
-                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"alignment", alignmentString];
-                    NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-                    if (error) *error = exceptionError;
-                    return NO;
-                }
-            }
-        }
-        {
-            NSString *keyboardString = cellEntry[@"keyboard"];
-            if (keyboardString) {
-                NSArray <NSString *> *validKeyboard = @[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad", @"Alphabet" ];
-                if (![validKeyboard containsObject:keyboardString]) {
-                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"keyboard", keyboardString];
-                    NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-                    if (error) *error = exceptionError;
-                    return NO;
-                }
-            }
-        }
-        {
-            NSString *autoCapitalizationString = cellEntry[@"autoCapitalization"];
-            if (autoCapitalizationString) {
-                NSArray <NSString *> *validAutoCaps = @[ @"Sentences", @"Words", @"AllCharacters", @"None" ];
-                if (![validAutoCaps containsObject:autoCapitalizationString]) {
-                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"autoCapitalization", autoCapitalizationString];
-                    NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-                    if (error) *error = exceptionError;
-                    return NO;
-                }
-            }
-        }
-        {
-            NSString *autoCorrectionString = cellEntry[@"autoCorrection"];
-            if (autoCorrectionString) {
-                NSArray <NSString *> *validAutoCorrection = @[ @"Default", @"No", @"Yes" ];
-                if (![validAutoCorrection containsObject:autoCorrectionString]) {
-                    checkType = kXUICellFactoryErrorUnknownEnumDomain;
-                    NSString *errorReason = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"autoCorrection", autoCorrectionString];
-                    NSError *exceptionError = [NSError errorWithDomain:checkType code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
-                    if (error) *error = exceptionError;
-                    return NO;
-                }
-            }
++ (BOOL)testValue:(id)value forKey:(NSString *)key error:(NSError **)error {
+    if ([key isEqualToString:@"alignment"]) {
+        if (NO == [@[ @"Left", @"Right", @"Center", @"Natural", @"Justified" ] containsObject:value]) {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"alignment", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorUnknownEnumDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
         }
     }
-    return superResult;
+    else if ([key isEqualToString:@"keyboard"]) {
+        if (NO == [@[ @"Default", @"ASCIICapable", @"NumbersAndPunctuation", @"URL", @"NumberPad", @"PhonePad", @"NamePhonePad", @"EmailAddress", @"DecimalPad", @"Alphabet" ] containsObject:value]) {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"keyboard", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorUnknownEnumDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
+        }
+    }
+    else if ([key isEqualToString:@"autoCapitalization"]) {
+        if (NO == [@[ @"Sentences", @"Words", @"AllCharacters", @"None" ] containsObject:value])
+        {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"autoCapitalization", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorUnknownEnumDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
+        }
+    }
+    else if ([key isEqualToString:@"autoCorrection"]) {
+        if (NO == [@[ @"Default", @"No", @"Yes" ] containsObject:value])
+        {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"autoCorrection", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorUnknownEnumDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
+        }
+    }
+    return [super testValue:value forKey:key error:error];
 }
 
 - (void)setupCell {
