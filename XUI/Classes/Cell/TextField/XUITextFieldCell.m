@@ -374,9 +374,9 @@
     BOOL readonly = (cell.xui_readonly != nil && [cell.xui_readonly boolValue] == YES);
     
     if (!prompt) {
-        if ((cell.xui_prompt && cell.xui_prompt.length != 0) ||
-            (cell.xui_message && cell.xui_message.length != 0) ||
-            (readonly))
+        if (XUI_SYSTEM_8 && ((cell.xui_prompt && cell.xui_prompt.length != 0) ||
+                             (cell.xui_message && cell.xui_message.length != 0) ||
+                             (readonly)))
         {
             textField.enabled = NO;
             if (readonly) {
