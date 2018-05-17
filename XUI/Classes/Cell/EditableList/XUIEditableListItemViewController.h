@@ -21,6 +21,7 @@
 @property (nonatomic, weak) id <XUIEditableListItemViewControllerDelegate> delegate;
 @property (nonatomic, strong, readonly) NSString *content;
 @property (nonatomic, strong) NSRegularExpression *validationRegex;
+@property (nonatomic, strong) NSString *footerText;
 
 - (instancetype)initWithContent:(NSString *)content;
 

@@ -27,6 +27,7 @@
     @{
       @"maxCount": [NSNumber class],
       @"footerText": [NSString class],
+      @"itemFooterText": [NSString class],
       @"value": [NSArray class],
       @"validationRegex": [NSString class],
       };

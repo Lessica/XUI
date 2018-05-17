@@ -115,6 +115,13 @@
     return [XUIBaseCell new];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (0 == section) {
+        return self.footerText;
+    }
+    return nil;
+}
+
 - (void)addOrSaveItemTapped:(UIBarButtonItem *)sender {
     NSString *newContent = self.textFieldCell.cellTextField.text;
     _content = newContent;

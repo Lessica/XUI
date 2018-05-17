@@ -386,6 +386,7 @@ XUI_END_IGNORE_PARTIAL
     itemViewController.cellFactory.theme = self.cellFactory.theme;
     itemViewController.cellFactory.adapter = self.cellFactory.adapter;
     itemViewController.validationRegex = self.validationRegex;
+    itemViewController.footerText = [self.adapter localizedStringForKey:self.cell.xui_itemFooterText value:self.cell.xui_itemFooterText];
     itemViewController.delegate = self;
     [self.navigationController pushViewController:itemViewController animated:YES];
 }

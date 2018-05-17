@@ -11,6 +11,7 @@
 
 @property (nonatomic, strong) NSNumber *xui_maxCount;
 @property (nonatomic, strong) NSString *xui_footerText;
+@property (nonatomic, strong) NSString *xui_itemFooterText;
 @property (nonatomic, strong) NSString *xui_validationRegex;
 
 @end
