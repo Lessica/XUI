@@ -33,6 +33,7 @@
 
 
 #pragma mark - Localization
+- (NSString *)localizedString:(NSString *)string;
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value;
 
 @end

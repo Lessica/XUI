@@ -157,6 +157,10 @@
     }
 }
 
+- (NSString *)localizedString:(NSString *)string {
+    return [self localizedStringForKey:string value:string];
+}
+
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value {
     NSString *localized = [self.bundle localizedStringForKey:key value:value table:self.stringsTable];
     return localized ? localized : value;

@@ -46,8 +46,8 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
     XUI_START_IGNORE_PARTIAL
-    NSString *alertTitle = textFieldCell.xui_prompt ? [NSString stringWithString:textFieldCell.xui_prompt] : nil;
-    NSString *alertBody = textFieldCell.xui_message ? [NSString stringWithString:textFieldCell.xui_message] : nil;
+    NSString *alertTitle = textFieldCell.xui_prompt ? [self.adapter localizedString:[NSString stringWithString:textFieldCell.xui_prompt]] : nil;
+    NSString *alertBody = textFieldCell.xui_message ? [self.adapter localizedString:[NSString stringWithString:textFieldCell.xui_message]] : nil;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle message:alertBody preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         [XUITextFieldCell reloadTextAttributes:textField forTextFieldCell:textFieldCell];
@@ -55,14 +55,14 @@
         [XUITextFieldCell reloadTextFieldStatus:textField forTextFieldCell:textFieldCell isPrompt:YES];
         textField.delegate = textFieldCell;
     }];
-    NSString *cancelTitle = textFieldCell.xui_cancelTitle ? [NSString stringWithString:textFieldCell.xui_cancelTitle] : nil;
+    NSString *cancelTitle = textFieldCell.xui_cancelTitle ? [self.adapter localizedString:[NSString stringWithString:textFieldCell.xui_cancelTitle]] : nil;
     if (cancelTitle.length == 0) cancelTitle = [XUIStrings localizedStringForString:@"Cancel"];
     __weak typeof(self) weakSelf = self;
     [alertController addAction:[UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         __strong typeof(self) strongSelf = weakSelf;
         [center removeObserver:strongSelf name:UITextFieldTextDidChangeNotification object:nil];
     }]];
-    NSString *okTitle = textFieldCell.xui_okTitle ? [NSString stringWithString:textFieldCell.xui_okTitle] : nil;
+    NSString *okTitle = textFieldCell.xui_okTitle ? [self.adapter localizedString:[NSString stringWithString:textFieldCell.xui_okTitle]] : nil;
     if (okTitle.length == 0) okTitle = [XUIStrings localizedStringForString:@"OK"];
     __weak UIAlertController *alertRef = alertController; // avoid memory leak
     UIAlertAction *submitAction = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
