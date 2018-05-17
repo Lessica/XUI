@@ -92,6 +92,13 @@
     return _textFieldCell;
 }
 
+#pragma mark - Setters
+
+- (void)setValidationRegex:(NSRegularExpression *)validationRegex {
+    _validationRegex = validationRegex;
+    self.textFieldCell.validationRegex = validationRegex;
+}
+
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

@@ -36,4 +36,7 @@
 // Validation
 @property (nonatomic, strong) NSString *xui_validationRegex;
 
+// Internal
+@property (strong, nonatomic) NSRegularExpression *validationRegex;
+
 @end

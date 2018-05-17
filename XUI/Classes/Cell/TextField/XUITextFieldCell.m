@@ -17,7 +17,6 @@
 @property (strong, nonatomic) NSLayoutConstraint *titleWidthConstraint;
 
 @property (nonatomic, assign) NSUInteger maxLength;
-@property (strong, nonatomic) NSRegularExpression *validationRegex;
 
 @end
 
@@ -207,6 +206,7 @@
         }
         XUI_END_IGNORE_PARTIAL
 #endif
+        [_cellTextField addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventEditingChanged];
     }
     return _cellTextField;
 }
@@ -323,6 +323,10 @@
 }
 
 + (void)reloadTextAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell {
+    [self reloadTextAttributes:textField forTextFieldCell:cell text:[cell.xui_value copy] textColor:[cell.internalTheme.textColor copy]];
+}
+
++ (void)reloadTextAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell text:(NSString *)text textColor:(UIColor *)textColor {
     UIFont *font = nil;
     XUI_START_IGNORE_PARTIAL
     if (XUI_SYSTEM_8_2) {
@@ -331,14 +335,13 @@
         font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
     }
     XUI_END_IGNORE_PARTIAL
-    NSString *text = [cell.xui_value copy];
-    UIColor *textColor = [cell.internalTheme.textColor copy];
     if (textColor && font) {
         NSDictionary *attributes = @{ NSForegroundColorAttributeName: textColor, NSFontAttributeName: font };
         textField.font = font;
         textField.textColor = textColor;
         textField.typingAttributes = attributes;
-        if (text) {
+        if (text)
+        {
             NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
             textField.attributedText = attributedText;
         }
@@ -453,6 +456,17 @@
     textField.keyboardType = keyboardType;
 }
 
+- (void)setValidated:(BOOL)validated {
+    [super setValidated:validated];
+    if (validated) {
+        self.cellTitleLabel.textColor = self.theme.labelColor;
+        self.cellTextField.textColor = self.theme.textColor;
+    } else {
+        self.cellTitleLabel.textColor = self.theme.dangerColor;
+        self.cellTextField.textColor = self.theme.dangerColor;
+    }
+}
+
 + (void)savePrompt:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell {
     NSString *content = textField.text;
     cell.xui_value = content ? [NSString stringWithString:content] : nil;
@@ -460,6 +474,32 @@
 }
 
 #pragma mark - UITextFieldDelegate
+
+- (void)textFieldValueChanged:(UITextField *)textField {
+    if (textField == self.cellTextField)
+    {
+        NSString *raw = self.xui_value;
+        NSRegularExpression *validationRegex = self.validationRegex;
+        NSString *content = textField.text;
+        if ([content isEqualToString:raw]) {
+            [self setValidated:YES];
+        } else {
+            if (validationRegex)
+            {
+                NSTextCheckingResult *result
+                = [validationRegex firstMatchInString:content options:0 range:NSMakeRange(0, content.length)];
+                if (!result)
+                { // validation failed, show red
+                    [self setValidated:NO];
+                }
+                else
+                { // restore color
+                    [self setValidated:YES];
+                }
+            }
+        }
+    }
+}
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (textField == self.cellTextField)
@@ -477,10 +517,12 @@
                 if (!result)
                 { // validation failed, restore to raw content.
                     textField.text = raw;
+                    [self setValidated:YES];
                     return;
                 }
             }
         }
+        [self setValidated:YES];
         [self.class savePrompt:textField forTextFieldCell:self];
     }
 }

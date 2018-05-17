@@ -14,6 +14,7 @@
 NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 
 @interface XUIBaseCell ()
+@property (nonatomic, strong) UIView *validationView;
 
 @end
 
@@ -153,6 +154,13 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     [self setupCell];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    CGRect contentRect = self.contentView.frame;
+    self.validationView.frame = CGRectMake(0.0, 0.0, 4.0, CGRectGetHeight(contentRect));
+}
+
 - (void)setupCell {
     _xui_readonly = @NO;
     if ([self.class layoutRequiresDynamicRowHeight]) {
@@ -182,6 +190,8 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     }
     UIView *selectionBackground = [[UIView alloc] init];
     self.selectedBackgroundView = selectionBackground;
+    
+    [self.contentView addSubview:self.validationView];
 }
 
 - (void)configureCellWithEntry:(NSDictionary *)entry {
@@ -194,6 +204,14 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
         }
     }
     self.xui_value = entry[@"value"]; // do not change its order
+}
+
+- (UIView *)validationView {
+    if (!_validationView) {
+        _validationView = [[UIView alloc] init];
+        _validationView.hidden = YES;
+    }
+    return _validationView;
 }
 
 #pragma mark - Key Value
@@ -280,6 +298,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
     self.detailTextLabel.textColor = theme.valueColor;
     self.xui_disclosureIndicatorColor = theme.disclosureIndicatorColor;
     self.selectedBackgroundView.backgroundColor = theme.selectedColor;
+    self.validationView.backgroundColor = theme.dangerColor;
 }
 
 - (void)setInternalIconPath:(NSString *)internalIconPath {
@@ -297,7 +316,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 #pragma mark - Default Values
 
 - (XUITheme *)theme {
-    return self.factory.theme;
+    return self.internalTheme ? self.internalTheme : self.factory.theme;
 }
 
 - (id <XUIAdapter>)adapter {
@@ -306,6 +325,17 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 
 - (XUILogger *)logger {
     return self.factory.logger;
+}
+
+#pragma mark - Validation
+
+- (void)setValidated:(BOOL)validated {
+    _validated = validated;
+    if (validated) {
+        self.validationView.hidden = YES;
+    } else {
+        self.validationView.hidden = NO;
+    }
 }
 
 @end

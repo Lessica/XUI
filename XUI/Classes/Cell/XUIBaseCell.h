@@ -46,6 +46,9 @@ extern NSString * XUIBaseCellReuseIdentifier;
 + (BOOL)testEntry:(NSDictionary *)cellEntry error:(NSError **)error NS_REQUIRES_SUPER;
 + (BOOL)testValue:(id)value forKey:(NSString *)key error:(NSError **)error NS_REQUIRES_SUPER;
 
+#pragma mark - Validation
+@property (nonatomic, assign) BOOL validated;
+
 // ----
 // You should not override methods below.
 // ----
