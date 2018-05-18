@@ -9,11 +9,11 @@
 
 @interface XUITextField ()
 
-@property (nonatomic,strong) UIColor *colorButtonClearHighlighted;
-@property (nonatomic,strong) UIColor *colorButtonClearNormal;
+@property (nonatomic, strong) UIColor *colorButtonClearHighlighted;
+@property (nonatomic, strong) UIColor *colorButtonClearNormal;
 
-@property (nonatomic,strong) UIImage *imageButtonClearHighlighted;
-@property (nonatomic,strong) UIImage *imageButtonClearNormal;
+@property (nonatomic, strong) UIImage *imageButtonClearHighlighted;
+@property (nonatomic, strong) UIImage *imageButtonClearNormal;
 
 @end
 

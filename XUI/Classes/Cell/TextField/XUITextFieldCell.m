@@ -105,18 +105,7 @@
     
     UITextField *textField = self.cellTextField;
     textField.delegate = self;
-    textField.clearButtonMode = UITextFieldViewModeNever;
-    textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
-    XUI_START_IGNORE_PARTIAL
-    if ([textField respondsToSelector:@selector(setSmartDashesType:)]) {
-        textField.smartDashesType = UITextSmartDashesTypeNo;
-        textField.smartQuotesType = UITextSmartQuotesTypeNo;
-        textField.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
-    }
-    XUI_END_IGNORE_PARTIAL
-#endif
+    [self.class resetTextFieldStatus:textField];
     
     _maxLength = UINT_MAX;
     
@@ -238,18 +227,7 @@
 
 - (void)setXui_clearButtonMode:(NSString *)xui_clearButtonMode {
     _xui_clearButtonMode = xui_clearButtonMode;
-    XUITextField *cellTextField = self.cellTextField;
-    UITextFieldViewMode clearButtonMode = UITextFieldViewModeNever;
-    if ([xui_clearButtonMode isEqualToString:@"Never"]) {
-        clearButtonMode = UITextFieldViewModeNever;
-    } else if ([xui_clearButtonMode isEqualToString:@"Always"]) {
-        clearButtonMode = UITextFieldViewModeAlways;
-    } else if ([xui_clearButtonMode isEqualToString:@"WhileEditing"]) {
-        clearButtonMode = UITextFieldViewModeWhileEditing;
-    } else if ([xui_clearButtonMode isEqualToString:@"UnlessEditing"]) {
-        clearButtonMode = UITextFieldViewModeUnlessEditing;
-    }
-    cellTextField.clearButtonMode = clearButtonMode;
+    [self.class reloadTextFieldStatus:self.cellTextField forTextFieldCell:self isPrompt:NO];
 }
 
 - (void)setXui_placeholder:(NSString *)xui_placeholder {
@@ -287,17 +265,10 @@
     [super setInternalTheme:theme];
     self.cellTitleLabel.textColor = theme.labelColor;
     XUITextField *textField = self.cellTextField;
-    textField.tintColor = theme.caretColor;
-    textField.textColor = theme.textColor;
     [textField setColorButtonClearNormal:[theme.textColor colorWithAlphaComponent:0.6]];
     [textField setColorButtonClearHighlighted:theme.textColor];
     [self.class reloadTextAttributes:textField forTextFieldCell:self];
     [self.class reloadPlaceholderAttributes:textField forTextFieldCell:self];
-    if (theme.isBackgroundDark) {
-        textField.keyboardAppearance = UIKeyboardAppearanceDark;
-    } else {
-        textField.keyboardAppearance = UIKeyboardAppearanceDefault;
-    }
 }
 
 - (void)setXui_maxLength:(NSNumber *)xui_maxLength {
@@ -323,10 +294,10 @@
 }
 
 + (void)reloadTextAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell {
-    [self reloadTextAttributes:textField forTextFieldCell:cell text:[cell.xui_value copy] textColor:[cell.internalTheme.textColor copy]];
+    [self reloadTextAttributes:textField forTextFieldCell:cell text:[cell.xui_value copy] theme:cell.theme];
 }
 
-+ (void)reloadTextAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell text:(NSString *)text textColor:(UIColor *)textColor {
++ (void)reloadTextAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell text:(NSString *)text theme:(XUITheme *)theme {
     UIFont *font = nil;
     XUI_START_IGNORE_PARTIAL
     if (XUI_SYSTEM_8_2) {
@@ -335,10 +306,11 @@
         font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
     }
     XUI_END_IGNORE_PARTIAL
-    if (textColor && font) {
-        NSDictionary *attributes = @{ NSForegroundColorAttributeName: textColor, NSFontAttributeName: font };
+    if (theme.textColor && theme.caretColor && font) {
+        NSDictionary *attributes = @{ NSForegroundColorAttributeName: theme.textColor, NSFontAttributeName: font };
         textField.font = font;
-        textField.textColor = textColor;
+        textField.textColor = theme.textColor;
+        textField.tintColor = theme.caretColor;
         textField.typingAttributes = attributes;
         if (text)
         {
@@ -347,6 +319,11 @@
         }
     } else if (text) {
         textField.text = text;
+    }
+    if (theme.isBackgroundDark) {
+        textField.keyboardAppearance = UIKeyboardAppearanceDark;
+    } else {
+        textField.keyboardAppearance = UIKeyboardAppearanceDefault;
     }
 }
 
@@ -360,7 +337,7 @@
     }
     XUI_END_IGNORE_PARTIAL
     NSString *placeholder = [cell.xui_placeholder copy];
-    UIColor *placeholderColor = [cell.internalTheme.placeholderColor copy];
+    UIColor *placeholderColor = [cell.theme.placeholderColor copy];
     if (placeholderColor && placeholderFont) {
         NSDictionary *attributes = @{ NSForegroundColorAttributeName: placeholderColor, NSFontAttributeName: placeholderFont };
         if (placeholder) {
@@ -370,6 +347,22 @@
     } else if (placeholder) {
         textField.placeholder = placeholder;
     }
+}
+
++ (void)resetTextFieldStatus:(UITextField *)textField {
+    textField.clearButtonMode = UITextFieldViewModeNever;
+    textField.returnKeyType = UIReturnKeyDone;
+    textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
+    XUI_START_IGNORE_PARTIAL
+    if ([textField respondsToSelector:@selector(setSmartDashesType:)]) {
+        textField.smartDashesType = UITextSmartDashesTypeNo;
+        textField.smartQuotesType = UITextSmartQuotesTypeNo;
+        textField.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
+    }
+    XUI_END_IGNORE_PARTIAL
+#endif
 }
 
 + (void)reloadTextFieldStatus:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell isPrompt:(BOOL)prompt
@@ -454,6 +447,18 @@
         keyboardType = UIKeyboardTypeDefault;
     }
     textField.keyboardType = keyboardType;
+    
+    UITextFieldViewMode clearButtonMode = UITextFieldViewModeNever;
+    if ([cell.xui_clearButtonMode isEqualToString:@"Never"]) {
+        clearButtonMode = UITextFieldViewModeNever;
+    } else if ([cell.xui_clearButtonMode isEqualToString:@"Always"]) {
+        clearButtonMode = UITextFieldViewModeAlways;
+    } else if ([cell.xui_clearButtonMode isEqualToString:@"WhileEditing"]) {
+        clearButtonMode = UITextFieldViewModeWhileEditing;
+    } else if ([cell.xui_clearButtonMode isEqualToString:@"UnlessEditing"]) {
+        clearButtonMode = UITextFieldViewModeUnlessEditing;
+    }
+    textField.clearButtonMode = clearButtonMode;
 }
 
 - (void)setValidated:(BOOL)validated {

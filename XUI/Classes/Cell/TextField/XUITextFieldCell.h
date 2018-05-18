@@ -27,6 +27,7 @@
 @property (nonatomic, strong) NSString *xui_okTitle;
 @property (nonatomic, strong) NSString *xui_cancelTitle;
 
++ (void)resetTextFieldStatus:(UITextField *)textField;
 + (void)reloadTextAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell;
 + (void)reloadPlaceholderAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell;
 + (void)reloadTextFieldStatus:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell isPrompt:(BOOL)prompt;

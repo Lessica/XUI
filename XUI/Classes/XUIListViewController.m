@@ -31,9 +31,6 @@
 @property (nonatomic, strong) UIBarButtonItem *aboutButtonItem;
 @property (nonatomic, assign) UIEdgeInsets defaultContentInsets;
 
-@property (nonatomic, strong) NSString *callerPath;
-@property (nonatomic, strong) NSBundle *callerBundle;
-
 @end
 
 @implementation XUIListViewController

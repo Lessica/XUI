@@ -12,6 +12,12 @@
 
 - (void)tableView:(UITableView *)tableView XUITextFieldCell:(UITableViewCell *)cell
 {
+    
+    if (!XUI_SYSTEM_8)
+    {
+        return;
+    }
+    
     XUITextFieldCell *textFieldCell = (XUITextFieldCell *)cell;
     if (textFieldCell.xui_prompt.length == 0) return;
     
@@ -35,13 +41,6 @@
     if (textFieldCell.xui_maxLength)
         maxLength = [textFieldCell.xui_maxLength unsignedIntegerValue];
     
-    if (!XUI_SYSTEM_8)
-    {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[XUIStrings localizedStringForString:@"XUI Error"] message:[NSString stringWithFormat:[XUIStrings localizedStringForString:@"This feature requires iOS %@ or later."], @"8.0"] delegate:nil cancelButtonTitle:[XUIStrings localizedStringForString:@"OK"] otherButtonTitles:nil];
-        [alertView show];
-        return;
-    }
-    
     NSString *raw = textFieldCell.xui_value;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
@@ -50,6 +49,7 @@
     NSString *alertBody = textFieldCell.xui_message ? [self.adapter localizedString:[NSString stringWithString:textFieldCell.xui_message]] : nil;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle message:alertBody preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        [XUITextFieldCell resetTextFieldStatus:textField];
         [XUITextFieldCell reloadTextAttributes:textField forTextFieldCell:textFieldCell];
         [XUITextFieldCell reloadPlaceholderAttributes:textField forTextFieldCell:textFieldCell];
         [XUITextFieldCell reloadTextFieldStatus:textField forTextFieldCell:textFieldCell isPrompt:YES];
@@ -97,6 +97,10 @@
                 {
                     submitAction.enabled = YES;
                 }
+            }
+            else
+            {
+                submitAction.enabled = YES;
             }
         }
     }];

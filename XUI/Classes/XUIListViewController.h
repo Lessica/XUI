@@ -13,6 +13,9 @@
 
 @interface XUIListViewController : XUIViewController <UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate>
 
+@property (nonatomic, strong, readonly) NSString *callerPath;
+@property (nonatomic, strong, readonly) NSBundle *callerBundle;
+
 
 #pragma mark - Views
 @property (nonatomic, strong, readonly) XUIListHeaderView *headerView;
