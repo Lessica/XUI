@@ -137,8 +137,6 @@
     self.titleWidthConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0];
     if (XUI_SYSTEM_8) {
         [self.contentView addConstraint:self.titleWidthConstraint];
-    } else {
-        
     }
     
     [self reloadLeftConstraints];
@@ -151,8 +149,8 @@
         if (XUI_SYSTEM_8) {
             self.titleWidthConstraint.active = YES;
         } else {
-            if ([self.contentView.constraints containsObject:self.titleWidthConstraint]) {
-                [self.contentView removeConstraint:self.titleWidthConstraint];
+            if (![self.contentView.constraints containsObject:self.titleWidthConstraint]) {
+                [self.contentView addConstraint:self.titleWidthConstraint];
             }
         }
         XUI_END_IGNORE_PARTIAL
@@ -162,8 +160,8 @@
         if (XUI_SYSTEM_8) {
             self.titleWidthConstraint.active = NO;
         } else {
-            if (![self.contentView.constraints containsObject:self.titleWidthConstraint]) {
-                [self.contentView addConstraint:self.titleWidthConstraint];
+            if ([self.contentView.constraints containsObject:self.titleWidthConstraint]) {
+                [self.contentView removeConstraint:self.titleWidthConstraint];
             }
         }
         XUI_END_IGNORE_PARTIAL
