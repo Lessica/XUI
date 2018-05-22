@@ -503,9 +503,7 @@ XUI_END_IGNORE_PARTIAL
 #pragma mark - XUICellFactoryDelegate
 
 - (void)cellFactoryDidFinishParsing:(XUICellFactory *)cellFactory {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
+    [self.tableView reloadData];
 }
 
 - (void)cellFactory:(XUICellFactory *)cellFactory didFailWithError:(NSError *)error {

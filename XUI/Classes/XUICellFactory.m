@@ -22,6 +22,7 @@
 @interface XUICellFactory ()
 
 @property (nonatomic, assign) BOOL shouldReload;
+@property (nonatomic, assign) NSTimeInterval lastReloadTime;
 
 @end
 
@@ -199,7 +200,7 @@
     if (!itemValue || !itemKey || !cellInstance) return;
     NSString *propertyName = [NSString stringWithFormat:@"xui_%@", itemKey];
     if (class_getProperty([cellInstance class], [propertyName UTF8String])) {
-
+        
     } else {
         [self.logger logMessage:[NSString stringWithFormat:XUIParserErrorUndefinedKey(@"items[%lu] -> %@"), itemIdx, propertyName]];
     }
@@ -224,15 +225,13 @@
 
 #pragma mark - Reload
 
-static NSTimeInterval _kXUILastReloadTime = 0.0;
-
 - (void)setNeedsReload {
     NSTimeInterval currentTime = CACurrentMediaTime();
-    if (_kXUILastReloadTime > 0.0 &&
-        fabs(_kXUILastReloadTime - currentTime) < (0.3)) { // max responding interval: 300 ms
+    if (self.lastReloadTime > 0.0 &&
+        fabs(self.lastReloadTime - currentTime) < (0.3)) { // max responding interval: 300 ms
         return;
     }
-    _kXUILastReloadTime = currentTime;
+    self.lastReloadTime = currentTime;
     self.shouldReload = YES;
 }
 
