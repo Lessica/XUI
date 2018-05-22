@@ -155,12 +155,14 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.textLabel.font = [UIFont systemFontOfSize:14.0];
+    header.textLabel.textColor = self.theme.labelColor;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
     if (tableView.style == UITableViewStylePlain) {
         UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
         footer.textLabel.font = [UIFont systemFontOfSize:12.0];
+        footer.textLabel.textColor = self.theme.labelColor;
     }
 }
 

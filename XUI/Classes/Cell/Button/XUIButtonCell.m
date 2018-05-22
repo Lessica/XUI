@@ -64,24 +64,26 @@ NSString * const XUIButtonCellReuseIdentifier = @"XUIButtonCellReuseIdentifier";
 
 - (void)setXui_alignment:(NSString *)xui_alignment {
     _xui_alignment = xui_alignment;
+    NSTextAlignment textAlignment = NSTextAlignmentLeft;
     if ([xui_alignment isEqualToString:@"Left"]) {
-        self.textLabel.textAlignment = NSTextAlignmentLeft;
+        textAlignment = NSTextAlignmentLeft;
     }
     else if ([xui_alignment isEqualToString:@"Center"]) {
-        self.textLabel.textAlignment = NSTextAlignmentCenter;
+        textAlignment = NSTextAlignmentCenter;
     }
     else if ([xui_alignment isEqualToString:@"Right"]) {
-        self.textLabel.textAlignment = NSTextAlignmentRight;
+        textAlignment = NSTextAlignmentRight;
     }
     else if ([xui_alignment isEqualToString:@"Natural"]) {
-        self.textLabel.textAlignment = NSTextAlignmentNatural;
+        textAlignment = NSTextAlignmentNatural;
     }
     else if ([xui_alignment isEqualToString:@"Justified"]) {
-        self.textLabel.textAlignment = NSTextAlignmentJustified;
+        textAlignment = NSTextAlignmentJustified;
     }
     else {
-        self.textLabel.textAlignment = NSTextAlignmentNatural;
+        textAlignment = NSTextAlignmentNatural;
     }
+    self.textLabel.textAlignment = textAlignment;
 }
 
 @end
