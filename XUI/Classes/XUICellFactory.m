@@ -22,7 +22,6 @@
 @interface XUICellFactory ()
 
 @property (nonatomic, assign) BOOL shouldReload;
-@property (nonatomic, assign) NSTimeInterval lastReloadTime;
 
 @end
 
@@ -226,12 +225,6 @@
 #pragma mark - Reload
 
 - (void)setNeedsReload {
-    NSTimeInterval currentTime = CACurrentMediaTime();
-    if (self.lastReloadTime > 0.0 &&
-        fabs(self.lastReloadTime - currentTime) < (0.3)) { // max responding interval: 300 ms
-        return;
-    }
-    self.lastReloadTime = currentTime;
     self.shouldReload = YES;
 }
 
