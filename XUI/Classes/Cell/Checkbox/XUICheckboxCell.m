@@ -11,14 +11,13 @@
 
 #import "XUIPrivate.h"
 #import "XUILogger.h"
-#import "XUIViewShaker.h"
 #import "XUIOptionModel.h"
+#import "XUIViewShaker.h"
 
 @interface XUICheckboxCell () <XUITextTagCollectionViewDelegate>
 
 @property (nonatomic, strong) XUIViewShaker *viewShaker;
 @property (strong, nonatomic) XUITextTagCollectionView *tagView;
-
 @property (assign, nonatomic) BOOL shouldUpdateValue;
 @property (assign, nonatomic) BOOL shouldReloadTagView;
 
@@ -48,11 +47,11 @@
     return
     @{
       @"options": [NSArray class],
+      @"alignment": [NSString class],
+      @"numPerLine": [NSNumber class],
       @"maxCount": [NSNumber class],
       @"minCount": [NSNumber class],
       @"value": [NSArray class],
-      @"alignment": [NSString class],
-      @"numPerLine": [NSNumber class],
       };
 }
 
@@ -106,6 +105,11 @@
     
     // Alignment
     self.tagView.alignment = XUITagCollectionAlignmentFillByEqualWidth;
+    if (XUI_PAD) {
+        self.tagView.numberOfTagsPerLine = 4;
+    } else {
+        self.tagView.numberOfTagsPerLine = 2;
+    }
     
     // Use manual calculate height
     self.tagView.delegate = self;
@@ -182,11 +186,6 @@
     [self updateValueIfNeeded];
 }
 
-- (void)setXui_maxCount:(NSNumber *)xui_maxCount {
-    _xui_maxCount = xui_maxCount;
-    self.tagView.selectionLimit = [xui_maxCount unsignedIntegerValue];
-}
-
 - (void)setXui_alignment:(NSString *)xui_alignment {
     _xui_alignment = xui_alignment;
     
@@ -232,6 +231,20 @@
     _xui_numPerLine = xui_numPerLine;
     
     NSUInteger numPerLine = [xui_numPerLine unsignedIntegerValue];
+    
+    if (XUI_PAD) {
+        if (numPerLine > 12) {
+            numPerLine = 12;
+        }
+    } else {
+        if (numPerLine > 6) {
+            numPerLine = 6;
+        }
+    }
+    if (numPerLine == 0) {
+        numPerLine = 1;
+    }
+    
     self.tagView.numberOfTagsPerLine = numPerLine;
     [self setNeedsReloadTagView];
 }
@@ -251,6 +264,11 @@
     self.tagView.backgroundColor = [UIColor clearColor];
     
     [self setNeedsReloadTagView];
+}
+
+- (void)setXui_maxCount:(NSNumber *)xui_maxCount {
+    _xui_maxCount = xui_maxCount;
+    self.tagView.selectionLimit = [xui_maxCount unsignedIntegerValue];
 }
 
 #pragma mark - Value Reload
@@ -345,6 +363,7 @@
     self.xui_value = [selectedValues copy];
     [self.adapter saveDefaultsFromCell:self];
 }
+
 
 #pragma mark - Reload
 

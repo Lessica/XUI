@@ -13,7 +13,9 @@
 #import "XUILogger.h"
 #import "XUIOptionModel.h"
 
+
 @interface XUIRadioCell () <XUITextTagCollectionViewDelegate>
+
 
 @property (strong, nonatomic) XUITextTagCollectionView *tagView;
 @property (assign, nonatomic) BOOL shouldUpdateValue;
@@ -47,6 +49,9 @@
       @"options": [NSArray class],
       @"alignment": [NSString class],
       @"numPerLine": [NSNumber class],
+      
+      
+      
       };
 }
 
@@ -100,10 +105,17 @@
     
     // Alignment
     self.tagView.alignment = XUITagCollectionAlignmentFillByEqualWidth;
+    if (XUI_PAD) {
+        self.tagView.numberOfTagsPerLine = 4;
+    } else {
+        self.tagView.numberOfTagsPerLine = 2;
+    }
     
     // Use manual calculate height
     self.tagView.delegate = self;
     self.tagView.manualCalculateHeight = NO;
+    
+    
     
     [self.contentView addSubview:self.tagView];
     {
@@ -123,6 +135,10 @@
     
     self.tagView.preferredMaxLayoutWidth = CGRectGetWidth(self.frame) - 32.f;
     [self reloadTagViewIfNeeded];
+}
+
+- (CGSize)intrinsicContentSize {
+    return CGSizeMake(CGRectGetWidth(self.bounds), self.tagView.intrinsicContentSize.height + 24.f + 1.f);
 }
 
 #pragma mark - UIView Getters
@@ -161,7 +177,6 @@
     [self.tagView addTags:xui_validTitles];
     
     [self setNeedsReloadTagView];
-    
     [self updateValueIfNeeded];
 }
 
@@ -251,6 +266,11 @@
     [self setNeedsReloadTagView];
 }
 
+
+
+
+
+
 #pragma mark - Value Reload
 
 - (void)setNeedsUpdateValue {
@@ -278,9 +298,46 @@
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 - (BOOL)textTagCollectionView:(XUITextTagCollectionView *)textTagCollectionView canTapTag:(NSString *)tagText atIndex:(NSUInteger)index currentSelected:(BOOL)currentSelected {
     return YES;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 - (void)textTagCollectionView:(XUITextTagCollectionView *)textTagCollectionView
                     didTapTag:(NSString *)tagText
