@@ -65,7 +65,7 @@
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           self.cellSliderValueLabelWidth,
-          [NSLayoutConstraint constraintWithItem:self.cellSliderValueLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:(XUI_SYSTEM_8 ? NSLayoutAttributeLeadingMargin : NSLayoutAttributeLeading) multiplier:1.0 constant:(XUI_SYSTEM_8 ? 0.0 : 16.0)],
+          [NSLayoutConstraint constraintWithItem:self.cellSliderValueLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:(XUI_SYSTEM_9 ? NSLayoutAttributeLeadingMargin : NSLayoutAttributeLeading) multiplier:1.0 constant:(XUI_SYSTEM_9 ? 0.0 : 16.0)],
           [NSLayoutConstraint constraintWithItem:self.cellSliderValueLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
           [NSLayoutConstraint constraintWithItem:self.cellSliderValueLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.cellSlider attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-8.0],
           ];

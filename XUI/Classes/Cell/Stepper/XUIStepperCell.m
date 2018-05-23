@@ -73,7 +73,7 @@
     
     {
         XUI_START_IGNORE_PARTIAL
-        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:(XUI_SYSTEM_8 ? NSLayoutAttributeLeadingMargin : NSLayoutAttributeLeading) multiplier:1.0 constant:(XUI_SYSTEM_8 ? 0.0 : 20.0)];
+        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:(XUI_SYSTEM_9 ? NSLayoutAttributeLeadingMargin : NSLayoutAttributeLeading) multiplier:1.0 constant:(XUI_SYSTEM_9 ? 0.0 : 20.0)];
         XUI_END_IGNORE_PARTIAL
         NSArray <NSLayoutConstraint *> *constraints =
         @[
@@ -111,7 +111,7 @@
         [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
         [self.cellNumberLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     } else {
-        self.leftConstraint.constant = (XUI_SYSTEM_8 ? 0.0 : self.separatorInset.left);
+        self.leftConstraint.constant = (XUI_SYSTEM_9 ? 0.0 : self.separatorInset.left);
         [self.cellTitleLabel setContentCompressionResistancePriority:500 forAxis:UILayoutConstraintAxisHorizontal];
         [self.cellNumberLabel setContentCompressionResistancePriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
     }
