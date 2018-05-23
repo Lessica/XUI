@@ -43,14 +43,9 @@
             "url":"sub/xui-sub.xui.json"
         },
         {
-            "label":"Open an image",
-            "cell":"Link",
-            "url":"appicon.png"
-        },
-        {
             "defaults":"com.yourcompany.yourscript",
             "cell":"Option",
-            "label":"List of Options",
+            "label":"Options",
             "options":[
                 {
                     "title":"Red, it's red!",
@@ -77,7 +72,7 @@
             "maxCount":2,
             "defaults":"com.yourcompany.yourscript",
             "cell":"MultipleOption",
-            "label":"List of Multiple Options",
+            "label":"Multiple Options",
             "options":[
                 {
                     "shortTitle":"Red, it's red!",
@@ -102,14 +97,15 @@
             "default":[
                 "Red, it's red!",
                 "Green, it's green!"
-            ]
+            ],
+            "footerText": "You can select no more than 2 options.",
         },
         {
             "maxCount":2,
             "defaults":"com.yourcompany.yourscript",
             "cell":"OrderedOption",
             "minCount":1,
-            "label":"List of Ordered Options",
+            "label":"Ordered Options (popover)",
             "key":"list-3",
             "options":[
                 {
@@ -133,7 +129,9 @@
             ],
             "default":[
                 "Red"
-            ]
+            ],
+            "popoverMode": true,
+            "footerText": "You can select 1 or 2 options.",
         },
         {
             "maxCount":10,
@@ -144,6 +142,8 @@
             "default":[
                 "Default"
             ],
+            "validationRegex": "^[0-9a-zA-Z]+$",
+            "itemFooterText": "Only numbers and alphabets are allowed.",
         },
         {
             "label":"Segment",
@@ -298,7 +298,8 @@
             "defaults":"com.yourcompany.yourscript",
             "cell":"TextField",
             "key":"username",
-            "default":""
+            "default":"",
+            "validationRegex": "^[0-9a-zA-Z]+$",
         },
         {
             "placeholder":"Enter the password",
@@ -307,7 +308,7 @@
             "cell":"TextField",
             "key":"password",
             "isSecure":true,
-            "default":""
+            "default":"",
         },
         {
             "placeholder":"4 digits",
@@ -318,7 +319,10 @@
             "key":"number",
             "default":"",
             "alignment":"Right",
-            "maxLength":4
+            "maxLength":4,
+            "prompt": "Please enter a number",
+            "message": "Enter your 4-digit number.",
+            "validationRegex": "^[0-9]{4}$",
         },
         {
             "label":"StaticText",
@@ -326,7 +330,8 @@
         },
         {
             "label":"This specifier uses the label key as text content. Dynamic height of this cell is enabled.",
-            "cell":"StaticText"
+            "cell":"StaticText",
+            "selectable": true,
         }
     ],
     "header":"Example"

@@ -34,38 +34,6 @@
             "label":"Dynamic"
         },
         {
-            "label":"Pickers",
-            "cell":"Group"
-        },
-        {
-            "cell":"Button",
-            "label":"Open Camera for QR Scan",
-            "defaults":"com.yourcompany.yourscript",
-            "key":"qr1",
-            "kwargs":[
-
-            ],
-            "action":"ScanQRCode:"
-        },
-        {
-            "defaults":"com.yourcompany.yourscript",
-            "cell":"TitleValue",
-            "snippet":"snippets/app.snippet",
-            "key":"picker1",
-            "label":"Application",
-            "default":""
-        },
-        {
-            "cell":"File",
-            "key":"file1",
-            "defaults":"com.yourcompany.yourscript",
-            "allowedExtensions":[
-                "lua",
-                "xxt",
-                "xpp"
-            ]
-        },
-        {
             "label":"Date",
             "cell":"Group"
         },
@@ -75,18 +43,6 @@
             "default":"2017-01-01",
             "format":"yyyy-MM-dd",
             "key":"datetime1"
-        },
-        {
-            "label":"Actions",
-            "cell":"Group"
-        },
-        {
-            "cell":"Button",
-            "label":"Launch a script",
-            "kwargs":[
-                "sub/xui-script.lua"
-            ],
-            "action":"LaunchScript:"
         },
         {
             "label":"Textarea",
