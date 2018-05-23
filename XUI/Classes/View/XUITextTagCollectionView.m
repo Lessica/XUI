@@ -575,6 +575,8 @@
 }
 
 - (void)updateStyleAndFrameForLabel:(XUITextTagLabel *)label animated:(BOOL)animated {
+    NSUInteger numberOfTagsPerLine = (_numberOfTagsPerLine == 0 || _numberOfTagsPerLine > 12) ? 1 : _numberOfTagsPerLine;
+    
     // Update style
     XUITextTagConfig *config = label.config;
     label.label.font = config.tagTextFont;
@@ -593,14 +595,21 @@
     [label.layer setRasterizationScale:[[UIScreen mainScreen] scale]];
     
     // Update frame
+    CGFloat maxWidth = (CGRectGetWidth(self.bounds) - self.contentInset.left - self.contentInset.right);
     CGSize size = [label sizeThatFits:CGSizeZero];
-    size.width += config.tagExtraSpace.width;
     size.height += config.tagExtraSpace.height;
+    if (self.scrollDirection == XUITagCollectionScrollDirectionVertical &&
+        self.alignment == XUITagCollectionAlignmentFillByEqualWidth) {
+        size.width = (maxWidth - ((numberOfTagsPerLine - 1) * self.horizontalSpacing)) / numberOfTagsPerLine;
+    } else {
+        size.width += config.tagExtraSpace.width;
+    }
     
     // Width limit for vertical scroll direction
     if (self.scrollDirection == XUITagCollectionScrollDirectionVertical &&
-        size.width > (CGRectGetWidth(self.bounds) - self.contentInset.left - self.contentInset.right)) {
-        size.width = (CGRectGetWidth(self.bounds) - self.contentInset.left - self.contentInset.right);
+        size.width > (CGRectGetWidth(self.bounds) - self.contentInset.left - self.contentInset.right))
+    {
+        size.width = maxWidth;
     }
     
     label.frame = (CGRect){label.frame.origin, size};

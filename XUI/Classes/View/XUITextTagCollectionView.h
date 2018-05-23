@@ -72,6 +72,9 @@
 // Tags layout alignment, default is left.
 @property (nonatomic, assign) XUITagCollectionAlignment alignment;
 
+// Only available when scrollDirection == XUITagCollectionScrollDirectionVertical && alignment == XUITagCollectionAlignmentFillByEqualWidth, default is 1, maximum value is 12;
+@property (nonatomic, assign) NSUInteger numberOfTagsPerLine;
+
 // Number of lines. 0 means no limit, default is 0 for vertical and 1 for horizontal.
 @property (nonatomic, assign) NSUInteger numberOfLines;
 

@@ -280,6 +280,7 @@
         
         switch (_alignment) {
             case XUITagCollectionAlignmentLeft:
+            case XUITagCollectionAlignmentFillByEqualWidth:
                 currentLineXOffset = _contentInset.left;
                 break;
             case XUITagCollectionAlignmentCenter:

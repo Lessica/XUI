@@ -18,7 +18,9 @@
 
 @property (nonatomic, strong) XUIViewShaker *viewShaker;
 @property (strong, nonatomic) XUITextTagCollectionView *tagView;
+
 @property (assign, nonatomic) BOOL shouldUpdateValue;
+@property (assign, nonatomic) BOOL shouldReloadTagView;
 
 @end
 
@@ -48,7 +50,9 @@
       @"options": [NSArray class],
       @"maxCount": [NSNumber class],
       @"minCount": [NSNumber class],
-      @"value": [NSArray class]
+      @"value": [NSArray class],
+      @"alignment": [NSString class],
+      @"numPerLine": [NSNumber class],
       };
 }
 
@@ -59,6 +63,20 @@
       XUIOptionShortTitleKey: [NSString class],
       XUIOptionIconKey: [NSString class],
       };
+}
+
++ (BOOL)testValue:(id)value forKey:(NSString *)key error:(NSError **)error {
+    if ([key isEqualToString:@"alignment"]) {
+        if (NO == [@[ @"Left", @"Right", @"Center", @"Natural", @"Justified", @"EqualWidth" ] containsObject:value]) {
+            NSString *errorReason
+            = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"alignment", value];
+            NSError *exceptionError
+            = [NSError errorWithDomain:kXUICellFactoryErrorUnknownEnumDomain code:400 userInfo:@{ NSLocalizedDescriptionKey: errorReason }];
+            if (error) *error = exceptionError;
+            return NO;
+        }
+    }
+    return [super testValue:value forKey:key error:error];
 }
 
 #pragma mark - Setup
@@ -84,9 +102,10 @@
     
     self.tagView.defaultConfig.tagBorderWidth = 1.f;
     self.tagView.defaultConfig.tagSelectedBorderWidth = 1.f;
+    self.tagView.defaultConfig.tagExtraSpace = CGSizeMake(14.0, 14.0);
     
     // Alignment
-    self.tagView.alignment = XUITagCollectionAlignmentLeft;
+    self.tagView.alignment = XUITagCollectionAlignmentFillByEqualWidth;
     
     // Use manual calculate height
     self.tagView.delegate = self;
@@ -109,7 +128,9 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
     self.tagView.preferredMaxLayoutWidth = CGRectGetWidth(self.frame) - 32.f;
+    [self reloadTagViewIfNeeded];
 }
 
 - (CGSize)intrinsicContentSize {
@@ -150,8 +171,8 @@
     }];
     [self.tagView removeAllTags];
     [self.tagView addTags:xui_validTitles];
-    [self.tagView reload];
     
+    [self setNeedsReloadTagView];
     [self updateValueIfNeeded];
 }
 
@@ -165,6 +186,74 @@
     _xui_maxCount = xui_maxCount;
     self.tagView.selectionLimit = [xui_maxCount unsignedIntegerValue];
 }
+
+- (void)setXui_alignment:(NSString *)xui_alignment {
+    _xui_alignment = xui_alignment;
+    
+    XUITagCollectionAlignment alignment = XUITagCollectionAlignmentFillByEqualWidth;
+    if ([xui_alignment isEqualToString:@"Left"]) {
+        alignment = XUITagCollectionAlignmentLeft;
+    }
+    else if ([xui_alignment isEqualToString:@"Center"]) {
+        alignment = XUITagCollectionAlignmentCenter;
+    }
+    else if ([xui_alignment isEqualToString:@"Right"]) {
+        alignment = XUITagCollectionAlignmentRight;
+    }
+    else if ([xui_alignment isEqualToString:@"Natural"]) {
+        alignment = XUITagCollectionAlignmentFillByExpandingSpace;
+    }
+    else if ([xui_alignment isEqualToString:@"Justified"]) {
+        alignment = XUITagCollectionAlignmentFillByExpandingWidth;
+    }
+    else if ([xui_alignment isEqualToString:@"EqualWidth"]) {
+        alignment = XUITagCollectionAlignmentFillByEqualWidth;
+    }
+    else {
+        alignment = XUITagCollectionAlignmentFillByEqualWidth;
+    }
+    self.tagView.alignment = alignment;
+    
+    [self setNeedsReloadTagView];
+}
+
+- (void)setXui_readonly:(NSNumber *)xui_readonly {
+    [super setXui_readonly:xui_readonly];
+    BOOL readonly = [xui_readonly boolValue];
+    self.tagView.enableTagSelection = !readonly;
+    if (readonly) {
+        self.tagView.alpha = 0.5;
+    } else {
+        self.tagView.alpha = 1.0;
+    }
+}
+
+- (void)setXui_numPerLine:(NSNumber *)xui_numPerLine {
+    _xui_numPerLine = xui_numPerLine;
+    
+    NSUInteger numPerLine = [xui_numPerLine unsignedIntegerValue];
+    self.tagView.numberOfTagsPerLine = numPerLine;
+    [self setNeedsReloadTagView];
+}
+
+- (void)setInternalTheme:(XUITheme *)theme {
+    [super setInternalTheme:theme];
+    
+    self.tagView.defaultConfig.tagTextColor = theme.tagTextColor;
+    self.tagView.defaultConfig.tagSelectedTextColor = theme.tagSelectedTextColor;
+    
+    self.tagView.defaultConfig.tagBackgroundColor = theme.tagBackgroundColor;
+    self.tagView.defaultConfig.tagSelectedBackgroundColor = theme.tagSelectedBackgroundColor;
+    
+    self.tagView.defaultConfig.tagBorderColor = theme.tagBorderColor;
+    self.tagView.defaultConfig.tagSelectedBorderColor = theme.tagSelectedBorderColor;
+    
+    self.tagView.backgroundColor = [UIColor clearColor];
+    
+    [self setNeedsReloadTagView];
+}
+
+#pragma mark - Value Reload
 
 - (void)setNeedsUpdateValue {
     self.shouldUpdateValue = YES;
@@ -257,54 +346,17 @@
     [self.adapter saveDefaultsFromCell:self];
 }
 
-- (void)setXui_alignment:(NSString *)xui_alignment {
-    _xui_alignment = xui_alignment;
-    if ([xui_alignment isEqualToString:@"Left"]) {
-        self.tagView.alignment = XUITagCollectionAlignmentLeft;
-    }
-    else if ([xui_alignment isEqualToString:@"Center"]) {
-        self.tagView.alignment = XUITagCollectionAlignmentCenter;
-    }
-    else if ([xui_alignment isEqualToString:@"Right"]) {
-        self.tagView.alignment = XUITagCollectionAlignmentRight;
-    }
-    else if ([xui_alignment isEqualToString:@"Natural"]) {
-        self.tagView.alignment = XUITagCollectionAlignmentFillByExpandingSpace;
-    }
-    else if ([xui_alignment isEqualToString:@"Justified"]) {
-        self.tagView.alignment = XUITagCollectionAlignmentFillByExpandingWidth;
-    }
-    else {
-        self.tagView.alignment = XUITagCollectionAlignmentLeft;
-    }
+#pragma mark - Reload
+
+- (void)setNeedsReloadTagView {
+    self.shouldReloadTagView = YES;
 }
 
-- (void)setXui_readonly:(NSNumber *)xui_readonly {
-    [super setXui_readonly:xui_readonly];
-    BOOL readonly = [xui_readonly boolValue];
-    self.tagView.enableTagSelection = !readonly;
-    if (readonly) {
-        self.tagView.alpha = 0.5;
-    } else {
-        self.tagView.alpha = 1.0;
+- (void)reloadTagViewIfNeeded {
+    if (self.shouldReloadTagView) {
+        [self.tagView reload];
+        self.shouldReloadTagView = NO;
     }
-}
-
-- (void)setInternalTheme:(XUITheme *)theme {
-    [super setInternalTheme:theme];
-    
-    self.tagView.defaultConfig.tagTextColor = theme.tagTextColor;
-    self.tagView.defaultConfig.tagSelectedTextColor = theme.tagSelectedTextColor;
-    
-    self.tagView.defaultConfig.tagBackgroundColor = theme.tagBackgroundColor;
-    self.tagView.defaultConfig.tagSelectedBackgroundColor = theme.tagSelectedBackgroundColor;
-    
-    self.tagView.defaultConfig.tagBorderColor = theme.tagBorderColor;
-    self.tagView.defaultConfig.tagSelectedBorderColor = theme.tagSelectedBorderColor;
-    
-    self.tagView.backgroundColor = [UIColor clearColor];
-    
-    [self.tagView reload];
 }
 
 @end

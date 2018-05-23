@@ -26,9 +26,9 @@
         {
             "cell":"Button",
             "label":"Contact i.82@me.com",
-            "kwargs":[
-                "mailto://i.82@me.com"
-            ],
+            "args":{
+                "url": "mailto://i.82@me.com"
+            },
             "action":"OpenURL:"
         },
         {
@@ -179,7 +179,7 @@
             "cell":"Checkbox",
             "minCount":0,
             "key":"checkbox1",
-            "alignment":"Justified",
+            "numPerLine": 2,
             "options":[
                 {
                     "value":"Red",

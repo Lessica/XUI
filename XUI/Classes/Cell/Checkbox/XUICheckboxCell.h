@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSNumber *xui_maxCount;
 @property (nonatomic, strong) NSNumber *xui_minCount;
 @property (nonatomic, strong) NSString *xui_alignment;
+@property (nonatomic, strong) NSNumber *xui_numPerLine;
 
 @end

@@ -26,7 +26,8 @@ typedef NS_ENUM(NSInteger, XUITagCollectionAlignment) {
     XUITagCollectionAlignmentCenter,               // Center
     XUITagCollectionAlignmentRight,                // Right
     XUITagCollectionAlignmentFillByExpandingSpace, // Expand horizontal spacing and fill
-    XUITagCollectionAlignmentFillByExpandingWidth  // Expand width and fill
+    XUITagCollectionAlignmentFillByExpandingWidth,  // Expand width and fill
+    XUITagCollectionAlignmentFillByEqualWidth,
 };
 
 /**
