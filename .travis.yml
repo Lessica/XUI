@@ -8,8 +8,8 @@ language: objective-c
 podfile: Example/Podfile
 
 before_install:
-- pod install --project-directory=Example
 - gem install cocoapods # Since Travis is not always on latest version
+- pod install --project-directory=Example
 
 script:
 - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/XUI.xcworkspace -scheme XUI-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
