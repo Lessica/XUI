@@ -65,7 +65,10 @@
 
 - (void)setupCell {
     [super setupCell];
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    self.tagView.alpha = 1.0;
     
     self.tagView.scrollView.scrollEnabled = NO;
     self.tagView.contentInset = UIEdgeInsetsZero;
@@ -280,6 +283,11 @@
     [super setXui_readonly:xui_readonly];
     BOOL readonly = [xui_readonly boolValue];
     self.tagView.enableTagSelection = !readonly;
+    if (readonly) {
+        self.tagView.alpha = 0.5;
+    } else {
+        self.tagView.alpha = 1.0;
+    }
 }
 
 - (void)setInternalTheme:(XUITheme *)theme {

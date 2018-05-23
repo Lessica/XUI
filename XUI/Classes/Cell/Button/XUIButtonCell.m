@@ -10,11 +10,18 @@
 #import "XUITheme.h"
 #import "XUIPrivate.h"
 #import "XUILogger.h"
+#import "XUIAdapter.h"
 
 void const * XUIButtonCellStorageKey = &XUIButtonCellStorageKey;
 NSString * const XUIButtonCellReuseIdentifier = @"XUIButtonCellReuseIdentifier";
 
 @interface XUIButtonCell ()
+
+@property (nonatomic, strong) NSLayoutConstraint *labelConstraint;
+@property (nonatomic, strong) NSLayoutConstraint *iconConstraint;
+
+@property (nonatomic, assign) NSTextAlignment textAlignment;
+@property (nonatomic, strong) UILabel *cellTitleLabel; // extra titleLabel
 
 @end
 
@@ -54,12 +61,59 @@ NSString * const XUIButtonCellReuseIdentifier = @"XUIButtonCellReuseIdentifier";
 
 - (void)setupCell {
     [super setupCell];
+    
+    _textAlignment = NSTextAlignmentLeft;
+    
+    self.cellTitleLabel.text = @"";
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
+    
+    [self.contentView addSubview:self.cellTitleLabel];
+    {
+        XUI_START_IGNORE_PARTIAL
+        NSArray <NSLayoutConstraint *> *constraints =
+        @[
+          [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:(XUI_SYSTEM_8 ? NSLayoutAttributeLeadingMargin : NSLayoutAttributeLeading) multiplier:1.0 constant:(XUI_SYSTEM_8 ? 0.0 : 16.0)],
+          [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:(XUI_SYSTEM_8 ? NSLayoutAttributeTrailingMargin : NSLayoutAttributeTrailing) multiplier:1.0 constant:(XUI_SYSTEM_8 ? 0.0 : -16.0)],
+          [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
+          ];
+        XUI_END_IGNORE_PARTIAL
+        [self.contentView addConstraints:constraints];
+    }
+    
+    [self reloadVisibleLabel];
 }
+
+#pragma mark - UIView Getters
+
+- (UILabel *)cellTitleLabel {
+    if (!_cellTitleLabel) {
+        _cellTitleLabel = [[UILabel alloc] init];
+        XUI_START_IGNORE_PARTIAL
+        if (XUI_SYSTEM_8_2) {
+            _cellTitleLabel.font = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
+        } else {
+            _cellTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
+        }
+        XUI_END_IGNORE_PARTIAL
+        _cellTitleLabel.textAlignment = NSTextAlignmentLeft;
+        _cellTitleLabel.numberOfLines = 1;
+        _cellTitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        _cellTitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _cellTitleLabel;
+}
+
+#pragma mark - Setters
 
 - (void)setInternalTheme:(XUITheme *)theme {
     [super setInternalTheme:theme];
-    self.textLabel.textColor = theme.foregroundColor;
+    self.textLabel.textColor = theme.foregroundColor; // Button uses foregroundColor as its label color
+    self.cellTitleLabel.textColor = theme.foregroundColor;
+}
+
+- (void)setXui_label:(NSString *)xui_label {
+    [super setXui_label:xui_label];
+    self.cellTitleLabel.text = self.adapter ? [self.adapter localizedString:xui_label] : xui_label;
 }
 
 - (void)setXui_alignment:(NSString *)xui_alignment {
@@ -83,7 +137,23 @@ NSString * const XUIButtonCellReuseIdentifier = @"XUIButtonCellReuseIdentifier";
     else {
         textAlignment = NSTextAlignmentNatural;
     }
+    _textAlignment = textAlignment;
     self.textLabel.textAlignment = textAlignment;
+    self.cellTitleLabel.textAlignment = textAlignment;
+    [self reloadVisibleLabel];
+}
+
+- (void)reloadVisibleLabel {
+    BOOL needsExtraLabel = (self.textAlignment != NSTextAlignmentLeft);
+    if (needsExtraLabel) {
+        [self.imageView setHidden:YES];
+        [self.textLabel setHidden:YES];
+        [self.cellTitleLabel setHidden:NO];
+    } else {
+        [self.imageView setHidden:NO];
+        [self.textLabel setHidden:NO];
+        [self.cellTitleLabel setHidden:YES];
+    }
 }
 
 @end

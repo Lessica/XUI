@@ -39,13 +39,14 @@
 
 - (void)setupCell {
     [super setupCell];
+    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.cellSwitch addTarget:self action:@selector(xuiSwitchValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     [self.contentView addSubview:self.cellSwitch];
     {
         NSLayoutConstraint *labelConstraint = [NSLayoutConstraint constraintWithItem:self.cellSwitch attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.textLabel attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:16.0];
-        labelConstraint.priority = UILayoutPriorityDefaultLow;
+        
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           labelConstraint,

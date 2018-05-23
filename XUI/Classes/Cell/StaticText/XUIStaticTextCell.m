@@ -112,8 +112,7 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
 
 - (void)setXui_label:(NSString *)xui_label {
     [super setXui_label:xui_label];
-    NSString *localizedLabel = [self.adapter localizedStringForKey:xui_label value:xui_label];
-    self.cellStaticTextView.text = localizedLabel;
+    self.cellStaticTextView.text = self.adapter ? [self.adapter localizedString:xui_label] : xui_label;
 }
 
 - (void)setXui_alignment:(NSString *)xui_alignment {

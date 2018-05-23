@@ -24,7 +24,7 @@
 
 @implementation XUISegmentCell
 
-@synthesize xui_value = _xui_value, xui_label = _xui_label;
+@synthesize xui_value = _xui_value;
 
 + (BOOL)layoutNeedsTextLabel {
     return NO;
@@ -67,7 +67,7 @@
     [self.contentView addSubview:self.cellTitleLabel];
     [self.contentView addSubview:self.cellSegmentControl];
     {
-        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:20.0];
+        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:(XUI_SYSTEM_8 ? NSLayoutAttributeLeadingMargin : NSLayoutAttributeLeading) multiplier:1.0 constant:(XUI_SYSTEM_8 ? 0.0 : 20.0)];
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           self.leftConstraint,
@@ -90,15 +90,11 @@
 - (void)reloadLeftConstraints {
     if (self.cellTitleLabel.text.length == 0) {
         self.leftConstraint.constant = 0.0;
-        [self.cellTitleLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
         [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-        [self.cellSegmentControl setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
         [self.cellSegmentControl setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     } else {
-        self.leftConstraint.constant = self.separatorInset.left; // 20.0 or 15.0, depends on screen size
-        [self.cellTitleLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+        self.leftConstraint.constant = (XUI_SYSTEM_8 ? 0.0 : self.separatorInset.left);
         [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-        [self.cellSegmentControl setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
         [self.cellSegmentControl setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     }
 }
@@ -163,8 +159,8 @@
 }
 
 - (void)setXui_label:(NSString *)xui_label {
-    _xui_label = xui_label;
-    self.cellTitleLabel.text = xui_label;
+    [super setXui_label:xui_label];
+    self.cellTitleLabel.text = self.adapter ? [self.adapter localizedString:xui_label] : xui_label;
     [self reloadLeftConstraints];
 }
 

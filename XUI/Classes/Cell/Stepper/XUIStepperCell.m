@@ -22,7 +22,7 @@
 
 @implementation XUIStepperCell
 
-@synthesize xui_value = _xui_value, xui_label = _xui_label;
+@synthesize xui_value = _xui_value;
 
 + (BOOL)layoutNeedsTextLabel {
     return NO;
@@ -63,6 +63,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.cellTitleLabel.text = @"";
+    self.cellStepper.alpha = 1.0;
     [self.cellStepper addTarget:self action:@selector(xuiStepperValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.cellStepper addTarget:self action:@selector(xuiStepperValueDidFinishChanging:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -71,17 +72,19 @@
     [self.contentView addSubview:self.cellStepper];
     
     {
-        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:20.0];
+        XUI_START_IGNORE_PARTIAL
+        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:(XUI_SYSTEM_8 ? NSLayoutAttributeLeadingMargin : NSLayoutAttributeLeading) multiplier:1.0 constant:(XUI_SYSTEM_8 ? 0.0 : 20.0)];
+        XUI_END_IGNORE_PARTIAL
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           self.leftConstraint,
           [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
+          [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationLessThanOrEqual toItem:self.cellStepper attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-16.0],
           ];
         [self.contentView addConstraints:constraints];
     }
     {
         NSLayoutConstraint *labelConstraint = [NSLayoutConstraint constraintWithItem:self.cellNumberLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.cellTitleLabel attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:16.0];
-        labelConstraint.priority = UILayoutPriorityDefaultLow;
         
         NSArray <NSLayoutConstraint *> *constraints =
         @[
@@ -105,16 +108,12 @@
 - (void)reloadLeftConstraints {
     if (self.cellTitleLabel.text.length == 0) {
         self.leftConstraint.constant = 0.0;
-        [self.cellTitleLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
         [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-        [self.cellNumberLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
         [self.cellNumberLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     } else {
-        self.leftConstraint.constant = self.separatorInset.left; // 20.0 or 15.0, depends on screen size
-        [self.cellTitleLabel setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-        [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-        [self.cellNumberLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-        [self.cellNumberLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+        self.leftConstraint.constant = (XUI_SYSTEM_8 ? 0.0 : self.separatorInset.left);
+        [self.cellTitleLabel setContentCompressionResistancePriority:500 forAxis:UILayoutConstraintAxisHorizontal];
+        [self.cellNumberLabel setContentCompressionResistancePriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
     }
 }
 
@@ -174,6 +173,11 @@
     [super setXui_readonly:xui_readonly];
     BOOL readonly = [xui_readonly boolValue];
     self.cellStepper.enabled = !readonly;
+    if (readonly) {
+        self.cellStepper.alpha = 0.5;
+    } else {
+        self.cellStepper.alpha = 1.0;
+    }
 }
 
 - (void)setXui_value:(id)xui_value {
@@ -184,8 +188,8 @@
 }
 
 - (void)setXui_label:(NSString *)xui_label {
-    _xui_label = xui_label;
-    self.cellTitleLabel.text = xui_label;
+    [super setXui_label:xui_label];
+    self.cellTitleLabel.text = self.adapter ? [self.adapter localizedString:xui_label] : xui_label;
     [self reloadLeftConstraints];
 }
 

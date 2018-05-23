@@ -9,6 +9,7 @@
 #import "XUITextFieldCell.h"
 #import "XUIPrivate.h"
 #import "XUILogger.h"
+#import "XUIAdapter.h"
 
 @interface XUITextFieldCell ()
 
@@ -114,7 +115,9 @@
     {
         [self.cellTitleLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
         [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:20.0];
+        XUI_START_IGNORE_PARTIAL
+        self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:(XUI_SYSTEM_8 ? NSLayoutAttributeLeadingMargin : NSLayoutAttributeLeading) multiplier:1.0 constant:(XUI_SYSTEM_8 ? 0.0 : 20.0)];
+        XUI_END_IGNORE_PARTIAL
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           self.leftConstraint,
@@ -155,7 +158,7 @@
         }
         XUI_END_IGNORE_PARTIAL
     } else {
-        self.leftConstraint.constant = self.separatorInset.left; // 20.0 or 15.0, depends on screen size
+        self.leftConstraint.constant = (XUI_SYSTEM_8 ? 0.0 : self.separatorInset.left);
         XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_8) {
             self.titleWidthConstraint.active = NO;
@@ -250,7 +253,7 @@
 
 - (void)setXui_label:(NSString *)xui_label {
     [super setXui_label:xui_label];
-    self.cellTitleLabel.text = xui_label;
+    self.cellTitleLabel.text = self.adapter ? [self.adapter localizedString:xui_label] : xui_label;
     [self reloadLeftConstraints];
 }
 
