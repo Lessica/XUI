@@ -1,3 +1,4 @@
 target 'XUI_Example' do
-  pod 'XUI', :path => '../'
+    platform :ios, '7.0'
+    pod 'XUI', :path => '../'
 end
