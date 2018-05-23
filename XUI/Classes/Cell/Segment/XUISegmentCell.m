@@ -67,7 +67,9 @@
     [self.contentView addSubview:self.cellTitleLabel];
     [self.contentView addSubview:self.cellSegmentControl];
     {
+        XUI_START_IGNORE_PARTIAL
         self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:(XUI_SYSTEM_8 ? NSLayoutAttributeLeadingMargin : NSLayoutAttributeLeading) multiplier:1.0 constant:(XUI_SYSTEM_8 ? 0.0 : 20.0)];
+        XUI_END_IGNORE_PARTIAL
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           self.leftConstraint,
