@@ -66,7 +66,7 @@
 
 + (BOOL)testValue:(id)value forKey:(NSString *)key error:(NSError **)error {
     if ([key isEqualToString:@"alignment"]) {
-        if (NO == [@[ @"Left", @"Right", @"Center", @"Natural", @"Justified", @"EqualWidth" ] containsObject:value]) {
+        if (NO == [@[ @"Left", @"Right", @"Center", @"FillByExpandingSpace", @"FillByExpandingWidth", @"FillByEqualWidth" ] containsObject:value]) {
             NSString *errorReason
             = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"key \"%@\" (\"%@\") is invalid."], @"alignment", value];
             NSError *exceptionError
@@ -199,13 +199,13 @@
     else if ([xui_alignment isEqualToString:@"Right"]) {
         alignment = XUITagCollectionAlignmentRight;
     }
-    else if ([xui_alignment isEqualToString:@"Natural"]) {
+    else if ([xui_alignment isEqualToString:@"FillByExpandingSpace"]) {
         alignment = XUITagCollectionAlignmentFillByExpandingSpace;
     }
-    else if ([xui_alignment isEqualToString:@"Justified"]) {
+    else if ([xui_alignment isEqualToString:@"FillByExpandingWidth"]) {
         alignment = XUITagCollectionAlignmentFillByExpandingWidth;
     }
-    else if ([xui_alignment isEqualToString:@"EqualWidth"]) {
+    else if ([xui_alignment isEqualToString:@"FillByEqualWidth"]) {
         alignment = XUITagCollectionAlignmentFillByEqualWidth;
     }
     else {
@@ -231,18 +231,10 @@
     _xui_numPerLine = xui_numPerLine;
     
     NSUInteger numPerLine = [xui_numPerLine unsignedIntegerValue];
-    
-    if (XUI_PAD) {
-        if (numPerLine > 12) {
-            numPerLine = 12;
-        }
-    } else {
-        if (numPerLine > 6) {
-            numPerLine = 6;
-        }
-    }
     if (numPerLine == 0) {
         numPerLine = 1;
+    } else if (numPerLine > 12) {
+        numPerLine = 12;
     }
     
     self.tagView.numberOfTagsPerLine = numPerLine;
