@@ -23,6 +23,8 @@
 @property (nonatomic, strong, readonly) UIColor *headerTextColor;
 @property (nonatomic, strong, readonly) UIColor *subheaderTextColor;
 @property (nonatomic, strong, readonly) UIColor *footerTextColor;
+@property (nonatomic, strong, readonly) UIColor *headerBackgroundColor;
+@property (nonatomic, strong, readonly) UIColor *footerBackgroundColor;
 
 
 #pragma mark - Table View

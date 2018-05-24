@@ -84,6 +84,10 @@
             _subheaderTextColor = [UIColor xui_colorWithHex:themeDictionary[@"subheaderTextColor"]];
         if ([themeDictionary[@"footerTextColor"] isKindOfClass:[NSString class]])
             _footerTextColor = [UIColor xui_colorWithHex:themeDictionary[@"footerTextColor"]];
+        if ([themeDictionary[@"headerBackgroundColor"] isKindOfClass:[NSString class]])
+            _headerBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"headerBackgroundColor"]];
+        if ([themeDictionary[@"footerBackgroundColor"] isKindOfClass:[NSString class]])
+            _footerBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"footerBackgroundColor"]];
         
         if ([themeDictionary[@"labelColor"] isKindOfClass:[NSString class]])
             _labelColor = [UIColor xui_colorWithHex:themeDictionary[@"labelColor"]];
@@ -149,6 +153,8 @@
     _headerTextColor = [UIColor blackColor];
     _subheaderTextColor = [UIColor blackColor];
     _footerTextColor = [UIColor blackColor];
+    _headerBackgroundColor = [UIColor clearColor];
+    _footerBackgroundColor = [UIColor clearColor];
     
     _textColor = [UIColor blackColor];
     _caretColor = XUI_COLOR_HIGHLIGHTED;
