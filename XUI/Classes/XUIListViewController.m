@@ -309,7 +309,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView == self.tableView) {
-        return self.cellFactory.sectionCells.count;
+        return self.cellFactory.groupCells.count;
     }
     return 0;
 }
@@ -385,7 +385,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (tableView == self.tableView) {
-        NSString *title = self.cellFactory.sectionCells[(NSUInteger) section].xui_label;
+        NSString *title = self.cellFactory.groupCells[(NSUInteger) section].xui_label;
         return [self.adapter localizedStringForKey:title value:title];
     }
     return nil;
@@ -393,7 +393,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (tableView == self.tableView) {
-        NSString *title = self.cellFactory.sectionCells[(NSUInteger) section].xui_footerText;
+        NSString *title = self.cellFactory.groupCells[(NSUInteger) section].xui_footerText;
         return [self.adapter localizedStringForKey:title value:title];
     }
     return nil;
@@ -465,15 +465,27 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.textLabel.font = [UIFont systemFontOfSize:14.0];
-    header.textLabel.textColor = self.theme.sectionHeaderTextColor;
-    header.tintColor = self.theme.sectionHeaderBackgroundColor;
+    XUITheme *theme = nil;
+    if (section < self.cellFactory.groupCells.count) {
+        theme = self.cellFactory.groupCells[section].theme;
+    } else {
+        theme = self.theme;
+    }
+    header.textLabel.textColor = theme.sectionHeaderTextColor;
+    header.tintColor = theme.sectionHeaderBackgroundColor;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
     footer.textLabel.font = [UIFont systemFontOfSize:12.0];
-    footer.textLabel.textColor = self.theme.sectionFooterTextColor;
-    footer.tintColor = self.theme.sectionFooterBackgroundColor;
+    XUITheme *theme = nil;
+    if (section < self.cellFactory.groupCells.count) {
+        theme = self.cellFactory.groupCells[section].theme;
+    } else {
+        theme = self.theme;
+    }
+    footer.textLabel.textColor = theme.sectionFooterTextColor;
+    footer.tintColor = theme.sectionFooterBackgroundColor;
 }
 
 XUI_START_IGNORE_PARTIAL

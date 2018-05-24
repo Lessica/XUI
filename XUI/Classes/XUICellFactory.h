@@ -34,7 +34,7 @@
 
 #pragma mark - Factory Cells
 
-@property (nonatomic, strong, readonly, nullable) NSArray <XUIGroupCell *> *sectionCells;
+@property (nonatomic, strong, readonly, nullable) NSArray <XUIGroupCell *> *groupCells;
 @property (nonatomic, strong, readonly, nullable) NSArray <NSArray <XUIBaseCell *> *> *otherCells;
 @property (nonatomic, strong, readonly, nullable) NSArray <XUIBaseCell *> *cells; // section cells + other cells
 

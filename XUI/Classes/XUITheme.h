@@ -15,6 +15,9 @@
 @property (nonatomic, strong, readonly) UIColor *dangerColor;
 @property (nonatomic, strong, readonly) UIColor *warningColor;
 @property (nonatomic, strong, readonly) UIColor *successColor; // fill
+
+
+#pragma mark - Navigation Bar
 @property (nonatomic, strong, readonly) UIColor *navigationBarColor;
 @property (nonatomic, strong, readonly) UIColor *navigationTitleColor;
 
@@ -33,18 +36,22 @@
 @property (nonatomic, strong, readonly) UIColor *backgroundColor;
 @property (nonatomic, strong, readonly) UIColor *separatorColor;
 @property (nonatomic, strong, readonly) NSString *backgroundImagePath;
+
+
+#pragma mark - Group Cell
 @property (nonatomic, strong, readonly) UIColor *sectionHeaderTextColor;
 @property (nonatomic, strong, readonly) UIColor *sectionHeaderBackgroundColor;
 @property (nonatomic, strong, readonly) UIColor *sectionFooterTextColor;
 @property (nonatomic, strong, readonly) UIColor *sectionFooterBackgroundColor;
 
-#pragma mark - Cells
+
+#pragma mark - Other Cells
 @property (nonatomic, strong, readonly) UIColor *cellBackgroundColor; // cell background
+@property (nonatomic, strong, readonly) UIColor *selectedColor; // cell selected
+@property (nonatomic, strong, readonly) UIColor *highlightedColor; // cell highlighted
 @property (nonatomic, strong, readonly) UIColor *disclosureIndicatorColor; // cell disclosure
 @property (nonatomic, strong, readonly) UIColor *labelColor; // text
 @property (nonatomic, strong, readonly) UIColor *valueColor; // detail text
-@property (nonatomic, strong, readonly) UIColor *selectedColor; // cell selected
-@property (nonatomic, strong, readonly) UIColor *highlightedColor; // cell highlighted
 
 
 #pragma mark - Inputs
@@ -63,6 +70,7 @@
 
 
 #pragma mark - Switch
+// tintColor
 @property (strong, nonatomic, readonly) UIColor *thumbTintColor;
 
 

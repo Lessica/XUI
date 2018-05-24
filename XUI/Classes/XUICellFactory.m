@@ -178,13 +178,13 @@
     }
     
     // finish parsing
-    _sectionCells = groupCells;
+    _groupCells = groupCells;
     _otherCells = otherCells;
     if (_delegate && [_delegate respondsToSelector:@selector(cellFactoryDidFinishParsing:)]) {
         [_delegate cellFactoryDidFinishParsing:self];
     }
     
-    assert(self.sectionCells.count == self.otherCells.count);
+    assert(self.groupCells.count == self.otherCells.count);
 }
 
 - (void)callbackWithErrorReason:(NSString *)exceptionReason {
