@@ -53,6 +53,15 @@
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
+#pragma mark - Setters
+
+- (void)setXui_value:(NSArray *)xui_value {
+    _xui_value = xui_value;
+    NSArray *optionValues = xui_value;
+    NSString *shortTitle = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"%lu Selected"], optionValues.count];
+    self.detailTextLabel.text = shortTitle;
+}
+
 - (void)setXui_options:(NSArray<NSDictionary *> *)xui_options {
     for (NSDictionary *pair in xui_options) {
         for (NSString *pairKey in pair.allKeys) {

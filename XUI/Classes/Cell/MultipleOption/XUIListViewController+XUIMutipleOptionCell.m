@@ -44,14 +44,10 @@
 #pragma mark - XUIMultipleOptionViewControllerDelegate
 
 - (void)multipleOptionViewController:(XUIMultipleOptionViewController *)controller didSelectOption:(NSArray <NSNumber *> *)optionIndexes {
-    [self tableView:self.tableView configureXUIMultipleOptionCell:controller.cell];
-    [self.adapter saveDefaultsFromCell:controller.cell];
-}
-
-- (void)tableView:(UITableView *)tableView configureXUIMultipleOptionCell:(XUIMultipleOptionCell *)cell {
-    NSArray *optionValues = cell.xui_value;
-    NSString *shortTitle = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"%lu Selected"], optionValues.count];
-    cell.detailTextLabel.text = shortTitle;
+    XUIMultipleOptionCell *cell = controller.cell;
+    [self.adapter saveDefaultsFromCell:cell];
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
 }
 
 @end

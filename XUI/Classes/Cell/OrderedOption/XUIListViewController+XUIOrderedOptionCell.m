@@ -45,14 +45,10 @@
 #pragma mark - XUIOrderedOptionViewControllerDelegate
 
 - (void)orderedOptionViewController:(XUIOrderedOptionViewController *)controller didSelectOption:(NSArray<NSNumber *> *)optionIndexes {
-    [self tableView:self.tableView configureXUIOrderedOptionCell:controller.cell];
-    [self.adapter saveDefaultsFromCell:controller.cell];
-}
-
-- (void)tableView:(UITableView *)tableView configureXUIOrderedOptionCell:(XUIOrderedOptionCell *)cell {
-    NSArray *optionValues = cell.xui_value;
-    NSString *shortTitle = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"%lu Selected"], optionValues.count];
-    cell.detailTextLabel.text = shortTitle;
+    XUIOrderedOptionCell *cell = controller.cell;
+    [self.adapter saveDefaultsFromCell:cell];
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
 }
 
 @end

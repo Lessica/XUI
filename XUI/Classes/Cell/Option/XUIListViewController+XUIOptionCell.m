@@ -18,8 +18,10 @@
 #pragma mark - XUIOptionViewControllerDelegate
 
 - (void)optionViewController:(XUIOptionViewController *)controller didSelectOption:(NSInteger)optionIndex {
-    [self tableView:self.tableView configureXUIOptionCell:controller.cell];
-    [self.adapter saveDefaultsFromCell:controller.cell];
+    XUIOptionCell *cell = controller.cell;
+    [self.adapter saveDefaultsFromCell:cell];
+    [cell setNeedsLayout];
+    [cell layoutIfNeeded];
 }
 
 - (void)tableView:(UITableView *)tableView XUIOptionCell:(UITableViewCell *)cell {
@@ -48,26 +50,6 @@
         }
         XUI_END_IGNORE_PARTIAL
         [self.navigationController pushViewController:optionViewController animated:YES];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView configureXUIOptionCell:(XUIOptionCell *)cell {
-    NSUInteger optionIndex = 0;
-    id rawValue = cell.xui_value;
-    if (rawValue) {
-        NSUInteger rawIndex = [cell.xui_options indexOfObjectPassingTest:^BOOL(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([rawValue isEqual:obj[XUIOptionValueKey]]) {
-                return YES;
-            }
-            return NO;
-        }];
-        if ((rawIndex) != NSNotFound) {
-            optionIndex = rawIndex;
-        }
-    }
-    if (optionIndex < cell.xui_options.count) {
-        NSString *shortTitle = cell.xui_options[optionIndex][XUIOptionShortTitleKey];
-        cell.detailTextLabel.text = [self.adapter localizedStringForKey:shortTitle value:shortTitle];
     }
 }
 
