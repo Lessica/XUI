@@ -337,7 +337,7 @@
         placeholderFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
     }
     XUI_END_IGNORE_PARTIAL
-    NSString *placeholder = [cell.xui_placeholder copy];
+    NSString *placeholder = [cell.adapter localizedString:[cell.xui_placeholder copy]];
     UIColor *placeholderColor = [cell.theme.placeholderColor copy];
     if (placeholderColor && placeholderFont) {
         NSDictionary *attributes = @{ NSForegroundColorAttributeName: placeholderColor, NSFontAttributeName: placeholderFont };
