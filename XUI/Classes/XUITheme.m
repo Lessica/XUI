@@ -51,10 +51,15 @@
             _separatorColor = [UIColor xui_colorWithHex:themeDictionary[@"separatorColor"]];
         if ([themeDictionary[@"backgroundImage"] isKindOfClass:[NSString class]])
             _backgroundImagePath = themeDictionary[@"backgroundImage"];
+        
         if ([themeDictionary[@"sectionHeaderTextColor"] isKindOfClass:[NSString class]])
             _sectionHeaderTextColor = [UIColor xui_colorWithHex:themeDictionary[@"sectionHeaderTextColor"]];
         if ([themeDictionary[@"sectionFooterTextColor"] isKindOfClass:[NSString class]])
             _sectionFooterTextColor = [UIColor xui_colorWithHex:themeDictionary[@"sectionFooterTextColor"]];
+        if ([themeDictionary[@"sectionHeaderBackgroundColor"] isKindOfClass:[NSString class]])
+            _sectionHeaderBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"sectionHeaderBackgroundColor"]];
+        if ([themeDictionary[@"sectionFooterBackgroundColor"] isKindOfClass:[NSString class]])
+            _sectionFooterBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"sectionFooterBackgroundColor"]];
         
         if ([themeDictionary[@"dangerColor"] isKindOfClass:[NSString class]])
             _dangerColor = [UIColor xui_colorWithHex:themeDictionary[@"dangerColor"]];
@@ -126,8 +131,11 @@
     _backgroundColor = [UIColor groupTableViewBackgroundColor];
     _separatorColor = [UIColor lightGrayColor];
     _backgroundImagePath = nil;
+    
     _sectionHeaderTextColor = [UIColor grayColor];
     _sectionFooterTextColor = [UIColor grayColor];
+    _sectionHeaderBackgroundColor = [UIColor clearColor];
+    _sectionFooterBackgroundColor = [UIColor clearColor];
     
     _dangerColor = XUI_COLOR_DANGER;
     _warningColor = XUI_COLOR_WARNING;

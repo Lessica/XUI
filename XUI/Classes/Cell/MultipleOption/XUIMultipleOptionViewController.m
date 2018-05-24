@@ -135,12 +135,14 @@
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.textLabel.font = [UIFont systemFontOfSize:14.0];
     header.textLabel.textColor = self.theme.sectionHeaderTextColor;
+    header.backgroundColor = self.theme.sectionHeaderBackgroundColor;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
     footer.textLabel.font = [UIFont systemFontOfSize:12.0];
     footer.textLabel.textColor = self.theme.sectionFooterTextColor;
+    footer.backgroundColor = self.theme.sectionFooterBackgroundColor;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

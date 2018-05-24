@@ -32,8 +32,9 @@
 @property (nonatomic, strong, readonly) UIColor *separatorColor;
 @property (nonatomic, strong, readonly) NSString *backgroundImagePath;
 @property (nonatomic, strong, readonly) UIColor *sectionHeaderTextColor;
+@property (nonatomic, strong, readonly) UIColor *sectionHeaderBackgroundColor;
 @property (nonatomic, strong, readonly) UIColor *sectionFooterTextColor;
-
+@property (nonatomic, strong, readonly) UIColor *sectionFooterBackgroundColor;
 
 #pragma mark - Cells
 @property (nonatomic, strong, readonly) UIColor *cellBackgroundColor; // cell background
