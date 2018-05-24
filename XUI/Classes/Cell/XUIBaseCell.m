@@ -96,6 +96,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
       @"enabled": [NSNumber class],
       @"height": [NSNumber class],
       @"postNotification": [NSString class],
+      @"theme": [NSDictionary class],
       } mutableCopy];
     [baseTypes addEntriesFromDictionary:[self.class entryValueTypes]];
     for (NSString *pairKey in cellEntry.allKeys) {
