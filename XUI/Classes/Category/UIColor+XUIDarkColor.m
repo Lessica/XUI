@@ -25,6 +25,19 @@
     return (colorBrightness < 0.7);
 }
 
+- (UIImage *)xui_image {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [self CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
 + (UIColor *)xui_colorWithHex:(NSString *)representation {
     NSString *hex = representation;
     if ([hex hasPrefix:@"#"]) {

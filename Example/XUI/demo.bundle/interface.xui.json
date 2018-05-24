@@ -1,6 +1,15 @@
 {
-    "subheader":"Elegant App UI provided by XXTouchApp.",
     "title":"Demo",
+    "theme":{
+        "style": "Plain",
+        "backgroundImage": "res/2560_1440.jpg",
+        "backgroundColor": "#FEFEFEA0",
+        "sectionHeaderTextColor": "#333333",
+        "sectionFooterTextColor": "#333333",
+        "cellBackgroundColor": "#FEFEFEA0",
+        "tagBackgroundColor": "#FFFFFF00",
+        "navigationBarColor": "#2C3E50D0",
+    },
     "items":[
         {
             "label":"Switch",
@@ -131,6 +140,11 @@
                 "Red"
             ],
             "popoverMode": true,
+            "theme": {
+                "style": "Plain",
+                "sectionHeaderTextColor": "#333333",
+                "sectionFooterTextColor": "#333333",
+            },
             "footerText": "You can select 1 or 2 options.",
         },
         {
@@ -333,8 +347,7 @@
             "cell":"StaticText",
             "selectable": true,
         }
-    ],
-    "header":"Example"
+    ]
 }
 
 

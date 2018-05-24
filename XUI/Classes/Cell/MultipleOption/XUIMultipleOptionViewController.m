@@ -91,15 +91,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        UITableViewStyle tableViewStyle;
-        if ([self popoverMode])
-        {
-            tableViewStyle = UITableViewStylePlain;
-        }
-        else
-        {
-            tableViewStyle = self.theme.tableViewStyle;
-        }
+        UITableViewStyle tableViewStyle = self.theme.tableViewStyle;
         UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:tableViewStyle];
         if ([self popoverMode]) {
             tableView.bounces = NO;
@@ -137,6 +129,18 @@
         return [self.adapter localizedStringForKey:self.cell.xui_footerText value:self.cell.xui_footerText];
     }
     return nil;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.textLabel.font = [UIFont systemFontOfSize:14.0];
+    header.textLabel.textColor = self.theme.sectionHeaderTextColor;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+    footer.textLabel.font = [UIFont systemFontOfSize:12.0];
+    footer.textLabel.textColor = self.theme.sectionFooterTextColor;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

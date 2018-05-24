@@ -31,7 +31,7 @@
     if (self) {
         [self setup];
         
-        if (themeDictionary[@"style"]) {
+        if ([themeDictionary[@"style"] isKindOfClass:[NSString class]]) {
             NSString *style = themeDictionary[@"style"];
             if ([style isEqualToString:@"Plain"]) {
                 _tableViewStyle = UITableViewStylePlain;
@@ -40,66 +40,79 @@
             }
         }
         
-        if (themeDictionary[@"tintColor"])
+        if ([themeDictionary[@"tintColor"] isKindOfClass:[NSString class]])
             _foregroundColor = [UIColor xui_colorWithHex:themeDictionary[@"tintColor"]];
-        if (themeDictionary[@"foregroundColor"])
+        if ([themeDictionary[@"foregroundColor"] isKindOfClass:[NSString class]])
             _foregroundColor = [UIColor xui_colorWithHex:themeDictionary[@"foregroundColor"]];
         
-        if (themeDictionary[@"backgroundColor"])
+        if ([themeDictionary[@"backgroundColor"] isKindOfClass:[NSString class]])
             _backgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"backgroundColor"]];
-        if (themeDictionary[@"separatorColor"])
+        if ([themeDictionary[@"separatorColor"] isKindOfClass:[NSString class]])
             _separatorColor = [UIColor xui_colorWithHex:themeDictionary[@"separatorColor"]];
+        if ([themeDictionary[@"backgroundImage"] isKindOfClass:[NSString class]])
+            _backgroundImagePath = themeDictionary[@"backgroundImage"];
+        if ([themeDictionary[@"sectionHeaderTextColor"] isKindOfClass:[NSString class]])
+            _sectionHeaderTextColor = [UIColor xui_colorWithHex:themeDictionary[@"sectionHeaderTextColor"]];
+        if ([themeDictionary[@"sectionFooterTextColor"] isKindOfClass:[NSString class]])
+            _sectionFooterTextColor = [UIColor xui_colorWithHex:themeDictionary[@"sectionFooterTextColor"]];
         
-        if (themeDictionary[@"dangerColor"])
+        if ([themeDictionary[@"dangerColor"] isKindOfClass:[NSString class]])
             _dangerColor = [UIColor xui_colorWithHex:themeDictionary[@"dangerColor"]];
-        if (themeDictionary[@"warningColor"])
+        if ([themeDictionary[@"warningColor"] isKindOfClass:[NSString class]])
             _warningColor = [UIColor xui_colorWithHex:themeDictionary[@"warningColor"]];
-        if (themeDictionary[@"successColor"])
+        if ([themeDictionary[@"successColor"] isKindOfClass:[NSString class]])
             _successColor = [UIColor xui_colorWithHex:themeDictionary[@"successColor"]];
         
-        if (themeDictionary[@"selectedColor"])
+        if ([themeDictionary[@"selectedColor"] isKindOfClass:[NSString class]])
             _selectedColor = [UIColor xui_colorWithHex:themeDictionary[@"selectedColor"]];
-        if (themeDictionary[@"highlightedColor"])
+        if ([themeDictionary[@"highlightedColor"] isKindOfClass:[NSString class]])
             _highlightedColor = [UIColor xui_colorWithHex:themeDictionary[@"highlightedColor"]];
         
-        if (themeDictionary[@"navigationBarColor"])
+        if ([themeDictionary[@"navigationBarColor"] isKindOfClass:[NSString class]])
             _navigationBarColor = [UIColor xui_colorWithHex:themeDictionary[@"navigationBarColor"]];
-        if (themeDictionary[@"navigationTitleColor"])
+        if ([themeDictionary[@"navigationTitleColor"] isKindOfClass:[NSString class]])
             _navigationTitleColor = [UIColor xui_colorWithHex:themeDictionary[@"navigationTitleColor"]];
         
-        if (themeDictionary[@"labelColor"])
+        if ([themeDictionary[@"headerTextColor"] isKindOfClass:[NSString class]])
+            _headerTextColor = [UIColor xui_colorWithHex:themeDictionary[@"headerTextColor"]];
+        if ([themeDictionary[@"subheaderTextColor"] isKindOfClass:[NSString class]])
+            _subheaderTextColor = [UIColor xui_colorWithHex:themeDictionary[@"subheaderTextColor"]];
+        if ([themeDictionary[@"footerTextColor"] isKindOfClass:[NSString class]])
+            _footerTextColor = [UIColor xui_colorWithHex:themeDictionary[@"footerTextColor"]];
+        
+        if ([themeDictionary[@"labelColor"] isKindOfClass:[NSString class]])
             _labelColor = [UIColor xui_colorWithHex:themeDictionary[@"labelColor"]];
-        if (themeDictionary[@"valueColor"])
+        if ([themeDictionary[@"valueColor"] isKindOfClass:[NSString class]])
             _valueColor = [UIColor xui_colorWithHex:themeDictionary[@"valueColor"]];
         
-        if (themeDictionary[@"caretColor"])
+        if ([themeDictionary[@"caretColor"] isKindOfClass:[NSString class]])
             _caretColor = [UIColor xui_colorWithHex:themeDictionary[@"caretColor"]];
-        if (themeDictionary[@"textColor"])
+        if ([themeDictionary[@"textColor"] isKindOfClass:[NSString class]])
             _textColor = [UIColor xui_colorWithHex:themeDictionary[@"textColor"]];
-        if (themeDictionary[@"placeholderColor"])
+        if ([themeDictionary[@"placeholderColor"] isKindOfClass:[NSString class]])
             _placeholderColor = [UIColor xui_colorWithHex:themeDictionary[@"placeholderColor"]];
         
-        if (themeDictionary[@"cellBackgroundColor"])
+        if ([themeDictionary[@"cellBackgroundColor"] isKindOfClass:[NSString class]])
             _cellBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"cellBackgroundColor"]];
-        if (themeDictionary[@"disclosureIndicatorColor"])
+        if ([themeDictionary[@"disclosureIndicatorColor"] isKindOfClass:[NSString class]])
             _disclosureIndicatorColor = [UIColor xui_colorWithHex:themeDictionary[@"disclosureIndicatorColor"]];
         
-        if (themeDictionary[@"tagTextColor"])
+        if ([themeDictionary[@"tagTextColor"] isKindOfClass:[NSString class]])
             _tagTextColor = [UIColor xui_colorWithHex:themeDictionary[@"tagTextColor"]];
-        if (themeDictionary[@"tagSelectedTextColor"])
+        if ([themeDictionary[@"tagSelectedTextColor"] isKindOfClass:[NSString class]])
             _tagSelectedTextColor = [UIColor xui_colorWithHex:themeDictionary[@"tagSelectedTextColor"]];
-        if (themeDictionary[@"tagBorderColor"])
+        if ([themeDictionary[@"tagBorderColor"] isKindOfClass:[NSString class]])
             _tagBorderColor = [UIColor xui_colorWithHex:themeDictionary[@"tagBorderColor"]];
-        if (themeDictionary[@"tagSelectedBorderColor"])
+        if ([themeDictionary[@"tagSelectedBorderColor"] isKindOfClass:[NSString class]])
             _tagSelectedBorderColor = [UIColor xui_colorWithHex:themeDictionary[@"tagSelectedBorderColor"]];
-        if (themeDictionary[@"tagBackgroundColor"])
+        if ([themeDictionary[@"tagBackgroundColor"] isKindOfClass:[NSString class]])
             _tagBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"tagBackgroundColor"]];
-        if (themeDictionary[@"tagSelectedBackgroundColor"])
+        if ([themeDictionary[@"tagSelectedBackgroundColor"] isKindOfClass:[NSString class]])
             _tagSelectedBackgroundColor = [UIColor xui_colorWithHex:themeDictionary[@"tagSelectedBackgroundColor"]];
         
-        if (themeDictionary[@"thumbColor"])
+        if ([themeDictionary[@"thumbColor"] isKindOfClass:[NSString class]])
             _thumbTintColor = [UIColor xui_colorWithHex:themeDictionary[@"thumbColor"]];
-        if (themeDictionary[@"thumbTintColor"])
+        if ([themeDictionary[@"thumbTintColor"] isKindOfClass:[NSString class]])
             _thumbTintColor = [UIColor xui_colorWithHex:themeDictionary[@"thumbTintColor"]];
         
         _rawTheme = themeDictionary;
@@ -112,6 +125,9 @@
     _foregroundColor = XUI_COLOR_HIGHLIGHTED;
     _backgroundColor = [UIColor groupTableViewBackgroundColor];
     _separatorColor = [UIColor lightGrayColor];
+    _backgroundImagePath = nil;
+    _sectionHeaderTextColor = [UIColor grayColor];
+    _sectionFooterTextColor = [UIColor grayColor];
     
     _dangerColor = XUI_COLOR_DANGER;
     _warningColor = XUI_COLOR_WARNING;
@@ -122,6 +138,9 @@
     
     _labelColor = [UIColor blackColor];
     _valueColor = [UIColor grayColor];
+    _headerTextColor = [UIColor blackColor];
+    _subheaderTextColor = [UIColor blackColor];
+    _footerTextColor = [UIColor blackColor];
     
     _textColor = [UIColor blackColor];
     _caretColor = XUI_COLOR_HIGHLIGHTED;

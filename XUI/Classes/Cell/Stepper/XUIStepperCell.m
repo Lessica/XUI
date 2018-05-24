@@ -16,7 +16,9 @@
 @property (strong, nonatomic) UIStepper *cellStepper;
 @property (strong, nonatomic) UILabel *cellNumberLabel;
 @property (strong, nonatomic) UILabel *cellTitleLabel;
+
 @property (strong, nonatomic) NSLayoutConstraint *leftConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *middleConstraint;
 
 @end
 
@@ -84,11 +86,10 @@
         [self.contentView addConstraints:constraints];
     }
     {
-        NSLayoutConstraint *labelConstraint = [NSLayoutConstraint constraintWithItem:self.cellNumberLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.cellTitleLabel attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:16.0];
-        
+        self.middleConstraint = [NSLayoutConstraint constraintWithItem:self.cellNumberLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.cellTitleLabel attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:16.0];
         NSArray <NSLayoutConstraint *> *constraints =
         @[
-          labelConstraint,
+          self.middleConstraint,
           [NSLayoutConstraint constraintWithItem:self.cellNumberLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.cellStepper attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-16.0],
           [NSLayoutConstraint constraintWithItem:self.cellNumberLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
           ];
@@ -106,12 +107,13 @@
 }
 
 - (void)reloadLeftConstraints {
+    self.leftConstraint.constant = (XUI_SYSTEM_9 ? 0.0 : self.separatorInset.left);
     if (self.cellTitleLabel.text.length == 0) {
-        self.leftConstraint.constant = 0.0;
+        self.middleConstraint.constant = 0.0;
         [self.cellTitleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
         [self.cellNumberLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     } else {
-        self.leftConstraint.constant = (XUI_SYSTEM_9 ? 0.0 : self.separatorInset.left);
+        self.middleConstraint.constant = 16.0;
         [self.cellTitleLabel setContentCompressionResistancePriority:500 forAxis:UILayoutConstraintAxisHorizontal];
         [self.cellNumberLabel setContentCompressionResistancePriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
     }

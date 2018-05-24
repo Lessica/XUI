@@ -106,15 +106,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        UITableViewStyle tableViewStyle;
-        if ([self popoverMode])
-        {
-            tableViewStyle = UITableViewStylePlain;
-        }
-        else
-        {
-            tableViewStyle = self.theme.tableViewStyle;
-        }
+        UITableViewStyle tableViewStyle = self.theme.tableViewStyle;
         UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:tableViewStyle];
         if ([self popoverMode]) {
             tableView.bounces = NO;
@@ -155,15 +147,13 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.textLabel.font = [UIFont systemFontOfSize:14.0];
-    header.textLabel.textColor = self.theme.labelColor;
+    header.textLabel.textColor = self.theme.sectionHeaderTextColor;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
-    if (tableView.style == UITableViewStylePlain) {
-        UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
-        footer.textLabel.font = [UIFont systemFontOfSize:12.0];
-        footer.textLabel.textColor = self.theme.labelColor;
-    }
+    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+    footer.textLabel.font = [UIFont systemFontOfSize:12.0];
+    footer.textLabel.textColor = self.theme.sectionFooterTextColor;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

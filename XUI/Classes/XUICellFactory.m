@@ -124,7 +124,7 @@
             [self.logger logMessage:[NSString stringWithFormat:[XUIStrings localizedStringForString:@"[%@]\nPath \"items[%lu]\", %@"], checkError.domain, itemIdx, checkError.localizedDescription]];
             continue;
         }
-        cellInstance.factory = self;
+        [cellInstance setFactory:self];
         XUITheme *theme = nil;
         NSDictionary *itemTheme = itemDictionary[@"theme"];
         if ([itemTheme isKindOfClass:[NSDictionary class]]) {

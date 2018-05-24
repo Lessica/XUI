@@ -30,7 +30,7 @@
     if (indexPath && linkListCell.xui_options)
     {
         XUIOptionViewController *optionViewController = [[XUIOptionViewController alloc] initWithCell:linkListCell];
-        optionViewController.cellFactory.theme = self.cellFactory.theme;
+        optionViewController.cellFactory.theme = linkListCell.theme ? linkListCell.theme : self.cellFactory.theme;
         optionViewController.cellFactory.adapter = self.cellFactory.adapter;
         optionViewController.delegate = self;
         optionViewController.title = linkListCell.xui_label;

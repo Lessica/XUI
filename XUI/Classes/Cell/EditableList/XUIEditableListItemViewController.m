@@ -80,7 +80,8 @@
 - (XUITextFieldCell *)textFieldCell {
     if (!_textFieldCell) {
         XUITextFieldCell *cell = [[XUITextFieldCell alloc] init];
-        [cell setInternalTheme:self.theme];
+        [cell setFactory:self.cellFactory];
+        [cell setInternalTheme:self.theme]; // override its theme
         [cell.cellTextField addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventEditingChanged];
         cell.cellTextField.returnKeyType = UIReturnKeyDone;
         cell.cellTextField.enablesReturnKeyAutomatically = YES;
@@ -111,6 +112,18 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 44.f;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.textLabel.font = [UIFont systemFontOfSize:14.0];
+    header.textLabel.textColor = self.theme.sectionHeaderTextColor;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+    footer.textLabel.font = [UIFont systemFontOfSize:12.0];
+    footer.textLabel.textColor = self.theme.sectionFooterTextColor;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

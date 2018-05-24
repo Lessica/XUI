@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) UILabel *cellTitleLabel;
 @property (strong, nonatomic) NSLayoutConstraint *leftConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *middleConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *titleWidthConstraint;
 
 @property (nonatomic, assign) NSUInteger maxLength;
@@ -118,10 +119,11 @@
         XUI_START_IGNORE_PARTIAL
         self.leftConstraint = [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:(XUI_SYSTEM_9 ? NSLayoutAttributeLeadingMargin : NSLayoutAttributeLeading) multiplier:1.0 constant:(XUI_SYSTEM_9 ? 0.0 : 20.0)];
         XUI_END_IGNORE_PARTIAL
+        self.middleConstraint = [NSLayoutConstraint constraintWithItem:self.cellTextField attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.cellTitleLabel attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:16.0];
         NSArray <NSLayoutConstraint *> *constraints =
         @[
           self.leftConstraint,
-          [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.cellTextField attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-16.0],
+          self.middleConstraint,
           [NSLayoutConstraint constraintWithItem:self.cellTitleLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0],
           ];
         [self.contentView addConstraints:constraints];
@@ -146,8 +148,9 @@
 }
 
 - (void)reloadLeftConstraints {
+    self.leftConstraint.constant = (XUI_SYSTEM_9 ? 0.0 : self.separatorInset.left);
     if (self.cellTitleLabel.text.length == 0) {
-        self.leftConstraint.constant = 0.0;
+        self.middleConstraint.constant = 0.0;
         XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_8) {
             self.titleWidthConstraint.active = YES;
@@ -158,7 +161,7 @@
         }
         XUI_END_IGNORE_PARTIAL
     } else {
-        self.leftConstraint.constant = (XUI_SYSTEM_9 ? 0.0 : self.separatorInset.left);
+        self.middleConstraint.constant = 16.0;
         XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_8) {
             self.titleWidthConstraint.active = NO;

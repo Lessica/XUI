@@ -19,11 +19,20 @@
 @property (nonatomic, strong, readonly) UIColor *navigationTitleColor;
 
 
+#pragma mark - Header & Footer
+@property (nonatomic, strong, readonly) UIColor *headerTextColor;
+@property (nonatomic, strong, readonly) UIColor *subheaderTextColor;
+@property (nonatomic, strong, readonly) UIColor *footerTextColor;
+
+
 #pragma mark - Table View
 @property (nonatomic, assign, readonly) UITableViewStyle tableViewStyle;
 @property (nonatomic, strong, readonly) UIColor *foregroundColor;
 @property (nonatomic, strong, readonly) UIColor *backgroundColor;
 @property (nonatomic, strong, readonly) UIColor *separatorColor;
+@property (nonatomic, strong, readonly) NSString *backgroundImagePath;
+@property (nonatomic, strong, readonly) UIColor *sectionHeaderTextColor;
+@property (nonatomic, strong, readonly) UIColor *sectionFooterTextColor;
 
 
 #pragma mark - Cells

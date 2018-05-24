@@ -121,7 +121,7 @@ static inline UIEdgeInsets XUIListFooterViewEdgeInsets() {
     _theme = theme;
     self.backgroundColor = theme.backgroundColor;
     self.footerIconView.tintColor = theme.foregroundColor;
-    self.footerLabel.textColor = theme.labelColor;
+    self.footerLabel.textColor = theme.footerTextColor;
 }
 
 @end

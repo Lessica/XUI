@@ -11,6 +11,7 @@
 @interface UIColor (XUIDarkColor)
 
 - (BOOL)xui_isDarkColor;
+- (UIImage *)xui_image;
 + (UIColor *)xui_colorWithHex:(NSString *)representation;
 
 @end

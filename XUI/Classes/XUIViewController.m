@@ -10,6 +10,7 @@
 #import "XUILogger.h"
 #import "XUICellFactory.h"
 
+#import "UIColor+XUIDarkColor.h"
 #import "UIViewController+XUIPreviousViewController.h"
 
 @interface XUIViewController () <XUICellFactoryDelegate>
@@ -17,6 +18,7 @@
 @property (nonatomic, strong) UIColor *outsideForegroundColor;
 @property (nonatomic, strong) UIColor *outsideBackgroundColor;
 @property (nonatomic, assign) BOOL fromXUIViewController;
+@property (nonatomic, strong) UIImageView *backgroundImageView;
 
 @end
 
@@ -56,6 +58,20 @@
     return self.navigationController.navigationBar;
 }
 
+#pragma mark - Life Cycle
+
+- (void)loadView {
+    UIImageView *view = [[UIImageView alloc] init];
+    view.contentMode = UIViewContentModeScaleAspectFill;
+    view.clipsToBounds = YES;
+    view.backgroundColor = [UIColor clearColor];
+    view.frame = [UIScreen mainScreen].bounds;
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    view.userInteractionEnabled = YES;
+    self.view = view;
+    _backgroundImageView = view;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
@@ -75,6 +91,18 @@
         self.fromXUIViewController = YES;
     }
     [self renderNavigationBarTheme:NO];
+    NSString *backgroundImagePath = self.theme.backgroundImagePath;
+    if (backgroundImagePath)
+    { // Background Image
+        NSBundle *bundle = nil;
+        if (self.adapter) {
+            bundle = self.adapter.bundle;
+        } else {
+            bundle = [NSBundle mainBundle];
+        }
+        UIImage *backgroundImage = [UIImage imageWithContentsOfFile:[bundle pathForResource:backgroundImagePath ofType:nil]];
+        [self.backgroundImageView setImage:backgroundImage];
+    }
     [super viewWillAppear:animated];
 }
 
@@ -114,24 +142,33 @@
                 backgroundColor = self.theme.navigationBarColor;
         }
     }
-    [[self navigationBar] setTitleTextAttributes:@{ NSForegroundColorAttributeName : foregroundColor }];
-    [self navigationBar].tintColor = foregroundColor;
-    [self navigationBar].barTintColor = backgroundColor;
-    self.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
-    self.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
-    for (UIBarButtonItem *item in self.navigationItem.leftBarButtonItems) {
-        item.tintColor = foregroundColor;
+    { // title color
+        [self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : foregroundColor }];
     }
-    for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
-        item.tintColor = foregroundColor;
+    { // bar color
+        [self.navigationBar setBackgroundImage:[backgroundColor xui_image] forBarMetrics:UIBarMetricsDefault];
+        self.navigationBar.shadowImage = nil;
+        self.navigationBar.translucent = YES;
+        self.navigationBar.tintColor = foregroundColor;
+        self.navigationBar.barTintColor = backgroundColor;
     }
-    self.navigationController.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
-    self.navigationController.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
-    for (UIBarButtonItem *item in self.navigationController.navigationItem.leftBarButtonItems) {
-        item.tintColor = foregroundColor;
-    }
-    for (UIBarButtonItem *item in self.navigationController.navigationItem.rightBarButtonItems) {
-        item.tintColor = foregroundColor;
+    { // item color
+        self.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
+        self.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
+        for (UIBarButtonItem *item in self.navigationItem.leftBarButtonItems) {
+            item.tintColor = foregroundColor;
+        }
+        for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
+            item.tintColor = foregroundColor;
+        }
+        self.navigationController.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
+        self.navigationController.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
+        for (UIBarButtonItem *item in self.navigationController.navigationItem.leftBarButtonItems) {
+            item.tintColor = foregroundColor;
+        }
+        for (UIBarButtonItem *item in self.navigationController.navigationItem.rightBarButtonItems) {
+            item.tintColor = foregroundColor;
+        }
     }
     [self setNeedsStatusBarAppearanceUpdate];
 }
