@@ -635,35 +635,6 @@ XUI_END_IGNORE_PARTIAL
     return insets;
 }
 
-#pragma mark - Setters
-
-- (void)updateAdapter:(id<XUIAdapter>)adapter {
-    [self.cellFactory setAdapter:adapter];
-    if (![self.cellFactory shouldReload]) {
-#ifdef DEBUG
-        NSLog(@"-[XUIListViewController setAdapter:] cannot be called after view is loaded.");
-#endif
-    }
-}
-
-- (void)updateLogger:(XUILogger *)logger {
-    [self.cellFactory setLogger:logger];
-    if (![self.cellFactory shouldReload]) {
-#ifdef DEBUG
-        NSLog(@"-[XUIListViewController setLogger:] cannot be called after view is loaded.");
-#endif
-    }
-}
-
-- (void)updateTheme:(XUITheme *)theme {
-    [self.cellFactory setTheme:theme];
-    if (![self.cellFactory shouldReload]) {
-#ifdef DEBUG
-        NSLog(@"-[XUIListViewController setTheme:] cannot be called after view is loaded.");
-#endif
-    }
-}
-
 #pragma mark - UIPopoverPresentationControllerDelegate
 
 XUI_START_IGNORE_PARTIAL

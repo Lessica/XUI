@@ -390,8 +390,9 @@ XUI_END_IGNORE_PARTIAL
         self.editingIndex = UINT_MAX;
     }
     XUIEditableListItemViewController *itemViewController = [[XUIEditableListItemViewController alloc] initWithContent:content];
-    itemViewController.cellFactory.theme = self.cellFactory.theme;
-    itemViewController.cellFactory.adapter = self.cellFactory.adapter;
+    [itemViewController updateTheme:[self.theme copy]];
+    [itemViewController updateAdapter:self.adapter];
+    [itemViewController updateLogger:self.logger];
     itemViewController.validationRegex = self.validationRegex;
     itemViewController.footerText = [self.adapter localizedStringForKey:self.cell.xui_itemFooterText value:self.cell.xui_itemFooterText];
     itemViewController.delegate = self;

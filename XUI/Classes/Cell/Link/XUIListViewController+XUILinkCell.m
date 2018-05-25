@@ -37,7 +37,8 @@
     typeof(self) detailController = [[[self class] alloc] initWithPath:absolutePath withBundlePath:[self.bundle bundlePath]];
     if (detailController) {
         detailController.title = linkCell.textLabel.text;
-        detailController.cellFactory.theme = self.cellFactory.theme;
+        [detailController updateTheme:[self.theme copy]];
+        [detailController updateLogger:self.logger];
         [self.navigationController pushViewController:detailController animated:YES];
     }
 }

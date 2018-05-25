@@ -14,8 +14,9 @@
 - (void)tableView:(UITableView *)tableView XUITextareaCell:(UITableViewCell *)cell {
     XUITextareaCell *textareaCell = (XUITextareaCell *)cell;
     XUITextareaViewController *textareaViewController = [[XUITextareaViewController alloc] initWithCell:textareaCell];
-    textareaViewController.cellFactory.theme = self.cellFactory.theme;
-    textareaViewController.cellFactory.adapter = self.cellFactory.adapter;
+    [textareaViewController updateTheme:[(textareaCell.theme ? textareaCell.theme : self.theme) copy]];
+    [textareaViewController updateAdapter:self.adapter];
+    [textareaViewController updateLogger:self.logger];
     textareaViewController.delegate = self;
     textareaViewController.title = textareaCell.xui_label;
     [self.navigationController pushViewController:textareaViewController animated:YES];

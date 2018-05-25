@@ -80,8 +80,9 @@
     
     // check theme
     NSDictionary *themeDictionary = self.rootEntry[@"theme"];
-    if ([themeDictionary isKindOfClass:[NSDictionary class]])
-        _theme = [[XUITheme alloc] initWithDictionary:themeDictionary];
+    if ([themeDictionary isKindOfClass:[NSDictionary class]]) {
+        [self.theme combineWithDictionary:themeDictionary];
+    }
     
     // check items
     NSArray <NSDictionary *> *items = self.rootEntry[@"items"];
@@ -125,17 +126,13 @@
             continue;
         }
         [cellInstance setFactory:self];
-        XUITheme *theme = nil;
-        NSDictionary *itemTheme = itemDictionary[@"theme"];
-        if ([itemTheme isKindOfClass:[NSDictionary class]]) {
-            NSMutableDictionary *combinedTheme = [(themeDictionary ? themeDictionary : @{}) mutableCopy];
-            [combinedTheme addEntriesFromDictionary:itemTheme];
-            theme = [[XUITheme alloc] initWithDictionary:combinedTheme];
-        } else {
-            theme = [self.theme copy];
+        XUITheme *cellTheme = [self.theme copy];
+        NSDictionary *cellThemeDictionary = itemDictionary[@"theme"];
+        if ([cellThemeDictionary isKindOfClass:[NSDictionary class]]) {
+            [cellTheme combineWithDictionary:cellThemeDictionary];
         }
-        if (theme) {
-            [cellInstance setInternalTheme:theme];
+        if (cellTheme) {
+            [cellInstance setInternalTheme:cellTheme];
         }
         NSArray <NSString *> *itemAllKeys = [itemDictionary allKeys];
         for (NSUInteger keyIdx = 0; keyIdx < itemAllKeys.count; ++keyIdx) {

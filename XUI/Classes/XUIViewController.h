@@ -22,4 +22,10 @@
 @property (nonatomic, strong, readonly, nullable) NSString *path; // shortcut for factory.adapter.path
 @property (nonatomic, strong, readonly, nullable) NSBundle *bundle; // shortcut for factory.adapter.bundle
 
+
+#pragma mark - Update Factory
+- (void)updateAdapter:(id<XUIAdapter>)adapter;
+- (void)updateLogger:(XUILogger *)logger;
+- (void)updateTheme:(XUITheme *)theme;
+
 @end

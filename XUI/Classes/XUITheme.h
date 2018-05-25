@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface XUITheme : NSObject <NSCopying>
+@interface XUITheme : NSObject <NSCopying, NSMutableCopying>
 
 
 #pragma mark - Global
@@ -81,7 +81,8 @@
 
 #pragma mark - Initializers
 @property (nonatomic, copy) NSDictionary *rawTheme;
+- (instancetype)initWithTheme:(XUITheme *)theme;
 - (instancetype)initWithDictionary:(NSDictionary *)themeDictionary;
-
+- (void)combineWithDictionary:(NSDictionary *)additionalDictionary;
 
 @end

@@ -195,6 +195,35 @@
     return self.cellFactory.adapter.bundle;
 }
 
+#pragma mark - Setters
+
+- (void)updateAdapter:(id<XUIAdapter>)adapter {
+    [self.cellFactory setAdapter:adapter];
+    if ([self isViewLoaded]) {
+#ifdef DEBUG
+        NSLog(@"-[XUIListViewController setAdapter:] cannot be called after view is loaded.");
+#endif
+    }
+}
+
+- (void)updateLogger:(XUILogger *)logger {
+    [self.cellFactory setLogger:logger];
+    if ([self isViewLoaded]) {
+#ifdef DEBUG
+        NSLog(@"-[XUIListViewController setLogger:] cannot be called after view is loaded.");
+#endif
+    }
+}
+
+- (void)updateTheme:(XUITheme *)theme {
+    [self.cellFactory setTheme:theme];
+    if ([self isViewLoaded]) {
+#ifdef DEBUG
+        NSLog(@"-[XUIListViewController setTheme:] cannot be called after view is loaded.");
+#endif
+    }
+}
+
 #pragma mark - XUICellFactoryDelegate
 
 - (void)cellFactory:(XUICellFactory *)parser didFailWithError:(NSError *)error {

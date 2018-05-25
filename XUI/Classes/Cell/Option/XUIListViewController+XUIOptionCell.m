@@ -30,8 +30,9 @@
     if (indexPath && linkListCell.xui_options)
     {
         XUIOptionViewController *optionViewController = [[XUIOptionViewController alloc] initWithCell:linkListCell];
-        optionViewController.cellFactory.theme = linkListCell.theme ? linkListCell.theme : self.cellFactory.theme;
-        optionViewController.cellFactory.adapter = self.cellFactory.adapter;
+        [optionViewController updateTheme:[(linkListCell.theme ? linkListCell.theme : self.theme) copy]];
+        [optionViewController updateAdapter:self.adapter];
+        [optionViewController updateLogger:self.logger];
         optionViewController.delegate = self;
         optionViewController.title = linkListCell.xui_label;
         XUI_START_IGNORE_PARTIAL

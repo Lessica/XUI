@@ -23,12 +23,6 @@
 @property (nonatomic, strong, readonly) XUIListFooterView *footerView;
 
 
-#pragma mark - Update Factory
-- (void)updateAdapter:(id<XUIAdapter>)adapter;
-- (void)updateLogger:(XUILogger *)logger;
-- (void)updateTheme:(XUITheme *)theme;
-
-
 #pragma mark - Convenience Helper
 /* These helper methods will try their best to find the top most view controller and present XUI from it. */
 + (void)presentFromTopViewControllerWithDictionary:(NSDictionary *)dictionary;
