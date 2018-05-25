@@ -471,8 +471,8 @@
     } else {
         theme = self.theme;
     }
-    header.textLabel.textColor = theme.sectionHeaderTextColor;
-    header.tintColor = theme.sectionHeaderBackgroundColor;
+    header.textLabel.textColor = theme.groupHeaderTextColor;
+    header.tintColor = theme.groupHeaderBackgroundColor;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
@@ -484,8 +484,8 @@
     } else {
         theme = self.theme;
     }
-    footer.textLabel.textColor = theme.sectionFooterTextColor;
-    footer.tintColor = theme.sectionFooterBackgroundColor;
+    footer.textLabel.textColor = theme.groupFooterTextColor;
+    footer.tintColor = theme.groupFooterBackgroundColor;
 }
 
 XUI_START_IGNORE_PARTIAL

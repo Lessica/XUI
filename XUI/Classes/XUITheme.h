@@ -14,7 +14,7 @@
 #pragma mark - Global
 @property (nonatomic, strong, readonly) UIColor *dangerColor;
 @property (nonatomic, strong, readonly) UIColor *warningColor;
-@property (nonatomic, strong, readonly) UIColor *successColor; // fill
+@property (nonatomic, strong, readonly) UIColor *successColor;
 
 
 #pragma mark - Navigation Bar
@@ -31,18 +31,18 @@
 
 
 #pragma mark - Table View
-@property (nonatomic, assign, readonly) UITableViewStyle tableViewStyle;
-@property (nonatomic, strong, readonly) UIColor *foregroundColor;
+@property (nonatomic, assign, readonly) UITableViewStyle tableViewStyle; // style
+@property (nonatomic, strong, readonly) UIColor *foregroundColor; // tintColor or foregroundColor
 @property (nonatomic, strong, readonly) UIColor *backgroundColor;
 @property (nonatomic, strong, readonly) UIColor *separatorColor;
-@property (nonatomic, strong, readonly) NSString *backgroundImagePath;
+@property (nonatomic, strong, readonly) NSString *backgroundImagePath; // backgroundImage
 
 
 #pragma mark - Group Cell
-@property (nonatomic, strong, readonly) UIColor *sectionHeaderTextColor;
-@property (nonatomic, strong, readonly) UIColor *sectionHeaderBackgroundColor;
-@property (nonatomic, strong, readonly) UIColor *sectionFooterTextColor;
-@property (nonatomic, strong, readonly) UIColor *sectionFooterBackgroundColor;
+@property (nonatomic, strong, readonly) UIColor *groupHeaderTextColor;
+@property (nonatomic, strong, readonly) UIColor *groupHeaderBackgroundColor;
+@property (nonatomic, strong, readonly) UIColor *groupFooterTextColor;
+@property (nonatomic, strong, readonly) UIColor *groupFooterBackgroundColor;
 
 
 #pragma mark - Other Cells
@@ -70,7 +70,8 @@
 
 
 #pragma mark - Switch
-// tintColor
+@property (strong, nonatomic, readonly) UIColor *onTintColor;
+@property (strong, nonatomic, readonly) UIColor *offTintColor;
 @property (strong, nonatomic, readonly) UIColor *thumbTintColor;
 
 

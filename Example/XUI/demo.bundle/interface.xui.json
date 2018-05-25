@@ -9,6 +9,7 @@
         "cellBackgroundColor": "#FEFEFEA0",
         "tagBackgroundColor": "#FFFFFF00",
         "navigationBarColor": "#2C3E50D0",
+        "offTintColor": "#CCCCCC",
     },
     "items":[
         {

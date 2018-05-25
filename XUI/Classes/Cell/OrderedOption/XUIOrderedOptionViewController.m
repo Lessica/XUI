@@ -147,15 +147,15 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.textLabel.font = [UIFont systemFontOfSize:14.0];
-    header.textLabel.textColor = self.theme.sectionHeaderTextColor;
-    header.tintColor = self.theme.sectionHeaderBackgroundColor;
+    header.textLabel.textColor = self.theme.groupHeaderTextColor;
+    header.tintColor = self.theme.groupHeaderBackgroundColor;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
     footer.textLabel.font = [UIFont systemFontOfSize:12.0];
-    footer.textLabel.textColor = self.theme.sectionFooterTextColor;
-    footer.tintColor = self.theme.sectionFooterBackgroundColor;
+    footer.textLabel.textColor = self.theme.groupFooterTextColor;
+    footer.tintColor = self.theme.groupFooterBackgroundColor;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

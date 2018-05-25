@@ -65,10 +65,10 @@
     _separatorColor = theme.separatorColor;
     _backgroundImagePath = theme.backgroundImagePath;
     
-    _sectionHeaderTextColor = theme.sectionHeaderTextColor;
-    _sectionFooterTextColor = theme.sectionFooterTextColor;
-    _sectionHeaderBackgroundColor = theme.sectionHeaderBackgroundColor;
-    _sectionFooterBackgroundColor = theme.sectionFooterBackgroundColor;
+    _groupHeaderTextColor = theme.groupHeaderTextColor;
+    _groupFooterTextColor = theme.groupFooterTextColor;
+    _groupHeaderBackgroundColor = theme.groupHeaderBackgroundColor;
+    _groupFooterBackgroundColor = theme.groupFooterBackgroundColor;
     
     _cellBackgroundColor = theme.cellBackgroundColor;
     _selectedColor = theme.selectedColor;
@@ -88,7 +88,10 @@
     _tagBackgroundColor = theme.tagBackgroundColor;
     _tagSelectedBackgroundColor = theme.tagSelectedBackgroundColor;
     
+    _offTintColor = theme.offTintColor;
+    _onTintColor = theme.onTintColor;
     _thumbTintColor = theme.thumbTintColor;
+    
     _rawTheme = theme.rawTheme;
     
 }
@@ -114,10 +117,10 @@
     _separatorColor = [UIColor lightGrayColor];
     _backgroundImagePath = nil;
     
-    _sectionHeaderTextColor = [UIColor grayColor];
-    _sectionFooterTextColor = [UIColor grayColor];
-    _sectionHeaderBackgroundColor = [UIColor clearColor];
-    _sectionFooterBackgroundColor = [UIColor clearColor];
+    _groupHeaderTextColor = [UIColor grayColor];
+    _groupFooterTextColor = [UIColor grayColor];
+    _groupHeaderBackgroundColor = [UIColor clearColor];
+    _groupFooterBackgroundColor = [UIColor clearColor];
     
     _cellBackgroundColor = [UIColor whiteColor];
     _selectedColor = [XUI_COLOR_HIGHLIGHTED colorWithAlphaComponent:0.1];
@@ -137,7 +140,10 @@
     _tagBackgroundColor = [UIColor whiteColor];
     _tagSelectedBackgroundColor = XUI_COLOR_HIGHLIGHTED;
     
+    _offTintColor = [UIColor xui_colorWithHex:@"#E0E0E0"];
+    _onTintColor = XUI_COLOR_SUCCESS;
     _thumbTintColor = [UIColor whiteColor];
+    
     _rawTheme = nil;
     
 }
@@ -164,14 +170,14 @@
     if ([additionalDictionary[@"backgroundImage"] isKindOfClass:[NSString class]])
         _backgroundImagePath = additionalDictionary[@"backgroundImage"];
     
-    if ([additionalDictionary[@"sectionHeaderTextColor"] isKindOfClass:[NSString class]])
-        _sectionHeaderTextColor = [UIColor xui_colorWithHex:additionalDictionary[@"sectionHeaderTextColor"]];
-    if ([additionalDictionary[@"sectionFooterTextColor"] isKindOfClass:[NSString class]])
-        _sectionFooterTextColor = [UIColor xui_colorWithHex:additionalDictionary[@"sectionFooterTextColor"]];
-    if ([additionalDictionary[@"sectionHeaderBackgroundColor"] isKindOfClass:[NSString class]])
-        _sectionHeaderBackgroundColor = [UIColor xui_colorWithHex:additionalDictionary[@"sectionHeaderBackgroundColor"]];
-    if ([additionalDictionary[@"sectionFooterBackgroundColor"] isKindOfClass:[NSString class]])
-        _sectionFooterBackgroundColor = [UIColor xui_colorWithHex:additionalDictionary[@"sectionFooterBackgroundColor"]];
+    if ([additionalDictionary[@"groupHeaderTextColor"] isKindOfClass:[NSString class]])
+        _groupHeaderTextColor = [UIColor xui_colorWithHex:additionalDictionary[@"groupHeaderTextColor"]];
+    if ([additionalDictionary[@"groupFooterTextColor"] isKindOfClass:[NSString class]])
+        _groupFooterTextColor = [UIColor xui_colorWithHex:additionalDictionary[@"groupFooterTextColor"]];
+    if ([additionalDictionary[@"groupHeaderBackgroundColor"] isKindOfClass:[NSString class]])
+        _groupHeaderBackgroundColor = [UIColor xui_colorWithHex:additionalDictionary[@"groupHeaderBackgroundColor"]];
+    if ([additionalDictionary[@"groupFooterBackgroundColor"] isKindOfClass:[NSString class]])
+        _groupFooterBackgroundColor = [UIColor xui_colorWithHex:additionalDictionary[@"groupFooterBackgroundColor"]];
     
     if ([additionalDictionary[@"dangerColor"] isKindOfClass:[NSString class]])
         _dangerColor = [UIColor xui_colorWithHex:additionalDictionary[@"dangerColor"]];
@@ -231,8 +237,10 @@
     if ([additionalDictionary[@"tagSelectedBackgroundColor"] isKindOfClass:[NSString class]])
         _tagSelectedBackgroundColor = [UIColor xui_colorWithHex:additionalDictionary[@"tagSelectedBackgroundColor"]];
     
-    if ([additionalDictionary[@"thumbColor"] isKindOfClass:[NSString class]])
-        _thumbTintColor = [UIColor xui_colorWithHex:additionalDictionary[@"thumbColor"]];
+    if ([additionalDictionary[@"offTintColor"] isKindOfClass:[NSString class]])
+        _offTintColor = [UIColor xui_colorWithHex:additionalDictionary[@"offTintColor"]];
+    if ([additionalDictionary[@"onTintColor"] isKindOfClass:[NSString class]])
+        _onTintColor = [UIColor xui_colorWithHex:additionalDictionary[@"onTintColor"]];
     if ([additionalDictionary[@"thumbTintColor"] isKindOfClass:[NSString class]])
         _thumbTintColor = [UIColor xui_colorWithHex:additionalDictionary[@"thumbTintColor"]];
     
