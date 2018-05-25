@@ -143,16 +143,11 @@
 }
 
 - (void)combineWithDictionary:(NSDictionary *)additionalDictionary {
-    NSMutableDictionary *themeDictionary = [self.rawTheme mutableCopy];
-    if (!themeDictionary) {
-        themeDictionary = [[NSMutableDictionary alloc] init];
-    }
-    
-    if ([themeDictionary[@"style"] isKindOfClass:[NSString class]]) {
-        NSString *style = themeDictionary[@"style"];
+    if ([additionalDictionary[@"style"] isKindOfClass:[NSString class]]) {
+        NSString *style = additionalDictionary[@"style"];
         if ([style isEqualToString:@"Plain"]) {
             _tableViewStyle = UITableViewStylePlain;
-        } else {
+        } else if ([style isEqualToString:@"Grouped"]) {
             _tableViewStyle = UITableViewStyleGrouped;
         }
     }
@@ -241,6 +236,10 @@
     if ([additionalDictionary[@"thumbTintColor"] isKindOfClass:[NSString class]])
         _thumbTintColor = [UIColor xui_colorWithHex:additionalDictionary[@"thumbTintColor"]];
     
+    NSMutableDictionary *themeDictionary = [self.rawTheme mutableCopy];
+    if (!themeDictionary) {
+        themeDictionary = [[NSMutableDictionary alloc] init];
+    }
     [themeDictionary addEntriesFromDictionary:additionalDictionary];
     [self setRawTheme:themeDictionary];
 }
