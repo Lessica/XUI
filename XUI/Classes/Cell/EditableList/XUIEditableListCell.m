@@ -10,6 +10,8 @@
 
 @implementation XUIEditableListCell
 
+@synthesize xui_value = _xui_value;
+
 + (BOOL)layoutNeedsTextLabel {
     return YES;
 }
@@ -53,6 +55,23 @@
 - (void)setupCell {
     [super setupCell];
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+}
+
+#pragma mark - Setters
+
+- (void)setXui_value:(NSArray *)xui_value {
+    _xui_value = xui_value;
+    NSArray <NSString *> *listValues = xui_value;
+    NSUInteger count = listValues.count;
+    NSString *shortTitle = nil;
+    if (count == 0) {
+        shortTitle = [XUIStrings localizedStringForString:@"No Item"];
+    } else if (count <= 1) {
+        shortTitle = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"%lu Item"], (unsigned long)count];
+    } else {
+        shortTitle = [NSString stringWithFormat:[XUIStrings localizedStringForString:@"%lu Items"], (unsigned long)count];
+    }
+    self.detailTextLabel.text = shortTitle;
 }
 
 @end

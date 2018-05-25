@@ -348,8 +348,13 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if (sourceIndexPath.section == 1 && destinationIndexPath.section == 1) {
-        [self.mutableContentList exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
-        [self notifyContentListUpdate];
+        NSMutableArray *list = self.mutableContentList;
+        if (sourceIndexPath.row < list.count && destinationIndexPath.row < list.count) {
+            id object = list[sourceIndexPath.row];
+            [list removeObjectAtIndex:sourceIndexPath.row];
+            [list insertObject:object atIndex:destinationIndexPath.row];
+            [self notifyContentListUpdate];
+        }
     }
 }
 

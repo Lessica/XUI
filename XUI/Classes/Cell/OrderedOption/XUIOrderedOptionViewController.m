@@ -245,15 +245,33 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if (sourceIndexPath.section == 0 && destinationIndexPath.section == 0) {
-        [self.selectedIndexes exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+        NSMutableArray *indexes = self.selectedIndexes;
+        if (sourceIndexPath.row < indexes.count && destinationIndexPath.row < indexes.count) {
+            id object = indexes[sourceIndexPath.row];
+            [indexes removeObjectAtIndex:sourceIndexPath.row];
+            [indexes insertObject:object atIndex:destinationIndexPath.row];
+        }
     } else if (sourceIndexPath.section == 1 && destinationIndexPath.section == 1) {
-        [self.unselectedIndexes exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+        NSMutableArray *indexes = self.unselectedIndexes;
+        if (sourceIndexPath.row < indexes.count && destinationIndexPath.row < indexes.count) {
+            id object = indexes[sourceIndexPath.row];
+            [indexes removeObjectAtIndex:sourceIndexPath.row];
+            [indexes insertObject:object atIndex:destinationIndexPath.row];
+        }
     } else if (sourceIndexPath.section == 0 && destinationIndexPath.section == 1) {
-        [self.unselectedIndexes insertObject:self.selectedIndexes[sourceIndexPath.row] atIndex:destinationIndexPath.row];
-        [self.selectedIndexes removeObjectAtIndex:sourceIndexPath.row];
+        NSMutableArray *inIndexes = self.unselectedIndexes;
+        NSMutableArray *outIndexes = self.selectedIndexes;
+        if (sourceIndexPath.row < outIndexes.count && destinationIndexPath.row < inIndexes.count + 1) {
+            [inIndexes insertObject:outIndexes[sourceIndexPath.row] atIndex:destinationIndexPath.row];
+            [outIndexes removeObjectAtIndex:sourceIndexPath.row];
+        }
     } else if (sourceIndexPath.section == 1 && destinationIndexPath.section == 0) {
-        [self.selectedIndexes insertObject:self.unselectedIndexes[sourceIndexPath.row] atIndex:destinationIndexPath.row];
-        [self.unselectedIndexes removeObjectAtIndex:sourceIndexPath.row];
+        NSMutableArray *inIndexes = self.selectedIndexes;
+        NSMutableArray *outIndexes = self.unselectedIndexes;
+        if (sourceIndexPath.row < outIndexes.count && destinationIndexPath.row < inIndexes.count + 1) {
+            [inIndexes insertObject:outIndexes[sourceIndexPath.row] atIndex:destinationIndexPath.row];
+            [outIndexes removeObjectAtIndex:sourceIndexPath.row];
+        }
     }
     NSMutableArray *selectedValues = [[NSMutableArray alloc] initWithCapacity:self.selectedIndexes.count];
     for (NSNumber *selectedIndex in self.selectedIndexes) {
