@@ -15,10 +15,8 @@
 
 @interface XUIViewController () <XUICellFactoryDelegate>
 
-@property (nonatomic, strong) UIColor *outsideForegroundColor;
-@property (nonatomic, strong) UIColor *outsideBackgroundColor;
-@property (nonatomic, assign) BOOL fromXUIViewController;
 @property (nonatomic, strong) UIImageView *backgroundImageView;
+@property (nonatomic, assign) BOOL shouldRenderBackgroundImage;
 
 @end
 
@@ -45,9 +43,6 @@
 
 - (void)setupXUI {
     {
-        _outsideForegroundColor = [UIColor blackColor];
-        _outsideBackgroundColor = [UIColor whiteColor];
-        
         XUICellFactory *cellFactory = [[XUICellFactory alloc] init];
         cellFactory.delegate = self;
         _cellFactory = cellFactory;
@@ -64,7 +59,7 @@
     UIImageView *view = [[UIImageView alloc] init];
     view.contentMode = UIViewContentModeScaleAspectFill;
     view.clipsToBounds = YES;
-    view.backgroundColor = [UIColor clearColor];
+    view.backgroundColor = [UIColor blackColor];
     view.frame = [UIScreen mainScreen].bounds;
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     view.userInteractionEnabled = YES;
@@ -81,16 +76,37 @@
     }
     XUI_END_IGNORE_PARTIAL
 #endif
+    [self setNeedsRenderBackgroundImage];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if (NO == [[self xui_previousViewController] isKindOfClass:[XUIViewController class]]) {
-        self.outsideBackgroundColor = [self navigationBar].barTintColor;
-        self.outsideForegroundColor = [self navigationBar].tintColor;
+    [super viewWillAppear:animated];
+    [self renderBackgroundImageIfNeeded];
+}
+
+- (void)willMoveToParentViewController:(UIViewController *)parent {
+    if (parent == nil) {
+        
     } else {
-        self.fromXUIViewController = YES;
+        [self setNeedsRenderBackgroundImage];
     }
-    [self renderNavigationBarTheme:NO];
+    [super willMoveToParentViewController:parent];
+}
+
+#pragma mark - Navigation Bar Color
+
+- (UIColor *)preferredNavigationBarColor {
+    return self.theme.navigationBarColor;
+}
+
+- (UIColor *)preferredNavigationBarTintColor {
+    return self.theme.navigationTitleColor;
+}
+
+- (void)renderBackgroundImageIfNeeded {
+    if (!self.shouldRenderBackgroundImage) return;
+    self.shouldRenderBackgroundImage = NO;
+    
     NSString *backgroundImagePath = self.theme.backgroundImagePath;
     if (backgroundImagePath)
     { // Background Image
@@ -103,74 +119,10 @@
         UIImage *backgroundImage = [UIImage imageWithContentsOfFile:[bundle pathForResource:backgroundImagePath ofType:nil]];
         [self.backgroundImageView setImage:backgroundImage];
     }
-    [super viewWillAppear:animated];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)willMoveToParentViewController:(UIViewController *)parent {
-    if (parent == nil) {
-        if (self.fromXUIViewController == NO) {
-            [self renderNavigationBarTheme:YES];
-        }
-    }
-    [super willMoveToParentViewController:parent];
-}
-
-- (void)didMoveToParentViewController:(UIViewController *)parent {
-    if (parent != nil) {
-        
-    }
-    [super didMoveToParentViewController:parent];
-}
-
-#pragma mark - Navigation Bar Color
-
-- (void)renderNavigationBarTheme:(BOOL)restore {
-    if (XUI_COLLAPSED) return;
-    UIColor *backgroundColor = self.outsideBackgroundColor;
-    UIColor *foregroundColor = self.outsideForegroundColor;
-    if (restore) {
-       
-    } else {
-        if (self.theme) {
-            if (self.theme.navigationTitleColor)
-                foregroundColor = self.theme.navigationTitleColor;
-            if (self.theme.navigationBarColor)
-                backgroundColor = self.theme.navigationBarColor;
-        }
-    }
-    { // title color
-        [self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : foregroundColor }];
-    }
-    { // bar color
-        [self.navigationBar setBackgroundImage:[backgroundColor xui_image] forBarMetrics:UIBarMetricsDefault];
-        self.navigationBar.shadowImage = nil;
-        self.navigationBar.translucent = YES;
-        self.navigationBar.tintColor = foregroundColor;
-        self.navigationBar.barTintColor = backgroundColor;
-    }
-    { // item color
-        self.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
-        self.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
-        for (UIBarButtonItem *item in self.navigationItem.leftBarButtonItems) {
-            item.tintColor = foregroundColor;
-        }
-        for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
-            item.tintColor = foregroundColor;
-        }
-        self.navigationController.navigationItem.leftBarButtonItem.tintColor = foregroundColor;
-        self.navigationController.navigationItem.rightBarButtonItem.tintColor = foregroundColor;
-        for (UIBarButtonItem *item in self.navigationController.navigationItem.leftBarButtonItems) {
-            item.tintColor = foregroundColor;
-        }
-        for (UIBarButtonItem *item in self.navigationController.navigationItem.rightBarButtonItems) {
-            item.tintColor = foregroundColor;
-        }
-    }
-    [self setNeedsStatusBarAppearanceUpdate];
+- (void)setNeedsRenderBackgroundImage {
+    self.shouldRenderBackgroundImage = YES;
 }
 
 #pragma mark - Getters

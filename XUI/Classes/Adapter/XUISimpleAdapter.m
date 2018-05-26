@@ -6,7 +6,7 @@
 #import "XUISimpleAdapter.h"
 #import <sys/stat.h>
 
-#import "XUI.h"
+#import "XUINotificationDefines.h"
 #import "XUIPrivate.h"
 #import "XUIBaseCell.h"
 

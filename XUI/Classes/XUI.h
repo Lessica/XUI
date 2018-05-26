@@ -62,8 +62,6 @@
 #import <XUI/XUITextareaViewController.h>
 #import <XUI/XUIListViewController+XUITextareaCell.h>
 
-
-static NSString * const XUINotificationEventUIUpdated = @"XUINotificationEventUIUpdated";
-static NSString * const XUINotificationEventValueChanged = @"XUINotificationEventValueChanged";
+#import <XUI/XUINotificationDefines.h>
 
 #endif /* XUI_h */

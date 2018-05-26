@@ -28,4 +28,9 @@
 - (void)updateLogger:(XUILogger *)logger;
 - (void)updateTheme:(XUITheme *)theme;
 
+
+#pragma mark - Navigaion Bar Transition
+- (UIColor *)preferredNavigationBarColor;
+- (UIColor *)preferredNavigationBarTintColor;
+
 @end
