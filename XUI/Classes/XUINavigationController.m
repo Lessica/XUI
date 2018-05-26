@@ -115,14 +115,25 @@
     if (!coordinator) return;
     if (![viewController isKindOfClass:[XUIViewController class]]) return;
     XUIViewController *xuiController = (XUIViewController *)viewController;
-    if (coordinator.interactive) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+    XUI_START_IGNORE_PARTIAL
+    if ([coordinator respondsToSelector:@selector(isInteractive)]
+        && (coordinator.interactive))
+    {
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
             [self renderNavigationBarTheme:xuiController];
         } completion:nil];
-    } else {
+    }
+    else
+    {
         [self renderNavigationBarTheme:xuiController];
         return;
     }
+    XUI_END_IGNORE_PARTIAL
+#else
+    [self renderNavigationBarTheme:xuiController];
+    return;
+#endif
     void (^transitionBlock)(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) =
     ^void (id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         if (context.isCancelled) {
@@ -134,7 +145,8 @@
     };
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
     XUI_START_IGNORE_PARTIAL
-    if ([viewController.transitionCoordinator respondsToSelector:@selector(notifyWhenInteractionChangesUsingBlock:)]) {
+    if ([viewController.transitionCoordinator respondsToSelector:@selector(notifyWhenInteractionChangesUsingBlock:)])
+    {
         [viewController.transitionCoordinator notifyWhenInteractionChangesUsingBlock:transitionBlock];
         return;
     }
