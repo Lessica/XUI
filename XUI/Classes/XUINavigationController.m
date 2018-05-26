@@ -130,10 +130,6 @@
         return;
     }
     XUI_END_IGNORE_PARTIAL
-#else
-    [self renderNavigationBarTheme:xuiController];
-    return;
-#endif
     void (^transitionBlock)(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) =
     ^void (id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         if (context.isCancelled) {
@@ -143,16 +139,21 @@
             [self renderNavigationBarTheme:contextXUIController];
         }
     };
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
     XUI_START_IGNORE_PARTIAL
     if ([viewController.transitionCoordinator respondsToSelector:@selector(notifyWhenInteractionChangesUsingBlock:)])
     {
         [viewController.transitionCoordinator notifyWhenInteractionChangesUsingBlock:transitionBlock];
         return;
     }
+    else
+    {
+        [viewController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:transitionBlock];
+    }
     XUI_END_IGNORE_PARTIAL
+#else
+    [self renderNavigationBarTheme:xuiController];
+    return;
 #endif
-    [viewController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:transitionBlock];
 }
 
 - (void)renderNavigationBarTheme:(XUIViewController *)controller {
