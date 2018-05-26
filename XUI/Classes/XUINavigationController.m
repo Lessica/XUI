@@ -66,6 +66,49 @@
 
 #pragma mark - Navigation Bar Transition
 
+- (UIViewController *)rootViewController {
+    return [self.viewControllers firstObject];
+}
+
+- (UIViewController *)previousViewController {
+    NSInteger numberOfViewControllers = self.viewControllers.count;
+    
+    if (numberOfViewControllers < 2)
+        return nil;
+    else
+        return [self.viewControllers objectAtIndex:numberOfViewControllers - 2];
+}
+
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated {
+    UIViewController *viewController = [self previousViewController];
+    if ([viewController isKindOfClass:[XUIViewController class]]) {
+        XUIViewController *xuiController = (XUIViewController *)viewController;
+        [self renderNavigationBarTheme:xuiController];
+    }
+    return [super popViewControllerAnimated:animated];
+}
+
+- (NSArray <UIViewController *> *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if ([self.viewControllers containsObject:viewController]) {
+        if ([viewController isKindOfClass:[XUIViewController class]]) {
+            XUIViewController *xuiController = (XUIViewController *)viewController;
+            [self renderNavigationBarTheme:xuiController];
+        }
+    }
+    return [super popToViewController:viewController animated:animated];
+}
+
+- (NSArray <UIViewController *> *)popToRootViewControllerAnimated:(BOOL)animated
+{
+    UIViewController *viewController = [self rootViewController];
+    if ([viewController isKindOfClass:[XUIViewController class]]) {
+        XUIViewController *xuiController = (XUIViewController *)viewController;
+        [self renderNavigationBarTheme:xuiController];
+    }
+    return [super popToRootViewControllerAnimated:animated];
+}
+
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     id <UIViewControllerTransitionCoordinator> coordinator = viewController.transitionCoordinator;
@@ -89,11 +132,15 @@
             [self renderNavigationBarTheme:contextXUIController];
         }
     };
-    if (@available(iOS 10.0, *)) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
+    XUI_START_IGNORE_PARTIAL
+    if ([viewController.transitionCoordinator respondsToSelector:@selector(notifyWhenInteractionChangesUsingBlock:)]) {
         [viewController.transitionCoordinator notifyWhenInteractionChangesUsingBlock:transitionBlock];
-    } else {
-        [viewController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:transitionBlock];
+        return;
     }
+    XUI_END_IGNORE_PARTIAL
+#endif
+    [viewController.transitionCoordinator notifyWhenInteractionEndsUsingBlock:transitionBlock];
 }
 
 - (void)renderNavigationBarTheme:(XUIViewController *)controller {

@@ -11,7 +11,6 @@
 #import "XUICellFactory.h"
 
 #import "UIColor+XUIDarkColor.h"
-#import "UIViewController+XUIPreviousViewController.h"
 
 @interface XUIViewController () <XUICellFactoryDelegate>
 
