@@ -159,6 +159,7 @@
 - (void)renderNavigationBarTheme:(XUIViewController *)controller {
     UIColor *backgroundColor = [controller preferredNavigationBarColor];
     UIColor *foregroundColor = [controller preferredNavigationBarTintColor];
+    if (!backgroundColor || !foregroundColor) return;
     { // title color
         [self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : foregroundColor }];
     }
