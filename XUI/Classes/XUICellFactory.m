@@ -39,7 +39,8 @@
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:XUINotificationEventValueChanged object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:XUINotificationEventUIUpdated object:nil];
 }
 
 #pragma mark - Parse

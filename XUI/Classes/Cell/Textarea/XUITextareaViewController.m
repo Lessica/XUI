@@ -17,7 +17,9 @@
 
 @end
 
-@implementation XUITextareaViewController
+@implementation XUITextareaViewController {
+    
+}
 
 - (instancetype)initWithCell:(XUITextareaCell *)cell {
     self = [super init];
@@ -178,7 +180,6 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidAppear:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillDisappear:) name:UIKeyboardWillHideNotification object:nil];
-    
 }
 
 - (void)dismissKeyboardNotifications

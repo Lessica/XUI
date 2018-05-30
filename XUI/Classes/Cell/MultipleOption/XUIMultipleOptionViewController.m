@@ -20,7 +20,9 @@
 
 @end
 
-@implementation XUIMultipleOptionViewController
+@implementation XUIMultipleOptionViewController {
+    
+}
 
 - (instancetype)initWithCell:(XUIMultipleOptionCell *)cell {
     if (self = [super init]) {
@@ -61,13 +63,17 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    {
+        [self.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+    }
     [super viewWillAppear:animated];
-    [self.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self.tableView removeObserver:self forKeyPath:@"contentSize"];
+- (void)viewWillDisappear:(BOOL)animated {
+    {
+        [self.tableView removeObserver:self forKeyPath:@"contentSize"];
+    }
+    [super viewWillDisappear:animated];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
