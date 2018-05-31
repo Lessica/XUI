@@ -471,7 +471,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.textLabel.font = [UIFont systemFontOfSize:14.0];
+    header.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];  // by default, it's 15pt.
     XUITheme *theme = nil;
     if (section < self.cellFactory.groupCells.count) {
         theme = self.cellFactory.groupCells[section].theme;
@@ -484,7 +484,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
-    footer.textLabel.font = [UIFont systemFontOfSize:12.0];
+    footer.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];  // by default, it's 13pt.
     XUITheme *theme = nil;
     if (section < self.cellFactory.groupCells.count) {
         theme = self.cellFactory.groupCells[section].theme;
