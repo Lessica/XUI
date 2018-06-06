@@ -240,7 +240,7 @@
         tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         tableView.rowHeight = UITableViewAutomaticDimension;
         tableView.estimatedRowHeight = 44.f;
-        tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag; // instead of Interactive
+        tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
         XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_9) {
             tableView.cellLayoutMarginsFollowReadableWidth = NO;
@@ -623,7 +623,7 @@ XUI_END_IGNORE_PARTIAL
     XUI_END_IGNORE_PARTIAL
     
     UITableView *tableView = self.tableView;
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, (XUI_PAD ? 0.0 : self.tabBarController.tabBar.bounds.size.height), 0.0);
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
     tableView.contentInset = contentInsets;
     tableView.scrollIndicatorInsets = contentInsets;
 }
