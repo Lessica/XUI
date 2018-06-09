@@ -99,7 +99,7 @@
     NSMutableArray <XUIBaseCell *> *cells = [[NSMutableArray alloc] initWithCapacity:itemCount];
     for (NSUInteger itemIdx = 0; itemIdx < itemCount; itemIdx++) {
         NSDictionary *itemDictionary = items[itemIdx];
-        if ([itemDictionary isKindOfClass:[NSDictionary class]]) {
+        if (![itemDictionary isKindOfClass:[NSDictionary class]]) {
             continue;
         }
         NSString *cellName = itemDictionary[@"cell"];
