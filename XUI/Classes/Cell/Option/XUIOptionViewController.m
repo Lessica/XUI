@@ -194,7 +194,7 @@
 
 - (void)dealloc {
 #ifdef DEBUG
-    NSLog(@"- [XUIOptionViewController dealloc]");
+    NSLog(@"- [%@ dealloc]", NSStringFromClass([self class]));
 #endif
 }
 

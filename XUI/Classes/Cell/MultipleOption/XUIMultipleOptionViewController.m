@@ -212,7 +212,7 @@
 
 - (void)dealloc {
 #ifdef DEBUG
-    NSLog(@"- [XUIMultipleOptionViewController dealloc]");
+    NSLog(@"- [%@ dealloc]", NSStringFromClass([self class]));
 #endif
 }
 

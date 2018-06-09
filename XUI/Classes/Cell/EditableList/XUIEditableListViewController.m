@@ -460,7 +460,7 @@ XUI_END_IGNORE_PARTIAL
 
 - (void)dealloc {
 #ifdef DEBUG
-    NSLog(@"- [XUIEditableListViewController dealloc]");
+    NSLog(@"- [%@ dealloc]", NSStringFromClass([self class]));
 #endif
 }
 

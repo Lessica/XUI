@@ -299,7 +299,7 @@
 
 - (void)dealloc {
 #ifdef DEBUG
-    NSLog(@"- [XUIOrderedOptionViewController dealloc]");
+    NSLog(@"- [%@ dealloc]", NSStringFromClass([self class]));
 #endif
 }
 
