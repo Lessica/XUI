@@ -571,6 +571,7 @@ XUI_END_IGNORE_PARTIAL
         for (XUIBaseCell *cell in self.cellsNeedStore) {
             [self.adapter saveDefaultsFromCell:cell];
         }
+        [self.cellsNeedStore removeAllObjects];
     }
 }
 
