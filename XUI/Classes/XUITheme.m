@@ -92,6 +92,8 @@
     _onTintColor = theme.onTintColor;
     _thumbTintColor = theme.thumbTintColor;
     
+    _labelFontSize = theme.labelFontSize;
+    
     _rawTheme = theme.rawTheme;
     
 }
@@ -143,6 +145,8 @@
     _offTintColor = [UIColor xui_colorWithHex:@"#E0E0E0"];
     _onTintColor = XUI_COLOR_SUCCESS;
     _thumbTintColor = [UIColor whiteColor];
+    
+    _labelFontSize = @(16.0);
     
     _rawTheme = nil;
     
@@ -243,6 +247,9 @@
         _onTintColor = [UIColor xui_colorWithHex:additionalDictionary[@"onTintColor"]];
     if ([additionalDictionary[@"thumbTintColor"] isKindOfClass:[NSString class]])
         _thumbTintColor = [UIColor xui_colorWithHex:additionalDictionary[@"thumbTintColor"]];
+    
+    if ([additionalDictionary[@"labelFontSize"] isKindOfClass:[NSNumber class]])
+        _labelFontSize = additionalDictionary[@"labelFontSize"];
     
     NSMutableDictionary *themeDictionary = [self.rawTheme mutableCopy];
     if (!themeDictionary) {

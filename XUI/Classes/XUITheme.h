@@ -80,6 +80,10 @@
 @property (nonatomic, assign, readonly, getter=isBackgroundDark) BOOL backgroundDark;
 
 
+#pragma mark - Label Font
+@property (nonatomic, strong, readonly) NSNumber *labelFontSize;
+
+
 #pragma mark - Initializers
 @property (nonatomic, copy) NSDictionary *rawTheme;
 - (instancetype)initWithTheme:(XUITheme *)theme;

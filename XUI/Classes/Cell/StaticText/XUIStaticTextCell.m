@@ -150,6 +150,9 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
     [super setInternalTheme:theme];
     self.cellStaticTextView.textColor = theme.labelColor;
     self.cellStaticTextView.tintColor = theme.foregroundColor;
+    UIFont *newFont = [self.cellStaticTextView.font fontWithSize:[theme.labelFontSize floatValue]];
+    self.cellStaticTextView.font = newFont;
 }
+
 
 @end
