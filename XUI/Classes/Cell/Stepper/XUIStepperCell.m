@@ -124,13 +124,7 @@
 - (UILabel *)cellTitleLabel {
     if (!_cellTitleLabel) {
         _cellTitleLabel = [[UILabel alloc] init];
-        XUI_START_IGNORE_PARTIAL
-        if (XUI_SYSTEM_8_2) {
-            _cellTitleLabel.font = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
-        } else {
-            _cellTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
-        }
-        XUI_END_IGNORE_PARTIAL
+        _cellTitleLabel.font = [UIFont systemFontOfSize:16.f];
         _cellTitleLabel.textAlignment = NSTextAlignmentLeft;
         _cellTitleLabel.numberOfLines = 1;
         _cellTitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -146,9 +140,7 @@
         _cellNumberLabel.textAlignment = NSTextAlignmentRight;
         XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_9) {
-            _cellNumberLabel.font = [UIFont monospacedDigitSystemFontOfSize:16.0 weight:UIFontWeightLight];
-        } else if (XUI_SYSTEM_8_2) {
-            _cellNumberLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightLight];
+            _cellNumberLabel.font = [UIFont monospacedDigitSystemFontOfSize:16.0 weight:UIFontWeightRegular];
         } else {
             _cellNumberLabel.font = [UIFont systemFontOfSize:16.0];
         }

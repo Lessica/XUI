@@ -116,13 +116,7 @@
 - (UILabel *)cellTitleLabel {
     if (!_cellTitleLabel) {
         _cellTitleLabel = [[UILabel alloc] init];
-        XUI_START_IGNORE_PARTIAL
-        if (XUI_SYSTEM_8_2) {
-            _cellTitleLabel.font = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
-        } else {
-            _cellTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
-        }
-        XUI_END_IGNORE_PARTIAL
+        _cellTitleLabel.font = [UIFont systemFontOfSize:16.f];
         _cellTitleLabel.textAlignment = NSTextAlignmentLeft;
         _cellTitleLabel.numberOfLines = 1;
         _cellTitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;

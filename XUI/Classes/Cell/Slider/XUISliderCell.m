@@ -103,9 +103,7 @@
         _cellSliderValueLabel.textAlignment = NSTextAlignmentCenter;
         XUI_START_IGNORE_PARTIAL
         if (XUI_SYSTEM_9) {
-            _cellSliderValueLabel.font = [UIFont monospacedDigitSystemFontOfSize:16.0 weight:UIFontWeightLight];
-        } else if (XUI_SYSTEM_8_2) {
-            _cellSliderValueLabel.font = [UIFont systemFontOfSize:16.0 weight:UIFontWeightLight];
+            _cellSliderValueLabel.font = [UIFont monospacedDigitSystemFontOfSize:16.0 weight:UIFontWeightRegular];
         } else {
             _cellSliderValueLabel.font = [UIFont systemFontOfSize:16.0];
         }

@@ -69,15 +69,8 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
     UIFont *font = [UIFont systemFontOfSize:16.f];
     BOOL selectable = textView.selectable;
     textView.selectable = YES;
-    XUI_START_IGNORE_PARTIAL
-    if ([[UIFont class] respondsToSelector:@selector(systemFontOfSize:weight:)]) {
-        font = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
-    } else {
-        font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
-    }
-    textView.font = font;
+    textView.font = [UIFont systemFontOfSize:16.f];
     textView.selectable = selectable;
-    XUI_END_IGNORE_PARTIAL
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     {

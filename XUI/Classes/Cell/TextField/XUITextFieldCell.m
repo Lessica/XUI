@@ -207,13 +207,7 @@
 - (UILabel *)cellTitleLabel {
     if (!_cellTitleLabel) {
         _cellTitleLabel = [[UILabel alloc] init];
-        XUI_START_IGNORE_PARTIAL
-        if (XUI_SYSTEM_8_2) {
-            _cellTitleLabel.font = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
-        } else {
-            _cellTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
-        }
-        XUI_END_IGNORE_PARTIAL
+        _cellTitleLabel.font = [UIFont systemFontOfSize:16.f];
         _cellTitleLabel.textAlignment = NSTextAlignmentLeft;
         _cellTitleLabel.numberOfLines = 1;
         _cellTitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -302,14 +296,7 @@
 }
 
 + (void)reloadTextAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell text:(NSString *)text theme:(XUITheme *)theme {
-    UIFont *font = nil;
-    XUI_START_IGNORE_PARTIAL
-    if (XUI_SYSTEM_8_2) {
-        font = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
-    } else {
-        font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
-    }
-    XUI_END_IGNORE_PARTIAL
+    UIFont *font = [UIFont systemFontOfSize:16.f];
     if (theme.textColor && theme.caretColor && font) {
         NSDictionary *attributes = @{ NSForegroundColorAttributeName: theme.textColor, NSFontAttributeName: font };
         textField.font = font;
@@ -332,14 +319,7 @@
 }
 
 + (void)reloadPlaceholderAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell {
-    UIFont *placeholderFont = nil;
-    XUI_START_IGNORE_PARTIAL
-    if (XUI_SYSTEM_8_2) {
-        placeholderFont = [UIFont systemFontOfSize:16.f weight:UIFontWeightLight];
-    } else {
-        placeholderFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.f];
-    }
-    XUI_END_IGNORE_PARTIAL
+    UIFont *placeholderFont = [UIFont systemFontOfSize:16.f];
     NSString *placeholder = [cell.adapter localizedString:[cell.xui_placeholder copy]];
     UIColor *placeholderColor = [cell.theme.placeholderColor copy];
     if (placeholderColor && placeholderFont) {
