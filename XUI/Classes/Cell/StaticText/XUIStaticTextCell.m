@@ -66,7 +66,6 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
     textView.textContainer.lineFragmentPadding = 0;
     textView.contentInset = UIEdgeInsetsZero;
     textView.backgroundColor = [UIColor clearColor];
-    UIFont *font = [UIFont systemFontOfSize:16.f];
     BOOL selectable = textView.selectable;
     textView.selectable = YES;
     textView.font = [UIFont systemFontOfSize:16.f];
