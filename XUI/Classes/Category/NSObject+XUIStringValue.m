@@ -35,26 +35,26 @@
         return @"(null)";
     }
     else if ([self isKindOfClass:[NSData class]]) {
-        return [NSString stringWithFormat:@"%lu Bytes", (unsigned long)((NSData *)self).length];
+        return [NSString stringWithFormat:@"<%lu Bytes>", (unsigned long)((NSData *)self).length];
     }
     else if ([self isKindOfClass:[NSArray class]]) {
         NSUInteger count = [(NSArray *)self count];
         if (count == 0) {
-            return @"No Item";
+            return @"<No Item>";
         } else if (count == 1) {
-            return [NSString stringWithFormat:@"%lu Item", (unsigned long)count];
+            return [NSString stringWithFormat:@"<%lu Item>", (unsigned long)count];
         } else {
-            return [NSString stringWithFormat:@"%lu Items", (unsigned long)count];
+            return [NSString stringWithFormat:@"<%lu Items>", (unsigned long)count];
         }
     }
     else if ([self isKindOfClass:[NSDictionary class]]) {
         NSUInteger count = [(NSDictionary *)self count];
         if (count == 0) {
-            return @"No Item";
+            return @"<No Item>";
         } else if (count == 1) {
-            return [NSString stringWithFormat:@"%lu Item", (unsigned long)count];
+            return [NSString stringWithFormat:@"<%lu Item>", (unsigned long)count];
         } else {
-            return [NSString stringWithFormat:@"%lu Items", (unsigned long)count];
+            return [NSString stringWithFormat:@"<%lu Items>", (unsigned long)count];
         }
     }
     return [self description];
