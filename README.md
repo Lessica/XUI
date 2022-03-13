@@ -17,6 +17,7 @@ XUI is a **drop-in replacement** for "[Settings Application Schema](https://deve
 
 - [x] (**iOS 14+**) Dynamic Fonts Support
 - [x] (**iOS 13+**) SF Symbols Support
+- [x] (**iOS 13+**) Dark Mode Support
 - [x] Data Persistence (NSUserDefaults / Custom Adapters)
 - [x] Localized Strings / Image Resources
 - [x] Custom Cells (Runtime)
