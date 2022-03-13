@@ -212,6 +212,9 @@
     [super viewWillAppear:animated];
     [self storeCellsIfNecessary];
     [self.cellFactory reloadIfNeeded];
+    if ([self.navigationController isKindOfClass:[XUINavigationController class]]) {
+        [(XUINavigationController *)self.navigationController renderNavigationBarTheme:self];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -423,7 +426,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.tableView) {
         [tableView endEditing:YES];
-        XUIBaseCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        XUIBaseCell *cell = (XUIBaseCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
         BOOL readonly = [cell.xui_readonly boolValue];
         if (readonly) {
             return;
@@ -440,7 +443,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    XUIBaseCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    XUIBaseCell *cell = (XUIBaseCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
     BOOL readonly = [cell.xui_readonly boolValue];
     if (readonly) {
         return;
@@ -456,7 +459,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    XUIBaseCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    XUIBaseCell *cell = (XUIBaseCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
     BOOL readonly = [cell.xui_readonly boolValue];
     if (readonly) {
         return NO;
@@ -471,7 +474,11 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.textLabel.font = [UIFont systemFontOfSize:14.0];
+    if (@available(iOS 14.0, *)) {
+        
+    } else {
+        header.textLabel.font = [UIFont systemFontOfSize:14.0];
+    }
     XUITheme *theme = nil;
     if (section < self.cellFactory.groupCells.count) {
         theme = self.cellFactory.groupCells[section].theme;
@@ -484,7 +491,11 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
-    footer.textLabel.font = [UIFont systemFontOfSize:12.0];
+    if (@available(iOS 14.0, *)) {
+        
+    } else {
+        footer.textLabel.font = [UIFont systemFontOfSize:12.0];
+    }
     XUITheme *theme = nil;
     if (section < self.cellFactory.groupCells.count) {
         theme = self.cellFactory.groupCells[section].theme;
@@ -513,7 +524,7 @@ XUI_END_IGNORE_PARTIAL
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    XUIBaseCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    XUIBaseCell *cell = (XUIBaseCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
     if (cell.canDelete) {
         cell.xui_value = nil;
         [self.adapter saveDefaultsFromCell:cell];

@@ -146,7 +146,7 @@
     _onTintColor = XUI_COLOR_SUCCESS;
     _thumbTintColor = [UIColor whiteColor];
     
-    _labelFontSize = @(16.0);
+    _labelFontSize = @(UITableViewAutomaticDimension);
     
     _rawTheme = nil;
     

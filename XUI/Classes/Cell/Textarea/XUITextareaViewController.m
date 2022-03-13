@@ -12,6 +12,7 @@
 
 @interface XUITextareaViewController () <UITextViewDelegate, UIScrollViewDelegate>
 
+@property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, assign) NSUInteger maxLength;
 
@@ -71,7 +72,13 @@
     
     XUITheme *theme = self.theme;
     self.view.backgroundColor = theme.backgroundColor;
-    textView.backgroundColor = theme.cellBackgroundColor;
+    if (@available(iOS 11.0, *)) {
+        UIView *backgroundView = self.backgroundView;
+        backgroundView.backgroundColor = theme.cellBackgroundColor;
+        textView.backgroundColor = [UIColor clearColor];
+    } else {
+        textView.backgroundColor = theme.cellBackgroundColor;
+    }
     textView.textColor = theme.textColor;
     textView.tintColor = theme.caretColor;
     
@@ -168,9 +175,19 @@
     }
     
     [self setupSubviews];
+    if (@available(iOS 11.0, *)) {
+        [self.textView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [self.textView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
+        [self.textView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
+        [self.textView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor].active = YES;
+        [self.textView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor].active = YES;
+    }
 }
 
 - (void)setupSubviews {
+    if (@available(iOS 11.0, *)) {
+        [self.view addSubview:self.backgroundView];
+    }
     [self.view addSubview:self.textView];
 }
 
@@ -245,6 +262,18 @@
 
 #pragma mark - UIView Getters
 
+- (UIView *)backgroundView {
+    if (!_backgroundView) {
+        UIView *backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+        
+        backgroundView.tintColor = self.theme.foregroundColor;
+        backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        
+        _backgroundView = backgroundView;
+    }
+    return _backgroundView;
+}
+
 - (UITextView *)textView {
     if (!_textView) {
         UITextView *textView = [[UITextView alloc] initWithFrame:self.view.bounds];
@@ -257,11 +286,23 @@
         textView.dataDetectorTypes = UIDataDetectorTypeNone;
         textView.autocorrectionType = NO;
         textView.autocapitalizationType = NO;
+        textView.spellCheckingType = UITextSpellCheckingTypeNo;
+        if (@available(iOS 11.0, *)) {
+            textView.smartQuotesType = UITextSmartQuotesTypeNo;
+            textView.smartDashesType = UITextSmartDashesTypeNo;
+            textView.smartInsertDeleteType = UITextSmartInsertDeleteTypeNo;
+        }
+        
         textView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
         textView.alwaysBounceVertical = YES;
         
         textView.textColor = UIColor.blackColor;
-        textView.font = [UIFont systemFontOfSize:14.f];
+        if (@available(iOS 14.0, *)) {
+            textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+            textView.adjustsFontForContentSizeCategory = YES;
+        } else {
+            textView.font = [UIFont systemFontOfSize:14.f];
+        }
         textView.textContainerInset = UIEdgeInsetsMake(8.0, 4.0, 8.0, 4.0);
         textView.scrollIndicatorInsets = UIEdgeInsetsMake(8.0, 4.0, 8.0, 4.0);
         

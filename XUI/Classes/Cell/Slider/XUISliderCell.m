@@ -101,13 +101,18 @@
         _cellSliderValueLabel = [[UILabel alloc] init];
         _cellSliderValueLabel.numberOfLines = 1;
         _cellSliderValueLabel.textAlignment = NSTextAlignmentCenter;
-        XUI_START_IGNORE_PARTIAL
-        if (XUI_SYSTEM_9) {
-            _cellSliderValueLabel.font = [UIFont monospacedDigitSystemFontOfSize:16.0 weight:UIFontWeightRegular];
+        if (@available(iOS 14.0, *)) {
+            _cellSliderValueLabel.font = [UIFont monospacedDigitSystemFontOfSize:[UIFont preferredFontForTextStyle:UIFontTextStyleBody].pointSize weight:UIFontWeightRegular];
+            _cellSliderValueLabel.adjustsFontForContentSizeCategory = YES;
         } else {
-            _cellSliderValueLabel.font = [UIFont systemFontOfSize:16.0];
+            XUI_START_IGNORE_PARTIAL
+            if (XUI_SYSTEM_9) {
+                _cellSliderValueLabel.font = [UIFont monospacedDigitSystemFontOfSize:16.0 weight:UIFontWeightRegular];
+            } else {
+                _cellSliderValueLabel.font = [UIFont systemFontOfSize:16.0];
+            }
+            XUI_END_IGNORE_PARTIAL
         }
-        XUI_END_IGNORE_PARTIAL
         _cellSliderValueLabel.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _cellSliderValueLabel;

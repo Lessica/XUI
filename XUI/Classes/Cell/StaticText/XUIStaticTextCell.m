@@ -68,7 +68,12 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
     textView.backgroundColor = [UIColor clearColor];
     BOOL selectable = textView.selectable;
     textView.selectable = YES;
-    textView.font = [UIFont systemFontOfSize:16.f];
+    if (@available(iOS 14.0, *)) {
+        textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        textView.adjustsFontForContentSizeCategory = YES;
+    } else {
+        textView.font = [UIFont systemFontOfSize:16.f];
+    }
     textView.selectable = selectable;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -142,8 +147,19 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
     [super setInternalTheme:theme];
     self.cellStaticTextView.textColor = theme.labelColor;
     self.cellStaticTextView.tintColor = theme.foregroundColor;
-    UIFont *newFont = [self.cellStaticTextView.font fontWithSize:[theme.labelFontSize floatValue]];
-    self.cellStaticTextView.font = newFont;
+    if (@available(iOS 14.0, *)) {
+        UIFont *newFont = nil;
+        CGFloat fontSize = [theme.labelFontSize doubleValue];
+        if (fontSize == UITableViewAutomaticDimension) {
+            newFont = [self.cellStaticTextView.font fontWithSize:[UIFont preferredFontForTextStyle:UIFontTextStyleBody].pointSize];
+        } else {
+            newFont = [self.cellStaticTextView.font fontWithSize:fontSize];
+        }
+        self.cellStaticTextView.font = newFont;
+    } else {
+        UIFont *newFont = [self.cellStaticTextView.font fontWithSize:[theme.labelFontSize doubleValue]];
+        self.cellStaticTextView.font = newFont;
+    }
 }
 
 

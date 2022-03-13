@@ -170,10 +170,20 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
         _xui_height = @44.f; // standard cell height
     }
     if ([self.class layoutNeedsTextLabel]) {
-        self.textLabel.font = [UIFont systemFontOfSize:16.f];
+        if (@available(iOS 14.0, *)) {
+            self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+            self.textLabel.adjustsFontForContentSizeCategory = YES;
+        } else {
+            self.textLabel.font = [UIFont systemFontOfSize:16.f];
+        }
         self.textLabel.text = nil;
         
-        self.detailTextLabel.font = [UIFont systemFontOfSize:16.f];
+        if (@available(iOS 14.0, *)) {
+            self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+            self.detailTextLabel.adjustsFontForContentSizeCategory = YES;
+        } else {
+            self.detailTextLabel.font = [UIFont systemFontOfSize:16.f];
+        }
         self.detailTextLabel.textColor = UIColor.grayColor;
         self.detailTextLabel.text = nil;
     }

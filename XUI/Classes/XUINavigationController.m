@@ -166,6 +166,7 @@
     { // bar color
         self.navigationBar.tintColor = foregroundColor;
         self.navigationBar.barTintColor = backgroundColor;
+        self.navigationBar.backgroundColor = backgroundColor;
     }
     { // item color
         {

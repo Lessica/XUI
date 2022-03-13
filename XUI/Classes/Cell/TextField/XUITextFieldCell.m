@@ -179,6 +179,12 @@
 - (XUITextField *)cellTextField {
     if (!_cellTextField) {
         _cellTextField = [[XUITextField alloc] init];
+        if (@available(iOS 14.0, *)) {
+            _cellTextField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+            _cellTextField.adjustsFontForContentSizeCategory = YES;
+        } else {
+            _cellTextField.font = [UIFont systemFontOfSize:16.f];
+        }
         _cellTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _cellTextField.autocorrectionType = UITextAutocorrectionTypeNo;
         _cellTextField.spellCheckingType = UITextSpellCheckingTypeNo;
@@ -207,7 +213,12 @@
 - (UILabel *)cellTitleLabel {
     if (!_cellTitleLabel) {
         _cellTitleLabel = [[UILabel alloc] init];
-        _cellTitleLabel.font = [UIFont systemFontOfSize:16.f];
+        if (@available(iOS 14.0, *)) {
+            _cellTitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+            _cellTitleLabel.adjustsFontForContentSizeCategory = YES;
+        } else {
+            _cellTitleLabel.font = [UIFont systemFontOfSize:16.f];
+        }
         _cellTitleLabel.textAlignment = NSTextAlignmentLeft;
         _cellTitleLabel.numberOfLines = 1;
         _cellTitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -296,7 +307,12 @@
 }
 
 + (void)reloadTextAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell text:(NSString *)text theme:(XUITheme *)theme {
-    UIFont *font = [UIFont systemFontOfSize:16.f];
+    UIFont *font = nil;
+    if (@available(iOS 14.0, *)) {
+        font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    } else {
+        font = [UIFont systemFontOfSize:16.f];
+    }
     if (theme.textColor && theme.caretColor && font) {
         NSDictionary *attributes = @{ NSForegroundColorAttributeName: theme.textColor, NSFontAttributeName: font };
         textField.font = font;
@@ -319,7 +335,12 @@
 }
 
 + (void)reloadPlaceholderAttributes:(UITextField *)textField forTextFieldCell:(XUITextFieldCell *)cell {
-    UIFont *placeholderFont = [UIFont systemFontOfSize:16.f];
+    UIFont *placeholderFont = nil;
+    if (@available(iOS 14.0, *)) {
+        placeholderFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    } else {
+        placeholderFont = [UIFont systemFontOfSize:16.f];
+    }
     NSString *placeholder = [cell.adapter localizedString:[cell.xui_placeholder copy]];
     UIColor *placeholderColor = [cell.theme.placeholderColor copy];
     if (placeholderColor && placeholderFont) {

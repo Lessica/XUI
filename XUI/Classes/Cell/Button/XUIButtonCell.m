@@ -88,7 +88,12 @@ NSString * const XUIButtonCellReuseIdentifier = @"XUIButtonCellReuseIdentifier";
 - (UILabel *)cellTitleLabel {
     if (!_cellTitleLabel) {
         _cellTitleLabel = [[UILabel alloc] init];
-        _cellTitleLabel.font = [UIFont systemFontOfSize:16.f];
+        if (@available(iOS 14.0, *)) {
+            _cellTitleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+            _cellTitleLabel.adjustsFontForContentSizeCategory = YES;
+        } else {
+            _cellTitleLabel.font = [UIFont systemFontOfSize:16.f];
+        }
         _cellTitleLabel.textAlignment = NSTextAlignmentLeft;
         _cellTitleLabel.numberOfLines = 1;
         _cellTitleLabel.lineBreakMode = NSLineBreakByTruncatingTail;

@@ -60,14 +60,25 @@
     
     [self.contentView addSubview:self.dateTimePicker];
     {
-        NSArray <NSLayoutConstraint *> *constraints =
-        @[
-          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
-          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
-          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:4.0],
-          [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-4.0],
-          ];
-        [self.contentView addConstraints:constraints];
+        if (@available(iOS 14.0, *)) {
+            NSArray <NSLayoutConstraint *> *constraints =
+            @[
+              [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
+              [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0],
+              [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:6.0],
+              [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-6.0],
+              ];
+            [self.contentView addConstraints:constraints];
+        } else {
+            NSArray <NSLayoutConstraint *> *constraints =
+            @[
+              [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0],
+              [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0],
+              [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1.0 constant:4.0],
+              [NSLayoutConstraint constraintWithItem:self.dateTimePicker attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-4.0],
+              ];
+            [self.contentView addConstraints:constraints];
+        }
     }
 }
 
@@ -87,7 +98,9 @@
 #pragma mark - Getters
 
 - (NSNumber *)xui_height {
-    if (XUI_SYSTEM_8) {
+    if (@available(iOS 14.0, *)) {
+        return nil;
+    } else if (XUI_SYSTEM_8) {
         return _xui_height;
     } else {
         return @(217.0);

@@ -12,11 +12,16 @@
 // ----
 // Just a simple NavigationController
 // ----
+
+@class XUIViewController;
+
 @interface XUINavigationController : UINavigationController
 
 - (BOOL)shouldAutorotate;
 - (UIStatusBarStyle)preferredStatusBarStyle;
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations;
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation;
+
+- (void)renderNavigationBarTheme:(XUIViewController *)controller;
 
 @end

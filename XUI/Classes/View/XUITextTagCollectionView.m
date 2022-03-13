@@ -12,7 +12,11 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _tagTextFont = [UIFont systemFontOfSize:16.f];
+        if (@available(iOS 14.0, *)) {
+            _tagTextFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        } else {
+            _tagTextFont = [UIFont systemFontOfSize:16.f];
+        }
         
         _tagTextColor = [UIColor whiteColor];
         _tagSelectedTextColor = [UIColor whiteColor];
@@ -570,6 +574,9 @@
     // Update style
     XUITextTagConfig *config = label.config;
     label.label.font = config.tagTextFont;
+    if (@available(iOS 14.0, *)) {
+        label.label.adjustsFontForContentSizeCategory = YES;
+    }
     label.label.textColor = label.selected ? config.tagSelectedTextColor : config.tagTextColor;
     label.label.layer.cornerRadius = label.selected ? config.tagSelectedCornerRadius : config.tagCornerRadius;
     label.label.layer.borderWidth = label.selected ? config.tagSelectedBorderWidth : config.tagBorderWidth;
