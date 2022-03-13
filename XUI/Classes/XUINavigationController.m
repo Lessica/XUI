@@ -36,11 +36,6 @@
     return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.navigationBar.translucent = NO;
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if ([self.topViewController isKindOfClass:[XUIViewController class]])
@@ -159,7 +154,11 @@
 - (void)renderNavigationBarTheme:(XUIViewController *)controller {
     UIColor *backgroundColor = [controller preferredNavigationBarColor];
     UIColor *foregroundColor = [controller preferredNavigationBarTintColor];
-    if (!backgroundColor || !foregroundColor) return;
+    if (!backgroundColor || !foregroundColor) {
+        [self.navigationBar setTranslucent:YES];
+        return;
+    }
+    [self.navigationBar setTranslucent:NO];
     { // title color
         [self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : foregroundColor }];
         if (@available(iOS 11.0, *)) {

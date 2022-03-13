@@ -72,7 +72,6 @@
     
     _cellBackgroundColor = theme.cellBackgroundColor;
     _selectedColor = theme.selectedColor;
-    _highlightedColor = theme.highlightedColor;
     _disclosureIndicatorColor = theme.disclosureIndicatorColor;
     _labelColor = theme.labelColor;
     _valueColor = theme.valueColor;
@@ -105,49 +104,104 @@
     _warningColor = XUI_COLOR_WARNING;
     _successColor = XUI_COLOR_SUCCESS;
     
-    _navigationBarColor = XUI_COLOR_HIGHLIGHTED;
-    _navigationTitleColor = [UIColor whiteColor];
+    if (@available(iOS 13.0, *)) {
+        
+        _navigationBarColor = nil;
+        _navigationTitleColor = nil;
+        
+        _headerTextColor = nil;
+        _subheaderTextColor = nil;
+        _footerTextColor = nil;
+        
+        _headerBackgroundColor = nil;
+        _footerBackgroundColor = nil;
+        
+        _tableViewStyle = UITableViewStyleInsetGrouped;
+        _foregroundColor = nil;
+        _backgroundColor = nil;
+        _separatorColor = nil;
+        
+        _backgroundImagePath = nil;
+        
+        _groupHeaderTextColor = nil;
+        _groupFooterTextColor = nil;
+        _groupHeaderBackgroundColor = nil;
+        _groupFooterBackgroundColor = nil;
+        
+        _cellBackgroundColor = nil;
+        _selectedColor = nil;
+        
+        _disclosureIndicatorColor = nil;
+        _labelColor = nil;
+        _valueColor = nil;
+        
+        _textColor = nil;
+        _caretColor = nil;
+        _placeholderColor = nil;
+        
+        _tagTextColor = nil;
+        _tagSelectedTextColor = nil;
+        _tagBorderColor = nil;
+        _tagSelectedBorderColor = nil;
+        _tagBackgroundColor = nil;
+        _tagSelectedBackgroundColor = nil;
+        
+        _offTintColor = nil;
+        _onTintColor = nil;
+        _thumbTintColor = nil;
+        
+        _prefersLargeTitle = @(YES);
+        
+    } else {
+        
+        _navigationBarColor = XUI_COLOR_HIGHLIGHTED;
+        _navigationTitleColor = [UIColor whiteColor];
+        
+        _headerTextColor = [UIColor blackColor];
+        _subheaderTextColor = [UIColor blackColor];
+        _footerTextColor = [UIColor blackColor];
+        
+        _headerBackgroundColor = [UIColor clearColor];
+        _footerBackgroundColor = [UIColor clearColor];
+        
+        _tableViewStyle = UITableViewStyleGrouped;
+        _foregroundColor = XUI_COLOR_HIGHLIGHTED;
+        _backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _separatorColor = [UIColor lightGrayColor];
+        
+        _backgroundImagePath = nil;
+        
+        _groupHeaderTextColor = [UIColor grayColor];
+        _groupFooterTextColor = [UIColor grayColor];
+        _groupHeaderBackgroundColor = [UIColor clearColor];
+        _groupFooterBackgroundColor = [UIColor clearColor];
+        
+        _cellBackgroundColor = [UIColor whiteColor];
+        _selectedColor = [XUI_COLOR_HIGHLIGHTED colorWithAlphaComponent:0.1];
+        
+        _disclosureIndicatorColor = XUI_COLOR_DISCLOSURE;
+        _labelColor = [UIColor blackColor];
+        _valueColor = [UIColor grayColor];
+        
+        _textColor = [UIColor blackColor];
+        _caretColor = XUI_COLOR_HIGHLIGHTED;
+        _placeholderColor = [UIColor lightGrayColor];
+        
+        _tagTextColor = XUI_COLOR_HIGHLIGHTED;
+        _tagSelectedTextColor = [UIColor whiteColor];
+        _tagBorderColor = XUI_COLOR_HIGHLIGHTED;
+        _tagSelectedBorderColor = XUI_COLOR_HIGHLIGHTED;
+        _tagBackgroundColor = [UIColor whiteColor];
+        _tagSelectedBackgroundColor = XUI_COLOR_HIGHLIGHTED;
+        
+        _offTintColor = [UIColor xui_colorWithHex:@"#E0E0E0"];
+        _onTintColor = XUI_COLOR_SUCCESS;
+        _thumbTintColor = [UIColor whiteColor];
+        
+        _prefersLargeTitle = @(NO);
+        
+    }
     
-    _headerTextColor = [UIColor blackColor];
-    _subheaderTextColor = [UIColor blackColor];
-    _footerTextColor = [UIColor blackColor];
-    _headerBackgroundColor = [UIColor clearColor];
-    _footerBackgroundColor = [UIColor clearColor];
-    
-    _tableViewStyle = UITableViewStyleGrouped;
-    _foregroundColor = XUI_COLOR_HIGHLIGHTED;
-    _backgroundColor = [UIColor groupTableViewBackgroundColor];
-    _separatorColor = [UIColor lightGrayColor];
-    _backgroundImagePath = nil;
-    
-    _groupHeaderTextColor = [UIColor grayColor];
-    _groupFooterTextColor = [UIColor grayColor];
-    _groupHeaderBackgroundColor = [UIColor clearColor];
-    _groupFooterBackgroundColor = [UIColor clearColor];
-    
-    _cellBackgroundColor = [UIColor whiteColor];
-    _selectedColor = [XUI_COLOR_HIGHLIGHTED colorWithAlphaComponent:0.1];
-    _highlightedColor = XUI_COLOR_HIGHLIGHTED;
-    _disclosureIndicatorColor = XUI_COLOR_DISCLOSURE;
-    _labelColor = [UIColor blackColor];
-    _valueColor = [UIColor grayColor];
-    
-    _textColor = [UIColor blackColor];
-    _caretColor = XUI_COLOR_HIGHLIGHTED;
-    _placeholderColor = [UIColor lightGrayColor];
-    
-    _tagTextColor = XUI_COLOR_HIGHLIGHTED;
-    _tagSelectedTextColor = [UIColor whiteColor];
-    _tagBorderColor = XUI_COLOR_HIGHLIGHTED;
-    _tagSelectedBorderColor = XUI_COLOR_HIGHLIGHTED;
-    _tagBackgroundColor = [UIColor whiteColor];
-    _tagSelectedBackgroundColor = XUI_COLOR_HIGHLIGHTED;
-    
-    _offTintColor = [UIColor xui_colorWithHex:@"#E0E0E0"];
-    _onTintColor = XUI_COLOR_SUCCESS;
-    _thumbTintColor = [UIColor whiteColor];
-    
-    _prefersLargeTitle = @(NO);
     _labelFontSize = @(UITableViewAutomaticDimension);
     
     _rawTheme = nil;
@@ -201,7 +255,7 @@
     if ([additionalDictionary[@"selectedColor"] isKindOfClass:[NSString class]])
         _selectedColor = [UIColor xui_colorWithHex:additionalDictionary[@"selectedColor"]];
     if ([additionalDictionary[@"highlightedColor"] isKindOfClass:[NSString class]])
-        _highlightedColor = [UIColor xui_colorWithHex:additionalDictionary[@"highlightedColor"]];
+        _selectedColor = [UIColor xui_colorWithHex:additionalDictionary[@"highlightedColor"]];
     
     if ([additionalDictionary[@"navigationBarColor"] isKindOfClass:[NSString class]])
         _navigationBarColor = [UIColor xui_colorWithHex:additionalDictionary[@"navigationBarColor"]];
@@ -275,6 +329,10 @@
 
 - (BOOL)isBackgroundDark {
     return [self.backgroundColor xui_isDarkColor];
+}
+
+- (UIColor *)highlightedColor {
+    return _selectedColor;
 }
 
 #pragma mark - NSCopying

@@ -91,8 +91,8 @@
     self.tagView.contentInset = UIEdgeInsetsZero;
     self.tagView.scrollDirection = XUITagCollectionScrollDirectionVertical;
     
-    self.tagView.defaultConfig.tagCornerRadius = 4.f;
-    self.tagView.defaultConfig.tagSelectedCornerRadius = 4.f;
+    self.tagView.defaultConfig.tagCornerRadius = 8.f;
+    self.tagView.defaultConfig.tagSelectedCornerRadius = 8.f;
     
     self.tagView.defaultConfig.tagShadowColor = UIColor.clearColor;
     
@@ -244,14 +244,18 @@
 - (void)setInternalTheme:(XUITheme *)theme {
     [super setInternalTheme:theme];
     
-    self.tagView.defaultConfig.tagTextColor = theme.tagTextColor;
-    self.tagView.defaultConfig.tagSelectedTextColor = theme.tagSelectedTextColor;
+    self.tagView.defaultConfig.tagTextColor = theme.tagTextColor ?: self.tintColor;
+    self.tagView.defaultConfig.tagSelectedTextColor = theme.tagSelectedTextColor ?: [UIColor whiteColor];
     
-    self.tagView.defaultConfig.tagBackgroundColor = theme.tagBackgroundColor;
-    self.tagView.defaultConfig.tagSelectedBackgroundColor = theme.tagSelectedBackgroundColor;
+    if (@available(iOS 13.0, *)) {
+        self.tagView.defaultConfig.tagBackgroundColor = theme.tagBackgroundColor ?: [UIColor clearColor];
+    } else {
+        self.tagView.defaultConfig.tagBackgroundColor = theme.tagBackgroundColor ?: [UIColor clearColor];
+    }
+    self.tagView.defaultConfig.tagSelectedBackgroundColor = theme.tagSelectedBackgroundColor ?: self.tintColor;
     
-    self.tagView.defaultConfig.tagBorderColor = theme.tagBorderColor;
-    self.tagView.defaultConfig.tagSelectedBorderColor = theme.tagSelectedBorderColor;
+    self.tagView.defaultConfig.tagBorderColor = theme.tagBorderColor ?: self.tintColor;
+    self.tagView.defaultConfig.tagSelectedBorderColor = theme.tagSelectedBorderColor ?: self.tintColor;
     
     self.tagView.backgroundColor = [UIColor clearColor];
     

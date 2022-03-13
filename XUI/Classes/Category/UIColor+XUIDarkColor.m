@@ -39,6 +39,22 @@
 }
 
 + (UIColor *)xui_colorWithHex:(NSString *)representation {
+    if ([representation rangeOfString:@"/"].location != NSNotFound)
+    {
+        if (@available(iOS 13.0, *)) {
+            NSArray <NSString *> *dynamicColorStrings = [representation componentsSeparatedByString:@"/"];
+            return [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+                if (traitCollection.userInterfaceStyle != UIUserInterfaceStyleDark) {
+                    return [self xui_colorWithHex:dynamicColorStrings.firstObject];
+                } else {
+                    return [self xui_colorWithHex:dynamicColorStrings.lastObject];
+                }
+            }];
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+    
     NSString *hex = representation;
     if ([hex hasPrefix:@"#"]) {
         hex = [hex substringFromIndex:1];

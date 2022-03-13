@@ -164,11 +164,13 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 
 - (void)setupCell {
     _xui_readonly = @NO;
+    
     if ([self.class layoutRequiresDynamicRowHeight]) {
         _xui_height = @(-1);
     } else {
         _xui_height = @44.f; // standard cell height
     }
+    
     if ([self.class layoutNeedsTextLabel]) {
         if (@available(iOS 14.0, *)) {
             self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
@@ -187,8 +189,6 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
         self.detailTextLabel.textColor = UIColor.grayColor;
         self.detailTextLabel.text = nil;
     }
-    UIView *selectionBackground = [[UIView alloc] init];
-    self.selectedBackgroundView = selectionBackground;
     
     [self.contentView addSubview:self.validationView];
 }
@@ -271,6 +271,8 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
         renderingMode = UIImageRenderingModeAlwaysOriginal;
     } else if ([renderingModeString isEqualToString:@"AlwaysTemplate"]) {
         renderingMode = UIImageRenderingModeAlwaysTemplate;
+    } else if ([renderingModeString isEqualToString:@"Automatic"]) {
+        renderingMode = UIImageRenderingModeAutomatic;
     }
     return [image imageWithRenderingMode:renderingMode];
 }
@@ -300,14 +302,31 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 
 - (void)setInternalTheme:(XUITheme *)theme {
     _internalTheme = theme;
-    self.tintColor = theme.foregroundColor;
-    self.contentView.tintColor = theme.foregroundColor;
-    self.backgroundColor = theme.cellBackgroundColor;
-    self.textLabel.textColor = theme.labelColor;
-    self.detailTextLabel.textColor = theme.valueColor;
-    self.xui_disclosureIndicatorColor = theme.disclosureIndicatorColor;
-    self.selectedBackgroundView.backgroundColor = theme.selectedColor;
-    self.validationView.backgroundColor = theme.dangerColor;
+    if (theme.foregroundColor) {
+        self.tintColor = theme.foregroundColor;
+        self.contentView.tintColor = theme.foregroundColor;
+    }
+    if (theme.cellBackgroundColor) {
+        self.backgroundColor = theme.cellBackgroundColor;
+    }
+    if (theme.labelColor) {
+        self.textLabel.textColor = theme.labelColor;
+    }
+    if (theme.valueColor) {
+        self.detailTextLabel.textColor = theme.valueColor;
+    }
+    if (theme.disclosureIndicatorColor) {
+        self.xui_disclosureIndicatorColor = theme.disclosureIndicatorColor;
+    }
+    if (theme.selectedColor) {
+        self.selectedBackgroundView = [[UIView alloc] init];
+        self.selectedBackgroundView.backgroundColor = theme.selectedColor;
+    } else {
+        self.selectedBackgroundView = nil;
+    }
+    if (theme.dangerColor) {
+        self.validationView.backgroundColor = theme.dangerColor;
+    }
 }
 
 - (void)setInternalIconPath:(NSString *)internalIconPath {

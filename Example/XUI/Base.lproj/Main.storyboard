@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17A365" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="NO" initialViewController="whP-gf-Uak">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="whP-gf-Uak">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20019"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Demo View Controller-->
@@ -15,28 +17,32 @@
                         <viewControllerLayoutGuide type="bottom" id="Mvr-aV-6Um"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKU-mR-fAv">
-                                <rect key="frame" x="146" y="318.5" width="83" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKU-mR-fAv">
+                                <rect key="frame" x="156.5" y="432.5" width="101.5" height="31"/>
                                 <state key="normal" title="Show Demo"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Show Demo"/>
                                 <connections>
                                     <action selector="demoButtonTapped:" destination="whP-gf-Uak" eventType="touchUpInside" id="IoK-wv-2bX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tjy-RH-lt1">
-                                <rect key="frame" x="87" y="356.5" width="201" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tjy-RH-lt1">
+                                <rect key="frame" x="100.5" y="479.5" width="213.5" height="31"/>
                                 <state key="normal" title="Settings Application Schema "/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Settings Application Schema "/>
                                 <connections>
                                     <action selector="schemaButtonTapped:" destination="whP-gf-Uak" eventType="touchUpInside" id="ZgO-6m-HsX"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="BKU-mR-fAv" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="Ly8-Fe-fWu"/>
-                            <constraint firstItem="Tjy-RH-lt1" firstAttribute="top" secondItem="BKU-mR-fAv" secondAttribute="bottom" constant="8" id="Naf-i4-T6V"/>
+                            <constraint firstItem="Tjy-RH-lt1" firstAttribute="top" secondItem="BKU-mR-fAv" secondAttribute="bottom" constant="16" id="Naf-i4-T6V"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="BKU-mR-fAv" secondAttribute="trailing" constant="8" id="ZJb-fu-16Y"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Tjy-RH-lt1" secondAttribute="trailing" constant="8" id="bnr-Pw-dji"/>
                             <constraint firstItem="BKU-mR-fAv" firstAttribute="centerY" secondItem="TpU-gO-2f1" secondAttribute="centerY" id="s38-B6-EgA"/>
                             <constraint firstItem="Tjy-RH-lt1" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="sGx-n6-D3Z"/>
                         </constraints>
@@ -47,7 +53,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="433"/>
+            <point key="canvasLocation" x="304.34782608695656" y="432.58928571428572"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

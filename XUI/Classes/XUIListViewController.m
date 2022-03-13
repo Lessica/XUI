@@ -259,9 +259,17 @@
         tableView;
     });
     
-    self.view.backgroundColor = theme ? theme.backgroundColor : [UIColor groupTableViewBackgroundColor];
-    self.tableView.backgroundColor = theme.backgroundColor;
-    self.tableView.separatorColor = theme.separatorColor;
+    if (theme.backgroundColor) {
+        self.view.backgroundColor = theme.backgroundColor;
+        self.tableView.backgroundColor = theme.backgroundColor;
+    }
+    if (@available(iOS 13.0, *)) {
+        self.tableView.separatorColor = theme.separatorColor ?: [UIColor separatorColor];
+    } else {
+        if (theme.separatorColor) {
+            self.tableView.separatorColor = theme.separatorColor;
+        }
+    }
     self.tableView.contentInset =
     self.tableView.scrollIndicatorInsets = self.defaultContentInsets;
     [self.tableView setContentOffset:CGPointMake(0, -self.defaultContentInsets.top) animated:YES];
@@ -316,7 +324,6 @@
 - (UIBarButtonItem *)closeButtonItem {
     if (!_closeButtonItem) {
         UIBarButtonItem *closeButtonItem = [[UIBarButtonItem alloc] initWithTitle:[XUIStrings localizedStringForString:@"Close"] style:UIBarButtonItemStylePlain target:self action:@selector(closeButtonItemTapped:)];
-        closeButtonItem.tintColor = [UIColor whiteColor];
         _closeButtonItem = closeButtonItem;
     }
     return _closeButtonItem;
@@ -492,8 +499,12 @@
     } else {
         theme = self.theme;
     }
-    header.textLabel.textColor = theme.groupHeaderTextColor;
-    header.tintColor = theme.groupHeaderBackgroundColor;
+    if (theme.groupHeaderTextColor) {
+        header.textLabel.textColor = theme.groupHeaderTextColor;
+    }
+    if (theme.groupHeaderBackgroundColor) {
+        header.tintColor = theme.groupHeaderBackgroundColor;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
@@ -509,8 +520,12 @@
     } else {
         theme = self.theme;
     }
-    footer.textLabel.textColor = theme.groupFooterTextColor;
-    footer.tintColor = theme.groupFooterBackgroundColor;
+    if (theme.groupFooterTextColor) {
+        footer.textLabel.textColor = theme.groupFooterTextColor;
+    }
+    if (theme.groupFooterBackgroundColor) {
+        footer.tintColor = theme.groupFooterBackgroundColor;
+    }
 }
 
 XUI_START_IGNORE_PARTIAL

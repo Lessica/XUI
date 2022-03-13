@@ -71,8 +71,16 @@
     [self.tableView registerClass:[XUIBaseOptionCell class] forCellReuseIdentifier:XUIBaseOptionCellReuseIdentifier];
     
     XUITheme *theme = self.theme;
-    self.tableView.backgroundColor = theme.backgroundColor;
-    self.tableView.separatorColor = theme.separatorColor;
+    if (theme.backgroundColor) {
+        self.tableView.backgroundColor = theme.backgroundColor;
+    }
+    if (@available(iOS 13.0, *)) {
+        self.tableView.separatorColor = theme.separatorColor ?: [UIColor separatorColor];
+    } else {
+        if (theme.separatorColor) {
+            self.tableView.separatorColor = theme.separatorColor;
+        }
+    }
     
     [self.view addSubview:self.tableView];
 }
@@ -157,8 +165,12 @@
     } else {
         header.textLabel.font = [UIFont systemFontOfSize:14.0];
     }
-    header.textLabel.textColor = self.theme.groupHeaderTextColor;
-    header.tintColor = self.theme.groupHeaderBackgroundColor;
+    if (self.theme.groupHeaderTextColor) {
+        header.textLabel.textColor = self.theme.groupHeaderTextColor;
+    }
+    if (self.theme.groupHeaderBackgroundColor) {
+        header.tintColor = self.theme.groupHeaderBackgroundColor;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(nonnull UIView *)view forSection:(NSInteger)section {
@@ -168,8 +180,12 @@
     } else {
         footer.textLabel.font = [UIFont systemFontOfSize:12.0];
     }
-    footer.textLabel.textColor = self.theme.groupFooterTextColor;
-    footer.tintColor = self.theme.groupFooterBackgroundColor;
+    if (self.theme.groupFooterTextColor) {
+        footer.textLabel.textColor = self.theme.groupFooterTextColor;
+    }
+    if (self.theme.groupFooterBackgroundColor) {
+        footer.tintColor = self.theme.groupFooterBackgroundColor;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

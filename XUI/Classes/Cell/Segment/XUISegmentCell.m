@@ -203,8 +203,16 @@
 
 - (void)setInternalTheme:(XUITheme *)theme {
     [super setInternalTheme:theme];
-    self.cellSegmentControl.tintColor = theme.foregroundColor;
-    self.cellTitleLabel.textColor = theme.labelColor;
+    if (theme.foregroundColor) {
+        self.cellSegmentControl.tintColor = theme.foregroundColor;
+    }
+    if (@available(iOS 13.0, *)) {
+        self.cellTitleLabel.textColor = theme.labelColor ?: [UIColor labelColor];
+    } else {
+        if (theme.labelColor) {
+            self.cellTitleLabel.textColor = theme.labelColor;
+        }
+    }
 }
 
 #pragma mark - Actions

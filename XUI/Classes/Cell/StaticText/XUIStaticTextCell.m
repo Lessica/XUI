@@ -145,8 +145,16 @@ static UIEdgeInsets const XUIStaticTextCellPadding = { 4.f, 0.f, 4.f, 0.f };
 
 - (void)setInternalTheme:(XUITheme *)theme {
     [super setInternalTheme:theme];
-    self.cellStaticTextView.textColor = theme.labelColor;
-    self.cellStaticTextView.tintColor = theme.foregroundColor;
+    if (@available(iOS 13.0, *)) {
+        self.cellStaticTextView.textColor = theme.labelColor ?: [UIColor labelColor];
+    } else {
+        if (theme.labelColor) {
+            self.cellStaticTextView.textColor = theme.labelColor;
+        }
+    }
+    if (theme.foregroundColor) {
+        self.cellStaticTextView.tintColor = theme.foregroundColor;
+    }
     if (@available(iOS 14.0, *)) {
         UIFont *newFont = nil;
         CGFloat fontSize = [theme.labelFontSize doubleValue];

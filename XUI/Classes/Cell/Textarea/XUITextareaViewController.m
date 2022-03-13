@@ -50,7 +50,11 @@
     
     UITextView *textView = self.textView;
     
-    self.view.backgroundColor = UIColor.whiteColor;
+    if (@available(iOS 13.0, *)) {
+        self.view.backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
     if ([self.cell.xui_value isKindOfClass:[NSString class]]) {
         textView.text = self.cell.xui_value;
     }
@@ -71,16 +75,28 @@
 #endif
     
     XUITheme *theme = self.theme;
-    self.view.backgroundColor = theme.backgroundColor;
+    if (theme.backgroundColor) {
+        self.view.backgroundColor = theme.backgroundColor;
+    }
     if (@available(iOS 11.0, *)) {
         UIView *backgroundView = self.backgroundView;
-        backgroundView.backgroundColor = theme.cellBackgroundColor;
+        if (theme.cellBackgroundColor) {
+            backgroundView.backgroundColor = theme.cellBackgroundColor;
+        }
         textView.backgroundColor = [UIColor clearColor];
     } else {
-        textView.backgroundColor = theme.cellBackgroundColor;
+        if (theme.cellBackgroundColor) {
+            textView.backgroundColor = theme.cellBackgroundColor;
+        }
     }
-    textView.textColor = theme.textColor;
-    textView.tintColor = theme.caretColor;
+    if (@available(iOS 13.0, *)) {
+        textView.textColor = theme.textColor ?: [UIColor labelColor];
+    } else {
+        if (theme.textColor) {
+            textView.textColor = theme.textColor;
+        }
+    }
+    textView.tintColor = theme.caretColor ?: self.view.tintColor;
     
     if (theme.isBackgroundDark) {
         textView.keyboardAppearance = UIKeyboardAppearanceDark;
@@ -266,7 +282,9 @@
     if (!_backgroundView) {
         UIView *backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
         
-        backgroundView.tintColor = self.theme.foregroundColor;
+        if (self.theme.foregroundColor) {
+            backgroundView.tintColor = self.theme.foregroundColor;
+        }
         backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         _backgroundView = backgroundView;
@@ -278,7 +296,9 @@
     if (!_textView) {
         UITextView *textView = [[UITextView alloc] initWithFrame:self.view.bounds];
         
-        textView.tintColor = self.theme.foregroundColor;
+        if (self.theme.foregroundColor) {
+            textView.tintColor = self.theme.foregroundColor;
+        }
         textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         textView.delegate = self;

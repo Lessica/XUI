@@ -148,9 +148,18 @@ static inline UIEdgeInsets XUIListHeaderViewEdgeInsets() {
 
 - (void)setTheme:(XUITheme *)theme {
     _theme = theme;
-    self.backgroundColor = theme.headerBackgroundColor;
-    self.headerLabel.textColor = theme.headerTextColor;
-    self.subheaderLabel.textColor = theme.subheaderTextColor;
+    self.backgroundColor = theme.headerBackgroundColor ?: UIColor.clearColor;
+    if (@available(iOS 13.0, *)) {
+        self.headerLabel.textColor = theme.headerTextColor ?: UIColor.labelColor;
+        self.subheaderLabel.textColor = theme.subheaderTextColor ?: UIColor.labelColor;
+    } else {
+        if (theme.headerTextColor) {
+            self.headerLabel.textColor = theme.headerTextColor;
+        }
+        if (theme.subheaderTextColor) {
+            self.subheaderLabel.textColor = theme.subheaderTextColor;
+        }
+    }
 }
 
 @end

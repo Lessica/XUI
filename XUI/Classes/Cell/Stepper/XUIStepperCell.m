@@ -241,9 +241,20 @@
 
 - (void)setInternalTheme:(XUITheme *)theme {
     [super setInternalTheme:theme];
-    self.cellStepper.tintColor = theme.foregroundColor;
-    self.cellNumberLabel.textColor = theme.valueColor;
-    self.cellTitleLabel.textColor = theme.labelColor;
+    if (theme.foregroundColor) {
+        self.cellStepper.tintColor = theme.foregroundColor;
+    }
+    if (@available(iOS 13.0, *)) {
+        self.cellNumberLabel.textColor = theme.valueColor ?: [UIColor secondaryLabelColor];
+        self.cellTitleLabel.textColor = theme.labelColor ?: [UIColor labelColor];
+    } else {
+        if (theme.valueColor) {
+            self.cellNumberLabel.textColor = theme.valueColor;
+        }
+        if (theme.labelColor) {
+            self.cellTitleLabel.textColor = theme.labelColor;
+        }
+    }
 }
 
 @end

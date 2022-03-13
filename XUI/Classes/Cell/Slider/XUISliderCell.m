@@ -182,11 +182,21 @@
 
 - (void)setInternalTheme:(XUITheme *)theme {
     [super setInternalTheme:theme];
-    self.cellSliderValueLabel.textColor = theme.valueColor;
-    self.cellSlider.minimumTrackTintColor = theme.foregroundColor;
-    self.cellSlider.tintColor = theme.thumbTintColor;
+    if (@available(iOS 13.0, *)) {
+        self.cellSliderValueLabel.textColor = theme.valueColor ?: [UIColor secondaryLabelColor];
+    } else {
+        if (theme.valueColor) {
+            self.cellSliderValueLabel.textColor = theme.valueColor;
+        }
+    }
+    self.cellSlider.minimumTrackTintColor = theme.foregroundColor ?: self.tintColor;
+    if (theme.thumbTintColor) {
+        self.cellSlider.tintColor = theme.thumbTintColor;
+    }
     if (NO == [theme.thumbTintColor isEqual:[UIColor whiteColor]]) {
-        self.cellSlider.thumbTintColor = theme.thumbTintColor;
+        if (theme.thumbTintColor) {
+            self.cellSlider.thumbTintColor = theme.thumbTintColor;
+        }
     }
 }
 

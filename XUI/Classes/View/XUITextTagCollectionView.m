@@ -24,8 +24,8 @@
         _tagBackgroundColor = [UIColor colorWithRed:0.30 green:0.72 blue:0.53 alpha:1.00];
         _tagSelectedBackgroundColor = [UIColor colorWithRed:0.22 green:0.29 blue:0.36 alpha:1.00];
         
-        _tagCornerRadius = 4.0f;
-        _tagSelectedCornerRadius = 4.0f;
+        _tagCornerRadius = 8.0f;
+        _tagSelectedCornerRadius = 8.0f;
         
         _tagBorderWidth = 1.0f;
         _tagSelectedBorderWidth = 1.0f;

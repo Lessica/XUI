@@ -121,10 +121,16 @@
 - (void)setInternalTheme:(XUITheme *)theme {
     [super setInternalTheme:theme];
     if (NO == [theme.thumbTintColor isEqual:[UIColor whiteColor]]) {
-        self.cellSwitch.thumbTintColor = theme.thumbTintColor;
+        if (theme.thumbTintColor) {
+            self.cellSwitch.thumbTintColor = theme.thumbTintColor;
+        }
     }
-    self.cellSwitch.tintColor = theme.offTintColor;
-    self.cellSwitch.onTintColor = theme.onTintColor;
+    if (theme.offTintColor) {
+        self.cellSwitch.tintColor = theme.offTintColor;
+    }
+    if (theme.onTintColor) {
+        self.cellSwitch.onTintColor = theme.onTintColor;
+    }
 }
 
 - (void)setNeedsUpdateValue {

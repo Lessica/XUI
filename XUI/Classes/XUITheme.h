@@ -18,8 +18,8 @@
 
 
 #pragma mark - Navigation Bar
-@property (nonatomic, strong, readonly) UIColor *navigationBarColor;
-@property (nonatomic, strong, readonly) UIColor *navigationTitleColor;
+@property (nonatomic, strong, readonly) UIColor *navigationBarColor;  // backgroundColor of bar itself
+@property (nonatomic, strong, readonly) UIColor *navigationTitleColor;  // tintColor of navigationItems
 
 
 #pragma mark - Header & Footer
@@ -48,7 +48,7 @@
 #pragma mark - Other Cells
 @property (nonatomic, strong, readonly) UIColor *cellBackgroundColor; // cell background
 @property (nonatomic, strong, readonly) UIColor *selectedColor; // cell selected
-@property (nonatomic, strong, readonly) UIColor *highlightedColor; // cell highlighted
+@property (nonatomic, strong, readonly) UIColor *highlightedColor; // alias of cell selected
 @property (nonatomic, strong, readonly) UIColor *disclosureIndicatorColor; // cell disclosure
 @property (nonatomic, strong, readonly) UIColor *labelColor; // text
 @property (nonatomic, strong, readonly) UIColor *valueColor; // detail text

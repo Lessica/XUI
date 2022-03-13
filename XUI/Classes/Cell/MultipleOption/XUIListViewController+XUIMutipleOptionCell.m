@@ -31,7 +31,9 @@
                 UIPopoverPresentationController *popController = optionViewController.popoverPresentationController;
                 popController.sourceView = self.tableView;
                 popController.sourceRect = [self.tableView rectForRowAtIndexPath:indexPath];
-                popController.backgroundColor = self.theme.backgroundColor;
+                if (self.theme.backgroundColor) {
+                    popController.backgroundColor = self.theme.backgroundColor;
+                }
                 popController.delegate = self;
                 [self.navigationController presentViewController:optionViewController animated:YES completion:nil];
                 return;

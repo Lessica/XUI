@@ -272,10 +272,23 @@
 
 - (void)setInternalTheme:(XUITheme *)theme {
     [super setInternalTheme:theme];
-    self.cellTitleLabel.textColor = theme.labelColor;
+    if (@available(iOS 13.0, *)) {
+        self.cellTitleLabel.textColor = theme.labelColor ?: [UIColor labelColor];
+    } else {
+        if (theme.labelColor) {
+            self.cellTitleLabel.textColor = theme.labelColor;
+        }
+    }
     XUITextField *textField = self.cellTextField;
-    [textField setColorButtonClearNormal:[theme.textColor colorWithAlphaComponent:0.6]];
-    [textField setColorButtonClearHighlighted:theme.textColor];
+    if (@available(iOS 13.0, *)) {
+        [textField setColorButtonClearNormal:[(theme.textColor ?: [UIColor labelColor]) colorWithAlphaComponent:0.6]];
+        [textField setColorButtonClearHighlighted:(theme.textColor ?: [UIColor labelColor])];
+    } else {
+        if (theme.textColor) {
+            [textField setColorButtonClearNormal:[theme.textColor colorWithAlphaComponent:0.6]];
+            [textField setColorButtonClearHighlighted:theme.textColor];
+        }
+    }
     [self.class reloadTextAttributes:textField forTextFieldCell:self];
     [self.class reloadPlaceholderAttributes:textField forTextFieldCell:self];
 }
@@ -313,11 +326,10 @@
     } else {
         font = [UIFont systemFontOfSize:16.f];
     }
-    if (theme.textColor && theme.caretColor && font) {
+    if (theme.textColor && font) {
         NSDictionary *attributes = @{ NSForegroundColorAttributeName: theme.textColor, NSFontAttributeName: font };
         textField.font = font;
         textField.textColor = theme.textColor;
-        textField.tintColor = theme.caretColor;
         textField.typingAttributes = attributes;
         if (text)
         {
@@ -326,6 +338,9 @@
         }
     } else if (text) {
         textField.text = text;
+    }
+    if (theme.caretColor) {
+        textField.tintColor = theme.caretColor;
     }
     if (theme.isBackgroundDark) {
         textField.keyboardAppearance = UIKeyboardAppearanceDark;
@@ -469,11 +484,24 @@
 - (void)setValidated:(BOOL)validated {
     [super setValidated:validated];
     if (validated) {
-        self.cellTitleLabel.textColor = self.theme.labelColor;
-        self.cellTextField.textColor = self.theme.textColor;
+        if (@available(iOS 13.0, *)) {
+            self.cellTitleLabel.textColor = self.theme.labelColor ?: [UIColor labelColor];
+            self.cellTextField.textColor = self.theme.textColor ?: [UIColor labelColor];
+        } else {
+            if (self.theme.labelColor) {
+                self.cellTitleLabel.textColor = self.theme.labelColor;
+            }
+            if (self.theme.textColor) {
+                self.cellTextField.textColor = self.theme.textColor;
+            }
+        }
     } else {
-        self.cellTitleLabel.textColor = self.theme.dangerColor;
-        self.cellTextField.textColor = self.theme.dangerColor;
+        if (self.theme.dangerColor) {
+            self.cellTitleLabel.textColor = self.theme.dangerColor;
+        }
+        if (self.theme.dangerColor) {
+            self.cellTextField.textColor = self.theme.dangerColor;
+        }
     }
 }
 

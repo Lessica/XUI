@@ -230,8 +230,12 @@
 - (void)setInternalTheme:(XUITheme *)theme {
     [super setInternalTheme:theme];
     UIDatePicker *picker = self.dateTimePicker;
-    picker.tintColor = theme.foregroundColor;
-    [picker setValue:theme.labelColor forKeyPath:@"textColor"];
+    if (theme.foregroundColor) {
+        picker.tintColor = theme.foregroundColor;
+    }
+    if (theme.labelColor) {
+        [picker setValue:theme.labelColor forKeyPath:@"textColor"];
+    }
 }
 
 @end

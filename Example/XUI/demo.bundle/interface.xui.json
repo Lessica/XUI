@@ -2,15 +2,24 @@
     "title":"Demo",
     "theme":{
         "style":"InsetGrouped",
+        "foregroundColor":"#2C3E50",
         "backgroundImage":"res/2560_1440.jpg",
         "backgroundColor":"#FEFEFEA0",
-        "sectionHeaderTextColor":"#333333",
-        "sectionFooterTextColor":"#333333",
         "cellBackgroundColor":"#FEFEFEA0",
-        "tagBackgroundColor":"#FFFFFF00",
+        "selectedColor":"#2C3E5017",
         "navigationBarColor":"#2C3E50",
+        "navigationTitleColor":"#FFFFFF",
+        "groupHeaderTextColor":"#333333",
+        "groupFooterTextColor":"#333333",
+        "tagBackgroundColor":"#FFFFFF00",
+        "tagSelectedBackgroundColor":"#2C3E50",
+        "disclosureIndicatorColor":"#BDBDBD",
+        "labelColor":"#4C4C4C",
+        "textColor":"#4C4C4C",
+        "valueColor":"#808080",
+        "placeholderColor":"#AAAAAA",
         "offTintColor":"#CCCCCC",
-        "prefersLargeTitle":true,
+        "prefersLargeTitle":true
     },
     "items":[
         {

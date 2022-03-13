@@ -122,9 +122,15 @@ static inline UIEdgeInsets XUIListFooterViewEdgeInsets() {
 
 - (void)setTheme:(XUITheme *)theme {
     _theme = theme;
-    self.backgroundColor = theme.footerBackgroundColor;
-    self.footerIconView.tintColor = theme.foregroundColor;
-    self.footerLabel.textColor = theme.footerTextColor;
+    self.backgroundColor = theme.footerBackgroundColor ?: [UIColor clearColor];
+    self.footerIconView.tintColor = theme.foregroundColor ?: self.tintColor;
+    if (@available(iOS 13.0, *)) {
+        self.footerLabel.textColor = theme.footerTextColor ?: [UIColor secondaryLabelColor];
+    } else {
+        if (theme.footerTextColor) {
+            self.footerLabel.textColor = theme.footerTextColor;
+        }
+    }
 }
 
 @end

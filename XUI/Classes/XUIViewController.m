@@ -58,7 +58,11 @@
     UIImageView *view = [[UIImageView alloc] init];
     view.contentMode = UIViewContentModeScaleAspectFill;
     view.clipsToBounds = YES;
-    view.backgroundColor = [UIColor blackColor];
+    if (@available(iOS 13.0, *)) {
+        view.backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+        view.backgroundColor = [UIColor whiteColor];
+    }
     view.frame = [UIScreen mainScreen].bounds;
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     view.userInteractionEnabled = YES;
