@@ -15,6 +15,8 @@ XUI is a **drop-in replacement** for "[Settings Application Schema](https://deve
 
 ## Features
 
+- [x] (**iOS 14+**) Dynamic Fonts Support
+- [x] (**iOS 13+**) SF Symbols Support
 - [x] Data Persistence (NSUserDefaults / Custom Adapters)
 - [x] Localized Strings / Image Resources
 - [x] Custom Cells (Runtime)
@@ -136,7 +138,7 @@ pod 'XUI', :git => "https://github.com/Lessica/XUI.git"
 
 ## Author
 
-Lessica, i.82@me.com
+Lessica, <82flex@gmail.com>
 
 
 ## License
