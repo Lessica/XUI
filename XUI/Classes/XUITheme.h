@@ -47,9 +47,9 @@
 
 #pragma mark - Other Cells
 @property (nonatomic, strong, readonly) UIColor *cellBackgroundColor; // cell background
+@property (nonatomic, strong, readonly) UIColor *disclosureIndicatorColor; // cell disclosure
 @property (nonatomic, strong, readonly) UIColor *selectedColor; // cell selected
 @property (nonatomic, strong, readonly) UIColor *highlightedColor; // alias of cell selected
-@property (nonatomic, strong, readonly) UIColor *disclosureIndicatorColor; // cell disclosure
 @property (nonatomic, strong, readonly) UIColor *labelColor; // text
 @property (nonatomic, strong, readonly) UIColor *valueColor; // detail text
 
@@ -69,7 +69,7 @@
 @property (strong, nonatomic, readonly) UIColor *tagSelectedBorderColor;
 
 
-#pragma mark - Switch
+#pragma mark - Switches
 @property (strong, nonatomic, readonly) UIColor *onTintColor;
 @property (strong, nonatomic, readonly) UIColor *offTintColor;
 @property (strong, nonatomic, readonly) UIColor *thumbTintColor;
