@@ -62,12 +62,14 @@
     view.frame = [UIScreen mainScreen].bounds;
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     view.userInteractionEnabled = YES;
+    self.extendedLayoutIncludesOpaqueBars = YES;
     self.view = view;
     _backgroundImageView = view;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
     XUI_START_IGNORE_PARTIAL
     if ([self.navigationItem respondsToSelector:@selector(largeTitleDisplayMode)]) {
@@ -75,6 +77,7 @@
     }
     XUI_END_IGNORE_PARTIAL
 #endif
+    
     [self setNeedsRenderBackgroundImage];
 }
 

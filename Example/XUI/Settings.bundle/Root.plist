@@ -8,6 +8,8 @@
 		<string>#3498db</string>
 		<key>navigationBarColor</key>
 		<string>#3498db</string>
+		<key>prefersLargeTitle</key>
+		<true/>
 	</dict>
 	<key>PreferenceSpecifiers</key>
 	<array>

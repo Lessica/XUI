@@ -92,6 +92,7 @@
     _onTintColor = theme.onTintColor;
     _thumbTintColor = theme.thumbTintColor;
     
+    _prefersLargeTitle = theme.prefersLargeTitle;
     _labelFontSize = theme.labelFontSize;
     
     _rawTheme = theme.rawTheme;
@@ -146,6 +147,7 @@
     _onTintColor = XUI_COLOR_SUCCESS;
     _thumbTintColor = [UIColor whiteColor];
     
+    _prefersLargeTitle = @(NO);
     _labelFontSize = @(UITableViewAutomaticDimension);
     
     _rawTheme = nil;
@@ -159,6 +161,12 @@
             _tableViewStyle = UITableViewStylePlain;
         } else if ([style isEqualToString:@"Grouped"]) {
             _tableViewStyle = UITableViewStyleGrouped;
+        } else if ([style isEqualToString:@"InsetGrouped"]) {
+            if (@available(iOS 13.0, *)) {
+                _tableViewStyle = UITableViewStyleInsetGrouped;
+            } else {
+                _tableViewStyle = UITableViewStyleGrouped;
+            }
         }
     }
     
@@ -248,6 +256,8 @@
     if ([additionalDictionary[@"thumbTintColor"] isKindOfClass:[NSString class]])
         _thumbTintColor = [UIColor xui_colorWithHex:additionalDictionary[@"thumbTintColor"]];
     
+    if ([additionalDictionary[@"prefersLargeTitle"] isKindOfClass:[NSNumber class]])
+        _prefersLargeTitle = @([additionalDictionary[@"prefersLargeTitle"] boolValue]);
     if ([additionalDictionary[@"labelFontSize"] isKindOfClass:[NSNumber class]])
         _labelFontSize = additionalDictionary[@"labelFontSize"];
     

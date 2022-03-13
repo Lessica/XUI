@@ -80,6 +80,10 @@
 @property (nonatomic, assign, readonly, getter=isBackgroundDark) BOOL backgroundDark;
 
 
+#pragma mark - Large Title
+@property (nonatomic, assign, readonly) NSNumber *prefersLargeTitle;
+
+
 #pragma mark - Label Font
 @property (nonatomic, strong, readonly) NSNumber *labelFontSize;
 

@@ -162,6 +162,9 @@
     if (!backgroundColor || !foregroundColor) return;
     { // title color
         [self.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName : foregroundColor }];
+        if (@available(iOS 11.0, *)) {
+            [self.navigationBar setLargeTitleTextAttributes:@{ NSForegroundColorAttributeName : foregroundColor }];
+        }
     }
     { // bar color
         self.navigationBar.tintColor = foregroundColor;

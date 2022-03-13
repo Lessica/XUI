@@ -202,6 +202,13 @@
         }
         XUI_END_IGNORE_PARTIAL
     }
+    
+    if ([self.theme.prefersLargeTitle boolValue]) {
+        if (@available(iOS 11.0, *)) {
+            self.navigationController.navigationBar.prefersLargeTitles = YES;
+            self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
