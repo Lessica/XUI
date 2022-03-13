@@ -8,7 +8,7 @@
         "sectionFooterTextColor":"#333333",
         "cellBackgroundColor":"#FEFEFEA0",
         "tagBackgroundColor":"#FFFFFF00",
-        "navigationBarColor":"#2C3E50D0",
+        "navigationBarColor":"#2C3E50",
         "offTintColor":"#CCCCCC",
         "prefersLargeTitle":true,
     },

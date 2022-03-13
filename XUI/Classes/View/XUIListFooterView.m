@@ -74,6 +74,9 @@ static inline UIEdgeInsets XUIListFooterViewEdgeInsets() {
 }
 
 - (CGSize)intrinsicContentSize {
+    if (!_footerText && !_footerIcon) {
+        return CGSizeZero;
+    }
     return CGSizeMake(self.bounds.size.width, XUIListFooterViewEdgeInsets().top + 32.f + 12.f + self.footerHeight + XUIListFooterViewEdgeInsets().bottom);
 }
 

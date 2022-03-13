@@ -9,7 +9,7 @@
 		<key>navigationBarColor</key>
 		<string>#3498db</string>
 		<key>prefersLargeTitle</key>
-		<true/>
+		<false/>
 	</dict>
 	<key>PreferenceSpecifiers</key>
 	<array>

@@ -92,10 +92,10 @@ static inline UIEdgeInsets XUIListHeaderViewEdgeInsets() {
 }
 
 - (CGSize)intrinsicContentSize {
-    if (self.headerText && self.subheaderHeight) {
-        return CGSizeMake(self.bounds.size.width, XUIListHeaderViewEdgeInsets().top + self.headerHeight + 12.f + self.subheaderHeight + XUIListHeaderViewEdgeInsets().bottom);
+    if (!_headerText && !_subheaderText) {
+        return CGSizeZero;
     }
-    return CGSizeZero;
+    return CGSizeMake(self.bounds.size.width, XUIListHeaderViewEdgeInsets().top + self.headerHeight + 12.f + self.subheaderHeight + XUIListHeaderViewEdgeInsets().bottom);
 }
 
 #pragma mark - UIView Getters

@@ -62,7 +62,6 @@
     view.frame = [UIScreen mainScreen].bounds;
     view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     view.userInteractionEnabled = YES;
-    self.extendedLayoutIncludesOpaqueBars = YES;
     self.view = view;
     _backgroundImageView = view;
 }
