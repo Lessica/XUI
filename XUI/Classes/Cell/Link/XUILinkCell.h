@@ -13,5 +13,6 @@ static NSString * const XUILinkCellReuseIdentifier = @"XUILinkCellReuseIdentifie
 @interface XUILinkCell : XUIBaseCell
 
 @property (nonatomic, strong) NSString *xui_url;
+@property (nonatomic, strong) NSNumber *xui_external;
 
 @end

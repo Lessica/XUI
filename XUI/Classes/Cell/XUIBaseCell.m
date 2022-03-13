@@ -235,8 +235,18 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
             } else {
                 bundle = [NSBundle mainBundle];
             }
+            BOOL hasSFSymbols = NO;
+            if (@available(iOS 13.0, *)) {
+                hasSFSymbols = YES;
+            }
             NSString *imagePath = [bundle pathForResource:xui_icon ofType:nil];
-            self.imageView.image = [self imageWithCurrentRenderingMode:[UIImage imageWithContentsOfFile:imagePath]];
+            if (!imagePath && hasSFSymbols) {
+                if (@available(iOS 13.0, *)) {
+                    self.imageView.image = [self imageWithCurrentRenderingMode:[UIImage systemImageNamed:xui_icon]];
+                }
+            } else {
+                self.imageView.image = [self imageWithCurrentRenderingMode:[UIImage imageWithContentsOfFile:imagePath]];
+            }
         } else {
             self.imageView.image = nil;
         }

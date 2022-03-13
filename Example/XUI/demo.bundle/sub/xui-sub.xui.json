@@ -31,7 +31,8 @@
             "defaults":"com.yourcompany.yourscript",
             "default":"",
             "key":"switch1",
-            "label":"Dynamic"
+            "label":"Dynamic",
+            "icon":"ladybug"
         },
         {
             "label":"Date",
@@ -53,7 +54,8 @@
             "defaults":"com.yourcompany.yourscript",
             "default":"You can enter any text here...",
             "key":"textarea",
-            "label":"Textarea Cell"
+            "label":"Textarea Cell",
+            "icon":"rectangle.and.pencil.and.ellipsis"
         }
     ],
     "title":"Another Pane"

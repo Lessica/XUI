@@ -9,6 +9,7 @@
 #import "XUIListViewController+XUILinkCell.h"
 #import "XUILinkCell.h"
 #import "XUICellFactory.h"
+#import <SafariServices/SafariServices.h>
 
 @implementation XUIListViewController (XUILinkCell)
 
@@ -16,12 +17,27 @@
     XUILinkCell *linkCell = (XUILinkCell *)cell;
     NSString *detailUrlString = linkCell.xui_url;
     NSURL *detailUrl = [NSURL URLWithString:detailUrlString];
-    if ([detailUrl scheme])
+    NSString *detailScheme = [[detailUrl scheme] lowercaseString];
+    if (detailScheme)
     {
-        UIApplication *sharedApplication = [UIApplication sharedApplication];
-        if ([sharedApplication canOpenURL:detailUrl])
-        {
-            [sharedApplication openURL:detailUrl];
+        BOOL hasSafariServices = NO;
+        if (@available(iOS 9.0, *)) {
+            hasSafariServices = YES;
+        }
+        if (!hasSafariServices ||
+            [linkCell.xui_external boolValue] ||
+            (![detailScheme isEqualToString:@"http"] && ![detailScheme isEqualToString:@"https"])
+            ) {
+            UIApplication *sharedApplication = [UIApplication sharedApplication];
+            if ([sharedApplication canOpenURL:detailUrl])
+            {
+                [sharedApplication openURL:detailUrl];
+            }
+        } else {
+            if (@available(iOS 9.0, *)) {
+                SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:detailUrl];
+                [self presentViewController:safariVC animated:YES completion:nil];
+            }
         }
         return;
     }

@@ -31,10 +31,13 @@
         {
             "label":"Open XXTouch.com",
             "cell":"Link",
-            "url":"https://www.xxtouch.com"
+            "icon":"link",
+            "url":"https://www.xxtouch.com",
+            "external":true
         },
         {
             "cell":"Button",
+            "icon":"envelope",
             "label":"Contact i.82@me.com",
             "args":{
                 "url": "mailto:i.82@me.com"
@@ -161,7 +164,7 @@
             "itemFooterText": "Only numbers and alphabets are allowed.",
         },
         {
-            "label":"Segment",
+            "label":"Segments",
             "cell":"Group"
         },
         {
@@ -305,13 +308,16 @@
         {
             "footerText":"This is the footer text of this section.",
             "cell":"Group",
-            "label":"TextField"
+            "label":"Text Fields"
         },
         {
             "placeholder":"Enter the username",
             "keyboard":"Default",
             "defaults":"com.yourcompany.yourscript",
             "cell":"TextField",
+            "icon":"person",
+            "label":"Username",
+            "alignment": "Right",
             "key":"username",
             "default":"",
             "validationRegex": "^[0-9a-zA-Z]+$",
@@ -340,7 +346,7 @@
             "validationRegex": "^[0-9]{4}$",
         },
         {
-            "label":"StaticText",
+            "label":"Static Text",
             "cell":"Group"
         },
         {

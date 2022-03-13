@@ -665,9 +665,7 @@ XUI_END_IGNORE_PARTIAL
 #pragma mark - Memory
 
 - (void)dealloc {
-#ifdef DEBUG
-    NSLog(@"- [%@ dealloc]", NSStringFromClass([self class]));
-#endif
+    
 }
 
 @end

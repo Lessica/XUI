@@ -24,7 +24,7 @@
 }
 
 + (BOOL)layoutNeedsImageView {
-    return NO;
+    return YES;
 }
 
 + (BOOL)layoutRequiresDynamicRowHeight {
@@ -71,12 +71,14 @@
             } else {
                 self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
             }
+            self.selectionStyle = UITableViewCellSelectionStyleDefault;
         } else {
             if (isBaseType) {
                 self.accessoryType = UITableViewCellAccessoryNone;
             } else {
                 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
+            self.selectionStyle = UITableViewCellSelectionStyleNone;
         }
     }
     [self setNeedsLayout];
