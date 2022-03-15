@@ -194,13 +194,23 @@
     
     // navigation items
     if ([self.navigationController.viewControllers firstObject] == self) {
-        XUI_START_IGNORE_PARTIAL
-        if (XUI_COLLAPSED) {
-            [self.navigationItem setLeftBarButtonItem:self.splitViewController.displayModeButtonItem];
+        if (@available(iOS 13.0, *)) {
+            XUI_START_IGNORE_PARTIAL
+            if (XUI_COLLAPSED) {
+                [self.navigationItem setRightBarButtonItem:self.splitViewController.displayModeButtonItem];
+            } else {
+                [self.navigationItem setRightBarButtonItem:self.closeButtonItem];
+            }
+            XUI_END_IGNORE_PARTIAL
         } else {
-            [self.navigationItem setLeftBarButtonItem:self.closeButtonItem];
+            XUI_START_IGNORE_PARTIAL
+            if (XUI_COLLAPSED) {
+                [self.navigationItem setLeftBarButtonItem:self.splitViewController.displayModeButtonItem];
+            } else {
+                [self.navigationItem setLeftBarButtonItem:self.closeButtonItem];
+            }
+            XUI_END_IGNORE_PARTIAL
         }
-        XUI_END_IGNORE_PARTIAL
     }
     
     if ([self.theme.prefersLargeTitle boolValue]) {

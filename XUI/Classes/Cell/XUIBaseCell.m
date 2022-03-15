@@ -10,6 +10,7 @@
 
 #import <objc/runtime.h>
 #import "UITableViewCell+XUIDisclosureIndicatorColor.h"
+#import "UIColor+XUIDarkColor.h"
 
 NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
 
@@ -242,7 +243,20 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
             NSString *imagePath = [bundle pathForResource:xui_icon ofType:nil];
             if (!imagePath && hasSFSymbols) {
                 if (@available(iOS 13.0, *)) {
-                    self.imageView.image = [self imageWithCurrentRenderingMode:[UIImage systemImageNamed:xui_icon]];
+                    NSString *iconName = nil;
+                    NSString *iconColor = nil;
+                    if ([xui_icon rangeOfString:@":"].location != NSNotFound) {
+                        NSArray <NSString *> *iconComponents = [xui_icon componentsSeparatedByString:@":"];
+                        iconName = [iconComponents firstObject];
+                        if (iconComponents.count == 2) {
+                            iconColor = iconComponents[1];
+                        }
+                    }
+                    if (!iconColor) {
+                        self.imageView.image = [self imageWithCurrentRenderingMode:[UIImage systemImageNamed:xui_icon]];
+                    } else {
+                        self.imageView.image = [[[UIImage systemImageNamed:iconName] imageWithTintColor:[UIColor xui_colorWithHex:iconColor]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+                    }
                 }
             } else {
                 self.imageView.image = [self imageWithCurrentRenderingMode:[UIImage imageWithContentsOfFile:imagePath]];
@@ -313,7 +327,7 @@ NSString * XUIBaseCellReuseIdentifier = @"XUIBaseCellReuseIdentifier";
         self.textLabel.textColor = theme.labelColor;
     }
     if (theme.valueColor) {
-        self.detailTextLabel.textColor = theme.valueColor;
+        self.detailTextLabel.textColor = theme.valueColor ?: [UIColor secondaryLabelColor];
     }
     if (theme.disclosureIndicatorColor) {
         self.xui_disclosureIndicatorColor = theme.disclosureIndicatorColor;

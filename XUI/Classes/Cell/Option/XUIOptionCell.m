@@ -110,7 +110,7 @@
             }
         }
         if (optionIndex < rawOptions.count) {
-            NSString *shortTitle = rawOptions[optionIndex][XUIOptionShortTitleKey];
+            NSString *shortTitle = rawOptions[optionIndex][XUIOptionShortTitleKey] ?: rawOptions[optionIndex][XUIOptionTitleKey];
             self.detailTextLabel.text = [self.adapter localizedStringForKey:shortTitle value:shortTitle];
         }
     }

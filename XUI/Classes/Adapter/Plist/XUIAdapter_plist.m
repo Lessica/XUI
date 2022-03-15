@@ -5,6 +5,7 @@
 
 #import "XUIAdapter_plist.h"
 #import "XUIBaseCell.h"
+#import "XUIOptionModel.h"
 
 // Root
 // PreferenceSpecifiers -> items
@@ -112,12 +113,17 @@
     }
     else if ([specType isEqualToString:@"PSMultiValueSpecifier"])
     {
-        specType = @"MultipleOption";
+        specType = @"Option";
         shouldProcessOptions = YES;
     }
     else if ([specType isEqualToString:@"PSRadioGroupSpecifier"])
     {
         specType = @"Option";
+        shouldProcessOptions = YES;
+    }
+    else if ([specType isEqualToString:@"PSCheckboxGroupSpecifier"])
+    {
+        specType = @"MultipleOption";
         shouldProcessOptions = YES;
     }
     else
@@ -184,6 +190,9 @@
         else if ([specKey isEqualToString:@"ShortTitles"]) {
             continue; // skip
         }
+        else if ([specKey isEqualToString:@"Icons"]) {
+            continue; // skip
+        }
         // Additional properties
         else {
             xuiItem[specKey] = specValue;
@@ -194,6 +203,7 @@
     NSArray *rawValues = specifier[@"Values"];
     NSArray <NSString *> *rawTitles = specifier[@"Titles"];
     NSArray <NSString *> *rawShortTitles = specifier[@"ShortTitles"];
+    NSArray <NSString *> *rawIcons = specifier[@"Icons"];
     if (
         shouldProcessOptions && // type contains options
         [rawValues isKindOfClass:[NSArray class]] && // raw values must be an array
@@ -203,6 +213,11 @@
          ( // but if raw short titles exist
           [rawShortTitles isKindOfClass:[NSArray class]] && // it should be an array
           rawShortTitles.count == rawValues.count // and raw values and raw short titles must match
+          )) &&
+        (!rawIcons || // raw icons can be null
+         ( // but if raw icons exist
+          [rawIcons isKindOfClass:[NSArray class]] && // it should be an array
+          rawIcons.count == rawValues.count // and raw values and raw short titles must match
           ))
         )
     {
@@ -210,15 +225,21 @@
         for (NSUInteger idx = 0; idx < rawValues.count; idx++) {
             NSMutableDictionary *optionItem = [[NSMutableDictionary alloc] init];
             id rawValue = rawValues[idx];
-            optionItem[@"value"] = rawValue;
+            optionItem[XUIOptionValueKey] = rawValue;
             NSString *rawTitle = rawTitles[idx];
             if ([rawTitle isKindOfClass:[NSString class]]) {
-                optionItem[@"title"] = rawTitle;
+                optionItem[XUIOptionTitleKey] = rawTitle;
             }
             if (rawShortTitles) {
                 NSString *rawShortTitle = rawShortTitles[idx];
                 if ([rawShortTitle isKindOfClass:[NSString class]]) {
-                    optionItem[@"shortTitle"] = rawShortTitle;
+                    optionItem[XUIOptionShortTitleKey] = rawShortTitle;
+                }
+            }
+            if (rawIcons) {
+                NSString *rawIcon = rawIcons[idx];
+                if ([rawIcon isKindOfClass:[NSString class]]) {
+                    optionItem[XUIOptionIconKey] = rawIcon;
                 }
             }
             [xuiOptions addObject:[optionItem copy]];
