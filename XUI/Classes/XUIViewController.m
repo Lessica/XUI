@@ -11,6 +11,8 @@
 #import "XUICellFactory.h"
 
 #import "UIColor+XUIDarkColor.h"
+#import "UIScrollView+IndicatorColor.h"
+
 
 @interface XUIViewController () <XUICellFactoryDelegate>
 
@@ -189,6 +191,15 @@
 
 - (void)cellFactoryDidFinishParsing:(XUICellFactory *)parser {
     
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.theme.scrollIndicatorColor) {
+        scrollView.verticalScrollIndicators.backgroundColor = self.theme.scrollIndicatorColor;
+    }
 }
 
 #pragma mark - Memory

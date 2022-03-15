@@ -12,7 +12,7 @@
 // ----
 // !!! Do not use this class directly !!!
 // ----
-@interface XUIViewController : UIViewController
+@interface XUIViewController : UIViewController <UIScrollViewDelegate>
 
 #pragma mark - Shortcuts
 @property (nonatomic, strong, readonly) XUICellFactory *cellFactory;

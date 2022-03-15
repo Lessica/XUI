@@ -207,7 +207,9 @@
         self.cellSegmentControl.tintColor = theme.foregroundColor;
     }
     if (@available(iOS 13.0, *)) {
-        self.cellTitleLabel.textColor = theme.labelColor ?: [UIColor labelColor];
+        UIColor *labelColor = theme.labelColor ?: [UIColor labelColor];
+        self.cellTitleLabel.textColor = labelColor;
+        [self.cellSegmentControl setTitleTextAttributes:@{NSForegroundColorAttributeName: labelColor} forState:UIControlStateNormal];
     } else {
         if (theme.labelColor) {
             self.cellTitleLabel.textColor = theme.labelColor;

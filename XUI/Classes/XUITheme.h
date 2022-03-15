@@ -35,6 +35,7 @@
 @property (nonatomic, strong, readonly) UIColor *foregroundColor; // tintColor or foregroundColor
 @property (nonatomic, strong, readonly) UIColor *backgroundColor;
 @property (nonatomic, strong, readonly) UIColor *separatorColor;
+@property (nonatomic, strong, readonly) UIColor *scrollIndicatorColor;
 @property (nonatomic, strong, readonly) NSString *backgroundImagePath; // backgroundImage
 
 

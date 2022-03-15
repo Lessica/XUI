@@ -243,6 +243,9 @@
     [super setInternalTheme:theme];
     if (theme.foregroundColor) {
         self.cellStepper.tintColor = theme.foregroundColor;
+        if (@available(iOS 13.0, *)) {
+            [self updateStepperAppearanceWithTraitCollection:self.traitCollection];
+        }
     }
     if (@available(iOS 13.0, *)) {
         self.cellNumberLabel.textColor = theme.valueColor ?: [UIColor secondaryLabelColor];
@@ -254,6 +257,32 @@
         if (theme.labelColor) {
             self.cellTitleLabel.textColor = theme.labelColor;
         }
+    }
+}
+
+- (void)updateStepperAppearanceWithTraitCollection:(UITraitCollection *)traitCollection API_AVAILABLE(ios(13.0))
+{
+    if (@available(iOS 13.0, *)) {
+        if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            UIImage *decrementImage = [self.cellStepper decrementImageForState:UIControlStateHighlighted];
+            UIImage *incrementImage = [self.cellStepper incrementImageForState:UIControlStateHighlighted];
+            decrementImage = [[decrementImage imageWithTintColor:[UIColor whiteColor]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            incrementImage = [[incrementImage imageWithTintColor:[UIColor whiteColor]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            [self.cellStepper setDecrementImage:decrementImage forState:UIControlStateHighlighted];
+            [self.cellStepper setIncrementImage:incrementImage forState:UIControlStateHighlighted];
+        } else {
+            [self.cellStepper setDecrementImage:nil forState:UIControlStateNormal];
+            [self.cellStepper setIncrementImage:nil forState:UIControlStateNormal];
+            [self.cellStepper setDecrementImage:nil forState:UIControlStateHighlighted];
+            [self.cellStepper setIncrementImage:nil forState:UIControlStateHighlighted];
+        }
+    }
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection API_AVAILABLE(ios(8.0))
+{
+    if (@available(iOS 13.0, *)) {
+        [self updateStepperAppearanceWithTraitCollection:self.traitCollection];
     }
 }
 

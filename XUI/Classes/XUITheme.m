@@ -63,6 +63,7 @@
     _foregroundColor = theme.foregroundColor;
     _backgroundColor = theme.backgroundColor;
     _separatorColor = theme.separatorColor;
+    _scrollIndicatorColor = theme.scrollIndicatorColor;
     _backgroundImagePath = theme.backgroundImagePath;
     
     _groupHeaderTextColor = theme.groupHeaderTextColor;
@@ -120,6 +121,7 @@
         _foregroundColor = nil;
         _backgroundColor = nil;
         _separatorColor = nil;
+        _scrollIndicatorColor = nil;
         
         _backgroundImagePath = nil;
         
@@ -168,6 +170,7 @@
         _foregroundColor = XUI_COLOR_HIGHLIGHTED;
         _backgroundColor = [UIColor groupTableViewBackgroundColor];
         _separatorColor = [UIColor lightGrayColor];
+        _scrollIndicatorColor = nil;
         
         _backgroundImagePath = nil;
         
@@ -233,6 +236,8 @@
         _backgroundColor = [UIColor xui_colorWithHex:additionalDictionary[@"backgroundColor"]];
     if ([additionalDictionary[@"separatorColor"] isKindOfClass:[NSString class]])
         _separatorColor = [UIColor xui_colorWithHex:additionalDictionary[@"separatorColor"]];
+    if ([additionalDictionary[@"scrollIndicatorColor"] isKindOfClass:[NSString class]])
+        _scrollIndicatorColor = [UIColor xui_colorWithHex:additionalDictionary[@"scrollIndicatorColor"]];
     if ([additionalDictionary[@"backgroundImage"] isKindOfClass:[NSString class]])
         _backgroundImagePath = additionalDictionary[@"backgroundImage"];
     

@@ -1,5 +1,5 @@
 //
-//  UIViewController+topMostViewController.m
+//  UIViewController+TopMostViewController.m
 //  XXTExplorer
 //
 //  Created by Zheng on 06/01/2018.
@@ -8,7 +8,7 @@
 
 #import "UIViewController+topMostViewController.h"
 
-@implementation UIViewController (topMostViewController)
+@implementation UIViewController (TopMostViewController)
 
 - (UIViewController *)xui_topMostViewController {
     if (self.presentedViewController == nil) {
