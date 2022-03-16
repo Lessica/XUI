@@ -146,6 +146,9 @@
         else if ([specKey isEqualToString:@"DefaultValue"]) {
             xuiItem[@"default"] = specValue;
         }
+        else if ([specKey isEqualToString:@"Icon"]) {
+            xuiItem[@"icon"] = specValue;
+        }
         // Group
         else if ([specKey isEqualToString:@"FooterText"]) {
             xuiItem[@"footerText"] = specValue;
