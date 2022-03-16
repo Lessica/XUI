@@ -196,6 +196,9 @@
         else if ([specKey isEqualToString:@"Icons"]) {
             continue; // skip
         }
+        else if ([specKey isEqualToString:@"UseChildIcon"]) {
+            xuiItem[@"useChildIcon"] = specValue;
+        }
         // Additional properties
         else {
             xuiItem[specKey] = specValue;

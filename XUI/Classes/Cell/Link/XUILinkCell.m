@@ -33,7 +33,8 @@
 + (NSDictionary <NSString *, Class> *)entryValueTypes {
     return
     @{
-      @"url": [NSString class]
+      @"url": [NSString class],
+      @"external": [NSNumber class],
       };
 }
 
